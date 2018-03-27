@@ -9,102 +9,74 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1027239468628330}
+  m_RootGameObject: {fileID: 1192843466542526}
   m_IsPrefabParent: 1
---- !u!1 &1027239468628330
+--- !u!1 &1192843466542526
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4472099701740460}
+  - component: {fileID: 4135404917195590}
+  - component: {fileID: 212535619188538762}
+  - component: {fileID: 68108681010043236}
+  - component: {fileID: 114445824838604494}
   m_Layer: 0
-  m_Name: RInClineGround
-  m_TagString: PuzzleIn
-  m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1149043333036462
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4921065365435324}
-  m_Layer: 0
-  m_Name: PuzzleOut
-  m_TagString: PuzzleOut
-  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1864616311315764
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4080490385899860}
-  - component: {fileID: 212817665271836334}
-  - component: {fileID: 68681778026811928}
-  m_Layer: 0
-  m_Name: RInClineGroundSprint
-  m_TagString: Untagged
+  m_Name: InClineGround
+  m_TagString: MainSprint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4080490385899860
+--- !u!1 &1973090334826856
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4814564507806586}
+  m_Layer: 0
+  m_Name: ConnectionPuzzle
+  m_TagString: Puzzle
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4135404917195590
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1864616311315764}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.8700002, y: -2.42, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 4921065365435324}
-  m_Father: {fileID: 4472099701740460}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4472099701740460
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1027239468628330}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 13.603197, y: -13.611097, z: 0}
+  m_GameObject: {fileID: 1192843466542526}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6.96, y: -19.49, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 1}
   m_Children:
-  - {fileID: 4080490385899860}
+  - {fileID: 4814564507806586}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4921065365435324
+--- !u!4 &4814564507806586
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1149043333036462}
+  m_GameObject: {fileID: 1973090334826856}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.92, y: 1.22, z: 0}
+  m_LocalPosition: {x: 3.78, y: -1.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4080490385899860}
+  m_Father: {fileID: 4135404917195590}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!68 &68681778026811928
+--- !u!68 &68108681010043236
 EdgeCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1864616311315764}
+  m_GameObject: {fileID: 1192843466542526}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -114,17 +86,28 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -1.87, y: 2.42}
-  - {x: 1.92, y: 1.22}
-  - {x: 1.92, y: 0.9}
-  - {x: -1.87, y: 2.1}
-  - {x: -1.87, y: 2.42}
---- !u!212 &212817665271836334
+  - {x: 0, y: 0}
+  - {x: 3.78, y: -1.2}
+  - {x: 3.78, y: -1.5}
+  - {x: -0.02, y: -0.3}
+  - {x: 0, y: 0}
+--- !u!114 &114445824838604494
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1192843466542526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19331a54280266a46b6bfb4574d50805, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!212 &212535619188538762
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1864616311315764}
+  m_GameObject: {fileID: 1192843466542526}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
