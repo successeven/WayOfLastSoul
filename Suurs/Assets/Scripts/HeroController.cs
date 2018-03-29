@@ -12,28 +12,34 @@ public class HeroController : MonoBehaviour {
     private bool isGrounded = false;
 
 
-    new Rigidbody2D rigidbody;
-    SpriteRenderer sprite;
+    new Rigidbody2D _rigidbody;
+   // SpriteRenderer _sprite;
+    Animator _anima;
+
 
     private void Awake()
     {
-        rigidbody = GetComponent<Rigidbody2D>();
-        sprite = GetComponentInChildren<SpriteRenderer>();
+        _rigidbody = GetComponent<Rigidbody2D>();
+      //  _sprite = GetComponentInChildren<SpriteRenderer>();
+        _anima = GetComponent<Animator>();
     }
 
 
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetButton("Horizontal")) Run();
+        if (Input.GetButton("Horizontal"))
+            Run(Input.GetAxis("Horizontal"));
     }
 
-    private void Run()
+    private void Run(float inValue)
     {
-        Vector3 direction = transform.right * Input.GetAxis("Horizontal");
+        _anima.SetFloat("Speed", inValue);
+        Debug.Log(inValue);
 
+        Vector3 direction = transform.right * Input.GetAxis("Horizontal");
         transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, speed * Time.deltaTime);
 
-        sprite.flipX = direction.x < 0.0F;
+       // _sprite.flipX = direction.x < 0.0F;
 
       //  if (isGrounded) State = CharState.Run;
     }
