@@ -34,7 +34,6 @@ public class HeroController : MonoBehaviour {
     private void Run(float inValue)
     {
         _anima.SetFloat("Speed", inValue);
-        Debug.Log(inValue);
 
         Vector3 direction = transform.right * inValue;// * 0.01f;
         transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, speed * Time.deltaTime);
