@@ -10,13 +10,15 @@ public enum LandType
     InclineStones = 2,
     Stairs = 3,
     Stones = 4,
-    Tiles = 5
+    Tiles = 5,
+    Grass_Stones = 6
 };
 
 public enum GroundName
 {
     Horizontal,
-    Incline
+    Incline,
+    Finish
 };
 
 public class PrefabsScripts : MonoBehaviour
