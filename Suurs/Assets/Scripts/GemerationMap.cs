@@ -37,7 +37,8 @@ public class GemerationMap : MonoBehaviour
         _map[0] = 0;// Первая локация обязательно горизонтальная. 
         for (int i = 1; i < _Lenghtmap - 1; i++)
         {
-            int level = UnityEngine.Random.Range(-1, 1);
+            UnityEngine.Random.InitState(Guid.NewGuid().GetHashCode());
+            int level = UnityEngine.Random.Range(-1, 2);
             if (i != 0)
             {
                 if (level + _map[i - 1] == 0) //Проверяем на излом /\
@@ -63,7 +64,7 @@ public class GemerationMap : MonoBehaviour
 
             if (_map[i] == -1 || _map[i] == 1)
             {
-                currentLandType = UnityEngine.Random.Range(0, 1);
+                currentLandType = UnityEngine.Random.Range(0, 2);
                 _ladsOnMap[i] = inclineLands[currentLandType];
                 if (inclineLands[currentLandType] == LandType.Stairs)
                 {
@@ -73,7 +74,7 @@ public class GemerationMap : MonoBehaviour
                 continue;
             }
 
-            currentLandType = UnityEngine.Random.Range(0, 2);
+            currentLandType = UnityEngine.Random.Range(0, 3);
             _ladsOnMap[i] = horizontalLands[currentLandType];
         }
     }
@@ -86,28 +87,27 @@ public class GemerationMap : MonoBehaviour
         GameObject ground;
         for (int i = 0; i < _Lenghtmap; i++)
         {
-            Sprite land = _prefabsScripts.Lands.GetSprite(_ladsOnMap[i].ToString());
-            string test = land.name + " " + i.ToString();
             switch (_map[i])
             {
                 case 1:
                 case -1:
                     ground = _prefabsScripts.GetGroundbyName(GroundName.Incline);
-                    IncertPrefab(ground, _map[i], land);
+                    IncertPrefab(ground, _map[i]);
                     break;
                 case 0:
                     ground = _prefabsScripts.GetGroundbyName(GroundName.Horizontal);
-                    IncertPrefab(ground, _map[i], land);
+                    IncertPrefab(ground, _map[i]);
                     break;
             }
-
+            Sprite land = _prefabsScripts.Lands.GetSprite(_ladsOnMap[i].ToString());
             GameObject landComponent = _СurrentObject.transform.Find("Land").gameObject;
             landComponent.GetComponent<SpriteRenderer>().sprite = land;
-            //landComponent.GetComponent<LoadSprite>()._currentSprite = land;
         }
+        ground = _prefabsScripts.GetGroundbyName(GroundName.Finish);
+        IncertPrefab(ground, 0);
     }
 
-    void IncertPrefab(GameObject inGround, int inLevel, Sprite inLand)
+    void IncertPrefab(GameObject inGround, int inLevel)
     {
         GameObject _currentPosPuzzle = _СurrentObject.transform.Find("ConnectionPuzzle").gameObject; //Соеденительная точка у префаба которй уже на сцене
 
