@@ -1,11 +1,14 @@
 fileFormatVersion: 2
-guid: 0c698b874a953f64185731e834387fd1
-timeCreated: 1522936324
+guid: 62a577de266cc0347a87e3dcd04ec2d3
+timeCreated: 1523100405
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Wing
-    21300002: Body
+    21300000: TRhand
+    21300002: TLhand
+    21300004: TChest
+    21300006: TWing
+    21300008: Thips
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -43,12 +46,12 @@ TextureImporter:
   lightmap: 0
   compressionQuality: 50
   spriteMode: 2
-  spriteExtrude: 1
+  spriteExtrude: 0
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spritePixelsToUnits: 600
+  spritePixelsToUnits: 160
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -92,29 +95,71 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Wing
+      name: TRhand
       rect:
         serializedVersion: 2
-        x: 341
-        y: 463
-        width: 662
-        height: 1321
+        x: 0
+        y: 12.696711
+        width: 656.4182
+        height: 946.5769
       alignment: 9
-      pivot: {x: 0.5, y: 0.5018925}
+      pivot: {x: 0.49815804, y: 0.5005439}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Body
+      name: TLhand
       rect:
         serializedVersion: 2
-        x: 40
-        y: 0
-        width: 1316
-        height: 339
+        x: 923.6391
+        y: 741.57654
+        width: 271.95697
+        height: 635.1852
       alignment: 9
-      pivot: {x: 0.50265956, y: 0.48967552}
+      pivot: {x: 0.49956807, y: 0.5005207}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: TChest
+      rect:
+        serializedVersion: 2
+        x: 1398.2661
+        y: 539.9503
+        width: 516.4542
+        height: 1038.3947
+      alignment: 9
+      pivot: {x: 0.4971087, y: 0.5008207}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: TWing
+      rect:
+        serializedVersion: 2
+        x: 2138.0889
+        y: 907.65106
+        width: 790.91113
+        height: 808.34894
+      alignment: 9
+      pivot: {x: 0.5043691, y: 0.50330853}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Thips
+      rect:
+        serializedVersion: 2
+        x: 1962.3688
+        y: 0
+        width: 935.32385
+        height: 822.6499
+      alignment: 9
+      pivot: {x: 0.49943286, y: 0.49717376}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -122,6 +167,6 @@ TextureImporter:
     outline: []
     physicsShape: []
   spritePackingTag: 
-  userData: 99816277344900
+  userData: 99818557122273
   assetBundleName: 
   assetBundleVariant: 
