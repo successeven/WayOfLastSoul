@@ -11,7 +11,7 @@ public enum LandType
     Stairs = 3,
     Stones = 4,
     Tiles = 5,
-    Grass_Stones = 6
+    GrassLow = 6
 };
 
 public enum GroundName
@@ -21,11 +21,24 @@ public enum GroundName
     Finish
 };
 
+public enum Objects
+{
+    None = 0,
+    Shield = 1,
+    Pikes = 2,
+    Knifes = 3,
+    KnifesLow = 4,
+    KnifeHigh = 5,
+    ColumnBig = 6,
+    ColumnLow = 7,
+    ColumnHigh = 8,
+    ColumnMedium = 9
+}
+
 public class PrefabsScripts : MonoBehaviour
 {
     [SerializeField]
-    SpriteAtlas _Lands;
-
+    SpriteAtlas _Lands;    
     public SpriteAtlas Lands
     {
         get
@@ -34,8 +47,34 @@ public class PrefabsScripts : MonoBehaviour
         }
     }
 
+
+    [SerializeField]
+    SpriteAtlas _ObjectsAtlas;
+    public SpriteAtlas Objects
+    {
+        get
+        {
+            return _ObjectsAtlas;
+        }
+    }
+
+    [SerializeField]
+    GameObject _DrawObject;
+    public GameObject DrawObject
+    {
+        get
+        {
+            return _DrawObject;
+        }
+    }
+
+    [Space(10)]
+
     [SerializeField]
     List<GameObject> _Grounds;
+
+
+
 
     Dictionary<string, GameObject> _GroundsbyName;
     
