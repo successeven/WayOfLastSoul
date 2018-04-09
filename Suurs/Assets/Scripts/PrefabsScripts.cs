@@ -21,18 +21,19 @@ public enum GroundName
     Finish
 };
 
+[System.Flags]
 public enum Objects
 {
     None = 0,
     Shield = 1,
     Pikes = 2,
-    Knifes = 3,
-    KnifesLow = 4,
-    KnifeHigh = 5,
-    ColumnBig = 6,
-    ColumnLow = 7,
-    ColumnHigh = 8,
-    ColumnMedium = 9
+    Knifes = 4,
+    KnifesLow = 8,
+    KnifeHigh = 16,
+    ColumnBig = 32,
+    ColumnLow = 64,
+    ColumnHigh = 128,
+    ColumnMedium = 256
 }
 
 public class PrefabsScripts : MonoBehaviour

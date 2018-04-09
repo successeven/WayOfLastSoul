@@ -1,8 +1,7 @@
-﻿using System;
+﻿using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.U2D;
+using System;
+using UnityEditor;
 
 public class GemerationMap : MonoBehaviour
 {
@@ -16,13 +15,12 @@ public class GemerationMap : MonoBehaviour
     [SerializeField]
     GameObject _СurrentObject;//Текущая позиция
 
-
-    [SerializeField]
-    List<GroundName> _List;
+    [SerializeField] [CustomAttribute] Objects m_flags;
 
     PrefabsScripts _prefabsScripts;
     int[] _map;
     LandType[] _ladsOnMap;
+    
 
     void Start()
     {
