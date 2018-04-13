@@ -2,6 +2,7 @@
 using System.Collections;
 using System;
 using UnityEditor;
+using System.Collections.Generic;
 
 public class GemerationMap : MonoBehaviour
 {
@@ -15,12 +16,26 @@ public class GemerationMap : MonoBehaviour
     [SerializeField]
     GameObject _СurrentObject;//Текущая позиция
 
-    [SerializeField] [CustomAttribute] Objects m_flags;
+    [SerializeField]
+    [EnumFlag]
+    Objects _Objects;
+    List<Objects> _selectObjects;
+
+    [SerializeField]
+    [EnumFlag]
+    LandType _Lands;
+    List<LandType> _selectLands;
+
+    [SerializeField]
+    [EnumFlag]
+    InclineLandType _InclineLands;
+    List<InclineLandType> _selectInclineLands;
 
     PrefabsScripts _prefabsScripts;
     int[] _map;
-    LandType[] _ladsOnMap;
-    
+
+    object[] _landsOnMap;
+
 
     void Start()
     {
@@ -29,9 +44,13 @@ public class GemerationMap : MonoBehaviour
         if (_Lengthmap < 5)
             _Lengthmap = 5;
         _map = new int[_Lengthmap];
-        _ladsOnMap = new LandType[_Lengthmap];
-        for (int i = 0; i < _Lengthmap; i++)
-            _ladsOnMap[i] = LandType.None;
+
+        _selectObjects = new List<Objects>();
+        foreach (Objects i in Enum.GetValues(typeof(Objects)))
+            if ((_Objects & i) != 0)
+                _selectObjects.Add(i);
+
+        _landsOnMap = new object[_Lengthmap];
 
         Generation();
     }
@@ -73,24 +92,42 @@ public class GemerationMap : MonoBehaviour
         _map[_Lengthmap - 1] = 0; // Последняя локация обязательно горизонтальная. 
     }
 
+
+    Boolean IsEnumFlagPresent<T>(T value, T lookingForFlag) where T : struct
+    {
+        int intValue = (int)(object)value;
+        int intLookingForFlag = (int)(object)lookingForFlag;
+        return ((intValue & intLookingForFlag) == intLookingForFlag);
+    }
+
+
     void GenerationLands()
     {
         int currentIndex = 0;
         int currentLandType;
-        LandType[] inclineLands = { LandType.InclineStones, LandType.Stairs };
-        LandType[] horizontalLands = { LandType.Grass, LandType.Stones};
+
+
+        _selectLands = new List<LandType>();
+        foreach (LandType i in Enum.GetValues(typeof(LandType)))
+            if ((_Lands & i) != 0)
+                _selectLands.Add(i);
+
+        _selectInclineLands = new List<InclineLandType>();
+        foreach (InclineLandType i in Enum.GetValues(typeof(InclineLandType)))
+            if ((_InclineLands & i) != 0)
+                _selectInclineLands.Add(i);
 
         // Пробегаем по карте и заполняем наклонные
         for (int i = 0; i < _Lengthmap; i++)
         {
             if (_map[i] != 0)
             {
-                currentLandType = UnityEngine.Random.Range(0, 2);
-                _ladsOnMap[i] = inclineLands[currentLandType];
-                if (inclineLands[currentLandType] == LandType.Stairs)
+                currentLandType = UnityEngine.Random.Range(0, _selectInclineLands.Count);
+                _landsOnMap[i] = _selectInclineLands[currentLandType];
+                if (_selectInclineLands[currentLandType] == InclineLandType.Stairs)
                 {
-                    _ladsOnMap[i - 1] = LandType.Tiles;
-                    _ladsOnMap[i + 1] = LandType.Tiles;
+                    _landsOnMap[i - 1] = LandType.Tiles;
+                    _landsOnMap[i + 1] = LandType.Tiles;
                 }
             }
         }
@@ -101,92 +138,88 @@ public class GemerationMap : MonoBehaviour
         int lenghtGrass = UnityEngine.Random.Range(1, 3);
         while (currentIndex < lenghtGrass)
         {
-            if (_ladsOnMap[currentIndex + 1] != LandType.None)
+            if (_landsOnMap[currentIndex + 1] != null)
             {
-                _ladsOnMap[currentIndex++] = LandType.GrassLow;
+                _landsOnMap[currentIndex++] = LandType.GrassLow;
                 break;
             }
 
             if (currentIndex == lenghtGrass - 1)
-                _ladsOnMap[currentIndex++] = LandType.GrassLow;
+                _landsOnMap[currentIndex++] = LandType.GrassLow;
             else
-                _ladsOnMap[currentIndex++] = LandType.Grass;
+                _landsOnMap[currentIndex++] = LandType.Grass;
         }
 
-        _ladsOnMap[currentIndex] = LandType.Stones;
+        _landsOnMap[currentIndex] = LandType.Stones;
         #endregion
 
         #region Finish
         UnityEngine.Random.InitState(Guid.NewGuid().GetHashCode());
         lenghtGrass = UnityEngine.Random.Range(1, 3);
 
-        for (int i = _ladsOnMap.Length - 1; i > (_ladsOnMap.Length - 1 - lenghtGrass); i--)
+        for (int i = _landsOnMap.Length - 1; i > (_landsOnMap.Length - 1 - lenghtGrass); i--)
         {
-            if (_ladsOnMap[i - 1] != LandType.None)
+            if (_landsOnMap[i - 1] != null)
             {
-                _ladsOnMap[i] = LandType.GrassLow;
+                _landsOnMap[i] = LandType.GrassLow;
                 break;
             }
 
             if (i == _Lengthmap - lenghtGrass)
-                _ladsOnMap[i] = LandType.GrassLow;
+                _landsOnMap[i] = LandType.GrassLow;
             else
-                _ladsOnMap[i] = LandType.Grass;
+                _landsOnMap[i] = LandType.Grass;
         }
-        _ladsOnMap[_Lengthmap - 1 - lenghtGrass] = LandType.Stones;
+        _landsOnMap[_Lengthmap - 1 - lenghtGrass] = LandType.Stones;
         #endregion
 
         #region OtherFill
         //Промежуток        
         for (int i = currentIndex; i < _Lengthmap; i++)
         {
-            if (_ladsOnMap[i] != LandType.None)
+            if (_landsOnMap[i] != null)
                 continue;
 
-            currentLandType = UnityEngine.Random.Range(0, 2);
+            currentLandType = UnityEngine.Random.Range(0, _selectLands.Count);
 
-            if (horizontalLands[currentLandType] == LandType.Grass)
+            if (_selectLands[currentLandType] == LandType.Grass)
             {
-                if (_ladsOnMap[i - 1] == LandType.GrassLow) // предыдущая не трава?
-                {
-                    _ladsOnMap[i] = LandType.Stones;
-                    continue;
-                }
 
-                if (_ladsOnMap[i + 1] != LandType.None) // следующая позиция свободна?
+                if (_landsOnMap[i + 1] != null) // следующая позиция свободна?
                 {
-                    _ladsOnMap[i] = LandType.Stones;
-                    continue;
+                    _landsOnMap[i] = LandType.Stones;
+                    break;
                 }
 
                 UnityEngine.Random.InitState(Guid.NewGuid().GetHashCode());
                 lenghtGrass = UnityEngine.Random.Range(2, 6);
+
                 int indexI = 0;
                 for (int j = i; j < i + lenghtGrass; j++)
                 {
                     if (j == i)
                     {
-                        _ladsOnMap[j] = LandType.GrassLow;
+                        _landsOnMap[j] = LandType.GrassLow;
                         continue;
                     }
 
-                    if (_ladsOnMap[j + 1] != LandType.None)
+                    if (_landsOnMap[j + 1] != null)
                     {
-                        _ladsOnMap[j] = LandType.GrassLow;
+                        _landsOnMap[j] = LandType.GrassLow;
                         break;
                     }
 
                     if (j == i + lenghtGrass - 1)
-                        _ladsOnMap[j] = LandType.GrassLow;
+                        _landsOnMap[j] = LandType.GrassLow;
                     else
-                        _ladsOnMap[j] = LandType.Grass;
+                        _landsOnMap[j] = LandType.Grass;
 
                     indexI++;
                 }
                 i += indexI;
             }
             else
-                _ladsOnMap[i] = horizontalLands[currentLandType];
+                _landsOnMap[i] = _selectLands[currentLandType];
         }
         #endregion
 
@@ -224,7 +257,7 @@ public class GemerationMap : MonoBehaviour
                     DrawObjects();
                     break;
             }
-            DrawLand(_ladsOnMap[i], ref drawingGrass);
+            DrawLand(i, ref drawingGrass);
         }
         ground = _prefabsScripts.GetGroundbyName(GroundName.Finish);
         IncertPrefab(ground, 0);
@@ -233,23 +266,22 @@ public class GemerationMap : MonoBehaviour
     void DrawObjects()
     {
         UnityEngine.Random.InitState(Guid.NewGuid().GetHashCode());
-        Array values = Enum.GetValues(typeof(Objects));
+
         GameObject _currentPosPuzzle = _СurrentObject.transform.Find("ConnectionPuzzle").gameObject;
 
         int countObjects = UnityEngine.Random.Range(0, 2);
         for (int i = 0; i < countObjects; i++)
         {
-            Objects drawObject = (Objects)values.GetValue(UnityEngine.Random.Range(1, values.Length));
+            Objects drawObject = _selectObjects[UnityEngine.Random.Range(0, _selectObjects.Count)];
             Sprite sprite = _prefabsScripts.Objects.GetSprite(drawObject.ToString());
             if (sprite != null)
             {
                 Vector3 position = new Vector3(
                 UnityEngine.Random.Range(_СurrentObject.transform.position.x, _currentPosPuzzle.transform.position.x),
-                _СurrentObject.transform.position.y - 0.5f,
+                _СurrentObject.transform.position.y,
                 _СurrentObject.transform.position.z);
 
-                Quaternion target = Quaternion.Euler(0, 0, UnityEngine.Random.Range(-20, 20));
-                GameObject drawingObject = Instantiate(_prefabsScripts.DrawObject, position, target, _СurrentObject.transform);
+                GameObject drawingObject = Instantiate(_prefabsScripts.DrawObject, position, Quaternion.identity, _СurrentObject.transform);
                 drawingObject.GetComponent<SpriteRenderer>().sprite = _prefabsScripts.Objects.GetSprite(drawObject.ToString());
 
                 if (drawObject.ToString().Contains("Column"))
@@ -259,17 +291,29 @@ public class GemerationMap : MonoBehaviour
                     theScale.x *= scailPoint;
                     theScale.y *= scailPoint;
                     drawingObject.transform.localScale = theScale;
+
+                    Quaternion target = Quaternion.Euler(0, 0, UnityEngine.Random.Range(-20, 20));
+                    drawingObject.transform.rotation = target; 
                 }
             }
         }
     }
 
-    void DrawLand(LandType inLandType, ref bool isDrawing)
+    void DrawLand(int inIndex, ref bool isDrawing)
     {
-        Sprite land = _prefabsScripts.Lands.GetSprite(inLandType.ToString());
+        Sprite land;
+
+        string landName;
+
+        if (_map[inIndex] == 0)
+            landName = ((LandType)_landsOnMap[inIndex]).ToString();
+        else
+            landName = ((InclineLandType)_landsOnMap[inIndex]).ToString();
+
+        land = _prefabsScripts.Lands.GetSprite(landName);
         GameObject landComponent = _СurrentObject.transform.Find("Land").gameObject;
         landComponent.GetComponent<SpriteRenderer>().sprite = land;
-        if (inLandType == LandType.GrassLow)
+        if (landName == LandType.GrassLow.ToString())
         {
             if (isDrawing) //если true значит начали же рисовать траву и вот впроцесе ее риисования. значит надо развернуть
             {

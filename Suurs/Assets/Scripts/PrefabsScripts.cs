@@ -2,16 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.U2D;
+using System;
 
+[Flags]
+public enum InclineLandType
+{
+    InclineStones = 1,
+    Stairs = 2,
+};
+
+[Flags]
 public enum LandType
 {
-    None = 0,
-    Grass = 1,
-    InclineStones = 2,
-    Stairs = 3,
+    GrassLow = 1,
+    Grass = 2,
     Stones = 4,
-    Tiles = 5,
-    GrassLow = 6
+    Tiles = 8
 };
 
 public enum GroundName
@@ -21,7 +27,7 @@ public enum GroundName
     Finish
 };
 
-[System.Flags]
+[Flags]
 public enum Objects
 {
     None = 0,
@@ -33,7 +39,12 @@ public enum Objects
     ColumnBig = 32,
     ColumnLow = 64,
     ColumnHigh = 128,
-    ColumnMedium = 256
+    ColumnMedium = 256,
+    Vase = 512,
+    Vase_2 = 1024,
+    Corpse_1 = 2048,
+    Corpse_2 = 4096,
+    Corpse_3 = 8192
 }
 
 public class PrefabsScripts : MonoBehaviour

@@ -176,12 +176,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300014, guid: dd48fee91c6379d4385f349691d5e037, type: 3}
+  m_Sprite: {fileID: 21300008, guid: 00561987e3c8b8c429878157524f5686, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.9, y: 2}
+  m_Size: {x: 0.91, y: 2.01}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -219,7 +219,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 100791472}
   m_LocalRotation: {x: -0, y: -0, z: -0.32310963, w: 0.9463616}
-  m_LocalPosition: {x: -0.16, y: 6.16, z: 1}
+  m_LocalPosition: {x: 0.07, y: 6.24, z: 1}
   m_LocalScale: {x: 1.0000002, y: 0.89, z: 1}
   m_Children: []
   m_Father: {fileID: 149064541}
@@ -259,7 +259,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300020, guid: dd48fee91c6379d4385f349691d5e037, type: 3}
+  m_Sprite: {fileID: 21300020, guid: 00561987e3c8b8c429878157524f5686, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -449,7 +449,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300020, guid: dd48fee91c6379d4385f349691d5e037, type: 3}
+  m_Sprite: {fileID: 21300020, guid: 00561987e3c8b8c429878157524f5686, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1081,7 +1081,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1250079282}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.09, y: -1.34, z: 1}
+  m_LocalPosition: {x: 3.1941, y: -0.36414, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 149064541}
@@ -1121,12 +1121,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300016, guid: dd48fee91c6379d4385f349691d5e037, type: 3}
+  m_Sprite: {fileID: 21300006, guid: 00561987e3c8b8c429878157524f5686, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.19, y: 2.6}
+  m_Size: {x: 1.18, y: 2.61}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -1194,7 +1194,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300020, guid: dd48fee91c6379d4385f349691d5e037, type: 3}
+  m_Sprite: {fileID: 21300020, guid: 00561987e3c8b8c429878157524f5686, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1209,12 +1209,7 @@ GameObject:
   m_PrefabParentObject: {fileID: 1324177084310196, guid: d5928dbf16536b54580105d06988eefa,
     type: 2}
   m_PrefabInternal: {fileID: 885708923}
---- !u!4 &1511118538 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4345815038498210, guid: d5928dbf16536b54580105d06988eefa,
-    type: 2}
-  m_PrefabInternal: {fileID: 885708923}
---- !u!114 &1511118539
+--- !u!114 &1511118537
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -1226,6 +1221,71 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+--- !u!4 &1511118538 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4345815038498210, guid: d5928dbf16536b54580105d06988eefa,
+    type: 2}
+  m_PrefabInternal: {fileID: 885708923}
+--- !u!58 &1511118541
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1511118536}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -2.57}
+  serializedVersion: 2
+  m_Radius: 1.01
+--- !u!61 &1511118542
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1511118536}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.56, y: 3.82}
+  m_EdgeRadius: 0
+--- !u!50 &1511118543
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1511118536}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!1 &1516842641
 GameObject:
   m_ObjectHideFlags: 0
@@ -1351,7 +1411,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300020, guid: dd48fee91c6379d4385f349691d5e037, type: 3}
+  m_Sprite: {fileID: 21300020, guid: 00561987e3c8b8c429878157524f5686, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1424,7 +1484,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300020, guid: dd48fee91c6379d4385f349691d5e037, type: 3}
+  m_Sprite: {fileID: 21300020, guid: 00561987e3c8b8c429878157524f5686, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1720,7 +1780,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300020, guid: dd48fee91c6379d4385f349691d5e037, type: 3}
+  m_Sprite: {fileID: 21300020, guid: 00561987e3c8b8c429878157524f5686, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1859,10 +1919,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a7255e9e987e414dbb3494ac8b9dba0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _Lengthmap: 30
-  _PercentLevel: 60
+  _Lengthmap: 10
+  _PercentLevel: 80
   "_\u0421urrentObject": {fileID: 85071711}
-  _List: 0000000000000000
+  _Objects: 16354
+  _Lands: 7
+  _InclineLands: 1
 --- !u!4 &2079978166
 Transform:
   m_ObjectHideFlags: 0
@@ -1895,4 +1957,4 @@ MonoBehaviour:
   _Grounds:
   - {fileID: 1615450324158886, guid: aba3de2e73870f44f86c37eb628d58b8, type: 2}
   - {fileID: 1755232126660214, guid: 0f5f2f8beea59e642beb4762ca27b434, type: 2}
-  - {fileID: 1475490173970104, guid: b677bb071c62ba34a9cb0849e222c85b, type: 2}
+  - {fileID: 1877031654102620, guid: b677bb071c62ba34a9cb0849e222c85b, type: 2}
