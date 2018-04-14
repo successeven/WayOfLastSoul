@@ -3,7 +3,7 @@ using UnityEngine;
 
     public class StandaloneInput : VirtualInput
     {
-        public override float GetAxis(string name, bool raw)
+        public override float GetAxis(string name, bool raw = false)
         {
             return raw ? Input.GetAxisRaw(name) : Input.GetAxis(name);
         }

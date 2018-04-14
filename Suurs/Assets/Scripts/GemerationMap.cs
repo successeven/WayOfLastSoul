@@ -16,16 +16,19 @@ public class GemerationMap : MonoBehaviour
     [SerializeField]
     GameObject _СurrentObject;//Текущая позиция
 
+    [Space( 10)]
     [SerializeField]
     [EnumFlag]
     Objects _Objects;
     List<Objects> _selectObjects;
 
+    [Space( 10)]
     [SerializeField]
     [EnumFlag]
     LandType _Lands;
     List<LandType> _selectLands;
 
+    [Space (10)]
     [SerializeField]
     [EnumFlag]
     InclineLandType _InclineLands;
@@ -150,7 +153,7 @@ public class GemerationMap : MonoBehaviour
                 _landsOnMap[currentIndex++] = LandType.Grass;
         }
 
-        _landsOnMap[currentIndex] = LandType.Stones;
+   //     _landsOnMap[currentIndex] = LandType.Stones;
         #endregion
 
         #region Finish
@@ -170,7 +173,7 @@ public class GemerationMap : MonoBehaviour
             else
                 _landsOnMap[i] = LandType.Grass;
         }
-        _landsOnMap[_Lengthmap - 1 - lenghtGrass] = LandType.Stones;
+        //_landsOnMap[_Lengthmap - 1 - lenghtGrass] = LandType.Stones;
         #endregion
 
         #region OtherFill
@@ -188,16 +191,17 @@ public class GemerationMap : MonoBehaviour
                 if (_landsOnMap[i + 1] != null) // следующая позиция свободна?
                 {
                     _landsOnMap[i] = LandType.Stones;
-                    break;
+                    continue;
                 }
 
                 UnityEngine.Random.InitState(Guid.NewGuid().GetHashCode());
                 lenghtGrass = UnityEngine.Random.Range(2, 6);
 
-                int indexI = 0;
-                for (int j = i; j < i + lenghtGrass; j++)
+                int firstIndex = i;
+
+                for (int j = firstIndex; j < firstIndex + lenghtGrass; j++)
                 {
-                    if (j == i)
+                    if (j == firstIndex)
                     {
                         _landsOnMap[j] = LandType.GrassLow;
                         continue;
@@ -209,20 +213,21 @@ public class GemerationMap : MonoBehaviour
                         break;
                     }
 
-                    if (j == i + lenghtGrass - 1)
+                    if (j == firstIndex + lenghtGrass - 1)
                         _landsOnMap[j] = LandType.GrassLow;
                     else
                         _landsOnMap[j] = LandType.Grass;
-
-                    indexI++;
+                    i++;
                 }
-                i += indexI;
             }
             else
                 _landsOnMap[i] = _selectLands[currentLandType];
         }
         #endregion
-
+        //string test = string.Empty;
+        //for (int i = 0; i < _landsOnMap.Length; i++)
+        //    test += " " + _landsOnMap[i];
+        //Debug.Log(test);
     }
 
     private void Generation()
@@ -265,6 +270,10 @@ public class GemerationMap : MonoBehaviour
 
     void DrawObjects()
     {
+        if (_selectObjects.Count == 0)
+            return;
+
+
         UnityEngine.Random.InitState(Guid.NewGuid().GetHashCode());
 
         GameObject _currentPosPuzzle = _СurrentObject.transform.Find("ConnectionPuzzle").gameObject;
@@ -287,7 +296,7 @@ public class GemerationMap : MonoBehaviour
                 if (drawObject.ToString().Contains("Column"))
                 {
                     Vector3 theScale = drawingObject.transform.localScale;
-                    float scailPoint = UnityEngine.Random.Range(0.5f, 0.8f);
+                    float scailPoint = UnityEngine.Random.Range(0.5f,1.2f);
                     theScale.x *= scailPoint;
                     theScale.y *= scailPoint;
                     drawingObject.transform.localScale = theScale;

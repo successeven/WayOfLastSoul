@@ -16,7 +16,7 @@ public class EnumFlagAttribute : PropertyAttribute
 }
 
 [CustomPropertyDrawer(typeof(EnumFlagAttribute))]
-/*public class EnumFlagAttributeDrawer : PropertyDrawer
+public class EnumFlagAttributeDrawer : PropertyDrawer
 {
     const float mininumWidth = 60.0f;
  
@@ -81,7 +81,7 @@ public class EnumFlagAttribute : PropertyAttribute
         }
     }
 }
- */
+ 
 /*public class EnumFlagAttributeDrawer : PropertyDrawer
 {
     const float mininumWidth = 80.0f;
@@ -183,7 +183,7 @@ public class EnumFlagAttributeDrawer : PropertyDrawer
         }
     }
 }*/
-
+/*
 public class EnumFlagDrawer : PropertyDrawer
 {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
