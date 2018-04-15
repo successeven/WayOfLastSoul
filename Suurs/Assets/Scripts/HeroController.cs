@@ -6,14 +6,17 @@ using UnityEngine;
 public class HeroController : Unit {
 
     [SerializeField]
-    private float speed = 3.0F;
-    
-    new Rigidbody2D _rigidbody;
+     float speed = 3.0F;
+
+    [SerializeField]
+     float rollLength = 3.0F;
+
+    Rigidbody2D _rigidbody;
     Animator _anima;
 
     private bool _acingRight = true;
     private bool _jumping = false;
-    private bool _attaks = false;
+    private bool _attacks = false;
 
 
 
@@ -26,8 +29,8 @@ public class HeroController : Unit {
 
     private void FixedUpdate()
     {
-        Debug.Log(_anima.GetFloat("Attack"));
-        if (!_attaks && !_jumping)
+        Debug.Log(_attacks + " " + _jumping);
+        if (!_attacks && !_jumping)
         {
             float h = CrossPlatformInputManager.GetAxis("Horizontal");
             Run(h);
@@ -35,7 +38,7 @@ public class HeroController : Unit {
         if (CrossPlatformInputManager.GetButtonDown("Fire1") && !_jumping)
             Attack(1);
 
-        if (CrossPlatformInputManager.GetButtonDown("Jump") && !_attaks)
+        if (CrossPlatformInputManager.GetButtonDown("Jump") && !_attacks && !_jumping)
             Jump();
 
     }
@@ -43,27 +46,27 @@ public class HeroController : Unit {
     private void Jump()
     {
         _jumping = true;
-        _anima.SetBool("Test", true);
-        _anima.SetBool("Test", false);
-        //_anima.SetTrigger("Jump");
+        _anima.SetFloat("Speed", 0);
+        _anima.SetTrigger("Jump");
+        _rigidbody.velocity = new Vector2(rollLength * transform.localScale.x, -1);
     }
 
     private void Attack(float inTypeAttack)
     {
-        _attaks = true;
-        _anima.SetBool("Test", true);
-        _anima.SetBool("Test", false);
-        Debug.Log("Attack");
+        _attacks = true;
+        _anima.SetFloat("Speed", 0);
+        _anima.SetFloat("Attack", inTypeAttack);
     }
 
     public void ResetAttack()
     {
-        _attaks = false;
-        Debug.Log("ResetAttack");
+        _anima.SetFloat("Attack", 0);
+        _attacks = false;
     }
 
-    public void ResetJump()
+    public void ResetJumping()
     {
+        Debug.Log("ResetJump");
         _jumping = false;
     }
 
