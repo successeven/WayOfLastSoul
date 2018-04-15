@@ -33,7 +33,7 @@ public class CameraMotor : MonoBehaviour
             _startPos = GameObject.FindGameObjectWithTag("Start");
             _finishPos = GameObject.FindGameObjectWithTag("Finish");
         }
-        _offset = new Vector3(_a, _b, -20);
+        _offset = new Vector3(_a * Time.deltaTime, _b, -20);
 
         Vector3 position = _lookAt.transform.position + _offset;
         _leftBound = position.x - _horBound;

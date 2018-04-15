@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,7 +11,11 @@ public class HeroController : Unit {
     new Rigidbody2D _rigidbody;
     Animator _anima;
 
-    private bool m_FacingRight = true;
+    private bool _acingRight = true;
+    private bool _jumping = false;
+    private bool _attaks = false;
+
+
 
     private void Awake()
     {
@@ -18,19 +23,48 @@ public class HeroController : Unit {
         _anima = GetComponent<Animator>();
     }
     
-    private void Update()
-    {
-        if (!m_Jump)
-        {
-            // Read the jump input in Update so button presses aren't missed.
-            m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
-        }
-    }
 
     private void FixedUpdate()
     {
-        float h = CrossPlatformInputManager.GetAxis("Horizontal");
-        Run(h);
+        Debug.Log(_anima.GetFloat("Attack"));
+        if (!_attaks && !_jumping)
+        {
+            float h = CrossPlatformInputManager.GetAxis("Horizontal");
+            Run(h);
+        }
+        if (CrossPlatformInputManager.GetButtonDown("Fire1") && !_jumping)
+            Attack(1);
+
+        if (CrossPlatformInputManager.GetButtonDown("Jump") && !_attaks)
+            Jump();
+
+    }
+
+    private void Jump()
+    {
+        _jumping = true;
+        _anima.SetBool("Test", true);
+        _anima.SetBool("Test", false);
+        //_anima.SetTrigger("Jump");
+    }
+
+    private void Attack(float inTypeAttack)
+    {
+        _attaks = true;
+        _anima.SetBool("Test", true);
+        _anima.SetBool("Test", false);
+        Debug.Log("Attack");
+    }
+
+    public void ResetAttack()
+    {
+        _attaks = false;
+        Debug.Log("ResetAttack");
+    }
+
+    public void ResetJump()
+    {
+        _jumping = false;
     }
 
 
@@ -38,18 +72,17 @@ public class HeroController : Unit {
     {
         Vector3 direction = transform.right * inH;
         transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, speed * Time.deltaTime);
-        Debug.Log(inH);
         _anima.SetFloat("Speed", Mathf.Abs(inH));
-        if (inH > 0 && !m_FacingRight)
+        if (inH > 0 && !_acingRight)
             Flip();
-        else if (inH < 0 && m_FacingRight)
+        else if (inH < 0 && _acingRight)
             Flip();
     }
 
     private void Flip()
     {
         // Switch the way the player is labelled as facing.
-        m_FacingRight = !m_FacingRight;
+        _acingRight = !_acingRight;
 
         // Multiply the player's x local scale by -1.
         Vector3 theScale = transform.localScale;
