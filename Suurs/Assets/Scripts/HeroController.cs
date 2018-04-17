@@ -48,7 +48,7 @@ public class HeroController : Unit {
         _jumping = true;
         _anima.SetFloat("Speed", 0);
         _anima.SetTrigger("Jump");
-        _rigidbody.velocity = new Vector2(rollLength * transform.localScale.x, -1);
+        _rigidbody.velocity = new Vector2(rollLength * transform.localScale.x, 1);
     }
 
     private void Attack(float inTypeAttack)
