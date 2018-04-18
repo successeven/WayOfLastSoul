@@ -1,20 +1,24 @@
 fileFormatVersion: 2
-guid: c468cc44aabde7d4ca082f909ef89807
-timeCreated: 1523360551
+guid: 572129b5f0260474b802d1fc9496439b
+timeCreated: 1524053631
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Head
+    21300000: Head_1
     21300002: Neck_top
-    21300004: Chest
-    21300006: tail
-    21300008: Jaw
-    21300010: NNeck_middle
-    21300012: Neck_bot
-    21300014: R_leg
-    21300016: L_leg
-    21300018: L_legback
-    21300020: R_legback
+    21300004: Body
+    21300006: Tail
+    21300008: Jaw_1
+    21300010: Head_2
+    21300012: Neck_mid
+    21300014: R_leg_forward
+    21300016: L_leg_forward
+    21300018: L_leg_backward
+    21300020: R_leg_backward
+    21300022: Jaw_2
+    21300024: Neck_bot
+    21300026: Head_3
+    21300028: Jaw_3
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -57,7 +61,7 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spritePixelsToUnits: 160
+  spritePixelsToUnits: 170
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -101,15 +105,15 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Head
+      name: Head_1
       rect:
         serializedVersion: 2
         x: 0
-        y: 1295.4497
-        width: 612.6341
-        height: 307.29822
+        y: 1787.3541
+        width: 610.61694
+        height: 294.64587
       alignment: 9
-      pivot: {x: 0.49376938, y: 0.49805138}
+      pivot: {x: 0.49540064, y: 0.5078842}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -118,68 +122,152 @@ TextureImporter:
       name: Neck_top
       rect:
         serializedVersion: 2
-        x: 765.6684
-        y: 1444.67
-        width: 1095.3743
-        height: 478.32996
+        x: 723.9246
+        y: 1573.1604
+        width: 1137.5479
+        height: 488.854
       alignment: 9
-      pivot: {x: 0.4818733, y: 0.507662}
+      pivot: {x: 0.50070465, y: 0.49572998}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Chest
+      name: Body
       rect:
         serializedVersion: 2
-        x: 1922.6404
-        y: 1233.1561
-        width: 1241.6638
-        height: 661.2245
+        x: 1919.969
+        y: 1359.1464
+        width: 1243.6978
+        height: 663.4116
       alignment: 9
-      pivot: {x: 0.49921694, y: 0.4958131}
+      pivot: {x: 0.4997446, y: 0.49419358}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: tail
+      name: Tail
       rect:
         serializedVersion: 2
-        x: 3298.157
-        y: 1307.6522
-        width: 1532.843
-        height: 422.91418
+        x: 3296.997
+        y: 1430.9305
+        width: 1534.0029
+        height: 422.80518
       alignment: 9
-      pivot: {x: 0.50190574, y: 0.4950127}
+      pivot: {x: 0.5022829, y: 0.5003947}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Jaw
+      name: Jaw_1
       rect:
         serializedVersion: 2
-        x: 82.838036
-        y: 972.8841
-        width: 590.4393
-        height: 210.55829
+        x: 78.97728
+        y: 1461.3627
+        width: 592.645
+        height: 215.22314
       alignment: 9
-      pivot: {x: 0.496515, y: 0.49447542}
+      pivot: {x: 0.49611953, y: 0.4885038}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: NNeck_middle
+      name: Head_2
       rect:
         serializedVersion: 2
-        x: 945.40137
-        y: 808.78955
-        width: 873.17957
-        height: 479.54236
+        x: 66.0539
+        y: 966.77515
+        width: 623.31055
+        height: 309.57874
       alignment: 9
-      pivot: {x: 0.47424224, y: 0.50195867}
+      pivot: {x: 0.5004666, y: 0.4949467}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Neck_mid
+      rect:
+        serializedVersion: 2
+        x: 901.00824
+        y: 933.0716
+        width: 918.17145
+        height: 481.77728
+      alignment: 9
+      pivot: {x: 0.49935296, y: 0.5000823}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: R_leg_forward
+      rect:
+        serializedVersion: 2
+        x: 1924.3279
+        y: 128.41934
+        width: 474.70068
+        height: 878.0703
+      alignment: 9
+      pivot: {x: 0.4933048, y: 0.4994824}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: L_leg_forward
+      rect:
+        serializedVersion: 2
+        x: 2460.502
+        y: 139.32884
+        width: 488.854
+        height: 906.37695
+      alignment: 9
+      pivot: {x: 0.4980997, y: 0.49777436}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: L_leg_backward
+      rect:
+        serializedVersion: 2
+        x: 3142.066
+        y: 139.31923
+        width: 512.4429
+        height: 948.8369
+      alignment: 9
+      pivot: {x: 0.49943927, y: 0.49922255}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: R_leg_backward
+      rect:
+        serializedVersion: 2
+        x: 3796.654
+        y: 161.36098
+        width: 486.49536
+        height: 906.37695
+      alignment: 9
+      pivot: {x: 0.4971187, y: 0.4982905}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Jaw_2
+      rect:
+        serializedVersion: 2
+        x: 138.92844
+        y: 674.8299
+        width: 592.645
+        height: 215.22314
+      alignment: 9
+      pivot: {x: 0.5012639, y: 0.49794906}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -188,68 +276,40 @@ TextureImporter:
       name: Neck_bot
       rect:
         serializedVersion: 2
-        x: 996.62354
-        y: 192.41896
-        width: 789.6896
-        height: 555.04663
+        x: 972.9594
+        y: 314.69562
+        width: 812.0214
+        height: 557.2618
       alignment: 9
-      pivot: {x: 0.4829448, y: 0.4928973}
+      pivot: {x: 0.49818954, y: 0.4958251}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: R_leg
+      name: Head_3
       rect:
         serializedVersion: 2
-        x: 1924.741
-        y: 3.7417336
-        width: 474.82324
-        height: 878.2994
+        x: 88.82406
+        y: 253.41367
+        width: 623.31055
+        height: 309.57858
       alignment: 9
-      pivot: {x: 0.4933605, y: 0.4984158}
+      pivot: {x: 0.49842888, y: 0.4961142}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: L_leg
+      name: Jaw_3
       rect:
         serializedVersion: 2
-        x: 2463.2068
-        y: 12.303631
-        width: 488.98047
-        height: 908.97296
-      alignment: 9
-      pivot: {x: 0.49346137, y: 0.4991307}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: L_legback
-      rect:
-        serializedVersion: 2
-        x: 3144.2263
-        y: 13.584663
-        width: 512.57544
-        height: 951.4442
-      alignment: 9
-      pivot: {x: 0.4950948, y: 0.5007286}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: R_legback
-      rect:
-        serializedVersion: 2
-        x: 3797.0195
+        x: 176.82744
         y: 0
-        width: 486.6211
-        height: 893.8159
+        width: 595.00385
+        height: 204.42438
       alignment: 9
-      pivot: {x: 0.49007377, y: 0.4989842}
+      pivot: {x: 0.5011271, y: 0.48184076}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -257,6 +317,6 @@ TextureImporter:
     outline: []
     physicsShape: []
   spritePackingTag: 
-  userData: 99835969391250
+  userData: 99880465441291
   assetBundleName: 
   assetBundleVariant: 
