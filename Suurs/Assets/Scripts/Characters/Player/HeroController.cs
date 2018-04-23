@@ -22,6 +22,7 @@ public class HeroController : Unit
     bool _doubleAttack = false;
     bool _acingRight = true;
     bool _jumping = false;
+    bool _takeHit = false;
     bool _attacks = false;
     bool _blocking = false;
     float _lastJumpTime = 0;
@@ -107,6 +108,12 @@ public class HeroController : Unit
         _anima.SetFloat("Attack", 0);
         _attacks = false;
     }
+
+
+    public void ResetHit()
+    {
+        _takeHit = false;
+    } 
 
     public void ResetJumping()
     {

@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour {
 
-    GameObject _Player;
+
     [SerializeField]
-    float _distance;
+    float _visibility = 25;
+
 
     Animator _Anima;
     bool _Moving = false;
     bool _Attack = false;
+    GameObject _Player;
+    float _distance;
 
     void Start () {
         _Player = GameObject.FindGameObjectWithTag("Player");
@@ -20,7 +23,7 @@ public class EnemyController : MonoBehaviour {
 	void FixedUpdate () {
         _distance = Vector2.Distance(transform.position, _Player.transform.position);
 
-        if (_distance <= 30)
+        if (_distance <= _visibility)
             _Moving = true;
         else
             _Moving = false;

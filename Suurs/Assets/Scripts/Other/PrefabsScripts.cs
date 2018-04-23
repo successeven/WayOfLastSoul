@@ -87,6 +87,13 @@ public class PrefabsScripts : MonoBehaviour
         
     [SerializeField]
     List<GameObject> _Enemy;
+    public List<GameObject> Enemys
+    {
+        get
+        {
+            return _Enemy;
+        }
+    }
 
 
     Dictionary<string, GameObject> _GroundsbyName;

@@ -8,7 +8,16 @@ public class GemerationLevel : MonoBehaviour
 {
     [SerializeField]
     float _Сomplexity; //Сложность уровня
+    [SerializeField]
+    int _countEnemy; //кол-во всего врагов на сцене
+    [SerializeField]
+    int _countEnemyByPoint; //кол-во всего врагов в 1 месте
 
+    [SerializeField] [Range(0, 50)] [Tooltip("Частота появления врага (платформ) (0 - все в 1 месте)")]
+    int _frequencySpawn; //через сколько платформ появится враг
+
+
+    [Space(10)]
     [SerializeField]
     int _Lengthmap; //длина карты
 
@@ -227,26 +236,13 @@ public class GemerationLevel : MonoBehaviour
                 _landsOnMap[i] = _selectLands[currentLandType];
         }
         #endregion
-        //string test = string.Empty;
-        //for (int i = 0; i < _landsOnMap.Length; i++)
-        //    test += " " + _landsOnMap[i];
-        //Debug.Log(test);
+      
     }
 
     private void Generation()
     {
         GenerationLevels();
         GenerationLands();
-        /*
-        string test = string.Empty;
-        for (int i = 0; i < _Lengthmap; i++)
-            test += " " + _map[i];
-        Debug.Log(test);
-
-        test = string.Empty;
-        for (int i = 0; i < _Lengthmap; i++)
-            test += " " + (int)_ladsOnMap[i];
-        Debug.Log(test);*/
 
         GameObject ground;
         bool drawingGrass = true; //true т к самая первая локация с травой
@@ -263,12 +259,44 @@ public class GemerationLevel : MonoBehaviour
                     ground = _prefabsScripts.GetGroundbyName(GroundName.Horizontal);
                     IncertPrefab(ground, _map[i]);
                     DrawObjects();
+                    if (i >= 10)
+                        IncertEnemy(i);
                     break;
             }
             DrawLand(i, ref drawingGrass);
         }
         ground = _prefabsScripts.GetGroundbyName(GroundName.Finish);
         IncertPrefab(ground, 0);
+    }
+
+    private void IncertEnemy(int inIndexMap)
+    {
+        if (_countEnemy == 0)
+            return;
+
+        if (inIndexMap % _frequencySpawn == 0)
+        {
+            GameObject currentPosPuzzle = _СurrentObject.transform.Find("ConnectionPuzzle").gameObject;
+            GameObject enemy = _prefabsScripts.Enemys[0];
+
+            UnityEngine.Random.InitState(Guid.NewGuid().GetHashCode());
+            int countEnemy = UnityEngine.Random.Range(1, _countEnemyByPoint + 1);
+            int deltaX = 0;
+            for (int i = 0; i < countEnemy; i++)
+            {
+                if (_countEnemy == 0)
+                    break;
+
+                Vector3 position = new Vector3(
+                currentPosPuzzle.transform.position.x - deltaX,
+                currentPosPuzzle.transform.position.y + 3,
+                currentPosPuzzle.transform.position.z);
+
+                Instantiate(enemy, position, Quaternion.identity);
+                deltaX += 3;
+                _countEnemy--;
+            }
+        }
     }
 
     void DrawObjects()
@@ -279,7 +307,7 @@ public class GemerationLevel : MonoBehaviour
 
         UnityEngine.Random.InitState(Guid.NewGuid().GetHashCode());
 
-        GameObject _currentPosPuzzle = _СurrentObject.transform.Find("ConnectionPuzzle").gameObject;
+        GameObject currentPosPuzzle = _СurrentObject.transform.Find("ConnectionPuzzle").gameObject;
 
         int countObjects = UnityEngine.Random.Range(0, 2);
         for (int i = 0; i < countObjects; i++)
@@ -289,7 +317,7 @@ public class GemerationLevel : MonoBehaviour
             if (sprite != null)
             {
                 Vector3 position = new Vector3(
-                UnityEngine.Random.Range(_СurrentObject.transform.position.x, _currentPosPuzzle.transform.position.x),
+                UnityEngine.Random.Range(_СurrentObject.transform.position.x, currentPosPuzzle.transform.position.x),
                 _СurrentObject.transform.position.y,
                 _СurrentObject.transform.position.z);
 
