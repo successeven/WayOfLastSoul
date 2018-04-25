@@ -7,7 +7,7 @@ using System.Collections.Generic;
 public class GemerationLevel : MonoBehaviour
 {
     [SerializeField]
-    float _Сomplexity; //Сложность уровня
+    public int _Сomplexity; //Сложность уровня
     [SerializeField]
     int _countEnemy; //кол-во всего врагов на сцене
     [SerializeField]
@@ -259,7 +259,7 @@ public class GemerationLevel : MonoBehaviour
                     ground = _prefabsScripts.GetGroundbyName(GroundName.Horizontal);
                     IncertPrefab(ground, _map[i]);
                     DrawObjects();
-                    if (i >= 10)
+                    if (i >= 7)
                         IncertEnemy(i);
                     break;
             }

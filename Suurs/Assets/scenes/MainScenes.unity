@@ -770,7 +770,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1566543936723180, guid: 787bc9f7a790fea4e983066e80823fff, type: 2}
       propertyPath: m_Layer
-      value: 9
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1491987831453400, guid: 787bc9f7a790fea4e983066e80823fff, type: 2}
       propertyPath: m_Layer
@@ -807,6 +807,30 @@ Prefab:
     - target: {fileID: 1501213353528698, guid: 787bc9f7a790fea4e983066e80823fff, type: 2}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 95977396253345020, guid: 787bc9f7a790fea4e983066e80823fff,
+        type: 2}
+      propertyPath: m_CullingMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114581646624732466, guid: 787bc9f7a790fea4e983066e80823fff,
+        type: 2}
+      propertyPath: _speed
+      value: 16.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 60047970863180558, guid: 787bc9f7a790fea4e983066e80823fff,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1566543936723180, guid: 787bc9f7a790fea4e983066e80823fff, type: 2}
+      propertyPath: m_TagString
+      value: PlayerSword
+      objectReference: {fileID: 0}
+    - target: {fileID: 114891758152221286, guid: 787bc9f7a790fea4e983066e80823fff,
+        type: 2}
+      propertyPath: _HP
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 787bc9f7a790fea4e983066e80823fff, type: 2}
@@ -1540,7 +1564,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   "_\u0421omplexity": 1
-  _countEnemy: 15
+  _countEnemy: 1
   _countEnemyByPoint: 3
   _frequencySpawn: 2
   _Lengthmap: 20
@@ -1583,7 +1607,7 @@ MonoBehaviour:
   - {fileID: 1055100986243006, guid: 0f5f2f8beea59e642beb4762ca27b434, type: 2}
   - {fileID: 1877031654102620, guid: b677bb071c62ba34a9cb0849e222c85b, type: 2}
   _Enemy:
-  - {fileID: 1598357127652418, guid: ac7fe42fe0933844ea680559a4ec87c8, type: 2}
+  - {fileID: 1783489050260548, guid: ac7fe42fe0933844ea680559a4ec87c8, type: 2}
 --- !u!114 &2079978168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1595,3 +1619,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6774e57672da8864f8074e1c4d7a0bb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _mainTime: 0

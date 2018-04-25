@@ -54,10 +54,15 @@ public class HeroController : Unit
 
     private void FixedUpdate()
     {
+        if (_manager._HP < 0)
+            return;
+
         if (!_attacks && !_jumping && !_blocking)
         {
             float h = CrossPlatformInputManager.GetAxis("Horizontal");
-            Run(h);
+
+            Move(_rigidbody, _speed,ref _acingRight, h);
+            _anima.SetFloat("Speed", Mathf.Abs(h));
         }
         if (CrossPlatformInputManager.GetButton("Fire1") && !_jumping)
             if (_doubleAttack)
@@ -69,10 +74,44 @@ public class HeroController : Unit
             Jump();
 
         if (CrossPlatformInputManager.GetButtonDown("Block") && !_blocking)
-            SetBlock(); 
+            SetBlock();
 
         if (CrossPlatformInputManager.GetButtonUp("Block") && _blocking)
             UnSetBlock();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "FallenSword")
+        {
+            Debug.Log("FallenSword");
+            GameObject fallen = collision.transform.root.gameObject;
+
+            FallenManager fallenManager = fallen.GetComponentInChildren<FallenManager>();
+            if (!fallenManager._doAttack)
+            {
+                fallenManager._doAttack = true;
+                if (_jumping)
+                    return;
+                if (_blocking)
+                    _manager._HP -= (int)Math.Truncate(fallenManager._attack * (_manager._Shield / 100));
+                else
+                  _manager._HP -= fallenManager._attack;
+
+                if (_manager._HP <= 0)
+                    _anima.SetTrigger("Death");
+                else if (_blocking)
+                    _anima.SetTrigger("TakingHit");
+                else
+                    _anima.SetTrigger("TakeHit");
+
+            }
+        }
+    }
+
+    public void DisableAnima()
+    {
+        _anima.enabled = false;
     }
 
     private void SetBlock()
@@ -113,7 +152,7 @@ public class HeroController : Unit
     public void ResetHit()
     {
         _takeHit = false;
-    } 
+    }
 
     public void ResetJumping()
     {
@@ -121,27 +160,5 @@ public class HeroController : Unit
     }
 
 
-    private void Run(float inH)
-    {
-        _rigidbody.velocity = new Vector2(inH * _speed, _rigidbody.velocity.y);
-        //Vector3 direction = transform.right * inH;
-        //transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, speed * Time.deltaTime);
-        _anima.SetFloat("Speed", Mathf.Abs(inH));
-        if (inH > 0 && !_acingRight)
-            Flip();
-        else if (inH < 0 && _acingRight)
-            Flip();
-    }
-
-    private void Flip()
-    {
-        // Switch the way the player is labelled as facing.
-        _acingRight = !_acingRight;
-
-        // Multiply the player's x local scale by -1.
-        Vector3 theScale = transform.localScale;
-        theScale.x *= -1;
-        transform.localScale = theScale;
-    }
 
 }

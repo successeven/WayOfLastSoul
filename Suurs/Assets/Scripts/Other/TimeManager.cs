@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class TimeManager : MonoBehaviour {
 
-    float _mainTime = 0;
+    public float _mainTime = 0;
     float _currentTime = 0;
 
 	// Use this for initialization
 	void Start () {
         _mainTime = 0;
-        if (PlayerPrefs.HasKey("GameTime"))
+       /* if (PlayerPrefs.HasKey("GameTime"))
             _mainTime = PlayerPrefs.GetFloat("GameTime");
         else
-            PlayerPrefs.SetFloat("GameTime", _mainTime);
+            PlayerPrefs.SetFloat("GameTime", _mainTime);*/
         _currentTime = _mainTime;
     }
 	
