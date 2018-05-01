@@ -17,6 +17,8 @@ public class HeroController : Unit
     Rigidbody2D _rigidbody;
     Animator _anima;
 
+    int _comboAttack = 0;
+
     float _lastClickTime = 0;
     float _catchTime = .25f;
     bool _doubleAttack = false;
@@ -43,13 +45,15 @@ public class HeroController : Unit
     {
 
         if (Input.GetButtonDown("Fire1"))
-        {
+            if (_attacks)
+                _comboAttack++;
+        /*
             if (Time.time - _lastClickTime < _catchTime)
                 _doubleAttack = true;
             else
                 _doubleAttack = false;
             _lastClickTime = Time.time;
-        }
+        }*/
     }
 
     private void FixedUpdate()
@@ -65,10 +69,8 @@ public class HeroController : Unit
             _anima.SetFloat("Speed", Mathf.Abs(h));
         }
         if (CrossPlatformInputManager.GetButton("Fire1") && !_jumping)
-            if (_doubleAttack)
-                Attack(2);
-            else
-                Attack(1);
+                Attack(_comboAttack++);
+
         int deltaJump = (int)Math.Truncate((Time.fixedTime - _lastJumpTime) * 1000);
         if (CrossPlatformInputManager.GetButtonDown("Jump") && !_attacks && (deltaJump > _manager._DeltaRoll))
             Jump();
@@ -80,8 +82,11 @@ public class HeroController : Unit
             UnSetBlock();
     }
 
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log(12);
+
         if (collision.tag == "FallenSword")
         {
             Debug.Log("FallenSword");
