@@ -6,34 +6,37 @@ using UnityEngine;
 [RequireComponent(typeof(HeroManager))]
 public class HeroController : Unit
 {
-
-    [SerializeField]
-    float _speed = 25F;
-
+    
     [SerializeField]
     float _rollLength = 20F;
 
-
     Rigidbody2D _rigidbody;
-    Animator _anima;
 
-    int _comboAttack = 0;
+    [NonSerialized]
+    public Animator _anima;
 
-    float _lastClickTime = 0;
+    [NonSerialized]
+    public int _comboAttack = 1;
+
+    float _lastAttackTime = 0;
     float _catchTime = .25f;
     bool _doubleAttack = false;
     bool _acingRight = true;
-    bool _jumping = false;
-    bool _takeHit = false;
-    bool _attacks = false;
-    bool _blocking = false;
+
+    [NonSerialized]
+    public bool _jumping = false;
+
+    [NonSerialized]
+    public bool _attacks = false;
+    [NonSerialized]
+    public bool _blocking = false;
     float _lastJumpTime = 0;
 
     HeroManager _manager;
 
 
 
-    private void Awake()
+    private void Start()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _anima = GetComponent<Animator>();
@@ -41,35 +44,25 @@ public class HeroController : Unit
         _lastJumpTime = Time.fixedTime;
     }
 
-    private void Update()
-    {
-
-        if (Input.GetButtonDown("Fire1"))
-            if (_attacks)
-                _comboAttack++;
-        /*
-            if (Time.time - _lastClickTime < _catchTime)
-                _doubleAttack = true;
-            else
-                _doubleAttack = false;
-            _lastClickTime = Time.time;
-        }*/
-    }
 
     private void FixedUpdate()
     {
-        if (_manager._HP < 0)
+        if (_manager._HP <= 0)
             return;
+
+        if (Time.fixedTime - _lastAttackTime > 1f)
+            _comboAttack = 1;
 
         if (!_attacks && !_jumping && !_blocking)
         {
             float h = CrossPlatformInputManager.GetAxis("Horizontal");
 
-            Move(_rigidbody, _speed,ref _acingRight, h);
+            Move(_rigidbody, _speed, ref _acingRight, h);
             _anima.SetFloat("Speed", Mathf.Abs(h));
         }
+
         if (CrossPlatformInputManager.GetButton("Fire1") && !_jumping)
-                Attack(_comboAttack++);
+            Attack(_comboAttack);
 
         int deltaJump = (int)Math.Truncate((Time.fixedTime - _lastJumpTime) * 1000);
         if (CrossPlatformInputManager.GetButtonDown("Jump") && !_attacks && (deltaJump > _manager._DeltaRoll))
@@ -80,38 +73,6 @@ public class HeroController : Unit
 
         if (CrossPlatformInputManager.GetButtonUp("Block") && _blocking)
             UnSetBlock();
-    }
-
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        Debug.Log(12);
-
-        if (collision.tag == "FallenSword")
-        {
-            Debug.Log("FallenSword");
-            GameObject fallen = collision.transform.root.gameObject;
-
-            FallenManager fallenManager = fallen.GetComponentInChildren<FallenManager>();
-            if (!fallenManager._doAttack)
-            {
-                fallenManager._doAttack = true;
-                if (_jumping)
-                    return;
-                if (_blocking)
-                    _manager._HP -= (int)Math.Truncate(fallenManager._attack * (_manager._Shield / 100));
-                else
-                  _manager._HP -= fallenManager._attack;
-
-                if (_manager._HP <= 0)
-                    _anima.SetTrigger("Death");
-                else if (_blocking)
-                    _anima.SetTrigger("TakingHit");
-                else
-                    _anima.SetTrigger("TakeHit");
-
-            }
-        }
     }
 
     public void DisableAnima()
@@ -149,14 +110,12 @@ public class HeroController : Unit
 
     public void ResetAttack()
     {
-        _anima.SetFloat("Attack", 0);
-        _attacks = false;
-    }
-
-
-    public void ResetHit()
-    {
-        _takeHit = false;
+        if (_attacks)
+        {
+            _manager.ResetEnemyDealAttack();
+            _anima.SetFloat("Attack", 0);
+            _attacks = false;
+        }
     }
 
     public void ResetJumping()

@@ -277,9 +277,9 @@ public class GemerationLevel : MonoBehaviour
         if (inIndexMap % _frequencySpawn == 0)
         {
             GameObject currentPosPuzzle = _СurrentObject.transform.Find("ConnectionPuzzle").gameObject;
-            GameObject enemy = _prefabsScripts.Enemys[0];
-
             UnityEngine.Random.InitState(Guid.NewGuid().GetHashCode());
+
+            GameObject enemy = _prefabsScripts.Enemys[UnityEngine.Random.Range(0, _prefabsScripts.Enemys.Count )];
             int countEnemy = UnityEngine.Random.Range(1, _countEnemyByPoint + 1);
             int deltaX = 0;
             for (int i = 0; i < countEnemy; i++)
@@ -289,7 +289,7 @@ public class GemerationLevel : MonoBehaviour
 
                 Vector3 position = new Vector3(
                 currentPosPuzzle.transform.position.x - deltaX,
-                currentPosPuzzle.transform.position.y + 3,
+                currentPosPuzzle.transform.position.y + 20,
                 currentPosPuzzle.transform.position.z);
 
                 Instantiate(enemy, position, Quaternion.identity);

@@ -3,24 +3,27 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
+    [SerializeField]
+    protected float _speed;
 
-    public virtual void ReceiveDamage()
+
+    public virtual void Die()
     {
-        Die();
+        Invoke("DestroyObject", 4f);
     }
 
-    protected virtual void Die()
+    protected virtual void DestroyObject()
     {
         Destroy(transform.root.gameObject);
     }
 
-
-    protected void Move(Rigidbody2D inBody, float inSpeed, ref bool inRigthPosition, float inH)
+    protected virtual void Move(Rigidbody2D inBody, float inSpeed, ref bool inRigthPosition, float inMoveDirection)
     {
-        inBody.velocity = new Vector2(inH * inSpeed, inBody.velocity.y);
-        if (inH > 0 && !inRigthPosition)
+        inBody.velocity = new Vector2(inMoveDirection * inSpeed, inBody.velocity.y);
+
+        if (inMoveDirection > 0 && !inRigthPosition)
             Flip(ref inRigthPosition);
-        else if (inH < 0 && inRigthPosition)
+        else if (inMoveDirection < 0 && inRigthPosition)
             Flip(ref inRigthPosition);
     }
 

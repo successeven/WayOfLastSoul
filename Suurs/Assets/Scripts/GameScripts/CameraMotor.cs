@@ -43,6 +43,9 @@ public class CameraMotor : MonoBehaviour
             _Player = GameObject.FindGameObjectWithTag("Player");
         }
 
+        if (_Player == null)
+            return;
+
         if (_MoveRightSide != _Player.transform.localScale.x)
         {
             _X *= -1;

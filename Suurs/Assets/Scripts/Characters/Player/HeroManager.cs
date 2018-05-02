@@ -20,7 +20,7 @@ public class HeroManager : MonoBehaviour {
     public int _GlobalHP = 100; //Текущая глобальная жизнь
 
     [Header("Атака")]
-    public int _Attack = 25; //атака
+    public int _attack = 25; //атака
 
     [Header("Щит")]
     public float _Shield = 50f; //Щит   
@@ -44,14 +44,61 @@ public class HeroManager : MonoBehaviour {
 
     [Header("Интервал кувырков (в милисекундах) ")]
     public int _DeltaRoll = 2000; //Интервал кувырков (в милисекундах) 
-    
+
+    Animator _anima;
+    HeroController _controller;
+    bool _death = false;
+
+    bool _DealDamage = false;
+
+    private void Start()
+    {
+        _anima = GetComponent<Animator>();
+        _controller = GetComponent<HeroController>();
+    }
+
+    private void Update()
+    {
+        if (_HP <= 0 && !_death)
+        {
+            _death = true;
+            _anima.SetTrigger("Death");
+            _controller.Die();
+        }
+    }
+
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Enemy")
+        {
+            if (!_DealDamage && _controller._attacks)
+            {
+                _DealDamage = true;
+
+                GameObject enemy = collision.transform.root.gameObject;
+                EnemyManager enemyManager = enemy.GetComponent<EnemyManager>();
+                EnemyController enemyController = enemy.GetComponent<EnemyController>();
+
+                enemyManager._HP -= _attack;
+                enemyController.TakeHit();
+                _controller._comboAttack++;
+            }
+        }
+    }
+
+    public void ResetEnemyDealAttack()
+    {
+        _DealDamage = false;
+    }
+
     private void OnGUI()
     {
         string boxText =
             "Level = " + _Level + "\n" +
             "HP = " + _HP + "(" + _Health + ")\n" +
             "GlobalHP = " + _GlobalHP + "(" + _GlobalHealth + ")\n" +
-            "Attack = " + _Attack + "\n" +
+            "Attack = " + _attack + "\n" +
             "Agility = " + _Agility + "\n";
         GUI.Box(new Rect(0, 0, 150, 100), boxText);
     }
@@ -75,12 +122,12 @@ public class HeroManager : MonoBehaviour {
         if (_Power == 100)
             return;
 
-        _Attack += 2;
+        _attack += 2;
         _Health += 2;
         _Power++;
         if ((_Power != 0) && (_Power % 10 == 0))
         {
-            _Attack += 10 + (int)(_Power / 10) * 10;
+            _attack += 10 + (int)(_Power / 10) * 10;
             _Health += 10;
         }
         if ((_Agility != 0) && (_Agility % 100 == 0))
