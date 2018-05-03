@@ -15,13 +15,16 @@ public class EnemyManager : MonoBehaviour
 
     Animator _anima;
     bool _death = false;
+		EnemyController _controller;
 
     private void Start()
     {
         _heroController = GameObject.FindGameObjectWithTag("Player").GetComponent<HeroController>();
         _heroManager = GameObject.FindGameObjectWithTag("Player").GetComponent<HeroManager>();
         _anima = GetComponent<Animator>();
-        SetStartSkills();
+				_controller = GetComponent<EnemyController>();
+
+				SetStartSkills();
     }
 
     private void Update()
@@ -41,8 +44,8 @@ public class EnemyManager : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(collision.tag);
-        if (collision.tag == "Player")
+        Debug.Log(collision.transform.root.name);
+				if (collision.tag == "Player" && _controller._attacks)
         {
             if (!_DealDamage)
             {

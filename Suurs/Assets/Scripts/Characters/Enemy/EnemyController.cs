@@ -5,28 +5,29 @@ using UnityEngine;
 public class EnemyController : Unit
 {
 
-    [SerializeField]
-    protected float _visibility = 25;
+		[SerializeField]
+		protected float _visibility = 25;
 
 
-    [SerializeField]
-    protected int _deltaTimeAttack = 2000;
+		[SerializeField]
+		protected int _deltaTimeAttack = 2000;
 
-    [SerializeField]
-    protected float _deltaDistanceAttack = 2f;
+		[SerializeField]
+		protected float _deltaDistanceAttack = 2f;
 
-    protected GameObject _player;
-    protected HeroManager _playerManager;
-    protected HeroController _playerController;
-    protected Animator _anima;
-    protected EnemyManager _enemyManager;
-    protected Rigidbody2D _rigidbody;
+		protected GameObject _player;
+		protected HeroManager _playerManager;
+		protected HeroController _playerController;
+		protected Animator _anima;
+		protected EnemyManager _enemyManager;
+		protected Rigidbody2D _rigidbody;
 
 
 
-    protected bool _moving = false;
-    protected bool _reciveDamage = false;
-    protected bool _attacks = false;
+		protected bool _moving = false;
+		protected bool _reciveDamage = false;
+		[NonSerialized]
+    public bool _attacks = false;
     protected float _lastAttackTime;
     protected float _distance;
 
@@ -38,7 +39,11 @@ public class EnemyController : Unit
         _playerManager = _player.GetComponent<HeroManager>();
         _playerController = _player.GetComponent<HeroController>();
         _anima = GetComponent<Animator>();
-        _enemyManager = GetComponent<EnemyManager>();
+
+				/*if (_anima == null)
+						_anima = GetComponentInChildren<Animator>();*/
+
+				_enemyManager = GetComponent<EnemyManager>();
         _rigidbody = transform.root.GetComponent<Rigidbody2D>();
         AfterStart();
     }

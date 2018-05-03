@@ -7,8 +7,9 @@ public class FallenController : EnemyController
 
 
     public void ResetEnemyAttack()
-    {
-        if (_attacks)
+		{
+				Debug.Log("ResetEnemyAttack");
+				if (_attacks)
         {
             _attacks = false;
             _enemyManager.ResetEnemyDealAttack();
@@ -24,7 +25,7 @@ public class FallenController : EnemyController
     protected override void DoMotion()
     {
         _distance = Vector2.Distance(transform.position, _player.transform.position);
-        if (_distance <= _visibility && _distance > _deltaDistanceAttack && !_attacks && !_reciveDamage)
+				if (_distance <= _visibility && _distance > _deltaDistanceAttack && !_attacks && !_reciveDamage)
         {
             _anima.SetBool("Move", true);
             if (transform.root.position.x - _player.transform.position.x > 0)
@@ -46,7 +47,7 @@ public class FallenController : EnemyController
     protected override void DoAttack()
     {
         int currentDeltaAttack = (int)Math.Truncate((Time.fixedTime - _lastAttackTime) * 1000);
-        if ((_distance <= _deltaDistanceAttack) && !_attacks && currentDeltaAttack > _deltaTimeAttack && !_reciveDamage)
+				if ((_distance <= _deltaDistanceAttack) && !_attacks && currentDeltaAttack > _deltaTimeAttack && !_reciveDamage)
         {
             _attacks = true;
             _anima.SetTrigger("Attack");

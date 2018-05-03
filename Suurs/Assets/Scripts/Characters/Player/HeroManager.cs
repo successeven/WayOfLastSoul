@@ -70,9 +70,10 @@ public class HeroManager : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Enemy")
-        {
-            if (!_DealDamage && _controller._attacks)
+				Debug.Log(collision.transform.root.name);
+        if (collision.tag == "Enemy" && _controller._attacks)
+				{
+            if (!_DealDamage)
             {
                 _DealDamage = true;
 
