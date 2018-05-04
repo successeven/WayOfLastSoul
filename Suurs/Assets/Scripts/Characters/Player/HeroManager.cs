@@ -70,16 +70,18 @@ public class HeroManager : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-				Debug.Log(collision.transform.root.name);
-        if (collision.tag == "Enemy" && _controller._attacks)
+        if (collision.tag == "Enemy" && _anima.GetFloat("Attack") != 0)
 				{
-            if (!_DealDamage)
+						if (!_DealDamage)
             {
                 _DealDamage = true;
 
                 GameObject enemy = collision.transform.root.gameObject;
                 EnemyManager enemyManager = enemy.GetComponent<EnemyManager>();
                 EnemyController enemyController = enemy.GetComponent<EnemyController>();
+
+								if (enemyManager._HP <= 0)
+										return;
 
                 enemyManager._HP -= _attack;
                 enemyController.TakeHit();
@@ -88,7 +90,7 @@ public class HeroManager : MonoBehaviour {
         }
     }
 
-    public void ResetEnemyDealAttack()
+    public void ResetHeroDealAttack()
     {
         _DealDamage = false;
     }
@@ -100,7 +102,8 @@ public class HeroManager : MonoBehaviour {
             "HP = " + _HP + "(" + _Health + ")\n" +
             "GlobalHP = " + _GlobalHP + "(" + _GlobalHealth + ")\n" +
             "Attack = " + _attack + "\n" +
-            "Agility = " + _Agility + "\n";
+            "Agility = " + _Agility + "\n" +
+						"ComboAttack = " + _controller._comboAttack + "\n";
         GUI.Box(new Rect(0, 0, 150, 100), boxText);
     }
 

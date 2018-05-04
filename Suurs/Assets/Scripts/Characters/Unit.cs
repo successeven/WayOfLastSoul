@@ -9,7 +9,7 @@ public class Unit : MonoBehaviour
 
     public virtual void Die()
     {
-				GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+				GetComponent<Rigidbody2D>().gravityScale = 1;
         Invoke("DestroyObject", 4f);
     }
 
