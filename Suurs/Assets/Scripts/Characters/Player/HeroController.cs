@@ -70,10 +70,14 @@ public class HeroController : Unit
         if (_manager._HP <= 0)
             return;
 
-        if (Time.fixedTime - _lastAttackTime > 1f)
+        if (Time.fixedTime - _lastAttackTime > 2f)
             _comboAttack = 1;
 
-        if (!_attacks && !_jumping && !_blocking)
+				if (_comboAttack > 2)
+						_comboAttack = 2;
+
+
+				if (!_attacks && !_jumping && !_blocking)
         {
             float h = CrossPlatformInputManager.GetAxis("Horizontal");
             Move(_rigidbody, _speed, ref _acingRight, h);
@@ -123,15 +127,17 @@ public class HeroController : Unit
     private void Attack(float inTypeAttack)
     {
         _attacks = true;
-        _anima.SetFloat("Speed", 0);
+        _anima.SetFloat("Speed", _comboAttack);
         _anima.SetFloat("Attack", inTypeAttack);
-    }
+				_lastAttackTime = Time.fixedTime;
+
+		}
 
     public void ResetAttack()
     {
         if (_attacks)
         {
-            _manager.ResetEnemyDealAttack();
+            _manager.ResetHeroDealAttack();
             _anima.SetFloat("Attack", 0);
             _attacks = false;
         }
