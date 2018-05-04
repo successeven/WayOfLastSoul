@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
+﻿
+#if UNITY_EDITOR
 using UnityEditor;
-using UnityEditorInternal;
+#endif
 using UnityEngine;
-
-
 
 public class EnumFlagAttribute : PropertyAttribute
 {
@@ -15,6 +11,7 @@ public class EnumFlagAttribute : PropertyAttribute
 
 }
 
+#if UNITY_EDITOR
 [CustomPropertyDrawer(typeof(EnumFlagAttribute))]
 public class EnumFlagAttributeDrawer : PropertyDrawer
 {
@@ -81,7 +78,8 @@ public class EnumFlagAttributeDrawer : PropertyDrawer
         }
     }
 }
- 
+#endif
+
 /*public class EnumFlagAttributeDrawer : PropertyDrawer
 {
     const float mininumWidth = 80.0f;

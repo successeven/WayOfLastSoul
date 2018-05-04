@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.CrossPlatformInput;
 
 [RequireComponent(typeof(HeroManager))]
 public class HeroController : Unit
@@ -34,6 +33,7 @@ public class HeroController : Unit
 
     HeroManager _manager;
 
+    GameObject _GlobalhealthTriger;
 
 
     private void Start()
@@ -42,8 +42,28 @@ public class HeroController : Unit
         _anima = GetComponent<Animator>();
         _manager = GetComponent<HeroManager>();
         _lastJumpTime = Time.fixedTime;
+        _GlobalhealthTriger = GameObject.FindGameObjectWithTag("GlobalHealth");
     }
 
+    private void Update()
+    {
+        if (CrossPlatformInputManager.GetButtonDown("GlobalHealth"))
+            HideGlobalHealth();
+
+        if (CrossPlatformInputManager.GetButtonUp("GlobalHealth"))
+           ShowGlobalHealth();
+
+    }
+
+    private void HideGlobalHealth()
+    {
+        _GlobalhealthTriger.SetActive(false);
+    }
+
+    private void ShowGlobalHealth()
+    {
+        _GlobalhealthTriger.SetActive(true);
+    }
 
     private void FixedUpdate()
     {
@@ -56,22 +76,21 @@ public class HeroController : Unit
         if (!_attacks && !_jumping && !_blocking)
         {
             float h = CrossPlatformInputManager.GetAxis("Horizontal");
-
             Move(_rigidbody, _speed, ref _acingRight, h);
             _anima.SetFloat("Speed", Mathf.Abs(h));
         }
 
-        if (CrossPlatformInputManager.GetButton("Fire1") && !_jumping)
+        if (CrossPlatformInputManager.GetButtonDown("Attack") && !_jumping)
             Attack(_comboAttack);
 
         int deltaJump = (int)Math.Truncate((Time.fixedTime - _lastJumpTime) * 1000);
         if (CrossPlatformInputManager.GetButtonDown("Jump") && !_attacks && (deltaJump > _manager._DeltaRoll))
             Jump();
 
-        if (CrossPlatformInputManager.GetButtonDown("Block") && !_blocking)
+        if (CrossPlatformInputManager.GetButtonDown("Block"))
             SetBlock();
 
-        if (CrossPlatformInputManager.GetButtonUp("Block") && _blocking)
+        if (CrossPlatformInputManager.GetButtonUp("Block"))
             UnSetBlock();
     }
 
