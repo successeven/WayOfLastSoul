@@ -18,7 +18,7 @@ public class Unit : MonoBehaviour
         Destroy(transform.root.gameObject);
     }
 
-    protected virtual void Move(Rigidbody2D inBody, float inSpeed, ref bool inRigthPosition, float inMoveDirection)
+    public virtual void Move(Rigidbody2D inBody, float inSpeed, ref bool inRigthPosition, float inMoveDirection)
     {
         inBody.velocity = new Vector2(inMoveDirection * inSpeed, inBody.velocity.y);
 

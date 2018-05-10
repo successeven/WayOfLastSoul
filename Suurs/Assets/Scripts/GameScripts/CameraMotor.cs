@@ -36,12 +36,8 @@ public class CameraMotor : MonoBehaviour
 
     void LateUpdate()
     {
-        if (_startPos == null && _finishPos == null)
-        {
-            _startPos = GameObject.FindGameObjectWithTag("Start");
-            _finishPos = GameObject.FindGameObjectWithTag("Finish");
+        if (_Player == null)
             _Player = GameObject.FindGameObjectWithTag("Player");
-        }
 
         if (_Player == null)
             return;

@@ -30,9 +30,9 @@ public class HeroController : Unit
     [NonSerialized]
     public bool _blocking = false;
     float _lastJumpTime = 0;
-
+    [NonSerialized]
+    public bool _interfaceBlocked = true;
     HeroManager _manager;
-
     GameObject _GlobalhealthTriger;
 
 
@@ -42,11 +42,13 @@ public class HeroController : Unit
         _anima = GetComponent<Animator>();
         _manager = GetComponent<HeroManager>();
         _lastJumpTime = Time.fixedTime;
-        _GlobalhealthTriger = GameObject.FindGameObjectWithTag("GlobalHealth");
     }
 
     private void Update()
     {
+        if (_GlobalhealthTriger == null)
+            _GlobalhealthTriger = GameObject.FindGameObjectWithTag("GlobalHealth");
+
         if (CrossPlatformInputManager.GetButtonDown("GlobalHealth"))
             HideGlobalHealth();
 
@@ -65,9 +67,18 @@ public class HeroController : Unit
         _GlobalhealthTriger.SetActive(true);
     }
 
+    public void Move( float Axis)
+    {
+        Move(_rigidbody, _speed, ref _acingRight, Axis);
+        _anima.SetFloat("Speed", Axis);
+    }
+
     private void FixedUpdate()
     {
         if (_manager._HP <= 0)
+            return;
+
+        if (_interfaceBlocked)
             return;
 
         if (Time.fixedTime - _lastAttackTime > 2f)
