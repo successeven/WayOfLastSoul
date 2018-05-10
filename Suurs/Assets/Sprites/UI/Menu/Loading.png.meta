@@ -1,16 +1,14 @@
 fileFormatVersion: 2
-guid: a35b779b631a02a45a2a9956bdaa55ad
-timeCreated: 1525945189
+guid: 62edad77c22ab1840827f0fa4f2edd31
+timeCreated: 1525960851
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Tree_1
-    21300002: Tree_2
-    21300004: Tree_3
-    21300006: Fruit_3
-    21300008: Fruit_2
-    21300010: Spikes
-    21300012: Fruit_1
+    21300000: Loading_top
+    21300002: Loading_flags
+    21300004: Loading_circle3
+    21300006: Loading_circle1
+    21300008: Loading_circle2
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -97,13 +95,27 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Tree_1
+      name: Loading_top
       rect:
         serializedVersion: 2
         x: 0
+        y: 1141
+        width: 2790
+        height: 2282
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Loading_flags
+      rect:
+        serializedVersion: 2
+        x: 75
         y: 0
-        width: 708
-        height: 907
+        width: 634
+        height: 793
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -111,13 +123,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Tree_2
+      name: Loading_circle3
       rect:
         serializedVersion: 2
-        x: 866
-        y: 449
-        width: 510
-        height: 587
+        x: 1101
+        y: 175
+        width: 772
+        height: 772
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -125,13 +137,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Tree_3
+      name: Loading_circle1
       rect:
         serializedVersion: 2
-        x: 1494
-        y: 1
-        width: 391
-        height: 701
+        x: 2138
+        y: 412
+        width: 193
+        height: 206
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -139,55 +151,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Fruit_3
+      name: Loading_circle2
       rect:
         serializedVersion: 2
-        x: 796
-        y: 190
-        width: 47
-        height: 84
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Fruit_2
-      rect:
-        serializedVersion: 2
-        x: 802
-        y: 94
-        width: 37
-        height: 57
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Spikes
-      rect:
-        serializedVersion: 2
-        x: 952
-        y: 1
-        width: 425
-        height: 163
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Fruit_1
-      rect:
-        serializedVersion: 2
-        x: 799
-        y: 16
-        width: 48
-        height: 49
+        x: 2524
+        y: 325
+        width: 379
+        height: 379
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
