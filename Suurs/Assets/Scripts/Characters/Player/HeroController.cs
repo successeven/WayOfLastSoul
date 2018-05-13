@@ -67,9 +67,9 @@ public class HeroController : Unit
         _GlobalhealthTriger.SetActive(true);
     }
 
-    public void Move( float Axis)
+    public void Move( float Axis, GameObject inTarget)
     {
-        Move(_rigidbody, _speed, ref _acingRight, Axis);
+        transform.position = Vector2.MoveTowards(transform.position, inTarget.transform.position, Axis * _speed * Time.deltaTime);
         _anima.SetFloat("Speed", Axis);
     }
 

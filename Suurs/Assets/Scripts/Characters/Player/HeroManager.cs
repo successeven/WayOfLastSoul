@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HeroManager : MonoBehaviour {
+public class HeroManager : MonoBehaviour
+{
 
 
     [Header("Уровень")]
@@ -32,7 +33,7 @@ public class HeroManager : MonoBehaviour {
     public float _SpeedAttack = 100f; //Скорость атаки
 
     [Header("Ловкость")]
-    public  float _Agility = 0; //Ловкость
+    public float _Agility = 0; //Ловкость
 
     [Header("Сила")]
     public float _Power = 0; //Сила
@@ -71,8 +72,8 @@ public class HeroManager : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Enemy" && _anima.GetFloat("Attack") != 0)
-				{
-						if (!_DealDamage)
+        {
+            if (!_DealDamage)
             {
                 _DealDamage = true;
 
@@ -80,8 +81,8 @@ public class HeroManager : MonoBehaviour {
                 EnemyManager enemyManager = enemy.GetComponent<EnemyManager>();
                 EnemyController enemyController = enemy.GetComponent<EnemyController>();
 
-								if (enemyManager._HP <= 0)
-										return;
+                if (enemyManager._HP <= 0)
+                    return;
 
                 enemyManager._HP -= _attack;
                 enemyController.TakeHit();
@@ -103,7 +104,7 @@ public class HeroManager : MonoBehaviour {
             "GlobalHP = " + _GlobalHP + "(" + _GlobalHealth + ")\n" +
             "Attack = " + _attack + "\n" +
             "Agility = " + _Agility + "\n" +
-						"ComboAttack = " + _controller._comboAttack + "\n";
+                        "ComboAttack = " + _controller._comboAttack + "\n";
         GUI.Box(new Rect(0, 0, 150, 100), boxText);
     }
 
