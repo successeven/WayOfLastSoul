@@ -4,49 +4,6 @@ using UnityEngine;
 using UnityEngine.U2D;
 using System;
 
-[Flags]
-public enum InclineLandType
-{
-    InclineStones = 1,
-    Stairs = 2,
-};
-
-[Flags]
-public enum LandType
-{
-    GrassLow = 1,
-    Grass = 2,
-    Stones = 4,
-    Tiles = 8
-};
-
-public enum GroundName
-{
-    Horizontal,
-    Incline,
-    Finish
-};
-
-[Flags]
-public enum Objects
-{
-    None = 0,
-    Shield = 1,
-    Pikes = 2,
-    Knifes = 4,
-    KnifesLow = 8,
-    KnifeHigh = 16,
-    ColumnBig = 32,
-    ColumnLow = 64,
-    ColumnHigh = 128,
-    ColumnMedium = 256,
-    Vase = 512,
-    Vase_2 = 1024,
-    Corpse_1 = 2048,
-    Corpse_2 = 4096,
-    Corpse_3 = 8192
-}
-
 public class PrefabsScripts : MonoBehaviour
 {
     [SerializeField]

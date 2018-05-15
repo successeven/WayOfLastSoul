@@ -3,6 +3,51 @@ using System.Collections;
 using System;
 using UnityEditor;
 using System.Collections.Generic;
+using UnityEngine.U2D;
+
+
+[Flags]
+public enum InclineLandType
+{
+    InclineStones = 1,
+    Stairs = 2,
+};
+
+[Flags]
+public enum LandType
+{
+    GrassLow = 1,
+    Grass = 2,
+    Stones = 4,
+    Tiles = 8
+};
+
+public enum GroundName
+{
+    Horizontal,
+    Incline,
+    Finish
+};
+
+[Flags]
+public enum Objects
+{
+    None = 0,
+    Shield = 1,
+    Pikes = 2,
+    Knifes = 4,
+    KnifesLow = 8,
+    KnifeHigh = 16,
+    ColumnBig = 32,
+    ColumnLow = 64,
+    ColumnHigh = 128,
+    ColumnMedium = 256,
+    Vase = 512,
+    Vase_2 = 1024,
+    Corpse_1 = 2048,
+    Corpse_2 = 4096,
+    Corpse_3 = 8192
+}
 
 public class GemerationLevel : MonoBehaviour
 {
@@ -46,15 +91,49 @@ public class GemerationLevel : MonoBehaviour
     InclineLandType _InclineLands;
     List<InclineLandType> _selectInclineLands;
 
-    PrefabsScripts _prefabsScripts;
     int[] _map;
 
     object[] _landsOnMap;
 
 
-    void Start()
+
+    [SerializeField]
+    SpriteAtlas _LandsAtlas;
+
+    [SerializeField]
+    SpriteAtlas _ObjectsAtlas;
+
+    [SerializeField]
+    GameObject _DrawObject;
+
+    [Space(10)]
+
+    [SerializeField]
+    List<GameObject> _Grounds;
+
+    [SerializeField]
+    List<GameObject> _Enemys;
+
+
+    Dictionary<string, GameObject> _GroundsbyName;
+
+    public GameObject GetGroundbyName(GroundName a_Name)
     {
-        _prefabsScripts = GameObject.FindGameObjectWithTag("ScriptManager").GetComponent<PrefabsScripts>();
+        string name = a_Name.ToString();
+        if (!_GroundsbyName.ContainsKey(name))
+        {
+            Debug.LogError(string.Format("ERROR! Ground \"{0}\" not found!", name));
+            return null;
+        }
+        else
+            return _GroundsbyName[name];
+    }
+
+    private void Awake()
+    {
+        _GroundsbyName = new Dictionary<string, GameObject>();
+        foreach (var item in _Grounds)
+            _GroundsbyName.Add(item.name, item);
 
         if (_Lengthmap < 5)
             _Lengthmap = 5;
@@ -106,15 +185,6 @@ public class GemerationLevel : MonoBehaviour
         _map[_Lengthmap - 2] = 0; // Последняя локация обязательно горизонтальная. 
         _map[_Lengthmap - 1] = 0; // Последняя локация обязательно горизонтальная. 
     }
-
-
-    Boolean IsEnumFlagPresent<T>(T value, T lookingForFlag) where T : struct
-    {
-        int intValue = (int)(object)value;
-        int intLookingForFlag = (int)(object)lookingForFlag;
-        return ((intValue & intLookingForFlag) == intLookingForFlag);
-    }
-
 
     void GenerationLands()
     {
@@ -252,11 +322,11 @@ public class GemerationLevel : MonoBehaviour
             {
                 case 1:
                 case -1:
-                    ground = _prefabsScripts.GetGroundbyName(GroundName.Incline);
+                    ground = GetGroundbyName(GroundName.Incline);
                     IncertPrefab(ground, _map[i]);
                     break;
                 case 0:
-                    ground = _prefabsScripts.GetGroundbyName(GroundName.Horizontal);
+                    ground = GetGroundbyName(GroundName.Horizontal);
                     IncertPrefab(ground, _map[i]);
                     DrawObjects();
                     if (i >= 7)
@@ -265,7 +335,7 @@ public class GemerationLevel : MonoBehaviour
             }
             DrawLand(i, ref drawingGrass);
         }
-        ground = _prefabsScripts.GetGroundbyName(GroundName.Finish);
+        ground = GetGroundbyName(GroundName.Finish);
         IncertPrefab(ground, 0);
     }
 
@@ -279,7 +349,7 @@ public class GemerationLevel : MonoBehaviour
             GameObject currentPosPuzzle = _СurrentObject.transform.Find("ConnectionPuzzle").gameObject;
             UnityEngine.Random.InitState(Guid.NewGuid().GetHashCode());
 
-            GameObject enemy = _prefabsScripts.Enemys[UnityEngine.Random.Range(0, _prefabsScripts.Enemys.Count )];
+            GameObject enemy = _Enemys[UnityEngine.Random.Range(0, _Enemys.Count )];
             int countEnemy = UnityEngine.Random.Range(1, _countEnemyByPoint + 1);
             int deltaX = 0;
             for (int i = 0; i < countEnemy; i++)
@@ -313,7 +383,7 @@ public class GemerationLevel : MonoBehaviour
         for (int i = 0; i < countObjects; i++)
         {
             Objects drawObject = _selectObjects[UnityEngine.Random.Range(0, _selectObjects.Count)];
-            Sprite sprite = _prefabsScripts.Objects.GetSprite(drawObject.ToString());
+            Sprite sprite = _ObjectsAtlas.GetSprite(drawObject.ToString());
             if (sprite != null)
             {
                 Vector3 position = new Vector3(
@@ -321,8 +391,8 @@ public class GemerationLevel : MonoBehaviour
                 _СurrentObject.transform.position.y,
                 _СurrentObject.transform.position.z);
 
-                GameObject drawingObject = Instantiate(_prefabsScripts.DrawObject, position, Quaternion.identity, _СurrentObject.transform);
-                drawingObject.GetComponent<SpriteRenderer>().sprite = _prefabsScripts.Objects.GetSprite(drawObject.ToString());
+                GameObject drawingObject = Instantiate(_DrawObject, position, Quaternion.identity, _СurrentObject.transform);
+                drawingObject.GetComponent<SpriteRenderer>().sprite = _ObjectsAtlas.GetSprite(drawObject.ToString());
 
                 if (drawObject.ToString().Contains("Column"))
                 {
@@ -350,7 +420,7 @@ public class GemerationLevel : MonoBehaviour
         else
             landName = ((InclineLandType)_landsOnMap[inIndex]).ToString();
 
-        land = _prefabsScripts.Lands.GetSprite(landName);
+        land = _LandsAtlas.GetSprite(landName);
         GameObject landComponent = _СurrentObject.transform.Find("Land").gameObject;
         landComponent.GetComponent<SpriteRenderer>().sprite = land;
         if (landName == LandType.GrassLow.ToString())

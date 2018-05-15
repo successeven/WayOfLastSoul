@@ -7,9 +7,9 @@ using UnityStandardAssets.CrossPlatformInput;
 public class StartScenes : MonoBehaviour {
 
     public GameObject _UIController;
-    public GameObject _StartPos;
-    public GameObject _FinishPos;
     public GameObject _StartImage;
+    GameObject _StartPos;
+    GameObject _FinishPos;
     HeroController _heroController;
     GameObject _Player;
     Image _imageSprite;
@@ -24,6 +24,8 @@ public class StartScenes : MonoBehaviour {
         _heroController = _Player.GetComponent<HeroController>();
         _imageSprite = _StartImage.GetComponent<Image>();
         _UIanimator = _UIController.GetComponent<Animator>();
+        _StartPos = GameObject.FindGameObjectWithTag("Start");
+        _FinishPos = GameObject.FindGameObjectWithTag("Finish");
         _startDistance = (int)Mathf.Abs((_Player.transform.position.x - _StartPos.transform.position.x));
     }
     
@@ -37,8 +39,8 @@ public class StartScenes : MonoBehaviour {
             {
                 _isLoaded = true;
                 //_UIController.SetActive(true)
-                _UIanimator.SetBool("Show", true);
                 _heroController._interfaceBlocked = false;
+                _UIanimator.enabled = true;
             }
             else
                 _heroController.Move(distance > 3 ? 0.9f : distance > 2 ? 0.8f : distance > 1 ? 0.7f : 0.4f, _StartPos);

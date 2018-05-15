@@ -5,7 +5,7 @@ using UnityStandardAssets.CrossPlatformInput;
 [RequireComponent(typeof(HeroManager))]
 public class HeroController : Unit
 {
-    
+
     [SerializeField]
     float _rollLength = 20F;
 
@@ -42,18 +42,18 @@ public class HeroController : Unit
         _anima = GetComponent<Animator>();
         _manager = GetComponent<HeroManager>();
         _lastJumpTime = Time.fixedTime;
+        if (_GlobalhealthTriger == null)
+            _GlobalhealthTriger = GameObject.FindGameObjectWithTag("GlobalHealth");
     }
 
     private void Update()
     {
-        if (_GlobalhealthTriger == null)
-            _GlobalhealthTriger = GameObject.FindGameObjectWithTag("GlobalHealth");
 
         if (CrossPlatformInputManager.GetButtonDown("GlobalHealth"))
             HideGlobalHealth();
 
         if (CrossPlatformInputManager.GetButtonUp("GlobalHealth"))
-           ShowGlobalHealth();
+            ShowGlobalHealth();
 
     }
 
@@ -67,7 +67,7 @@ public class HeroController : Unit
         _GlobalhealthTriger.SetActive(true);
     }
 
-    public void Move( float Axis, GameObject inTarget)
+    public void Move(float Axis, GameObject inTarget)
     {
         transform.position = Vector2.MoveTowards(transform.position, inTarget.transform.position, Axis * _speed * Time.deltaTime);
         _anima.SetFloat("Speed", Axis);
@@ -84,17 +84,17 @@ public class HeroController : Unit
         if (Time.fixedTime - _lastAttackTime > 2f)
             _comboAttack = 1;
 
-				if (_comboAttack > 2)
-						_comboAttack = 2;
+        if (_comboAttack > 2)
+            _comboAttack = 2;
 
-
-				if (!_attacks && !_jumping && !_blocking)
+        if (!_attacks && !_jumping && !_blocking)
         {
             float h = CrossPlatformInputManager.GetAxis("Horizontal");
             Move(_rigidbody, _speed, ref _acingRight, h);
             _anima.SetFloat("Speed", Mathf.Abs(h));
         }
-
+        if (CrossPlatformInputManager.GetButtonDown("Attack"))
+            Debug.Log("Attack");
         if (CrossPlatformInputManager.GetButtonDown("Attack") && !_jumping)
             Attack(_comboAttack);
 
@@ -140,9 +140,9 @@ public class HeroController : Unit
         _attacks = true;
         _anima.SetFloat("Speed", _comboAttack);
         _anima.SetFloat("Attack", inTypeAttack);
-				_lastAttackTime = Time.fixedTime;
+        _lastAttackTime = Time.fixedTime;
 
-		}
+    }
 
     public void ResetAttack()
     {

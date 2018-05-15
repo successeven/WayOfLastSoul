@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class HeroManager : MonoBehaviour
 {
-
-
     [Header("Уровень")]
     public int _Level = 1; //уровень
 
@@ -155,6 +153,10 @@ public class HeroManager : MonoBehaviour
         /*
         if ((_Agility != 0) && (_Agility % 100 == 0))
             _SpeedAttack += _SpeedAttack * 0.02f;*/
+    }
 
+    void Load()
+    {
+        //PlayerPrefs.
     }
 }
