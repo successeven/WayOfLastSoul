@@ -38,7 +38,6 @@ public class LoadingController : MonoBehaviour {
 
         while (!operation.isDone)
         {
-            Debug.Log(operation.progress);
             if (operation.progress == 0.9f)
             {
                 if (!_finishLoad)

@@ -33,7 +33,7 @@ public class HeroController : Unit
     [NonSerialized]
     public bool _interfaceBlocked = true;
     HeroManager _manager;
-    GameObject _GlobalhealthTriger;
+		GlobalHealthController _GlobalHealthController;
 
 
     private void Start()
@@ -42,30 +42,9 @@ public class HeroController : Unit
         _anima = GetComponent<Animator>();
         _manager = GetComponent<HeroManager>();
         _lastJumpTime = Time.fixedTime;
-        if (_GlobalhealthTriger == null)
-            _GlobalhealthTriger = GameObject.FindGameObjectWithTag("GlobalHealth");
+				_GlobalHealthController = GameObject.FindGameObjectWithTag("GlobalHealth").GetComponent<GlobalHealthController>();
     }
 
-    private void Update()
-    {
-
-        if (CrossPlatformInputManager.GetButtonDown("GlobalHealth"))
-            HideGlobalHealth();
-
-        if (CrossPlatformInputManager.GetButtonUp("GlobalHealth"))
-            ShowGlobalHealth();
-
-    }
-
-    private void HideGlobalHealth()
-    {
-        _GlobalhealthTriger.SetActive(false);
-    }
-
-    private void ShowGlobalHealth()
-    {
-        _GlobalhealthTriger.SetActive(true);
-    }
 
     public void Move(float Axis, GameObject inTarget)
     {
@@ -93,8 +72,7 @@ public class HeroController : Unit
             Move(_rigidbody, _speed, ref _acingRight, h);
             _anima.SetFloat("Speed", Mathf.Abs(h));
         }
-        if (CrossPlatformInputManager.GetButtonDown("Attack"))
-            Debug.Log("Attack");
+
         if (CrossPlatformInputManager.GetButtonDown("Attack") && !_jumping)
             Attack(_comboAttack);
 

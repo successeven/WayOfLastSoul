@@ -54,7 +54,13 @@ public class EnemyController : Unit
 
     void Update()
     {
-        if (_playerManager._HP <= 0)
+				if (Vector3.Distance(_player.transform.position, transform.position) > 50)
+						_anima.enabled = false;
+				else
+						_anima.enabled = true;
+
+
+				if (_playerManager._HP <= 0)
         {
             _anima.SetBool("Move", false);
             return;

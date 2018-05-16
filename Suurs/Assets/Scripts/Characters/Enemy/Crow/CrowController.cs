@@ -93,7 +93,6 @@ public class CrowController : EnemyController
                             Flip(ref actionRight);
                         else if (_moveSide < 0 && transform.position.x - _player.transform.position.x < 0)
                             Flip(ref actionRight);
-                        Debug.Log("Set fly");
                         _anima.SetTrigger("Fly");
                         _startAttackPosition = transform.position;
                         _startAttackPosition.x -= 10 * transform.localScale.x;
@@ -132,7 +131,6 @@ public class CrowController : EnemyController
                 break;
             case StateCrow.TakeOff:
 								_attacks = false;
-								//_anima.SetBool("Attack", _attacks);
 								if (_animTakeOff)
 								{
 										_anima.SetTrigger("TakeOff");

@@ -44,7 +44,6 @@ public class EnemyManager : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(collision.transform.root.name);
 				if (collision.tag == "Player" && _controller._attacks)
         {
             if (!_DealDamage)
