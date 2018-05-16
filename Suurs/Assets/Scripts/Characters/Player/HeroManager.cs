@@ -1,48 +1,46 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
+using System;
+using System.IO;
 using UnityEngine;
+
+[Serializable]
+public class Hero
+{
+    public int _Level; //уровень
+    public int _Health; //Максимальная жизнь
+    public int _HP; //Текущая жизнь
+    public int _GlobalHealth; //Максимальная глобальная жизнь
+    public int _GlobalHP; //Текущая глобальная жизнь
+    public int _attack; //атака
+    public float _Shield; //Щит   
+    public float _Protaction; //Защита 
+    public float _SpeedAttack; //Скорость атаки
+    public float _Agility; //Ловкость
+    public float _Power; //Сила
+    public float _Vitality; //Жизнеспособность
+    public int _DeltaRoll; //Интервал кувырков (в милисекундах) 
+}
 
 public class HeroManager : MonoBehaviour
 {
-    [Header("Уровень")]
+    
     public int _Level = 1; //уровень
-
-    [Header("Максимальная жизнь")]
     public int _Health = 100; //Максимальная жизнь
-    [Header("Текущая жизнь")]
     public int _HP = 100; //Текущая жизнь
-
-    [Header("Максимальная глобальная жизнь")]
     public int _GlobalHealth = 100; //Максимальная глобальная жизнь
-
-    [Header("Текущая глобальная жизнь")]
     public int _GlobalHP = 100; //Текущая глобальная жизнь
-
-    [Header("Атака")]
     public int _attack = 25; //атака
-
-    [Header("Щит")]
     public float _Shield = 50f; //Щит   
-
-    [Header("Защита")]
-    public float _Protaction = 0f; //Защита    
-
-    [Header("Скорость атаки")]
+    public float _Protaction = 0f; //Защита 
     public float _SpeedAttack = 100f; //Скорость атаки
-
-    [Header("Ловкость")]
     public float _Agility = 0; //Ловкость
-
-    [Header("Сила")]
     public float _Power = 0; //Сила
-
-
-    [Header("Жизнеспособность")]
     public float _Vitality = 0; //Жизнеспособность
-
-
-    [Header("Интервал кувырков (в милисекундах) ")]
     public int _DeltaRoll = 2000; //Интервал кувырков (в милисекундах) 
+
+
+    public Hero heroStat;
+    string path;
 
     Animator _anima;
     HeroController _controller;
@@ -54,6 +52,15 @@ public class HeroManager : MonoBehaviour
     {
         _anima = GetComponent<Animator>();
         _controller = GetComponent<HeroController>();
+        /*
+#if UNITY_ANDROID && !UNITY_EDITOR
+        path = Path.Combine(Application.persistentDataPath, "Hero.json");
+#else
+        path = Path.Combine(Application.dataPath, "Hero.json");
+#endif
+        if (File.Exists(path))
+            heroStat = JsonUtility.FromJson<Hero>(File.ReadAllText(path));
+            */
     }
 
     private void Update()
