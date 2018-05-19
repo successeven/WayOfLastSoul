@@ -89,8 +89,14 @@ public class HeroController : Unit
 						_anima.SetFloat("Speed", Mathf.Abs(h));
 				}
 
-				if (CrossPlatformInputManager.GetButtonDown("Attack") && !_jumping)
-						Attack(_comboAttack);
+				if (CrossPlatformInputManager.GetButtonDown("Attack"))
+				{
+						Debug.Log(_jumping);
+						if (!_jumping)
+								Attack(_comboAttack);
+						else
+								Attack(3);
+				}
 
 				int deltaJump = (int)Math.Truncate((Time.fixedTime - _lastJumpTime) * 1000);
 				if (CrossPlatformInputManager.GetButtonDown("Jump") && !_attacks && (deltaJump > _manager._DeltaRoll))
