@@ -39,12 +39,16 @@ public class HeroController : Unit
 		bool _isRecoil = false;
 
 		bool _doubleBlock = false;
+		float _lastDoubleBlockClickTime = 0;
 		float _lastBlockClickTime = 0;
 		bool _holdBlock = false;
 		[NonSerialized]
 		public bool _interfaceBlocked = true;
 		HeroManager _manager;
 		GlobalHealthController _GlobalHealthController;
+
+		Vector3 _offset;
+		bool moveRecoil = false;
 
 
 		private void Start()
@@ -59,23 +63,8 @@ public class HeroController : Unit
 
 		public void Move(float Axis, GameObject inTarget)
 		{
-				transform.position = Vector2.MoveTowards(transform.position, inTarget.transform.position, Axis * _speed * Time.deltaTime);
+				transform.position = Vector2.MoveTowards(transform.position, inTarget.transform.position, Axis * _speed * Time.fixedDeltaTime);
 				_anima.SetFloat("Speed", Axis);
-		}
-
-		private void Update()
-		{
-				float timeDelta = Time.time - _lastBlockClickTime;
-				if (CrossPlatformInputManager.GetButtonDown("Block"))
-				{
-						_holdBlock = true;
-						_lastBlockClickTime = Time.time;
-						if (timeDelta < _catchTime)
-						{
-								_doubleBlock = true;
-								_holdBlock = false;
-						}
-				}
 		}
 
 
@@ -107,15 +96,45 @@ public class HeroController : Unit
 				if (CrossPlatformInputManager.GetButtonDown("Jump") && !_attacks && (deltaJump > _manager._DeltaRoll))
 						Jump();
 
-				if (_doubleBlock)
+
+				CheckBlock();
+				if (_doubleBlock && !moveRecoil)
 				{
+						moveRecoil = true;
+						_blocking = false;
 						_anima.SetTrigger("Recoil");
-						Debug.Log(_recoilLength * -transform.localScale.x);
-						_rigidbody.velocity = new Vector2(_recoilLength * transform.localScale.x, 1);
+						_offset = new Vector3(transform.position.x - _recoilLength * transform.localScale.x, transform.position.y, transform.position.z);
+						//_rigidbody.velocity = new Vector2(_recoilLength * transform.localScale.x, 1);
 						_doubleBlock = false;
+						_lastDoubleBlockClickTime = Time.fixedTime;
 				}
 
+				if (moveRecoil)
+				{
+						transform.position = Vector3.Lerp(transform.position, _offset, _recoilLength * Time.fixedDeltaTime);
+						if (Math.Round(transform.position.x, 1) == Math.Round(_offset.x, 1) || Time.fixedTime - _lastDoubleBlockClickTime > .4f) 
+						{
+								Debug.Log("все ок");
+								moveRecoil = false;
+						}
+				}
+
+		}
+
+		private void CheckBlock()
+		{
 				float timeDelta = Time.time - _lastBlockClickTime;
+				if (CrossPlatformInputManager.GetButtonDown("Block"))
+				{
+						_holdBlock = true;
+						_lastBlockClickTime = Time.time;
+						if (timeDelta < _catchTime)
+						{
+								_doubleBlock = true;
+								_holdBlock = false;
+						}
+				}
+
 				if (_holdBlock && timeDelta >= _catchTime)
 						SetBlock();
 

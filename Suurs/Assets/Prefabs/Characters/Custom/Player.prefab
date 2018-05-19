@@ -1767,6 +1767,20 @@ MonoBehaviour:
   _Power: 0
   _Vitality: 0
   _DeltaRoll: 2000
+  heroStat:
+    _Level: 0
+    _Health: 0
+    _HP: 0
+    _GlobalHealth: 0
+    _GlobalHP: 0
+    _attack: 0
+    _Shield: 0
+    _Protaction: 0
+    _SpeedAttack: 0
+    _Agility: 0
+    _Power: 0
+    _Vitality: 0
+    _DeltaRoll: 0
 --- !u!114 &114390159010751102
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2354,8 +2368,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a9ebd794981f094f8d6377344b33ce3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 16
+  _speed: 0
   _rollLength: 20
+  _recoilLength: 5
 --- !u!114 &114985495693889742
 MonoBehaviour:
   m_ObjectHideFlags: 1
