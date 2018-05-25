@@ -31,7 +31,7 @@ public class StartScenes : MonoBehaviour {
     
 
     // Update is called once per frame
-    void FixedUpdate () {
+    void Update () {
         if (!_isLoaded)
         {
             float distance = (int)Mathf.Abs((_Player.transform.position.x - _StartPos.transform.position.x));

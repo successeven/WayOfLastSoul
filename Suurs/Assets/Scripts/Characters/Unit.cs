@@ -7,6 +7,7 @@ public class Unit : MonoBehaviour
     protected float _speed;
 
 
+
     public virtual void Die()
     {
 				GetComponent<Rigidbody2D>().gravityScale = 1;
@@ -21,8 +22,8 @@ public class Unit : MonoBehaviour
     public virtual void Move(Rigidbody2D inBody, float inSpeed, ref bool inRigthPosition, float inMoveDirection)
     {
         inBody.velocity = new Vector2(inMoveDirection * inSpeed, inBody.velocity.y);
-
-        if (inMoveDirection > 0 && !inRigthPosition)
+								
+				if (inMoveDirection > 0 && !inRigthPosition)
             Flip(ref inRigthPosition);
         else if (inMoveDirection < 0 && inRigthPosition)
             Flip(ref inRigthPosition);

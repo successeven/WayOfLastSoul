@@ -13,6 +13,7 @@ public class HeroController : Unit
 		float _recoilLength = 5f;
 
 		Rigidbody2D _rigidbody;
+		float _currentSpeed = 0;
 
 		[NonSerialized]
 		public Animator _anima;
@@ -45,7 +46,6 @@ public class HeroController : Unit
 		[NonSerialized]
 		public bool _interfaceBlocked = true;
 		HeroManager _manager;
-		GlobalHealthController _GlobalHealthController;
 
 		Vector3 _offset;
 		bool moveRecoil = false;
@@ -57,7 +57,6 @@ public class HeroController : Unit
 				_anima = GetComponent<Animator>();
 				_manager = GetComponent<HeroManager>();
 				_lastJumpTime = Time.fixedTime;
-				_GlobalHealthController = GameObject.FindGameObjectWithTag("GlobalHealth").GetComponent<GlobalHealthController>();
 		}
 
 
@@ -67,9 +66,9 @@ public class HeroController : Unit
 				_anima.SetFloat("Speed", Axis);
 		}
 
-
-		private void FixedUpdate()
+		void FixedUpdate()
 		{
+
 				if (_manager._HP <= 0)
 						return;
 
@@ -84,19 +83,34 @@ public class HeroController : Unit
 
 				if (!_attacks && !_jumping && !_blocking)
 				{
-						float h = CrossPlatformInputManager.GetAxis("Horizontal");
-						Move(_rigidbody, _speed, ref _acingRight, h);
-						_anima.SetFloat("Speed", Mathf.Abs(h));
+						_currentSpeed = CrossPlatformInputManager.GetAxis("Horizontal");
+						Move(_rigidbody, _speed, ref _acingRight, _currentSpeed);
 				}
+		}
+
+		void Update()
+		{
 
 				if (CrossPlatformInputManager.GetButtonDown("Attack"))
 				{
-						Debug.Log(_jumping);
-						if (!_jumping)
-								Attack(_comboAttack);
-						else
-								Attack(3);
+						_attacks = true;
 				}
+
+
+		}
+
+		private void LateUpdate()
+		{
+				if (_manager._HP <= 0)
+						return;
+
+				if (_interfaceBlocked)
+						return;
+
+				_anima.SetFloat("Speed", Mathf.Abs(_currentSpeed));
+
+				if (_attacks)
+						Attack(_jumping ? _comboAttack : 3);
 
 				int deltaJump = (int)Math.Truncate((Time.fixedTime - _lastJumpTime) * 1000);
 				if (CrossPlatformInputManager.GetButtonDown("Jump") && !_attacks && (deltaJump > _manager._DeltaRoll))
@@ -120,7 +134,6 @@ public class HeroController : Unit
 						transform.position = Vector3.Lerp(transform.position, _offset, _recoilLength * Time.fixedDeltaTime);
 						if (Math.Round(transform.position.x, 1) == Math.Round(_offset.x, 1) || Time.fixedTime - _lastDoubleBlockClickTime > .4f) 
 						{
-								Debug.Log("все ок");
 								moveRecoil = false;
 						}
 				}
@@ -133,7 +146,7 @@ public class HeroController : Unit
 				if (CrossPlatformInputManager.GetButtonDown("Block"))
 				{
 						_holdBlock = true;
-						_lastBlockClickTime = Time.time;
+						_lastBlockClickTime = Time.fixedTime;
 						if (timeDelta < _catchTime)
 						{
 								_doubleBlock = true;
@@ -189,22 +202,21 @@ public class HeroController : Unit
 
 		private void Attack(float inTypeAttack)
 		{
-				_attacks = true;
 				_anima.SetFloat("Speed", 0);
 				_anima.SetFloat("Attack", inTypeAttack);
 				_lastAttackTime = Time.fixedTime;
 
 		}
 
-		public void ResetAttack()
-		{
-				if (_attacks)
-				{
-						_manager.ResetHeroDealAttack();
-						_anima.SetFloat("Attack", 0);
-						_attacks = false;
-				}
-		}
+		//public void ResetAttack()
+		//{
+		//		if (_attacks)
+		//		{
+		//				_manager.ResetHeroDealAttack();
+		//				_anima.SetFloat("Attack", 0);
+		//				_attacks = false;
+		//		}
+		//}
 
 		public void ResetJumping()
 		{
