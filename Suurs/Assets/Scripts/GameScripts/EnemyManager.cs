@@ -50,7 +50,7 @@ public class EnemyManager : MonoBehaviour
             {
                 _DealDamage = true;
 
-                if (_heroController._jumping)
+                if (_heroController._rolling)
                     return;
                 else if (_heroController._blocking)
                     _heroManager._HP -= (int)Math.Truncate(_attack * (_heroManager._Shield / 100));

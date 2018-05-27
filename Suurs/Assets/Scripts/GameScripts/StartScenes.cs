@@ -38,12 +38,11 @@ public class StartScenes : MonoBehaviour {
             if (distance == 0)
             {
                 _isLoaded = true;
-                //_UIController.SetActive(true)
                 _heroController._interfaceBlocked = false;
                 _UIanimator.enabled = true;
             }
             else
-                _heroController.Move(distance > 3 ? 0.9f : distance > 2 ? 0.8f : distance > 1 ? 0.7f : 0.4f, _StartPos);
+                _heroController.Move(distance > 5 ? 0.9f: distance > 3 ? 0.7f : distance > 1 ? 0.3f : 0.11f);
 
             float percent = (_startDistance - distance) / _startDistance * 100f;
             int alpha = (int)Mathf.Round((255 * (percent * 0.01f)));
@@ -62,7 +61,7 @@ public class StartScenes : MonoBehaviour {
             if (distance == 0)
                 transform.root.gameObject.SetActive(false);
 
-            _heroController.Move(distance > 3 ? 0.9f : distance > 2 ? 0.8f : distance > 1 ? 0.7f : 0.4f, _FinishPos);
+            _heroController.Move(1);
 
 
             _UIanimator.SetBool("Show", false);

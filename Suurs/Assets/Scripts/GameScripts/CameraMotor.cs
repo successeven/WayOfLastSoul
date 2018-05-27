@@ -1,39 +1,38 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraMotor : MonoBehaviour
 {
-		[Header("Cкорость развора камеры")]
-		[SerializeField]
-		float deltaCameraSpeed = 13f;
+    [Header("Cкорость развора камеры")]
+    [SerializeField]
+    float deltaCameraSpeed = 13f;
 
-		Vector3 _offset;
 
-		[Space(10)]
-		[SerializeField]
-		public float _X = 10;
+	[Space(10)]
+	[Header("Смещение камеры")]
+	public Vector3 _offset;
 
-		[SerializeField]
-		public float _Y = 1;
+    GameObject _Player;
+    float _MoveRightSide = 1; //1- вправо ; -1 влево
 
-		GameObject _Player;
-		float _MoveRightSide = 1; //1- вправо ; -1 влево
+    void Start()
+    {
+        _Player = GameObject.FindGameObjectWithTag("Player");
+    }
 
-		void Start()
-		{
-				_Player = GameObject.FindGameObjectWithTag("Player");
-		}
 
-		void LateUpdate()
-		{
-				if (_MoveRightSide != _Player.transform.localScale.x)
-				{
-						_X *= -1;
-						_MoveRightSide = _Player.transform.localScale.x;
-				}
+	void FixedUpdate()
+    {
+        if (_MoveRightSide != _Player.transform.localScale.x)
+        {
+			_offset.x *= -1;
+            _MoveRightSide = _Player.transform.localScale.x;
+        }
+		Vector3 desiredPosition = _Player.transform.position + _offset;
+		transform.position = Vector3.Lerp(transform.position, desiredPosition, deltaCameraSpeed);
 
-				_offset = new Vector3(_Player.transform.position.x + _X, _Player.transform.position.y + _Y, -20);
-				transform.position = Vector3.MoveTowards(transform.position, _offset, deltaCameraSpeed * Time.deltaTime);
-		}
+		//transform.LookAt(_Player.transform);
+    }
 }
