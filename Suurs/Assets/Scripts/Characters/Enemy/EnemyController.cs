@@ -60,7 +60,7 @@ public class EnemyController : Unit
 			_anima.enabled = true;
 
 
-		if (_playerManager._HP <= 0)
+		if (_playerManager._Health <= 0)
 		{
 			_anima.SetBool("Move", false);
 			return;
@@ -69,7 +69,7 @@ public class EnemyController : Unit
 
 	protected virtual void FixedUpdate()
 	{
-		if (_enemyManager._HP <= 0 || _playerManager._HP <= 0)
+		if (_enemyManager._HP <= 0 || _playerManager._Health <= 0)
 			return;
 
 		DoMotion();

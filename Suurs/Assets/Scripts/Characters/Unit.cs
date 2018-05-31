@@ -5,20 +5,7 @@ public class Unit : MonoBehaviour
 {
     [SerializeField]
     protected float _speed;
-
-
-
-    public virtual void Die()
-    {
-        GetComponent<Rigidbody2D>().gravityScale = 1;
-        Invoke("DestroyObject", 4f);
-    }
-
-    protected virtual void DestroyObject()
-    {
-        Destroy(transform.root.gameObject);
-    }
-
+		
     public virtual void Move(Rigidbody2D inBody, float inSpeed, ref bool inRigthPosition, float inMoveDirection)
     {
         inBody.velocity = new Vector2(inMoveDirection * inSpeed, inBody.velocity.y);

@@ -16,6 +16,6 @@ public class HealthController : MonoBehaviour
 
 	void Update()
 	{
-		_statImage.fillAmount = 1f - (_heroManager._Health - _heroManager._HP) / (float)_heroManager._Health;
+		_statImage.fillAmount = 1f - (_heroManager._MaxHealth - _heroManager._Health) / (float)_heroManager._MaxHealth;
 	}
 }

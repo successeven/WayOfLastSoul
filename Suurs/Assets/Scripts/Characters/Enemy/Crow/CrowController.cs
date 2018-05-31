@@ -43,7 +43,7 @@ public class CrowController : EnemyController
 
 		protected override void DoMotion()
     {
-        if (_playerManager._HP <= 0 && stateCrow != StateCrow.Idle)
+        if (_playerManager._Health <= 0 && stateCrow != StateCrow.Idle)
             stateCrow = StateCrow.TakeOff;
 
 				switch (stateCrow)

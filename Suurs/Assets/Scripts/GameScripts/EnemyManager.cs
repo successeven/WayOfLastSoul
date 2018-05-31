@@ -6,9 +6,9 @@ public class EnemyManager : MonoBehaviour
 {
 
     protected HeroManager _heroManager;
-    protected HeroController _heroController;
-    public int _attack;
-    public int _HP;
+    protected HeroMotor _heroMotor;
+    public float _attack;
+    public float _HP;
 
     bool _DealDamage = false;
 
@@ -19,12 +19,12 @@ public class EnemyManager : MonoBehaviour
 
     private void Start()
     {
-        _heroController = GameObject.FindGameObjectWithTag("Player").GetComponent<HeroController>();
+        _heroMotor = GameObject.FindGameObjectWithTag("Player").GetComponent<HeroMotor>();
         _heroManager = GameObject.FindGameObjectWithTag("Player").GetComponent<HeroManager>();
         _anima = GetComponent<Animator>();
 				_controller = GetComponent<EnemyController>();
 
-				SetStartSkills();
+		//		SetStartSkills();
     }
 
     private void Update()
@@ -33,7 +33,7 @@ public class EnemyManager : MonoBehaviour
         {
             _death = true;
             _anima.SetTrigger("Death");
-            GetComponent<Unit>().Die();
+      //      GetComponent<Unit>().Die();
         }
     }
 
@@ -49,19 +49,7 @@ public class EnemyManager : MonoBehaviour
             if (!_DealDamage)
             {
                 _DealDamage = true;
-
-                if (_heroController._rolling)
-                    return;
-                else if (_heroController._blocking)
-                    _heroManager._HP -= (int)Math.Truncate(_attack * (_heroManager._Shield / 100));
-                else
-                    _heroManager._HP -= _attack;
-
-                if (_heroController._blocking)
-                    _heroController._anima.SetTrigger("TakeHitWhenBlocking");
-                else
-                    _heroController._anima.SetTrigger("TakeHit");
-
+								Hero.instance.TakeDamage(_attack);
             }
         }
     }
