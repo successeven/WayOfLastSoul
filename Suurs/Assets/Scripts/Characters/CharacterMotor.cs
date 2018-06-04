@@ -13,7 +13,7 @@ public class CharacterMotor : MonoBehaviour
 		public Animator _anima;
 
 
-		bool _acingRight = true;
+		protected bool _acingRight = true;
 
 		// Use this for initialization
 		void Start()

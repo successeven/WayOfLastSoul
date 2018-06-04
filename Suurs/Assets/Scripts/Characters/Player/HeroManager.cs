@@ -27,7 +27,7 @@ public class HeroManager : MonoBehaviour
 		public int _DeltaRoll = 2000; ///Интервал кувырков (в милисекундах) 
 
 
-		public Hero heroStat;
+		//public Hero heroStat;
 		string path;
 
 		Animator _anima;

@@ -6,28 +6,14 @@ using UnityStandardAssets.CrossPlatformInput;
 [RequireComponent(typeof(HeroMotor))]
 public class HeroController : MonoBehaviour
 {
+
+		[SerializeField]
+		float _recoilLength = 5f;
 		
-		[SerializeField]
-		float _recoilLength = 5f;		
-
-		[SerializeField]
-		public float _deltaRapiraTime = 1.5f;
-		[SerializeField]
-		public float _deltaRapiraLength = 1.5f;
-
-
-		[NonSerialized]
-		public float _lastAttackTime = 0;
 		float _catchTime = .17f;
 
 		bool _doubleAttack = false;
 
-
-		[NonSerialized]
-		public bool _attacks = false;
-
-		[NonSerialized]
-		public bool _holdAttack = false;
 
 
 
@@ -57,7 +43,7 @@ public class HeroController : MonoBehaviour
 				_manager = GetComponent<HeroManager>();
 				_motor = GetComponent<HeroMotor>();
 		}
-		
+
 		void FixedUpdate()
 		{
 
@@ -68,8 +54,8 @@ public class HeroController : MonoBehaviour
 						return;
 
 
-			//	if (!_attacks && !_rolling && !_blocking)
-						_motor.Move(CrossPlatformInputManager.GetAxis("Horizontal"));
+				//	if (!_attacks && !_rolling && !_blocking)
+				_motor.Move(CrossPlatformInputManager.GetAxis("Horizontal"));
 
 		}
 
@@ -80,30 +66,18 @@ public class HeroController : MonoBehaviour
 
 				if (_interfaceBlocked)
 						return;
-				/*
+				
 				if (CrossPlatformInputManager.GetButtonDown("Attack"))
-						_lastAttackTime = Time.fixedTime;
+						_motor._lastAttackTime = Time.fixedTime;
 
 				if (CrossPlatformInputManager.GetButtonUp("Attack"))
-				{
-						_attacks = true;
-						if (_deltaRapiraTime > Time.fixedTime - _lastAttackTime)
-						{
-								_lastAttackTime = Time.fixedTime;
-								_anima.SetTrigger("Attack");
-						}
-						else
-						{
-								_anima.SetTrigger("Rapira");
-								_rigidbody.AddForce(new Vector2(_acingRight ? 1 : -1 * _deltaRapiraLength, 0));
-						}
-				}
+						_motor.Attack();
 
-				int deltaRoll = (int)Math.Truncate((Time.fixedTime - _lastRollTime) * 1000);
-				if (CrossPlatformInputManager.GetButtonDown("Roll") && (deltaRoll > _manager._DeltaRoll))
-						Roll();
+				int deltaRoll = (int)Math.Truncate((Time.fixedTime - _motor._lastRollTime) * 1000);
+				if (CrossPlatformInputManager.GetButtonDown("Roll") && deltaRoll > _manager._DeltaRoll)
+						_motor.Roll();
 
-
+				/*
 				CheckBlock();
 
 
@@ -160,17 +134,16 @@ public class HeroController : MonoBehaviour
 				_blocking = false;
 				_anima.SetBool("Blocking", _blocking);
 		}
-
+		
+		*/
 
 		void ResetStats()
 		{
-				_rolling = false;
-				if (_attacks)
+				_motor._rolling = false;
+				if (_motor._attacks)
 				{
 						_manager.ResetHeroDealAttack();
-						_anima.SetFloat("Attack", 0);
-						_attacks = false;
+						_motor.ResetAttack();
 				}
 		}
-		*/
 }
