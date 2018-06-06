@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Item", menuName = "Attacks/Item")]
-public class AttackItem : MonoBehaviour
+public class AttackItem : ScriptableObject
 {
 		new public string name = "New Item";  // Name of the item
 		public int _ID;

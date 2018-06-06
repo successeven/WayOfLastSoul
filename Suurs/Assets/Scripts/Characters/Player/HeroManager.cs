@@ -65,7 +65,8 @@ public class HeroManager : MonoBehaviour
 
 		void OnTriggerEnter2D(Collider2D collision)
 		{
-				if (collision.tag == "Enemy" && _anima.GetFloat("Attack") != 0)
+				float attackIndex = _anima.GetFloat("Attack Index");
+				if (collision.tag == "Enemy" && attackIndex != 0)
 				{
 						if (!_DealDamage)
 						{
