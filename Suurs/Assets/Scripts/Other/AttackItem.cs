@@ -12,17 +12,4 @@ public class AttackItem : ScriptableObject
 		public int? _previousAtackID;
 		public float _damage;
 
-		// Called when the item is pressed in the inventory
-		public virtual void Use()
-		{
-				// Use the item
-				// Something may happen
-		}
-
-		// Call this method to remove the item from inventory
-		public void RemoveFromInventory()
-		{
-				//Inventory.instance.Remove(this);
-		}
-
 }

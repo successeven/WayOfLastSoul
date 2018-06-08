@@ -22,16 +22,23 @@ public class CharacterMotor : MonoBehaviour
 				_anima = GetComponent<Animator>();
 		}
 
+		protected virtual bool CanMove()
+		{
+				return true;
+		}
+
 
 		public virtual void Move(float inMoveDirection)
 		{
-				_rigidbody.velocity = new Vector2(inMoveDirection * _speed, _rigidbody.velocity.y);
 				_anima.SetFloat("Speed", Mathf.Abs(inMoveDirection));
-
-				if (inMoveDirection > 0 && !_acingRight)
-						Flip();
-				else if (inMoveDirection < 0 && _acingRight)
-						Flip();
+				if (CanMove())
+				{
+						_rigidbody.velocity = new Vector2(inMoveDirection * _speed, _rigidbody.velocity.y);
+						if (inMoveDirection > 0 && !_acingRight)
+								Flip();
+						else if (inMoveDirection < 0 && _acingRight)
+								Flip();
+				}
 		}
 
 		protected void Flip()

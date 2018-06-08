@@ -25,6 +25,7 @@ public class HeroManager : MonoBehaviour
 		public float _Power = 0; ///Сила
 		public float _Vitality = 0; ///Жизнеспособность
 		public int _DeltaRoll = 2000; ///Интервал кувырков (в милисекундах) 
+		public int _DeltaBack_Slide = 1000; ///Интервал Back_Slide (в милисекундах) 
 
 
 		//public Hero heroStat;
@@ -32,6 +33,7 @@ public class HeroManager : MonoBehaviour
 
 		Animator _anima;
 		HeroController _controller;
+		CharacterAttackAnimation _attackController;
 		bool _death = false;
 
 		bool _DealDamage = false;
@@ -40,6 +42,7 @@ public class HeroManager : MonoBehaviour
 		{
 				_anima = GetComponent<Animator>();
 				_controller = GetComponent<HeroController>();
+				_attackController = GetComponent<CharacterAttackAnimation>();
 		}
 
 		private void Update()
@@ -65,21 +68,21 @@ public class HeroManager : MonoBehaviour
 
 		void OnTriggerEnter2D(Collider2D collision)
 		{
-				float attackIndex = _anima.GetFloat("Attack Index");
-				if (collision.tag == "Enemy" && attackIndex != 0)
+				int attackIndex = _attackController._currentAttackIndex;
+				if (collision.tag == "Enemy" && attackIndex != 1)
 				{
 						if (!_DealDamage)
 						{
 								_DealDamage = true;
-
 								GameObject enemy = collision.transform.root.gameObject;
 								EnemyManager enemyManager = enemy.GetComponent<EnemyManager>();
 								EnemyController enemyController = enemy.GetComponent<EnemyController>();
 
 								if (enemyManager._HP <= 0)
 										return;
-
-								enemyManager._HP -= _attack;
+								Debug.Log("Damage: " + _attackController._currentAttackItem._damage + (_attack / 100 * _attackController._currentAttackItem._damage));
+								enemyManager._HP -= _attackController._currentAttackItem._damage + (_attack / 100 * _attackController._currentAttackItem._damage);
+								Debug.Log("Enemy HP: " + enemyManager._HP);
 								enemyController.TakeHit();
 						}
 				}

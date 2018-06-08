@@ -6,38 +6,19 @@ using UnityStandardAssets.CrossPlatformInput;
 [RequireComponent(typeof(HeroMotor))]
 public class HeroController : MonoBehaviour
 {
-
-		[SerializeField]
-		float _recoilLength = 5f;
-		
-		float _catchTime = .17f;
-
-		bool _doubleAttack = false;
-
-
-
-
-		[NonSerialized]
-		public bool _blocking = false;
-
-		[NonSerialized]
-		public bool _recoil = false;
-		bool _isRecoil = false;
-
 		bool _doubleBlock = false;
-		float _lastDoubleBlockClickTime = 0;
 		float _lastBlockClickTime = 0;
 		bool _holdBlock = false;
+		float _catchTime = .3f;
+
+		public bool _holdAttack = false;
 
 		[NonSerialized]
 		public bool _interfaceBlocked = true;
 		HeroManager _manager;
 		HeroMotor _motor;
 
-		Vector3 _offset;
-		bool moveRecoil = false;
-
-
+		
 		private void Start()
 		{
 				_manager = GetComponent<HeroManager>();
@@ -54,7 +35,6 @@ public class HeroController : MonoBehaviour
 						return;
 
 
-				//	if (!_attacks && !_rolling && !_blocking)
 				_motor.Move(CrossPlatformInputManager.GetAxis("Horizontal"));
 
 		}
@@ -68,40 +48,21 @@ public class HeroController : MonoBehaviour
 						return;
 				
 				if (CrossPlatformInputManager.GetButtonDown("Attack"))
+				{
+						_holdAttack = true;
 						_motor._lastAttackTime = Time.fixedTime;
+				}
 
 				if (CrossPlatformInputManager.GetButtonUp("Attack"))
+				{
+						_holdAttack = false;
 						_motor.Attack();
+				}
 
 				int deltaRoll = (int)Math.Truncate((Time.fixedTime - _motor._lastRollTime) * 1000);
 				if (CrossPlatformInputManager.GetButtonDown("Roll") && deltaRoll > _manager._DeltaRoll)
 						_motor.Roll();
-
-				/*
-				CheckBlock();
-
-
-				if (_doubleBlock && !moveRecoil)
-				{
-						moveRecoil = true;
-						_blocking = false;
-						_anima.SetTrigger("Back_Slide");
-						_offset = new Vector3(transform.position.x - _recoilLength * transform.localScale.x, transform.position.y, transform.position.z);
-						_doubleBlock = false;
-						_lastDoubleBlockClickTime = Time.fixedTime;
-				}
-
-				if (moveRecoil)
-				{
-						transform.position = Vector3.Lerp(transform.position, _offset, _recoilLength * Time.deltaTime);
-						if (Math.Round(transform.position.x, 2) == Math.Round(_offset.x, 2) || Time.fixedTime - _lastDoubleBlockClickTime > .4f)
-								moveRecoil = false;
-				}
-				*/
-		}
-		/*
-		private void CheckBlock()
-		{
+				
 				float timeDelta = Time.time - _lastBlockClickTime;
 				if (CrossPlatformInputManager.GetButtonDown("Block"))
 				{
@@ -115,27 +76,21 @@ public class HeroController : MonoBehaviour
 				}
 
 				if (_holdBlock && timeDelta >= _catchTime)
-						SetBlock();
+				{
+						_motor.SetBlock();
+						_holdBlock = false;
+				}
 
 				if (CrossPlatformInputManager.GetButtonUp("Block"))
-						UnSetBlock();
-		}
-		
-		private void SetBlock()
-		{
-				_blocking = true;
-				_holdBlock = false;
-				_anima.SetTrigger("Block");
-				_anima.SetBool("Blocking", _blocking);
-		}
+						_motor.UnSetBlock();
 
-		private void UnSetBlock()
-		{
-				_blocking = false;
-				_anima.SetBool("Blocking", _blocking);
+
+				if (_doubleBlock)
+				{
+						_motor.Back_Slide();
+						_doubleBlock = false;
+				}
 		}
-		
-		*/
 
 		void ResetStats()
 		{

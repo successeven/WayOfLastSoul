@@ -5,7 +5,6 @@ using UnityEngine;
 public class FallenController : EnemyController
 {
 
-
     public void ResetEnemyAttack()
     {
         if (_attacks)
@@ -14,7 +13,6 @@ public class FallenController : EnemyController
             _enemyManager.ResetEnemyDealAttack();
         }
     }
-
 
     void ResetTakeDamage()
     {
