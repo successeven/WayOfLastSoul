@@ -2,10 +2,17 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using UnityStandardAssets.CrossPlatformInput;
 
 public class StartScenes : MonoBehaviour
 {
+		enum StateScene
+		{
+				Load = -1,
+				Game = 0,
+				Finish = 1
+		}
 
 		public GameObject _UIController;
 		public GameObject _StartImage;
@@ -19,6 +26,7 @@ public class StartScenes : MonoBehaviour
 		bool _isLoaded = false;
 		bool _showUIController = false;
 		Animator _UIanimator;
+		StateScene _stateScene = StateScene.Load;
 		// Use this for initialization
 		void Start()
 		{
@@ -34,7 +42,7 @@ public class StartScenes : MonoBehaviour
 
 		// Update is called once per frame
 		void Update()
-		{
+		{ 
 				if (!_isLoaded)
 				{
 						float distance = (int)Mathf.Abs((_Player.transform.position.x - _StartPos.transform.position.x));
@@ -52,9 +60,19 @@ public class StartScenes : MonoBehaviour
 						if (alpha > 255)
 								alpha = 255;
 						_imageSprite.color = new Color32(0, 0, 0, (byte)(255 - alpha));
-				}/*
+				}
 				else
 				{
+						if (_Player.transform.position.x >= _FinishPos.transform.position.x)
+						{
+								if (SceneManager.GetActiveScene().name == "Respawn")
+										PlayerPrefs.SetInt("NextLVL", 3);
+								else
+										PlayerPrefs.SetInt("NextLVL", 2);
+
+								SceneManager.LoadScene("Loading");
+						}
+
 						float distance = (int)Mathf.Abs((_Player.transform.position.x - _FinishPos.transform.position.x));
 						if (distance > 30f || distance == 0)
 								return;
@@ -64,7 +82,7 @@ public class StartScenes : MonoBehaviour
 						if (distance == 0)
 								transform.root.gameObject.SetActive(false);
 
-						Hero.instance.Move(1);
+						Hero.instance.Move(.9f);
 
 
 						_UIanimator.SetBool("Show", false);
@@ -73,7 +91,6 @@ public class StartScenes : MonoBehaviour
 						if (alpha > 255)
 								alpha = 255;
 						_imageSprite.color = new Color32(0, 0, 0, (byte)alpha);
-
-				}*/
+				}
 		}
 }

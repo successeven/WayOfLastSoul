@@ -26,4 +26,9 @@ public class Unit : MonoBehaviour
         theScale.x *= -1;
         transform.root.localScale = theScale;
     }
+
+		public void SetSpeed(float inSpeed)
+		{
+				_speed = inSpeed;
+		}
 }

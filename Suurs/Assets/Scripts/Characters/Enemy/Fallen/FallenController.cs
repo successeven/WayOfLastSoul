@@ -55,6 +55,7 @@ public class FallenController : EnemyController
     public override void TakeHit()
     {
         _anima.SetTrigger("TakeHit");
-    }
+				Debug.Log(transform.root.gameObject.name);
+		}
 
 }

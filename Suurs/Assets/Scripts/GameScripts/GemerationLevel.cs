@@ -134,10 +134,16 @@ public class GemerationLevel : MonoBehaviour
         _GroundsbyName = new Dictionary<string, GameObject>();
         foreach (var item in _Grounds)
             _GroundsbyName.Add(item.name, item);
+				
+				if (PlayerPrefs.HasKey("CountPlatform"))
+						_Lengthmap = PlayerPrefs.GetInt("CountPlatform");
+				else
+						_Lengthmap = 5;
 
-        if (_Lengthmap < 5)
-            _Lengthmap = 5;
-        _map = new int[_Lengthmap];
+				if (PlayerPrefs.HasKey("CountEnemy"))
+						_countEnemy = PlayerPrefs.GetInt("CountEnemy");				
+
+				_map = new int[_Lengthmap];
 
         _selectObjects = new List<Objects>();
         foreach (Objects i in Enum.GetValues(typeof(Objects)))

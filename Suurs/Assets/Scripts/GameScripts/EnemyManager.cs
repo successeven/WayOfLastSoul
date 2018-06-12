@@ -24,7 +24,7 @@ public class EnemyManager : MonoBehaviour
         _anima = GetComponent<Animator>();
 				_controller = GetComponent<EnemyController>();
 
-		//		SetStartSkills();
+				SetStartSkills();
     }
 
     private void Update()
@@ -39,7 +39,6 @@ public class EnemyManager : MonoBehaviour
 
     protected virtual void SetStartSkills()
     {
-        throw new NotImplementedException();
     }
 
     void OnTriggerEnter2D(Collider2D collision)

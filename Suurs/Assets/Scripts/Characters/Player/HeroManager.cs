@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class HeroManager : MonoBehaviour
 {
@@ -59,17 +60,19 @@ public class HeroManager : MonoBehaviour
 		{
 				GetComponent<Rigidbody2D>().gravityScale = 1;
 				Invoke("DestroyObject", 4f);
+				PlayerPrefs.SetInt("NextLVL", 0);
 		}
 
 		protected virtual void DestroyObject()
 		{
-				Destroy(transform.root.gameObject);
+				SceneManager.LoadScene("Loading");
+				//Destroy(transform.root.gameObject);
 		}
 
 		void OnTriggerEnter2D(Collider2D collision)
 		{
 				int attackIndex = _attackController._currentAttackIndex;
-				if (collision.tag == "Enemy" && attackIndex != 1)
+				if (collision.tag == "Enemy" && attackIndex != 0)
 				{
 						if (!_DealDamage)
 						{
@@ -80,9 +83,8 @@ public class HeroManager : MonoBehaviour
 
 								if (enemyManager._HP <= 0)
 										return;
-								Debug.Log("Damage: " + _attackController._currentAttackItem._damage + (_attack / 100 * _attackController._currentAttackItem._damage));
+
 								enemyManager._HP -= _attackController._currentAttackItem._damage + (_attack / 100 * _attackController._currentAttackItem._damage);
-								Debug.Log("Enemy HP: " + enemyManager._HP);
 								enemyController.TakeHit();
 						}
 				}
