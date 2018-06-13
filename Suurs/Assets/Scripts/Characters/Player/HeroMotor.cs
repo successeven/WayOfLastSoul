@@ -18,6 +18,9 @@ public class HeroMotor : CharacterMotor
 		[NonSerialized]
 		public bool _blocking = false;
 
+		public bool _canMove = true;
+		
+
 		#region Roll
 		[NonSerialized]
 		public bool _rolling = false;
@@ -56,15 +59,14 @@ public class HeroMotor : CharacterMotor
 				else
 				{
 						_anima.SetTrigger("Rapira");
-						Debug.Log("Rapira: " + (_acingRight ? 1 : -1 * _deltaRapiraLength));
-						_rigidbody.AddForce(new Vector2(_acingRight ? 1 : -1 * _deltaRapiraLength, 0f), ForceMode2D.Impulse);
-						//	_rigidbody.velocity = new Vector2(_acingRight ? 1 : -1 * _deltaRapiraLength, 0f);
+						_rigidbody.AddForce(new Vector2(transform.localScale.x * _deltaRapiraLength, 0f), ForceMode2D.Impulse);
 				}
 		}
 
 		protected override bool CanMove()
 		{
-				return (!_attacks && !_rolling && !_blocking);
+				Debug.Log("Here");
+				return (!_attacks && !_rolling && !_blocking && _canMove);
 		}
 
 		public void ResetAttack()
