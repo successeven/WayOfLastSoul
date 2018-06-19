@@ -9,31 +9,23 @@ public class CameraMotor : MonoBehaviour
 		[SerializeField]
 		float deltaCameraSpeed = 13f;
 
-
 		[Space(10)]
 		[Header("Смещение камеры")]
 		public Vector3 _offset;
 
-		GameObject _Player;
 		float _MoveRightSide = 1; //1- вправо ; -1 влево
-
-		void Start()
-		{
-				_Player = GameObject.FindGameObjectWithTag("Player");
-		}
-
-
+		
 		void FixedUpdate()
 		{
-				if (_Player == null)
+				if (Hero.instance == null)
 						return;
 
-				if (_MoveRightSide != _Player.transform.localScale.x)
+				if (_MoveRightSide != Hero.instance.transform.localScale.x)
 				{
 						_offset.x *= -1;
-						_MoveRightSide = _Player.transform.localScale.x;
+						_MoveRightSide = Hero.instance.transform.localScale.x;
 				}
-				Vector3 desiredPosition = _Player.transform.position + _offset;
+				Vector3 desiredPosition = Hero.instance.transform.position + _offset;
 				transform.position = Vector3.Lerp(transform.position, desiredPosition, deltaCameraSpeed);
 
 		}

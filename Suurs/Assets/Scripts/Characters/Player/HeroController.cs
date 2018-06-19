@@ -11,6 +11,7 @@ public class HeroController : MonoBehaviour
 		bool _holdBlock = false;
 		float _catchTime = .3f;
 
+		[NonSerialized]
 		public bool _holdAttack = false;
 
 		[NonSerialized]
@@ -94,7 +95,6 @@ public class HeroController : MonoBehaviour
 
 		void ResetStats()
 		{
-				_motor._rolling = false;
 				if (_motor._attacks)
 				{
 						_manager.ResetHeroDealAttack();

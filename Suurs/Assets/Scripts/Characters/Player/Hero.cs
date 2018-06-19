@@ -5,6 +5,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(HeroMotor))]
 [RequireComponent(typeof(HeroManager))]
+[RequireComponent(typeof(HeroController))]
 public class Hero : MonoBehaviour
 {
 
@@ -15,19 +16,41 @@ public class Hero : MonoBehaviour
 		void Awake()
 		{
 				instance = this;
+				_heroController = GetComponent<HeroController>();
+				_heroManager = GetComponent<HeroManager>();
+				_heroMotor = GetComponent<HeroMotor>();
 		}
 
 		#endregion
 
+		HeroController _heroController;
+		public HeroController Controller
+		{
+				get
+				{
+						return _heroController;
+				}
+		}
 
 		HeroManager _heroManager;
-		HeroMotor _heroMotor;
-		// Use this for initialization
-		void Start()
+		public HeroManager Manager
 		{
-				_heroManager = GetComponent<HeroManager>();
-				_heroMotor = GetComponent<HeroMotor>();
+				get
+				{
+						return _heroManager;
+				}
 		}
+
+
+		HeroMotor _heroMotor;
+		public HeroMotor Motor
+		{
+				get
+				{
+						return _heroMotor;
+				}
+		}
+
 
 		public void Move(float inSpeed)
 		{

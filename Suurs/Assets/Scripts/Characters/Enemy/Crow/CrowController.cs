@@ -43,24 +43,24 @@ public class CrowController : EnemyController
 
 		protected override void DoMotion()
     {
-        if (_playerManager._Health <= 0 && stateCrow != StateCrow.Idle)
+        if (Hero.instance.Manager._Health <= 0 && stateCrow != StateCrow.Idle)
             stateCrow = StateCrow.TakeOff;
 
 				switch (stateCrow)
         {
             case StateCrow.Idle:
-                _distance = Math.Abs(transform.position.x - _player.transform.position.x);
+                _distance = Math.Abs(transform.position.x - Hero.instance.transform.position.x);
                 if (_distance < _visibility)
                     stateCrow = StateCrow.Move;
                 break;
             case StateCrow.Move:
                 #region MOVE
                 _CurrentPosX = transform.position.x;
-                if (_CurrentPosX < _player.transform.position.x - _patrolLength)
+                if (_CurrentPosX < Hero.instance.transform.position.x - _patrolLength)
                 {
                     _moveSide = 1;
                 }
-                else if (_CurrentPosX > _player.transform.position.x + _patrolLength)
+                else if (_CurrentPosX > Hero.instance.transform.position.x + _patrolLength)
                 {
                     _moveSide = -1;
                 }
@@ -75,7 +75,7 @@ public class CrowController : EnemyController
 
                 _tempPosition = new Vector3(
                     _CurrentPosX,
-                    Mathf.Sin(Time.realtimeSinceStartup * _verticalSpeed) * _amplitude + _player.transform.position.y + 8
+                    Mathf.Sin(Time.realtimeSinceStartup * _verticalSpeed) * _amplitude + Hero.instance.transform.position.y + 8
                     );
 
                 transform.position = _tempPosition;
@@ -83,20 +83,20 @@ public class CrowController : EnemyController
                 int currentDeltaAttack = (int)Math.Truncate((Time.fixedTime - _lastAttackTime) * 1000);
                 if (currentDeltaAttack > _deltaTimeAttack && !_reciveDamage)
                 {
-                    _distance = Vector2.Distance(transform.position, _player.transform.position);
+                    _distance = Vector2.Distance(transform.position, Hero.instance.transform.position);
                     if (_distance >= _distanceAttack - _deltaDistanceAttack && _distance <= _distanceAttack + _deltaDistanceAttack)
                     {
                         _startAttack = true;
 
                         actionRight = transform.root.localScale.x < 0;
-                        if (_moveSide > 0 && transform.position.x - _player.transform.position.x > 0)
+                        if (_moveSide > 0 && transform.position.x - Hero.instance.transform.position.x > 0)
                             Flip(ref actionRight);
-                        else if (_moveSide < 0 && transform.position.x - _player.transform.position.x < 0)
+                        else if (_moveSide < 0 && transform.position.x - Hero.instance.transform.position.x < 0)
                             Flip(ref actionRight);
                         _anima.SetTrigger("Fly");
                         _startAttackPosition = transform.position;
                         _startAttackPosition.x -= 10 * transform.localScale.x;
-                        _targetAttack = _player.transform.position;
+                        _targetAttack = Hero.instance.transform.position;
                         stateCrow = StateCrow.Fly;
                     }
                 }
@@ -106,7 +106,7 @@ public class CrowController : EnemyController
                 _lastAttackTime = Time.fixedTime;
                 transform.position = Vector2.MoveTowards(transform.position, _targetAttack, _SpeedAttack * Time.deltaTime);
 
-                _distance = Vector3.Distance(transform.position, _player.transform.position);
+                _distance = Vector3.Distance(transform.position, Hero.instance.transform.position);
                 if (_distance <= 2f && !_attacks)
                 {
                     _attacks = true;

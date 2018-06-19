@@ -21,11 +21,11 @@ public class FallenController : EnemyController
 
     protected override void DoMotion()
     {
-        _distance = Vector2.Distance(transform.position, _player.transform.position);
+        _distance = Vector2.Distance(transform.position, Hero.instance.transform.position);
         if (_distance <= _visibility && _distance > _deltaDistanceAttack && !_attacks && !_reciveDamage)
         {
             _anima.SetBool("Move", true);
-            if (transform.root.position.x - _player.transform.position.x > 0)
+            if (transform.root.position.x - Hero.instance.transform.position.x > 0)
                 _moveLeftSide = -1;
             else
                 _moveLeftSide = 1;

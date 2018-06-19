@@ -5,17 +5,15 @@ using UnityEngine.UI;
 public class HealthController : MonoBehaviour
 {
 
-	HeroManager _heroManager;
-	Image _statImage;
+		Image _statImage;
 
-	void Start()
-	{
-		_heroManager = GameObject.FindGameObjectWithTag("Player").GetComponent<HeroManager>();
-		_statImage = GetComponent<Image>();
-	}
+		void Start()
+		{
+				_statImage = GetComponent<Image>();
+		}
 
-	void Update()
-	{
-		_statImage.fillAmount = 1f - (_heroManager._MaxHealth - _heroManager._Health) / (float)_heroManager._MaxHealth;
-	}
+		void Update()
+		{
+				_statImage.fillAmount = 1f - (Hero.instance.Manager._MaxHealth - Hero.instance.Manager._Health) / (float)Hero.instance.Manager._MaxHealth;
+		}
 }

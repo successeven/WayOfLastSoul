@@ -15,9 +15,6 @@ public class EnemyController : Unit
 		[SerializeField]
 		protected float _deltaDistanceAttack = 2f;
 
-		protected GameObject _player;
-		protected HeroManager _playerManager;
-		protected HeroController _playerController;
 		protected Animator _anima;
 		protected EnemyManager _enemyManager;
 		protected Rigidbody2D _rigidbody;
@@ -35,9 +32,6 @@ public class EnemyController : Unit
 
 		void Start()
 		{
-				_player = GameObject.FindGameObjectWithTag("Player");
-				_playerManager = _player.GetComponent<HeroManager>();
-				_playerController = _player.GetComponent<HeroController>();
 				_anima = GetComponent<Animator>();
 
 				/*if (_anima == null)
@@ -54,13 +48,13 @@ public class EnemyController : Unit
 
 		void Update()
 		{
-				if (Vector3.Distance(_player.transform.position, transform.position) > 50)
+				if (Vector3.Distance(Hero.instance.transform.position, transform.position) > 50)
 						_anima.enabled = false;
 				else
 						_anima.enabled = true;
 
 
-				if (_playerManager._Health <= 0)
+				if (Hero.instance.Manager._Health <= 0)
 				{
 						_anima.SetBool("Move", false);
 						return;
@@ -69,7 +63,7 @@ public class EnemyController : Unit
 
 		protected virtual void FixedUpdate()
 		{
-				if (_enemyManager._HP <= 0 || _playerManager._Health <= 0)
+				if (_enemyManager._HP <= 0 || Hero.instance.Manager._Health <= 0)
 						return;
 
 				DoMotion();

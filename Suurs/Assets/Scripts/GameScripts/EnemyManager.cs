@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-
-    protected HeroManager _heroManager;
-    protected HeroMotor _heroMotor;
     public float _attack;
     public float _HP;
 
@@ -19,8 +16,6 @@ public class EnemyManager : MonoBehaviour
 
     private void Start()
     {
-        _heroMotor = GameObject.FindGameObjectWithTag("Player").GetComponent<HeroMotor>();
-        _heroManager = GameObject.FindGameObjectWithTag("Player").GetComponent<HeroManager>();
         _anima = GetComponent<Animator>();
 				_controller = GetComponent<EnemyController>();
 
