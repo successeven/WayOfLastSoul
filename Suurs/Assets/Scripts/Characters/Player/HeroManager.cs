@@ -71,10 +71,11 @@ public class HeroManager : MonoBehaviour
 
 		void OnTriggerEnter2D(Collider2D collision)
 		{
-				Debug.Log(collision.transform.root.name);
 				int attackIndex = _attackController._currentAttackIndex;
+				Debug.Log(attackIndex);
 				if (collision.tag == "Enemy" && attackIndex != 0)
 				{
+						Debug.Log(_DealDamage);
 						if (!_DealDamage)
 						{
 								_DealDamage = true;

@@ -40,8 +40,17 @@ public class FallenController : EnemyController
 
             Move(_rigidbody, _speed, ref actionRight, _moveLeftSide);
         }
-        else
-            _anima.SetBool("Move", false);
+				else if (_distance <= _deltaDistanceAttack && !_attacks && !_reciveDamage)
+				{
+						_anima.SetBool("Move", false);
+						bool actionRight = false;
+						if (transform.root.localScale.x < 0)
+								actionRight = true;
+
+						Move(_rigidbody, 0, ref actionRight, _moveLeftSide);
+				}
+				else
+						_anima.SetBool("Move", false);
     }
 
 
