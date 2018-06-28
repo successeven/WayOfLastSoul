@@ -25,12 +25,16 @@ public class FallenController : EnemyController
         if (_distance <= _visibility && _distance > _deltaDistanceAttack && !_attacks && !_reciveDamage)
         {
             _anima.SetBool("Move", true);
-            if (transform.root.position.x - Hero.instance.transform.position.x > 0)
-                _moveLeftSide = -1;
+						var deltaSpeed = (_distance > _deltaDistanceSpeed + 2 + _deltaDistanceAttack ? 0.7f :
+														  _distance > _deltaDistanceSpeed + _deltaDistanceAttack ? 0.5f : 0.3f);
+						
+						if (transform.root.position.x - Hero.instance.transform.position.x > 0)
+                _moveLeftSide = -deltaSpeed;
             else
-                _moveLeftSide = 1;
+                _moveLeftSide = deltaSpeed;
 
-            bool actionRight = false;
+
+						bool actionRight = false;
             if (transform.root.localScale.x < 0)
                 actionRight = true;
 
@@ -55,7 +59,6 @@ public class FallenController : EnemyController
     public override void TakeHit()
     {
         _anima.SetTrigger("TakeHit");
-				Debug.Log(transform.root.gameObject.name);
 		}
 
 }

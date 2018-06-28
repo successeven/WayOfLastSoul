@@ -14,6 +14,8 @@ public class EnemyController : Unit
 
 		[SerializeField]
 		protected float _deltaDistanceAttack = 2f;
+		[SerializeField]
+		protected float _deltaDistanceSpeed = 2f;
 
 		protected Animator _anima;
 		protected EnemyManager _enemyManager;
@@ -69,7 +71,7 @@ public class EnemyController : Unit
 				DoMotion();
 
 				if (_canAttack)
-				DoAttack();
+						DoAttack();
 		}
 
 
