@@ -147,8 +147,9 @@ public class CrowController : EnemyController
         }
     }
 
-    public override void TakeHit()
+    public override void TakeHit(float damage)
     {
+				_enemyManager._HP -= damage;
         _anima.SetBool("Attack", false);
         _attacks = false;
         _anima.SetTrigger("TakeHit");

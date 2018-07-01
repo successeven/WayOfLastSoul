@@ -56,6 +56,7 @@ public class HeroController : MonoBehaviour
 
 				if (CrossPlatformInputManager.GetButtonUp("Attack"))
 				{
+						_manager.ResetHeroDealAttack();
 						_holdAttack = false;
 						_motor.Attack();
 				}
@@ -97,7 +98,6 @@ public class HeroController : MonoBehaviour
 		{
 				if (_motor._attacks)
 				{
-						_manager.ResetHeroDealAttack();
 						_motor.ResetAttack();
 				}
 		}

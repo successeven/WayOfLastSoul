@@ -9,11 +9,11 @@ public class Unit : MonoBehaviour
     public virtual void Move(Rigidbody2D inBody, float inSpeed, ref bool inRigthPosition, float inMoveDirection)
     {
         inBody.velocity = new Vector2(inMoveDirection * inSpeed, inBody.velocity.y);
-
+				/*
         if (inMoveDirection > 0 && !inRigthPosition)
             Flip(ref inRigthPosition);
         else if (inMoveDirection < 0 && inRigthPosition)
-            Flip(ref inRigthPosition);
+            Flip(ref inRigthPosition);*/
     }
 
     protected void Flip(ref bool inRigthPosition)

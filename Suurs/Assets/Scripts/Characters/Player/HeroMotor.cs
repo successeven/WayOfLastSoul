@@ -10,6 +10,8 @@ public class HeroMotor : CharacterMotor
 		public bool _attacks = false;
 		[SerializeField]
 		float _attacksLength = 2f;
+		[NonSerialized]
+		public int _attacksIndex = 0;
 
 		[NonSerialized]
 		public bool _holdAttack = false;
@@ -52,21 +54,25 @@ public class HeroMotor : CharacterMotor
 		public void Attack()
 		{
 				_attacks = true;
+				
 				if (_rolling)
 				{
+						_attacksIndex = 5;
 						_anima.SetTrigger("Attack");
-						_anima.SetInteger("Attack Index", 5);
+						_anima.SetInteger("Attack Index", _attacksIndex);
 						StartCoroutine(DoStrikeRoll(.33f));
 				}
 				else if (_deltaRapiraTime > Time.fixedTime - _lastAttackTime)
 				{
 						_lastAttackTime = Time.fixedTime;
+						_attacksIndex++;
 						_anima.SetTrigger("Attack");
-						_anima.SetInteger("Attack Index", 1);
+						_anima.SetInteger("Attack Index", _attacksIndex);
 						StartCoroutine(DoAttack(.4f));
 				}
 				else
 				{
+						_attacksIndex = 4;
 						_anima.SetTrigger("Rapira");
 						StartCoroutine(DoRapira(.33f));
 				}
@@ -75,7 +81,7 @@ public class HeroMotor : CharacterMotor
 		{
 				for (float t = 0; t <= time; t += Time.deltaTime)
 						yield return null;
-				_attacks = false;
+				ResetAttack();
 		}
 
 		private IEnumerator DoAttack(float time)
@@ -85,7 +91,7 @@ public class HeroMotor : CharacterMotor
 						_rigidbody.velocity = new Vector2(_attacksLength * transform.localScale.x, _rigidbody.velocity.y);
 						yield return null;
 				}
-				_attacks = false;
+				ResetAttack();
 		}
 
 		private IEnumerator DoRapira(float time)
@@ -95,7 +101,7 @@ public class HeroMotor : CharacterMotor
 						_rigidbody.velocity = new Vector2(_deltaRapiraLength * transform.localScale.x, _rigidbody.velocity.y);
 						yield return null;
 				}
-				_attacks = false;
+				ResetAttack();
 		}
 
 
@@ -106,7 +112,9 @@ public class HeroMotor : CharacterMotor
 
 		public void ResetAttack()
 		{
-				_anima.SetInteger("Attack Index", 0);
+				_attacksIndex = 0;
+				_anima.SetInteger("Attack Index", _attacksIndex);
+				_attacks = false;
 		}
 
 
@@ -125,6 +133,7 @@ public class HeroMotor : CharacterMotor
 
 		public void Back_Slide()
 		{
+				_attacksIndex = 3;
 				_attacks = true;
 				_lastBack_SlideTime = Time.fixedTime;
 				_blocking = false;
@@ -139,7 +148,7 @@ public class HeroMotor : CharacterMotor
 						_rigidbody.velocity = new Vector2(-_backSlideLength * transform.localScale.x, _rigidbody.velocity.y);
 						yield return null;
 				}
-				_attacks = false;
+				ResetAttack();
 		}
 
 		public void Roll()

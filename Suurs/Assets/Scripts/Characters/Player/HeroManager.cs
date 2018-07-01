@@ -3,6 +3,8 @@ using System;
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
+using System.Linq;
 
 public class HeroManager : MonoBehaviour
 {
@@ -33,17 +35,14 @@ public class HeroManager : MonoBehaviour
 		string path;
 
 		Animator _anima;
-		HeroController _controller;
-		CharacterAttackAnimation _attackController;
 		bool _death = false;
 
 		bool _DealDamage = false;
+		public List<AttackItem> _attackItems;
 
 		private void Start()
 		{
 				_anima = GetComponent<Animator>();
-				_controller = GetComponent<HeroController>();
-				_attackController = GetComponent<CharacterAttackAnimation>();
 		}
 
 		private void Update()
@@ -71,23 +70,15 @@ public class HeroManager : MonoBehaviour
 
 		void OnTriggerEnter2D(Collider2D collision)
 		{
-				int attackIndex = _attackController._currentAttackIndex;
-				Debug.Log(attackIndex);
-				if (collision.tag == "Enemy" && attackIndex != 0)
+				if (collision.tag == "Enemy" && Hero.instance.Motor._attacks)
 				{
-						Debug.Log(_DealDamage);
 						if (!_DealDamage)
 						{
 								_DealDamage = true;
+								var _currentAttackItem = _attackItems.Where(x => x._ID == Hero.instance.Motor._attacksIndex).FirstOrDefault();
 								GameObject enemy = collision.transform.root.gameObject;
-								EnemyManager enemyManager = enemy.GetComponent<EnemyManager>();
 								EnemyController enemyController = enemy.GetComponent<EnemyController>();
-
-								if (enemyManager._HP <= 0)
-										return;
-
-								enemyManager._HP -= _attackController._currentAttackItem._damage + (_attack / 100 * _attackController._currentAttackItem._damage);
-								enemyController.TakeHit();
+								enemyController.TakeHit(_currentAttackItem._damage + (_attack / 100 * _currentAttackItem._damage));
 						}
 				}
 		}

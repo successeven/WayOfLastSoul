@@ -22,6 +22,7 @@ public class EnemyController : Unit
 		protected Rigidbody2D _rigidbody;
 
 		public bool _canAttack = true;
+		public bool _canMove = true;
 
 		protected bool _moving = false;
 		protected bool _reciveDamage = false;
@@ -68,7 +69,8 @@ public class EnemyController : Unit
 				if (_enemyManager._HP <= 0 || Hero.instance.Manager._Health <= 0)
 						return;
 
-				DoMotion();
+				if (_canMove)
+						DoMotion();
 
 				if (_canAttack)
 						DoAttack();
@@ -79,11 +81,16 @@ public class EnemyController : Unit
 		{
 		}
 
-		public virtual void TakeHit()
+		public virtual void TakeHit(float damage)
 		{
 		}
 
 		protected virtual void DoAttack()
 		{
+		}
+
+		protected virtual bool CanMove()
+		{
+				return true;
 		}
 }

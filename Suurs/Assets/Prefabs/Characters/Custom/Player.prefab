@@ -3404,13 +3404,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b002d4841aad0da4caca98215b274281, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attackItems:
-  - {fileID: 11400000, guid: d7c49fe6b87421646b324b2fb2d66c61, type: 2}
-  - {fileID: 11400000, guid: 8ee2509f5dfe0da4eb397435567ef599, type: 2}
-  - {fileID: 11400000, guid: 786debf8a9c318f48b4ad9b932df32d6, type: 2}
-  - {fileID: 11400000, guid: e9a60469f9a1efb48bf08aaf872fccd9, type: 2}
-  - {fileID: 11400000, guid: 9dd318a17a11be74498cf19614922580, type: 2}
-  _currentAttackIndex: 0
   _currentAttackItem: {fileID: 0}
 --- !u!114 &114238978920053260
 MonoBehaviour:
@@ -3912,6 +3905,12 @@ MonoBehaviour:
   _Vitality: 0
   _DeltaRoll: 2000
   _DeltaBack_Slide: 1000
+  _attackItems:
+  - {fileID: 11400000, guid: 786debf8a9c318f48b4ad9b932df32d6, type: 2}
+  - {fileID: 11400000, guid: e9a60469f9a1efb48bf08aaf872fccd9, type: 2}
+  - {fileID: 11400000, guid: d7c49fe6b87421646b324b2fb2d66c61, type: 2}
+  - {fileID: 11400000, guid: 8ee2509f5dfe0da4eb397435567ef599, type: 2}
+  - {fileID: 11400000, guid: 9dd318a17a11be74498cf19614922580, type: 2}
 --- !u!114 &114969943019709100
 MonoBehaviour:
   m_ObjectHideFlags: 1

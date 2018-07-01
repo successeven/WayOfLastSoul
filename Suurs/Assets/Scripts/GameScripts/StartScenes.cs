@@ -11,7 +11,8 @@ public class StartScenes : MonoBehaviour
 		{
 				Load = -1,
 				Game = 0,
-				Finish = 1
+				Finish = 1,
+				Exit = 2
 		}
 
 		public GameObject _UIController;
@@ -35,58 +36,98 @@ public class StartScenes : MonoBehaviour
 				_startDistance = (int)Mathf.Abs((Hero.instance.transform.position.x - _StartPos.transform.position.x));
 		}
 
-
-		// Update is called once per frame
-		void Update()
-		{ 
-				if (!_isLoaded)
+		private void LateUpdate()
+		{
+				float distance;
+				switch (_stateScene)
 				{
-						float distance = (int)Mathf.Abs((Hero.instance.transform.position.x - _StartPos.transform.position.x));
-						if (distance == 0)
-						{
-								_isLoaded = true;
-								Hero.instance.Controller._interfaceBlocked = false;
-								_UIanimator.enabled = true;
-						}
-						else
-								Hero.instance.Move(distance > 5 ? 0.9f : distance > 3 ? 0.7f : distance > 1 ? 0.3f : 0.11f);
-
-						float percent = (_startDistance - distance) / _startDistance * 100f;
-						int alpha = (int)Mathf.Round((255 * (percent * 0.01f)));
-						if (alpha > 255)
-								alpha = 255;
-						_imageSprite.color = new Color32(0, 0, 0, (byte)(255 - alpha));
-				}
-				else
-				{
-						if (Hero.instance.transform.position.x >= _FinishPos.transform.position.x)
-						{
-								if (SceneManager.GetActiveScene().name == "Respawn")
-										PlayerPrefs.SetInt("NextLVL", 3);
+						case StateScene.Load:
+								distance = (int)Mathf.Abs((Hero.instance.transform.position.x - _StartPos.transform.position.x));
+								if (distance == 0)
+								{
+										Hero.instance.Controller._interfaceBlocked = false;
+										_stateScene = StateScene.Game;
+										_UIanimator.enabled = true;
+								}
 								else
-										PlayerPrefs.SetInt("NextLVL", 2);
+								{
+										var deltaSpeed = distance > 5 ? 0.9f : distance > 3 ? 0.7f : distance > 1 ? 0.3f : 0.11f;
+										Hero.instance.Move(deltaSpeed * Hero.instance.transform.localScale.x);
+								}
 
-								SceneManager.LoadScene("Loading");
+								float percent = (_startDistance - distance) / _startDistance * 100f;
+								int alpha = (int)Mathf.Round((255 * (percent * 0.01f)));
+								if (alpha > 255)
+										alpha = 255;
+								_imageSprite.color = new Color32(0, 0, 0, (byte)(255 - alpha));
+								break;
+						case StateScene.Game:
+								bool changeLocation = false;
+								if (Hero.instance.transform.position.x <= _StartPos.transform.position.x - 5)
+								{
+										PlayerPrefs.SetInt("NextLVL", 3); //назад всегда возвращаемся на респ
+										changeLocation = true;
+								}
+
+								if (Hero.instance.transform.position.x >= _FinishPos.transform.position.x + 5)
+								{
+										int CompletedLVL = PlayerPrefs.GetInt("CompletedLVL");
+										if (CompletedLVL < 4) //временная проверка конца игры...
+												CompletedLVL++;
+
+										if (SceneManager.GetActiveScene().name == "Respawn")
+										{
+												PlayerPrefs.SetInt("NextLVL", CompletedLVL);
+										}
+										else
+												PlayerPrefs.SetInt("CompletedLVL", SceneManager.GetActiveScene().buildIndex);
+										changeLocation = true;
+								}
+
+								if (changeLocation)
+								{
+										_stateScene = StateScene.Finish;
+										StartCoroutine(AsyncLoad());
+								}
+								break;
+						case StateScene.Finish:
+								var closePos = _StartPos.transform.position.x - Hero.instance.transform.position.x > 0 ? _StartPos : _FinishPos;
+								distance = (int)Mathf.Abs((Hero.instance.transform.position.x - closePos.transform.position.x));
+								Hero.instance.Controller._interfaceBlocked = true;
+								Hero.instance.Move(.9f * Hero.instance.transform.localScale.x);
+								_UIanimator.SetBool("Show", false);
+								percent = 100f - (30f - distance) / 30f * 100f;
+								alpha = (int)Mathf.Round((255 * (percent * 0.01f)));
+								if (alpha > 255)
+								{
+										_isLoaded = true;
+										_stateScene = StateScene.Exit;
+								}
+								else
+										_imageSprite.color = new Color32(0, 0, 0, (byte)alpha);
+								break;
+
+						case StateScene.Exit:
+								//ничего не делаем т к пошла загрузка... 
+								break;
+				}
+
+		}
+
+		IEnumerator AsyncLoad()
+		{
+				yield return new WaitForSeconds(1);
+				AsyncOperation operation = SceneManager.LoadSceneAsync("Loading");
+				operation.allowSceneActivation = false;
+
+				while (!operation.isDone)
+				{
+						if (operation.progress == 0.9f)
+						{
+								if (_isLoaded)
+										operation.allowSceneActivation = true;
 						}
-
-						float distance = (int)Mathf.Abs((Hero.instance.transform.position.x - _FinishPos.transform.position.x));
-						if (distance > 30f || distance == 0)
-								return;
-
-						Hero.instance.Controller._interfaceBlocked = true;
-
-						if (distance == 0)
-								transform.root.gameObject.SetActive(false);
-
-						Hero.instance.Move(.9f);
-
-
-						_UIanimator.SetBool("Show", false);
-						float percent = (30f - distance) / 30f * 100f;
-						int alpha = (int)Mathf.Round((255 * (percent * 0.01f)));
-						if (alpha > 255)
-								alpha = 255;
-						_imageSprite.color = new Color32(0, 0, 0, (byte)alpha);
+						yield return null;
 				}
 		}
 }
