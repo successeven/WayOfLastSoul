@@ -1,0 +1,89 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1797460705895258}
+  m_IsPrefabParent: 1
+--- !u!1 &1797460705895258
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4847141378856108}
+  - component: {fileID: 114755468157654676}
+  - component: {fileID: 114617528143730856}
+  m_Layer: 0
+  m_Name: ScriptyObject
+  m_TagString: ScriptManager
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4847141378856108
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1797460705895258}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114617528143730856
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1797460705895258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6774e57672da8864f8074e1c4d7a0bb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mainTime: 0
+--- !u!114 &114755468157654676
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1797460705895258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a7255e9e987e414dbb3494ac8b9dba0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  "_\u0421omplexity": 1
+  _countEnemy: 5
+  _countEnemyByPoint: 2
+  _frequencySpawn: 2
+  _Lengthmap: 70
+  _PercentLevel: 75
+  "_\u0421urrentObject": {fileID: 0}
+  _Objects: 31692
+  _Lands: 6
+  _InclineLands: 1
+  _LandsAtlas: {fileID: 4343727234628468602, guid: 231efaec375641b4b8f499c7c0f1e23d,
+    type: 2}
+  _ObjectsAtlas: {fileID: 4343727234628468602, guid: e5ce7493d81b4e749b174bf01cf3dfe2,
+    type: 2}
+  _DrawObject: {fileID: 1100894419918122, guid: 53ad74ddbe109f64e98cbfcf6572d6cd,
+    type: 2}
+  _Grounds:
+  - {fileID: 1615450324158886, guid: aba3de2e73870f44f86c37eb628d58b8, type: 2}
+  - {fileID: 1055100986243006, guid: 0f5f2f8beea59e642beb4762ca27b434, type: 2}
+  - {fileID: 1470961240110140, guid: b677bb071c62ba34a9cb0849e222c85b, type: 2}
+  _Enemys:
+  - {fileID: 1700937352666732, guid: ac7fe42fe0933844ea680559a4ec87c8, type: 2}
+  - {fileID: 1521042297074496, guid: d2ee52eb878c5344a9d4bfc9b4eeb88c, type: 2}
