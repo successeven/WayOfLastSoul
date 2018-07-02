@@ -70,11 +70,11 @@ public class FallenController : EnemyController
 		public override void TakeHit(float damage)
 		{
 				_reciveDamage = true;
-				if (_enemyManager._HP <= 0)
-						return;
 
 				_rigidbody.velocity = new Vector2(_damageLength * transform.localScale.x, _rigidbody.velocity.y);
 				_enemyManager._HP -= damage;
+				if (_enemyManager._HP <= 0)
+						return;
 				_anima.SetTrigger("TakeHit");
 				_reciveDamage = false;
 		}
