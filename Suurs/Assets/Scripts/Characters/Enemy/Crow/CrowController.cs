@@ -36,7 +36,6 @@ public class CrowController : EnemyController
     Vector2 _tempPosition;
     float _CurrentPosX;
     Vector3 _startAttackPosition;
-    bool _startAttack = false;
     StateCrow stateCrow = StateCrow.Idle;
     int _moveSide = 1; //1- вправо ; -1 влево
 		bool _animTakeOff = true;
@@ -45,7 +44,6 @@ public class CrowController : EnemyController
     {
         if (Hero.instance.Manager._Health <= 0 && stateCrow != StateCrow.Idle)
             stateCrow = StateCrow.TakeOff;
-
 				switch (stateCrow)
         {
             case StateCrow.Idle:
@@ -86,7 +84,6 @@ public class CrowController : EnemyController
                     _distance = Vector2.Distance(transform.position, Hero.instance.transform.position);
                     if (_distance >= _distanceAttack - _deltaDistanceAttack && _distance <= _distanceAttack + _deltaDistanceAttack)
                     {
-                        _startAttack = true;
 
                         actionRight = transform.root.localScale.x < 0;
                         if (_moveSide > 0 && transform.position.x - Hero.instance.transform.position.x > 0)
@@ -107,10 +104,10 @@ public class CrowController : EnemyController
                 transform.position = Vector2.MoveTowards(transform.position, _targetAttack, _SpeedAttack * Time.deltaTime);
 
                 _distance = Vector3.Distance(transform.position, Hero.instance.transform.position);
-                if (_distance <= 2f && !_attacks)
-                {
-                    _attacks = true;
-										_anima.SetTrigger("Attack");//, _attacks);
+                if (_distance <= 3f && !_attacks)
+								{
+										_attacks = true;
+										_anima.SetTrigger("Attack");
 										stateCrow = StateCrow.Attack;
 										_animTakeOff = false;
 										break;
@@ -124,13 +121,12 @@ public class CrowController : EnemyController
 								}
                 break;
             case StateCrow.Attack:
-                transform.position = Vector2.MoveTowards(transform.position, _targetAttack, _SpeedAttack * Time.deltaTime);
+								transform.position = Vector2.MoveTowards(transform.position, _targetAttack, _SpeedAttack * Time.deltaTime);
                 _distance = Vector2.Distance(transform.position, _targetAttack);                
                 if (_distance == 0) 
 										stateCrow = StateCrow.TakeOff;
                 break;
             case StateCrow.TakeOff:
-								_attacks = false;
 								if (_animTakeOff)
 								{
 										_anima.SetTrigger("TakeOff");
@@ -140,17 +136,19 @@ public class CrowController : EnemyController
                 if (transform.position == _startAttackPosition)
                 {
                     stateCrow = StateCrow.Idle;
-                    _startAttack = false;
                     _enemyManager.ResetEnemyDealAttack();
-                }
-                break;
+								}
+								_attacks = false;
+								break;
         }
     }
 
     public override void TakeHit(float damage)
-    {
+		{
 				_enemyManager._HP -= damage;
-        _anima.SetBool("Attack", false);
+				if (_enemyManager._HP <= 0)
+						return;
+				_anima.SetBool("Attack", false);
         _attacks = false;
         _anima.SetTrigger("TakeHit");
         stateCrow = StateCrow.TakeOff;

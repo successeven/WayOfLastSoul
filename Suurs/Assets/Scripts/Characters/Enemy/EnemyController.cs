@@ -51,6 +51,9 @@ public class EnemyController : Unit
 
 		void Update()
 		{
+				if (_enemyManager._death)
+						return;
+
 				if (Vector3.Distance(Hero.instance.transform.position, transform.position) > 50)
 						_anima.enabled = false;
 				else

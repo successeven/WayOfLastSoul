@@ -57,13 +57,15 @@ public class HeroMotor : CharacterMotor
 				
 				if (_rolling)
 				{
-						_attacksIndex = 5;
+						_attacksIndex = 3;
 						_anima.SetTrigger("Attack");
 						_anima.SetInteger("Attack Index", _attacksIndex);
 						StartCoroutine(DoStrikeRoll(.33f));
 				}
 				else if (_deltaRapiraTime > Time.fixedTime - _lastAttackTime)
 				{
+						_attacksIndex = _attacksIndex == 0 ? 3 : _attacksIndex;
+						Debug.Log(_attacksIndex);
 						_lastAttackTime = Time.fixedTime;
 						_attacksIndex++;
 						_anima.SetTrigger("Attack");
@@ -72,7 +74,7 @@ public class HeroMotor : CharacterMotor
 				}
 				else
 				{
-						_attacksIndex = 4;
+						_attacksIndex = 2;
 						_anima.SetTrigger("Rapira");
 						StartCoroutine(DoRapira(.33f));
 				}
@@ -133,7 +135,7 @@ public class HeroMotor : CharacterMotor
 
 		public void Back_Slide()
 		{
-				_attacksIndex = 3;
+				_attacksIndex = 1;
 				_attacks = true;
 				_lastBack_SlideTime = Time.fixedTime;
 				_blocking = false;
