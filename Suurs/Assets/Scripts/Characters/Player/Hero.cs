@@ -51,6 +51,8 @@ public class Hero : MonoBehaviour
 				}
 		}
 
+		public const string GameOverAD = "ca-app-pub-4537576181628162/5928041347";
+		public const string bannerAD = "ca-app-pub-4537576181628162/5626457313";
 
 		public void Move(float inSpeed)
 		{

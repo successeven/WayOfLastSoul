@@ -18,8 +18,9 @@ public class UIController : MonoBehaviour
 		bool needChange;
 
 		bool gameLoad = false;
-		 StateScene _state = StateScene.None;
-		
+		StateScene _state = StateScene.None;
+
+
 		void Start()
 		{
 				_anima = GetComponent<Animator>();
@@ -68,7 +69,7 @@ public class UIController : MonoBehaviour
 		public void ExitGame()
 		{
 				Time.timeScale = 1;
-				SceneManager.LoadScene("Menu");						
+				SceneManager.LoadScene("Menu");
 		}
 
 		// Update is called once per frame

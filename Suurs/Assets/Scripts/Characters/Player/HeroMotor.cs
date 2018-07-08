@@ -113,7 +113,8 @@ public class HeroMotor : CharacterMotor
 		private IEnumerator DoBack_Slide(float time)
 		{
 				SwordCollider.enabled = true;
-				for (float t = 0; t <= time; t += Time.deltaTime)
+				yield return new WaitForSeconds(0.15f);
+				for (float t = 0; t <= time - 0.15f; t += Time.deltaTime)
 				{
 						_rigidbody.velocity = new Vector2(-_backSlideLength * transform.localScale.x, _rigidbody.velocity.y);
 						yield return null;

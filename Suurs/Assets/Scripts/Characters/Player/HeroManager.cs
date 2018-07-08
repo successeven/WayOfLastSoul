@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System.Linq;
+using GoogleMobileAds.Api;
 
 public class HeroManager : MonoBehaviour
 {
@@ -30,6 +31,8 @@ public class HeroManager : MonoBehaviour
 		public int _DeltaRoll = 2000; ///Интервал кувырков (в милисекундах) 
 		public int _DeltaBack_Slide = 1000; ///Интервал Back_Slide (в милисекундах) 
 
+
+		InterstitialAd ad;
 
 		//public Hero heroStat;
 		string path;
@@ -58,7 +61,10 @@ public class HeroManager : MonoBehaviour
 		public virtual void Die()
 		{
 				GetComponent<Rigidbody2D>().gravityScale = 1;
-				Invoke("DestroyObject", 4f);
+				ad = new InterstitialAd(Hero.GameOverAD);
+				AdRequest request = new AdRequest.Builder().AddTestDevice(AdRequest.TestDeviceSimulator).AddTestDevice("FECE89DBCFFFAD83").Build();
+				ad.LoadAd(request);
+				//Invoke("DestroyObject");
 				PlayerPrefs.SetInt("NextLVL", 0);
 		}
 
@@ -67,6 +73,13 @@ public class HeroManager : MonoBehaviour
 				SceneManager.LoadScene("Loading");
 				//Destroy(transform.root.gameObject);
 		}
+
+		void OnLoadAD(object sender, System.EventArgs args)
+		{
+				ad.Show();
+				DestroyObject();
+		}
+
 
 		void OnTriggerEnter2D(Collider2D collision)
 		{
