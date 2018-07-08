@@ -6,10 +6,13 @@ using System.Collections;
 public class HeroMotor : CharacterMotor
 {
 
-		[NonSerialized]
-		public bool _attacks = false;
 		[SerializeField]
 		float _attacksLength = 2f;
+
+		public PolygonCollider2D SwordCollider;
+
+		[NonSerialized]
+		public bool _attacks = false;
 		[NonSerialized]
 		public int _attacksIndex = 0;
 
@@ -54,7 +57,6 @@ public class HeroMotor : CharacterMotor
 		public void Attack()
 		{
 				_attacks = true;
-				
 				if (_rolling)
 				{
 						_attacksIndex = 3;
@@ -65,7 +67,6 @@ public class HeroMotor : CharacterMotor
 				else if (_deltaRapiraTime > Time.fixedTime - _lastAttackTime)
 				{
 						_attacksIndex = _attacksIndex == 0 ? 3 : _attacksIndex;
-						Debug.Log(_attacksIndex);
 						_lastAttackTime = Time.fixedTime;
 						_attacksIndex++;
 						_anima.SetTrigger("Attack");
@@ -81,6 +82,7 @@ public class HeroMotor : CharacterMotor
 		}
 		private IEnumerator DoStrikeRoll(float time)
 		{
+				SwordCollider.enabled = true;
 				for (float t = 0; t <= time; t += Time.deltaTime)
 						yield return null;
 				ResetAttack();
@@ -88,6 +90,7 @@ public class HeroMotor : CharacterMotor
 
 		private IEnumerator DoAttack(float time)
 		{
+				SwordCollider.enabled = true;
 				for (float t = 0; t <= time; t += Time.deltaTime)
 				{
 						_rigidbody.velocity = new Vector2(_attacksLength * transform.localScale.x, _rigidbody.velocity.y);
@@ -98,6 +101,7 @@ public class HeroMotor : CharacterMotor
 
 		private IEnumerator DoRapira(float time)
 		{
+				SwordCollider.enabled = true;
 				for (float t = 0; t <= time; t += Time.deltaTime)
 				{
 						_rigidbody.velocity = new Vector2(_deltaRapiraLength * transform.localScale.x, _rigidbody.velocity.y);
@@ -106,7 +110,17 @@ public class HeroMotor : CharacterMotor
 				ResetAttack();
 		}
 
-
+		private IEnumerator DoBack_Slide(float time)
+		{
+				SwordCollider.enabled = true;
+				for (float t = 0; t <= time; t += Time.deltaTime)
+				{
+						_rigidbody.velocity = new Vector2(-_backSlideLength * transform.localScale.x, _rigidbody.velocity.y);
+						yield return null;
+				}
+				ResetAttack();
+		}
+		
 		protected override bool CanMove()
 		{
 				return (!_attacks && !_rolling && !_blocking && _canMove);
@@ -114,6 +128,7 @@ public class HeroMotor : CharacterMotor
 
 		public void ResetAttack()
 		{
+				SwordCollider.enabled = false;
 				_attacksIndex = 0;
 				_anima.SetInteger("Attack Index", _attacksIndex);
 				_attacks = false;
@@ -141,16 +156,6 @@ public class HeroMotor : CharacterMotor
 				_blocking = false;
 				_anima.SetTrigger("Back_Slide");
 				StartCoroutine(DoBack_Slide(.45f));
-		}
-
-		private IEnumerator DoBack_Slide(float time)
-		{
-				for (float t = 0; t <= time; t += Time.deltaTime)
-				{
-						_rigidbody.velocity = new Vector2(-_backSlideLength * transform.localScale.x, _rigidbody.velocity.y);
-						yield return null;
-				}
-				ResetAttack();
 		}
 
 		public void Roll()

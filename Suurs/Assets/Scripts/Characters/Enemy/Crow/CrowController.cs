@@ -47,7 +47,6 @@ public class CrowController : EnemyController
 				switch (stateCrow)
         {
             case StateCrow.Idle:
-                _distance = Math.Abs(transform.position.x - Hero.instance.transform.position.x);
                 if (_distance < _visibility)
                     stateCrow = StateCrow.Move;
                 break;
@@ -81,7 +80,6 @@ public class CrowController : EnemyController
                 int currentDeltaAttack = (int)Math.Truncate((Time.fixedTime - _lastAttackTime) * 1000);
                 if (currentDeltaAttack > _deltaTimeAttack && !_reciveDamage)
                 {
-                    _distance = Vector2.Distance(transform.position, Hero.instance.transform.position);
                     if (_distance >= _distanceAttack - _deltaDistanceAttack && _distance <= _distanceAttack + _deltaDistanceAttack)
                     {
 
@@ -103,7 +101,6 @@ public class CrowController : EnemyController
                 _lastAttackTime = Time.fixedTime;
                 transform.position = Vector2.MoveTowards(transform.position, _targetAttack, _SpeedAttack * Time.deltaTime);
 
-                _distance = Vector3.Distance(transform.position, Hero.instance.transform.position);
                 if (_distance <= 3f && !_attacks)
 								{
 										_attacks = true;

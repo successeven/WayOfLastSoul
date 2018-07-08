@@ -24,8 +24,6 @@ public class FallenController : EnemyController
 
 		protected override void DoMotion()
 		{
-				_distance = Vector2.Distance(transform.position, Hero.instance.transform.position);
-
 				bool actionRight = false;
 				if (transform.root.localScale.x < 0)
 						actionRight = true;
@@ -43,7 +41,7 @@ public class FallenController : EnemyController
 								else
 										_moveLeftSide = deltaSpeed;
 
-								Move(_rigidbody, _speed, ref actionRight, _moveLeftSide);
+								Move(_rigidbody, _speed,  _moveLeftSide);
 						}
 						else
 								_anima.SetBool("Move", false);

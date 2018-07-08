@@ -24,13 +24,11 @@ public class StartScenes : MonoBehaviour
 
 		bool _isLoaded = false;
 		bool _showUIController = false;
-		Animator _UIanimator;
 		StateScene _stateScene = StateScene.Load;
 		// Use this for initialization
 		void Start()
 		{
 				_imageSprite = _StartImage.GetComponent<Image>();
-				_UIanimator = _UIController.GetComponent<Animator>();
 				_StartPos = GameObject.FindGameObjectWithTag("Start");
 				_FinishPos = GameObject.FindGameObjectWithTag("Finish");
 				_startDistance = (int)Mathf.Abs((Hero.instance.transform.position.x - _StartPos.transform.position.x));
@@ -47,7 +45,7 @@ public class StartScenes : MonoBehaviour
 								{
 										Hero.instance.Controller._interfaceBlocked = false;
 										_stateScene = StateScene.Game;
-										_UIanimator.enabled = true;
+										_UIController.GetComponent<UIController>().ShowUI();
 								}
 								else
 								{
@@ -87,6 +85,7 @@ public class StartScenes : MonoBehaviour
 								if (changeLocation)
 								{
 										_stateScene = StateScene.Finish;
+										_UIController.GetComponent<UIController>().HideUI();
 										StartCoroutine(AsyncLoad());
 								}
 								break;
@@ -95,7 +94,6 @@ public class StartScenes : MonoBehaviour
 								distance = (int)Mathf.Abs((Hero.instance.transform.position.x - closePos.transform.position.x));
 								Hero.instance.Controller._interfaceBlocked = true;
 								Hero.instance.Move(.9f * Hero.instance.transform.localScale.x);
-								_UIanimator.SetBool("Show", false);
 								percent = 100f - (30f - distance) / 30f * 100f;
 								alpha = (int)Mathf.Round((255 * (percent * 0.01f)));
 								if (alpha > 255)

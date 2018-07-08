@@ -69,6 +69,7 @@ public class EnemyController : Unit
 
 		protected virtual void FixedUpdate()
 		{
+				_distance = Vector2.Distance(transform.position, Hero.instance.transform.position);
 				if (_enemyManager._HP <= 0 || Hero.instance.Manager._Health <= 0)
 						return;
 

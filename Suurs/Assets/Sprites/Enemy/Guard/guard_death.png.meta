@@ -1,20 +1,26 @@
 fileFormatVersion: 2
-guid: 23c8edc3121531348953ccc4d26f74cd
+guid: 79ba7216021a6364a881f58619d67789
+timeCreated: 1525945485
+licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Joystick_front
-    21300002: btn_Menu
-    21300004: Button_Attack
-    21300006: Joystick_background
-    21300008: Flag
-    21300010: Button_Roll
-    21300012: Wing
-    21300014: Button_Block
-    21300016: UI_Health
-    21300018: Buttom_background
-    21300020: Back_Timer
+    21300000: guard_death_0
+    21300002: guard_death_1
+    21300004: guard_death_2
+    21300006: guard_death_3
+    21300008: guard_death_4
+    21300010: guard_death_5
+    21300012: guard_death_6
+    21300014: guard_death_7
+    21300016: guard_death_8
+    21300018: guard_death_9
+    21300020: guard_death_10
+    21300022: guard_death_11
+    21300024: guard_death_12
+    21300026: guard_death_13
+    21300028: guard_death_14
   externalObjects: {}
-  serializedVersion: 5
+  serializedVersion: 4
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -54,21 +60,18 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 0
+  spritePixelsToUnits: 100
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
   textureType: 8
   textureShape: 1
-  singleChannelComponent: 0
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
   platformSettings:
-  - serializedVersion: 2
-    buildTarget: DefaultTexturePlatform
+  - buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -78,8 +81,7 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
-    buildTarget: Standalone
+  - buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -89,41 +91,7 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
-    buildTarget: iPhone
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-  - serializedVersion: 2
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-  - serializedVersion: 2
-    buildTarget: Windows Store Apps
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-  - serializedVersion: 2
-    buildTarget: WebGL
+  - buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -137,233 +105,203 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Joystick_front
+      name: guard_death_0
       rect:
         serializedVersion: 2
-        x: 32
-        y: 1039
-        width: 189
-        height: 202
+        x: 0
+        y: 492
+        width: 210
+        height: 520
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
-      bones: []
-      spriteID: c02cc8d1e4117754fac7a69be6ae29e6
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     - serializedVersion: 2
-      name: btn_Menu
+      name: guard_death_1
       rect:
         serializedVersion: 2
-        x: 467
-        y: 1171
-        width: 336
-        height: 56
+        x: 262
+        y: 502
+        width: 65
+        height: 162
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
-      bones: []
-      spriteID: da56c9ca12242fa4b84d0c6dff034a8f
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     - serializedVersion: 2
-      name: Button_Attack
+      name: guard_death_2
       rect:
         serializedVersion: 2
-        x: 902
-        y: 975
-        width: 252
-        height: 254
+        x: 411
+        y: 517
+        width: 110
+        height: 160
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
-      bones: []
-      spriteID: 24f52b463abcf154f82d1020054ec076
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     - serializedVersion: 2
-      name: Joystick_background
+      name: guard_death_3
       rect:
         serializedVersion: 2
-        x: 10
-        y: 652
-        width: 365
-        height: 365
+        x: 581
+        y: 529
+        width: 233
+        height: 295
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
-      bones: []
-      spriteID: a473da63084d5db4a8d075fca33febe4
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     - serializedVersion: 2
-      name: Flag
+      name: guard_death_4
       rect:
         serializedVersion: 2
-        x: 392
-        y: 626
-        width: 485
-        height: 491
+        x: 59
+        y: 148
+        width: 111
+        height: 300
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
-      bones: []
-      spriteID: ef087b064b30bb344a1934b148212449
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     - serializedVersion: 2
-      name: Button_Roll
+      name: guard_death_5
       rect:
         serializedVersion: 2
-        x: 906
-        y: 740
-        width: 180
-        height: 179
+        x: 274
+        y: 339
+        width: 77
+        height: 98
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
-      bones: []
-      spriteID: a916bcaf5a6599f43acbb7afe6f69fb5
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     - serializedVersion: 2
-      name: Wing
+      name: guard_death_6
       rect:
         serializedVersion: 2
-        x: 26
-        y: 292
-        width: 566
-        height: 291
-      alignment: 9
-      pivot: {x: 0.9657758, y: 0.59436905}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 13dae793a8f6afe45ba68f618d81ebfe
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Button_Block
-      rect:
-        serializedVersion: 2
-        x: 906
-        y: 551
-        width: 146
-        height: 146
+        x: 428
+        y: 315
+        width: 130
+        height: 114
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
-      bones: []
-      spriteID: e492fadda7eeb374fa700ef3c5dcd9e3
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     - serializedVersion: 2
-      name: UI_Health
+      name: guard_death_7
       rect:
         serializedVersion: 2
-        x: 732
-        y: 347
-        width: 555
-        height: 69
+        x: 613
+        y: 216
+        width: 169
+        height: 248
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
-      bones: []
-      spriteID: 6ea05d37f1c15b343bdda897e9b2c881
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     - serializedVersion: 2
-      name: Buttom_background
+      name: guard_death_8
       rect:
         serializedVersion: 2
-        x: 5
-        y: 28
-        width: 1920
-        height: 232
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 48fd4be3c6d0f2b42abeb8f9efe151e2
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Back_Timer
-      rect:
-        serializedVersion: 2
-        x: 1122
-        y: 460
-        width: 154
-        height: 155
+        x: 241
+        y: 170
+        width: 131
+        height: 129
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
-      bones: []
-      spriteID: f844cdffaeb61564fa0c759b616c64d6
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    - serializedVersion: 2
+      name: guard_death_9
+      rect:
+        serializedVersion: 2
+        x: 410
+        y: 43
+        width: 164
+        height: 171
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: guard_death_10
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 17
+        width: 166
+        height: 84
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: guard_death_11
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 0
+        width: 89
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: guard_death_12
+      rect:
+        serializedVersion: 2
+        x: 627
+        y: 17
+        width: 141
+        height: 113
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: guard_death_14
+      rect:
+        serializedVersion: 2
+        x: 771
+        y: 0
+        width: 43
+        height: 101
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
     outline: []
     physicsShape: []
-    bones: []
-    spriteID: 1abe6766c6b55b44c8312ccc2e4f38e4
-    vertices: []
-    indices: 
-    edges: []
-    weights: []
   spritePackingTag: 
   userData: 
   assetBundleName: 
