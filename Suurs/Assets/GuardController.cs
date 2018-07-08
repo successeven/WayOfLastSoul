@@ -9,6 +9,9 @@ public class GuardController : EnemyController
 		[SerializeField]
 		float _damageLength = 2f;
 
+		[SerializeField]
+		ParticleSystem _HitPartical;
+
 		public void ResetEnemyAttack()
 		{
 				if (_attacks)
@@ -25,7 +28,13 @@ public class GuardController : EnemyController
 
 		protected override void DoMotion()
 		{
+				Move(_rigidbody, _speed, _moveLeftSide);
+				if (_distance <= _visibility && CanMove())
+				{
+						_anima.SetTrigger("Spawn");
+				}
 		}
+
 
 
 		protected override void DoAttack()
@@ -42,12 +51,25 @@ public class GuardController : EnemyController
 		public override void TakeHit(float damage)
 		{
 				_reciveDamage = true;
-
 				_enemyManager._HP -= damage;
 				if (_enemyManager._HP <= 0)
 						return;
-				_anima.SetTrigger("TakeHit");
+
+				_HitPartical.Play();
+				//StartCoroutine(DoTakeHit(0.5f));
 				_reciveDamage = false;
 		}
+
+		private IEnumerator DoTakeHit(float time)
+		{
+				_HitPartical.Play();
+				for (float t = 0; t <= time; t += Time.deltaTime)
+				{
+						yield return null;
+				}
+				//_HitPartical.Stop();
+		}
+
+
 
 }

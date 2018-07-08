@@ -6,7 +6,7 @@ public class Unit : MonoBehaviour
     [SerializeField]
     protected float _speed;
 		
-    public virtual void Move(Rigidbody2D inBody, float inSpeed, ref bool inRigthPosition, float inMoveDirection)
+    public virtual void Move(Rigidbody2D inBody, float inSpeed, float inMoveDirection)
     {
         inBody.velocity = new Vector2(inMoveDirection * inSpeed, inBody.velocity.y);
 				/*

@@ -54,7 +54,7 @@ public class HeroManager : MonoBehaviour
 						Die();
 				}
 		}
-		
+
 		public virtual void Die()
 		{
 				GetComponent<Rigidbody2D>().gravityScale = 1;
@@ -70,11 +70,13 @@ public class HeroManager : MonoBehaviour
 
 		void OnTriggerEnter2D(Collider2D collision)
 		{
+				Debug.Log("Атака");
 				if (collision.tag == "Enemy" && Hero.instance.Motor._attacks)
 				{
-						if (!_DealDamage)
+						Debug.Log(Hero.instance.Motor.SwordCollider.enabled);
+						if (Hero.instance.Motor.SwordCollider.enabled)
 						{
-								_DealDamage = true;
+								Hero.instance.Motor.SwordCollider.enabled = false;
 								var _currentAttackItem = _attackItems.Where(x => x._ID == Hero.instance.Motor._attacksIndex).FirstOrDefault();
 								GameObject enemy = collision.transform.root.gameObject;
 								EnemyController enemyController = enemy.GetComponent<EnemyController>();
