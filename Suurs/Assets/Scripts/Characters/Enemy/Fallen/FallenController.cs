@@ -24,8 +24,6 @@ public class FallenController : EnemyController
 
 		protected override void DoMotion()
 		{
-				_distance = Vector2.Distance(transform.position, Hero.instance.transform.position);
-
 				bool actionRight = false;
 				if (transform.root.localScale.x < 0)
 						actionRight = true;
