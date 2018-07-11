@@ -169,11 +169,13 @@ public class HeroMotor : CharacterMotor
 
 		private IEnumerator DoRolling(float time)
 		{
+				Physics.IgnoreLayerCollision(9, 11,true);
 				for (float t = 0; t <= time; t += Time.deltaTime)
 				{
 						_rigidbody.velocity = new Vector2(_rollLength * transform.localScale.x, _rigidbody.velocity.y);
 						yield return null;
 				}
 				_rolling = false;
+				Physics.IgnoreLayerCollision(9, 11, false);
 		}
 }

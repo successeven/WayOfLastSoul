@@ -2,9 +2,23 @@
 using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using GoogleMobileAds.Api;
 
 public class UIController : MonoBehaviour
 {
+
+		#region Singleton
+
+		public static UIController instance;
+
+		void Awake()
+		{
+				instance = this;
+		}
+
+		#endregion
+
+
 		enum StateScene
 		{
 				None = 0,
@@ -19,11 +33,16 @@ public class UIController : MonoBehaviour
 
 		bool gameLoad = false;
 		StateScene _state = StateScene.None;
+		public InterstitialAd ad;
+
 
 
 		void Start()
 		{
 				_anima = GetComponent<Animator>();
+				ad = new InterstitialAd(Hero.GameOverAD);
+				AdRequest request = new AdRequest.Builder().Build();
+				ad.LoadAd(request);
 		}
 
 		public void ShowUI()
@@ -56,6 +75,20 @@ public class UIController : MonoBehaviour
 		{
 				Time.timeScale = 1;
 
+		}
+
+		public void GameOver()
+		{
+				_anima.SetTrigger("GameOver");
+				Invoke("NextLevel", 6f);
+		}
+
+		void NextLevel()
+		{
+				if (ad.IsLoaded())
+						ad.Show();
+				PlayerPrefs.SetInt("NextLVL", 0);
+				SceneManager.LoadScene("Loading");
 		}
 
 		public void ContinueGame()

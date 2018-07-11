@@ -15,7 +15,7 @@ public class StartScenes : MonoBehaviour
 				Exit = 2
 		}
 
-		public GameObject _UIController;
+		UIController _UIController;
 		public GameObject _StartImage;
 		GameObject _StartPos;
 		GameObject _FinishPos;
@@ -29,6 +29,7 @@ public class StartScenes : MonoBehaviour
 		void Start()
 		{
 				_imageSprite = _StartImage.GetComponent<Image>();
+				_UIController = GetComponent<UIController>();
 				_StartPos = GameObject.FindGameObjectWithTag("Start");
 				_FinishPos = GameObject.FindGameObjectWithTag("Finish");
 				_startDistance = (int)Mathf.Abs((Hero.instance.transform.position.x - _StartPos.transform.position.x));
@@ -45,7 +46,7 @@ public class StartScenes : MonoBehaviour
 								{
 										Hero.instance.Controller._interfaceBlocked = false;
 										_stateScene = StateScene.Game;
-										_UIController.GetComponent<UIController>().ShowUI();
+										_UIController.ShowUI();
 								}
 								else
 								{
@@ -85,7 +86,7 @@ public class StartScenes : MonoBehaviour
 								if (changeLocation)
 								{
 										_stateScene = StateScene.Finish;
-										_UIController.GetComponent<UIController>().HideUI();
+										_UIController.HideUI();
 										StartCoroutine(AsyncLoad());
 								}
 								break;
@@ -122,6 +123,8 @@ public class StartScenes : MonoBehaviour
 				{
 						if (operation.progress == 0.9f)
 						{
+								if (UIController.instance.ad.IsLoaded())
+										UIController.instance.ad.Show();
 								if (_isLoaded)
 										operation.allowSceneActivation = true;
 						}

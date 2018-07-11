@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System.Linq;
-using GoogleMobileAds.Api;
 
 public class HeroManager : MonoBehaviour
 {
@@ -32,8 +31,6 @@ public class HeroManager : MonoBehaviour
 		public int _DeltaBack_Slide = 1000; ///Интервал Back_Slide (в милисекундах) 
 
 
-		InterstitialAd ad;
-
 		//public Hero heroStat;
 		string path;
 
@@ -54,32 +51,14 @@ public class HeroManager : MonoBehaviour
 				{
 						_death = true;
 						_anima.SetTrigger("Death");
-						Die();
+						Invoke("GameOver", 3f);
 				}
 		}
 
-		public virtual void Die()
+		public void GameOver()
 		{
-				GetComponent<Rigidbody2D>().gravityScale = 1;
-				ad = new InterstitialAd(Hero.GameOverAD);
-				AdRequest request = new AdRequest.Builder().AddTestDevice(AdRequest.TestDeviceSimulator).AddTestDevice("FECE89DBCFFFAD83").Build();
-				ad.LoadAd(request);
-				//Invoke("DestroyObject");
-				PlayerPrefs.SetInt("NextLVL", 0);
-		}
-
-		protected virtual void DestroyObject()
-		{
-				SceneManager.LoadScene("Loading");
-				//Destroy(transform.root.gameObject);
-		}
-
-		void OnLoadAD(object sender, System.EventArgs args)
-		{
-				ad.Show();
-				DestroyObject();
-		}
-
+				UIController.instance.GameOver();
+		}		
 
 		void OnTriggerEnter2D(Collider2D collision)
 		{
