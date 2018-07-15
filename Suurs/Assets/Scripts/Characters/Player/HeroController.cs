@@ -42,7 +42,6 @@ public class HeroController : MonoBehaviour
 
 		private void Update()
 		{
-				Debug.Log(_motor.SwordCollider.enabled);
 				if (_manager._Health <= 0)
 						return;
 
