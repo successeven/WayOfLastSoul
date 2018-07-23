@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class LoadingController : MonoBehaviour
 {
-		int _LevelIDToLoad;
+		string _LevelName;
 
 		[NonSerialized]
 		public bool _showNextLVL = false;
@@ -16,7 +16,10 @@ public class LoadingController : MonoBehaviour
 		void Start()
 		{
 				if (PlayerPrefs.HasKey("NextLVL"))
-						_LevelIDToLoad = PlayerPrefs.GetInt("NextLVL");
+				{
+						int level = PlayerPrefs.GetInt("NextLVL");
+						_LevelName = "Scene_" + level.ToString();
+				}
 
 				_animaHide = GetComponent<Animator>();
 				LoadLVL();
@@ -35,7 +38,7 @@ public class LoadingController : MonoBehaviour
 		IEnumerator AsyncLoad()
 		{
 				yield return new WaitForSeconds(1);
-				AsyncOperation operation = SceneManager.LoadSceneAsync(_LevelIDToLoad);
+				AsyncOperation operation = SceneManager.LoadSceneAsync(_LevelName);
 				operation.allowSceneActivation = false;
 
 				while (!operation.isDone)
