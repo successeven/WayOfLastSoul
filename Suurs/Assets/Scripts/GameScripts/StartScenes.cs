@@ -16,14 +16,21 @@ public class StartScenes : MonoBehaviour
 		}
 
 		public GameObject _StartImage;
+		public Image _SceneName;
+		[SerializeField]
+		float _LenghtNameScene;
+
 		GameObject _StartPos;
 		GameObject _FinishPos;
 		Image _imageSprite;
+		Image _imageName;
 		float _startDistance; //Дистанция до начала.
 
 		bool _isLoaded = false;
 		bool _showUIController = false;
 		StateScene _stateScene = StateScene.Load;
+		float percent;
+		int alpha;
 		// Use this for initialization
 		void Start()
 		{
@@ -52,11 +59,24 @@ public class StartScenes : MonoBehaviour
 										Hero.instance.Move(deltaSpeed * Hero.instance.transform.localScale.x);
 								}
 
-								float percent = (_startDistance - distance) / _startDistance * 100f;
-								int alpha = (int)Mathf.Round((255 * (percent * 0.01f)));
-								if (alpha > 255)
-										alpha = 255;
-								_imageSprite.color = new Color32(0, 0, 0, (byte)(255 - alpha));
+								if (distance > _LenghtNameScene)
+								{
+										percent = (_LenghtNameScene - _startDistance - distance) / _startDistance * 100f;
+										alpha = (int)Mathf.Round((255 * (percent * 0.01f)));
+										if (alpha > 255)
+												alpha = 255;
+										_SceneName.color = new Color32(0, 0, 0, (byte)(255 - alpha));
+								}
+								else
+								{
+										_SceneName.color = new Color32(0, 0, 0, 0);
+										percent = (_startDistance - distance) / _startDistance * 100f;
+										alpha = (int)Mathf.Round((255 * (percent * 0.01f)));
+										if (alpha > 255)
+												alpha = 255;
+										_imageSprite.color = new Color32(0, 0, 0, (byte)(255 - alpha));
+								}
+
 								break;
 						case StateScene.Game:
 								bool changeLocation = false;
@@ -76,7 +96,7 @@ public class StartScenes : MonoBehaviour
 												PlayerPrefs.SetInt("NextLVL", CompletedLVL);
 										else
 												PlayerPrefs.SetInt("CompletedLVL", CompletedLVL);
-												
+
 										changeLocation = true;
 								}
 

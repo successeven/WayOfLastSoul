@@ -43,6 +43,7 @@ public class GuardController : EnemyController
 				if ((_distance <= _deltaDistanceAttack) && !_attacks && currentDeltaAttack > _deltaTimeAttack && !_reciveDamage)
 				{
 						_attacks = true;
+						_anima.SetInteger("Attack Index", UnityEngine.Random.Range(1, 3));
 						_anima.SetTrigger("Attack");
 						_lastAttackTime = Time.fixedTime;
 				}
