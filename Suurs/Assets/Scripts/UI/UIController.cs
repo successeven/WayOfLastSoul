@@ -47,7 +47,7 @@ public class UIController : MonoBehaviour
 
 		public void ShowUI()
 		{
-				_anima.enabled = true;
+				//_anima.enabled = true;
 				gameLoad = true;
 				_state = StateScene.Start;
 				needChange = true;

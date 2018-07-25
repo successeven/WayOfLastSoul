@@ -133,7 +133,7 @@ public class GemerationLevel : MonoBehaviour
     {
         _GroundsbyName = new Dictionary<string, GameObject>();
         foreach (var item in _Grounds)
-            _GroundsbyName.Add(item.name, item);
+            _GroundsbyName.Add(item.name.Split('_')[0] , item);
 				/*
 				if (PlayerPrefs.HasKey("CountPlatform"))
 						_Lengthmap = PlayerPrefs.GetInt("CountPlatform");

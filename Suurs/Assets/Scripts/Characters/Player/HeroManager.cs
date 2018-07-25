@@ -81,7 +81,7 @@ public class HeroManager : MonoBehaviour
 		{
 				_DealDamage = false;
 		}
-
+		/*
 		private void OnGUI()
 		{
 				string boxText =
@@ -90,7 +90,7 @@ public class HeroManager : MonoBehaviour
 					"Agility = " + _Agility + "\n";
 				GUI.Box(new Rect(0, 0, 150, 100), boxText);
 		}
-
+		*/
 		void AddAgility()
 		{
 				if (_Agility == 100)

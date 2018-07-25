@@ -9,30 +9,41 @@ public class StartScenes : MonoBehaviour
 {
 		enum StateScene
 		{
+				PreLoad = -2,
 				Load = -1,
 				Game = 0,
 				Finish = 1,
 				Exit = 2
 		}
 
-		UIController _UIController;
 		public GameObject _StartImage;
+		public Image _SceneName;
+		[SerializeField]
+		float _LenghtNameScene;
+
 		GameObject _StartPos;
 		GameObject _FinishPos;
 		Image _imageSprite;
+		Image _imageName;
 		float _startDistance; //Дистанция до начала.
 
 		bool _isLoaded = false;
 		bool _showUIController = false;
-		StateScene _stateScene = StateScene.Load;
+		StateScene _stateScene = StateScene.PreLoad;
+		float percent;
+		int alpha;
 		// Use this for initialization
 		void Start()
 		{
 				_imageSprite = _StartImage.GetComponent<Image>();
-				_UIController = GetComponent<UIController>();
 				_StartPos = GameObject.FindGameObjectWithTag("Start");
 				_FinishPos = GameObject.FindGameObjectWithTag("Finish");
 				_startDistance = (int)Mathf.Abs((Hero.instance.transform.position.x - _StartPos.transform.position.x));
+		}
+
+		void ChangeState()
+		{
+				_stateScene = StateScene.Load;
 		}
 
 		private void LateUpdate()
@@ -40,13 +51,17 @@ public class StartScenes : MonoBehaviour
 				float distance;
 				switch (_stateScene)
 				{
+						case StateScene.PreLoad:
+								// Нужно ли тут что то?! 
+								break;
 						case StateScene.Load:
 								distance = (int)Mathf.Abs((Hero.instance.transform.position.x - _StartPos.transform.position.x));
 								if (distance == 0)
 								{
+										_imageSprite.enabled = false;
 										Hero.instance.Controller._interfaceBlocked = false;
 										_stateScene = StateScene.Game;
-										_UIController.ShowUI();
+										UIController.instance.ShowUI();
 								}
 								else
 								{
@@ -54,11 +69,13 @@ public class StartScenes : MonoBehaviour
 										Hero.instance.Move(deltaSpeed * Hero.instance.transform.localScale.x);
 								}
 
-								float percent = (_startDistance - distance) / _startDistance * 100f;
-								int alpha = (int)Mathf.Round((255 * (percent * 0.01f)));
+								_SceneName.color = new Color32(0, 0, 0, 0);
+								percent = (_startDistance - distance) / _startDistance * 100f;
+								alpha = (int)Mathf.Round((255 * (percent * 0.01f)));
 								if (alpha > 255)
 										alpha = 255;
 								_imageSprite.color = new Color32(0, 0, 0, (byte)(255 - alpha));
+
 								break;
 						case StateScene.Game:
 								bool changeLocation = false;
@@ -78,14 +95,15 @@ public class StartScenes : MonoBehaviour
 												PlayerPrefs.SetInt("NextLVL", CompletedLVL);
 										else
 												PlayerPrefs.SetInt("CompletedLVL", CompletedLVL);
-												
+
 										changeLocation = true;
 								}
 
 								if (changeLocation)
 								{
 										_stateScene = StateScene.Finish;
-										_UIController.HideUI();
+										_imageSprite.enabled = true;
+										UIController.instance.HideUI();
 										StartCoroutine(AsyncLoad());
 								}
 								break;
