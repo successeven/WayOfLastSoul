@@ -9,6 +9,7 @@ public class StartScenes : MonoBehaviour
 {
 		enum StateScene
 		{
+				PreLoad = -2,
 				Load = -1,
 				Game = 0,
 				Finish = 1,
@@ -28,7 +29,7 @@ public class StartScenes : MonoBehaviour
 
 		bool _isLoaded = false;
 		bool _showUIController = false;
-		StateScene _stateScene = StateScene.Load;
+		StateScene _stateScene = StateScene.PreLoad;
 		float percent;
 		int alpha;
 		// Use this for initialization
@@ -40,15 +41,24 @@ public class StartScenes : MonoBehaviour
 				_startDistance = (int)Mathf.Abs((Hero.instance.transform.position.x - _StartPos.transform.position.x));
 		}
 
+		void ChangeState()
+		{
+				_stateScene = StateScene.Load;
+		}
+
 		private void LateUpdate()
 		{
 				float distance;
 				switch (_stateScene)
 				{
+						case StateScene.PreLoad:
+								// Нужно ли тут что то?! 
+								break;
 						case StateScene.Load:
 								distance = (int)Mathf.Abs((Hero.instance.transform.position.x - _StartPos.transform.position.x));
 								if (distance == 0)
 								{
+										_imageSprite.enabled = false;
 										Hero.instance.Controller._interfaceBlocked = false;
 										_stateScene = StateScene.Game;
 										UIController.instance.ShowUI();
@@ -59,23 +69,12 @@ public class StartScenes : MonoBehaviour
 										Hero.instance.Move(deltaSpeed * Hero.instance.transform.localScale.x);
 								}
 
-								if (distance > _LenghtNameScene)
-								{
-										percent = (_LenghtNameScene - _startDistance - distance) / _startDistance * 100f;
-										alpha = (int)Mathf.Round((255 * (percent * 0.01f)));
-										if (alpha > 255)
-												alpha = 255;
-										_SceneName.color = new Color32(0, 0, 0, (byte)(255 - alpha));
-								}
-								else
-								{
-										_SceneName.color = new Color32(0, 0, 0, 0);
-										percent = (_startDistance - distance) / _startDistance * 100f;
-										alpha = (int)Mathf.Round((255 * (percent * 0.01f)));
-										if (alpha > 255)
-												alpha = 255;
-										_imageSprite.color = new Color32(0, 0, 0, (byte)(255 - alpha));
-								}
+								_SceneName.color = new Color32(0, 0, 0, 0);
+								percent = (_startDistance - distance) / _startDistance * 100f;
+								alpha = (int)Mathf.Round((255 * (percent * 0.01f)));
+								if (alpha > 255)
+										alpha = 255;
+								_imageSprite.color = new Color32(0, 0, 0, (byte)(255 - alpha));
 
 								break;
 						case StateScene.Game:
@@ -103,6 +102,7 @@ public class StartScenes : MonoBehaviour
 								if (changeLocation)
 								{
 										_stateScene = StateScene.Finish;
+										_imageSprite.enabled = true;
 										UIController.instance.HideUI();
 										StartCoroutine(AsyncLoad());
 								}
