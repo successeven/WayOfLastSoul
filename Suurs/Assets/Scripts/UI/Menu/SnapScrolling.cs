@@ -112,14 +112,13 @@ public class SnapScrolling : MonoBehaviour
 
 		public void OnButtonNewGameClick()
 		{
-				PlayerPrefs.SetInt("NextLVL", 3);
-				PlayerPrefs.SetInt("CompletedLVL", 3);
-				SceneManager.LoadScene("Loading");
+				PlayerPrefs.SetInt("NextLVL", 1);
+				PlayerPrefs.SetInt("CompletedLVL", 0);
+				SceneManager.LoadScene("GameMove");
 		}
 
 		public void OnButtonOptionsClick()
 		{
-				Debug.Log("Options");
 				_anima.SetBool("Options", true);
 		}
 

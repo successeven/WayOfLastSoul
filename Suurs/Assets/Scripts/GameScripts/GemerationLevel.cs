@@ -134,14 +134,6 @@ public class GemerationLevel : MonoBehaviour
         _GroundsbyName = new Dictionary<string, GameObject>();
         foreach (var item in _Grounds)
             _GroundsbyName.Add(item.name.Split('_')[0] , item);
-				/*
-				if (PlayerPrefs.HasKey("CountPlatform"))
-						_Lengthmap = PlayerPrefs.GetInt("CountPlatform");
-				else
-						_Lengthmap = 5;
-
-				if (PlayerPrefs.HasKey("CountEnemy"))
-						_countEnemy = PlayerPrefs.GetInt("CountEnemy");		*/
 
 				_map = new int[_Lengthmap];
 
@@ -335,7 +327,7 @@ public class GemerationLevel : MonoBehaviour
                     ground = GetGroundbyName(GroundName.Horizontal);
                     IncertPrefab(ground, _map[i]);
                     DrawObjects();
-                    if (i >= 7)
+                    if (i >= 5)
                         IncertEnemy(i);
                     break;
             }

@@ -18,8 +18,6 @@ public class StartScenes : MonoBehaviour
 
 		public GameObject _StartImage;
 		public Image _SceneName;
-		[SerializeField]
-		float _LenghtNameScene;
 
 		GameObject _StartPos;
 		GameObject _FinishPos;
@@ -90,6 +88,8 @@ public class StartScenes : MonoBehaviour
 										int CompletedLVL = PlayerPrefs.GetInt("CompletedLVL");
 										if (CompletedLVL < 3) //временная проверка конца игры...
 												CompletedLVL++;
+										else
+												CompletedLVL = 3;
 
 										if (SceneManager.GetActiveScene().name == "Respawn")
 												PlayerPrefs.SetInt("NextLVL", CompletedLVL);
