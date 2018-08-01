@@ -30,9 +30,15 @@ public class HeroManager : MonoBehaviour
 		public int _DeltaRoll = 2000; ///Интервал кувырков (в милисекундах) 
 		public int _DeltaBack_Slide = 1000; ///Интервал Back_Slide (в милисекундах) 
 
+		[Space(15)]
+		[Header("ЗВУКИ")]
+		public AudioClip _RunSound;
+		public AudioClip _RollSound;
+		public AudioClip _HitSound;
+		public AudioClip _AttackSound;
+		public AudioClip _BlockSound;
+		public AudioClip _DeathSound;
 
-		//public Hero heroStat;
-		string path;
 
 		Animator _anima;
 		bool _death = false;
@@ -49,6 +55,8 @@ public class HeroManager : MonoBehaviour
 		{
 				if (_Health <= 0 && !_death)
 				{
+						Hero.instance.audioSource.clip = Hero.instance.Manager._DeathSound;
+						Hero.instance.audioSource.Play();
 						_death = true;
 						_anima.SetTrigger("Death");
 						Invoke("GameOver", 3f);
@@ -62,7 +70,6 @@ public class HeroManager : MonoBehaviour
 
 		void OnTriggerEnter2D(Collider2D collision)
 		{
-				Debug.Log("Атака");
 				if (collision.tag == "Enemy" && Hero.instance.Motor._attacks)
 				{
 						Debug.Log(Hero.instance.Motor.SwordCollider.enabled);

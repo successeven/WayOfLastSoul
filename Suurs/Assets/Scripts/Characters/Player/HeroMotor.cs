@@ -57,11 +57,13 @@ public class HeroMotor : CharacterMotor
 		public void Attack()
 		{
 				_attacks = true;
+				Hero.instance.audioSource.clip = Hero.instance.Manager._AttackSound;
+				Hero.instance.audioSource.Play();
 				if (_rolling)
 				{
 						_attacksIndex = 3;
-						_anima.SetTrigger("Attack");
 						_anima.SetInteger("Attack Index", _attacksIndex);
+						_anima.SetTrigger("Attack");
 						StartCoroutine(DoStrikeRoll(.33f));
 				}
 				else if (_deltaRapiraTime > Time.fixedTime - _lastAttackTime)
@@ -69,8 +71,8 @@ public class HeroMotor : CharacterMotor
 						_attacksIndex = _attacksIndex == 0 ? 3 : _attacksIndex;
 						_lastAttackTime = Time.fixedTime;
 						_attacksIndex++;
-						_anima.SetTrigger("Attack");
 						_anima.SetInteger("Attack Index", _attacksIndex);
+						_anima.SetTrigger("Attack");
 						StartCoroutine(DoAttack(.4f));
 				}
 				else
@@ -134,8 +136,7 @@ public class HeroMotor : CharacterMotor
 				_anima.SetInteger("Attack Index", _attacksIndex);
 				_attacks = false;
 		}
-
-
+		
 		public void SetBlock()
 		{
 				_blocking = true;
@@ -151,6 +152,8 @@ public class HeroMotor : CharacterMotor
 
 		public void Back_Slide()
 		{
+				Hero.instance.audioSource.clip = Hero.instance.Manager._AttackSound;
+				Hero.instance.audioSource.Play();
 				_attacksIndex = 1;
 				_attacks = true;
 				_lastBack_SlideTime = Time.fixedTime;
@@ -161,6 +164,8 @@ public class HeroMotor : CharacterMotor
 
 		public void Roll()
 		{
+				Hero.instance.audioSource.clip = Hero.instance.Manager._RollSound;
+				Hero.instance.audioSource.Play();
 				_rolling = true;
 				_lastRollTime = Time.fixedTime;
 				_anima.SetTrigger("Roll");

@@ -27,12 +27,22 @@ public class CharacterMotor : MonoBehaviour
 				return true;
 		}
 
-
 		public virtual void Move(float inMoveDirection)
 		{
 				_anima.SetFloat("Speed", Mathf.Abs(inMoveDirection));
 				if (CanMove())
 				{
+						if (Hero.instance.audioSource.clip != Hero.instance.Manager._RunSound && !Hero.instance.audioSource.isPlaying)
+						{
+								Hero.instance.audioSource.clip = Hero.instance.Manager._RunSound;
+								Hero.instance.audioSource.loop = true;
+								Hero.instance.audioSource.Play();
+						}
+						else if (inMoveDirection != 0 && !Hero.instance.audioSource.isPlaying)
+								Hero.instance.audioSource.Play();
+						else if (inMoveDirection == 0)
+								Hero.instance.audioSource.Stop();
+
 						_rigidbody.velocity = new Vector2(inMoveDirection * _speed, _rigidbody.velocity.y);
 						if (inMoveDirection > 0 && !_acingRight)
 								Flip();
