@@ -17,15 +17,11 @@ public class LoadingController : MonoBehaviour
 		{
 				if (PlayerPrefs.HasKey("NextLVL"))
 				{
-						int level = PlayerPrefs.GetInt("NextLVL");					
-						_LevelName = "Scene_" + level.ToString();
-						var scene = SceneManager.GetSceneByName(_LevelName);
-						Debug.Log(scene.IsValid());
-						if (!scene.IsValid())
-						{
-							//	scene = SceneManager.GetSceneByBuildIndex(level);
+						int level = PlayerPrefs.GetInt("NextLVL");
+						if (level > 0)
+								_LevelName = "Scene_" + level.ToString();
+						else
 								_LevelName = "Respawn";
-						}
 				}
 
 				_animaHide = GetComponent<Animator>();

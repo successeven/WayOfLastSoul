@@ -90,7 +90,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -546,11 +546,6 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114429948829765076, guid: 476f99bc5477ab04b86a0ad8169d76b3,
-        type: 2}
-      propertyPath: m_Text
-      value: Scene one
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 476f99bc5477ab04b86a0ad8169d76b3, type: 2}
   m_IsPrefabParent: 0
@@ -856,7 +851,7 @@ Prefab:
     - target: {fileID: 114755468157654676, guid: ff67578568f7eaa4bb05f0ce16ab729c,
         type: 2}
       propertyPath: _Enemys.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4847141378856108, guid: ff67578568f7eaa4bb05f0ce16ab729c, type: 2}
       propertyPath: m_LocalPosition.x
@@ -908,7 +903,7 @@ Prefab:
     - target: {fileID: 114755468157654676, guid: ff67578568f7eaa4bb05f0ce16ab729c,
         type: 2}
       propertyPath: _Lengthmap
-      value: 100
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 114755468157654676, guid: ff67578568f7eaa4bb05f0ce16ab729c,
         type: 2}
@@ -919,16 +914,17 @@ Prefab:
         type: 2}
       propertyPath: _Enemys.Array.data[1]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1700937352666732, guid: 2200b881cafd7594daada66e7f0770b1,
+        type: 2}
     - target: {fileID: 114755468157654676, guid: ff67578568f7eaa4bb05f0ce16ab729c,
         type: 2}
       propertyPath: _countEnemyByPoint
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 114755468157654676, guid: ff67578568f7eaa4bb05f0ce16ab729c,
         type: 2}
       propertyPath: _Objects
-      value: 4094
+      value: 12286
       objectReference: {fileID: 0}
     - target: {fileID: 114755468157654676, guid: ff67578568f7eaa4bb05f0ce16ab729c,
         type: 2}
@@ -1324,12 +1320,12 @@ Prefab:
     - target: {fileID: 137704776384084412, guid: bbd1bf84d6e981e4587be5e189853b6e,
         type: 2}
       propertyPath: m_AABB.m_Extent.x
-      value: 5.1103234
+      value: 5.110324
       objectReference: {fileID: 0}
     - target: {fileID: 137704776384084412, guid: bbd1bf84d6e981e4587be5e189853b6e,
         type: 2}
       propertyPath: m_AABB.m_Extent.z
-      value: 5.427927
+      value: 5.4279275
       objectReference: {fileID: 0}
     - target: {fileID: 4135542598858956, guid: bbd1bf84d6e981e4587be5e189853b6e, type: 2}
       propertyPath: m_LocalRotation.z
@@ -1449,7 +1445,7 @@ Prefab:
     - target: {fileID: 137075849071444660, guid: bbd1bf84d6e981e4587be5e189853b6e,
         type: 2}
       propertyPath: m_AABB.m_Extent.y
-      value: 0.0000023861344
+      value: 0.0000023861346
       objectReference: {fileID: 0}
     - target: {fileID: 137075849071444660, guid: bbd1bf84d6e981e4587be5e189853b6e,
         type: 2}
@@ -1698,7 +1694,7 @@ Prefab:
     - target: {fileID: 137704776384084412, guid: bbd1bf84d6e981e4587be5e189853b6e,
         type: 2}
       propertyPath: m_AABB.m_Center.z
-      value: -0.0000038146973
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 137821381220975314, guid: bbd1bf84d6e981e4587be5e189853b6e,
         type: 2}

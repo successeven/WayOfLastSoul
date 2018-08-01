@@ -34,9 +34,7 @@ public class UIController : MonoBehaviour
 		bool gameLoad = false;
 		StateScene _state = StateScene.None;
 		public InterstitialAd ad;
-
-
-
+		
 		void Start()
 		{
 				_anima = GetComponent<Animator>();
