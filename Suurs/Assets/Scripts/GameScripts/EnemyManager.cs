@@ -49,7 +49,7 @@ public class EnemyManager : MonoBehaviour
 						if (!_DealDamage)
 						{
 								_DealDamage = true;
-								Hero.instance.TakeDamage(_attack);
+								Hero.instance.Manager.TakeDamage(_attack);
 						}
 				}
 		}

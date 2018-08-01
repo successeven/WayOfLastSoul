@@ -90,7 +90,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -851,7 +851,7 @@ Prefab:
     - target: {fileID: 114755468157654676, guid: ff67578568f7eaa4bb05f0ce16ab729c,
         type: 2}
       propertyPath: _Enemys.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4847141378856108, guid: ff67578568f7eaa4bb05f0ce16ab729c, type: 2}
       propertyPath: m_LocalPosition.x
@@ -914,8 +914,7 @@ Prefab:
         type: 2}
       propertyPath: _Enemys.Array.data[1]
       value: 
-      objectReference: {fileID: 1700937352666732, guid: 2200b881cafd7594daada66e7f0770b1,
-        type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 114755468157654676, guid: ff67578568f7eaa4bb05f0ce16ab729c,
         type: 2}
       propertyPath: _countEnemyByPoint
@@ -1716,6 +1715,16 @@ Prefab:
       propertyPath: m_AABB.m_Extent.y
       value: 0.0000009792922
       objectReference: {fileID: 0}
+    - target: {fileID: 114959044951786012, guid: bbd1bf84d6e981e4587be5e189853b6e,
+        type: 2}
+      propertyPath: _Health
+      value: 10000
+      objectReference: {fileID: 0}
+    - target: {fileID: 114959044951786012, guid: bbd1bf84d6e981e4587be5e189853b6e,
+        type: 2}
+      propertyPath: _RunSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 656ddac8729275947b30b709cad609b4, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bbd1bf84d6e981e4587be5e189853b6e, type: 2}
   m_IsPrefabParent: 0

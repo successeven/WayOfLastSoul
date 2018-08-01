@@ -46,6 +46,9 @@ public class HeroManager : MonoBehaviour
 		bool _DealDamage = false;
 		public List<AttackItem> _attackItems;
 
+		[NonSerialized]
+		public bool _TakeDamage = false;
+
 		private void Start()
 		{
 				_anima = GetComponent<Animator>();
@@ -56,6 +59,7 @@ public class HeroManager : MonoBehaviour
 				if (_Health <= 0 && !_death)
 				{
 						Hero.instance.audioSource.clip = Hero.instance.Manager._DeathSound;
+						Hero.instance.audioSource.loop = false;
 						Hero.instance.audioSource.Play();
 						_death = true;
 						_anima.SetTrigger("Death");
@@ -82,6 +86,27 @@ public class HeroManager : MonoBehaviour
 								enemyController.TakeHit(_currentAttackItem._damage + (_attack / 100 * _currentAttackItem._damage));
 						}
 				}
+		}
+
+
+		public void TakeDamage(float damage) //Урон
+		{
+				Debug.Log("TakeDamage");
+				_TakeDamage = true;
+				if (Hero.instance.Motor._blocking)
+				{
+						Hero.instance.audioSource.clip = Hero.instance.Manager._BlockSound;
+						_Health -= damage * (_Shield / 100);
+						Hero.instance.Motor._anima.SetTrigger("TakeHitWhenBlocking");
+				}
+				else
+				{
+						Hero.instance.audioSource.clip = Hero.instance.Manager._HitSound;
+						_Health -= damage;
+						Hero.instance.Motor._anima.SetTrigger("TakeHit");
+				}
+				Hero.instance.audioSource.loop = false;
+				Hero.instance.audioSource.Play();
 		}
 
 		public void ResetHeroDealAttack()

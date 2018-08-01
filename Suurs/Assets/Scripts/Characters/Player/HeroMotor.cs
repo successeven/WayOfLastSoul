@@ -58,6 +58,7 @@ public class HeroMotor : CharacterMotor
 		{
 				_attacks = true;
 				Hero.instance.audioSource.clip = Hero.instance.Manager._AttackSound;
+				Hero.instance.audioSource.loop = false;
 				Hero.instance.audioSource.Play();
 				if (_rolling)
 				{
@@ -153,6 +154,7 @@ public class HeroMotor : CharacterMotor
 		public void Back_Slide()
 		{
 				Hero.instance.audioSource.clip = Hero.instance.Manager._AttackSound;
+				Hero.instance.audioSource.loop = false;
 				Hero.instance.audioSource.Play();
 				_attacksIndex = 1;
 				_attacks = true;
@@ -165,6 +167,7 @@ public class HeroMotor : CharacterMotor
 		public void Roll()
 		{
 				Hero.instance.audioSource.clip = Hero.instance.Manager._RollSound;
+				Hero.instance.audioSource.loop = false;
 				Hero.instance.audioSource.Play();
 				_rolling = true;
 				_lastRollTime = Time.fixedTime;

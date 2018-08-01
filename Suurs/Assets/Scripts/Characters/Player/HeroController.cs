@@ -16,54 +16,46 @@ public class HeroController : MonoBehaviour
 
 		[NonSerialized]
 		public bool _interfaceBlocked = true;
-		HeroManager _manager;
-		HeroMotor _motor;
 
-		
-		private void Start()
-		{
-				_manager = GetComponent<HeroManager>();
-				_motor = GetComponent<HeroMotor>();
-		}
 
 		void FixedUpdate()
 		{
 
-				if (_manager._Health <= 0)
+				if (Hero.instance.Manager._Health <= 0)
 						return;
 
 				if (_interfaceBlocked)
 						return;
 
 
-				_motor.Move(CrossPlatformInputManager.GetAxis("Horizontal"));
+				Hero.instance.Motor.Move(CrossPlatformInputManager.GetAxis("Horizontal"));
 
 		}
 
 		private void Update()
 		{
-				if (_manager._Health <= 0)
+				if (Hero.instance.Manager._Health <= 0)
 						return;
 
 				if (_interfaceBlocked)
 						return;
-				
+
 				if (CrossPlatformInputManager.GetButtonDown("Attack"))
 				{
 						_holdAttack = true;
-						_motor._lastAttackTime = Time.fixedTime;
+						Hero.instance.Motor._lastAttackTime = Time.fixedTime;
 				}
 
 				if (CrossPlatformInputManager.GetButtonUp("Attack"))
 				{
 						_holdAttack = false;
-						_motor.Attack();
+						Hero.instance.Motor.Attack();
 				}
 
-				int deltaRoll = (int)Math.Truncate((Time.fixedTime - _motor._lastRollTime) * 1000);
-				if (CrossPlatformInputManager.GetButtonDown("Roll") && deltaRoll > _manager._DeltaRoll)
-						_motor.Roll();
-				
+				int deltaRoll = (int)Math.Truncate((Time.fixedTime - Hero.instance.Motor._lastRollTime) * 1000);
+				if (CrossPlatformInputManager.GetButtonDown("Roll") && deltaRoll > Hero.instance.Manager._DeltaRoll)
+						Hero.instance.Motor.Roll();
+
 				float timeDelta = Time.time - _lastBlockClickTime;
 				if (CrossPlatformInputManager.GetButtonDown("Block"))
 				{
@@ -78,26 +70,27 @@ public class HeroController : MonoBehaviour
 
 				if (_holdBlock && timeDelta >= _catchTime)
 				{
-						_motor.SetBlock();
+						Hero.instance.Motor.SetBlock();
 						_holdBlock = false;
 				}
 
 				if (CrossPlatformInputManager.GetButtonUp("Block"))
-						_motor.UnSetBlock();
+						Hero.instance.Motor.UnSetBlock();
 
 
 				if (_doubleBlock)
 				{
-						_motor.Back_Slide();
+						Hero.instance.Motor.Back_Slide();
 						_doubleBlock = false;
 				}
 		}
 
 		void ResetStats()
 		{
-				if (_motor._attacks)
+				Hero.instance.Manager._TakeDamage = false;
+			/*	if (Hero.instance.Motor._attacks)
 				{
-						_motor.ResetAttack();
-				}
+						Hero.instance.Motor.ResetAttack();
+				}*/
 		}
 }
