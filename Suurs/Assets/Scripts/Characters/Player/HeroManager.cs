@@ -30,24 +30,9 @@ public class HeroManager : MonoBehaviour
     public int _DeltaRoll = 2000; ///Интервал кувырков (в милисекундах) 
     public int _DeltaBack_Slide = 1000; ///Интервал Back_Slide (в милисекундах) 
 
-    [Space(15)]
-    [Header("ЗВУКИ")]
-    public AudioClip _RunSound;
-    public AudioClip _RollSound;
-    public AudioClip _HitSound;
-    public AudioClip _AttackStrike_1;
-    public AudioClip _AttackStrike_2;
-    public AudioClip _AttackStrike_3;
-    public AudioClip _AttackRapira;
-    public AudioClip _AttackBack_Slide;
-    public AudioClip _BlockSound;
-    public AudioClip _DeathSound;
-
-
     Animator _anima;
     bool _death = false;
 
-    bool _DealDamage = false;
     public List<AttackItem> _attackItems;
 
     [NonSerialized]
@@ -62,9 +47,7 @@ public class HeroManager : MonoBehaviour
     {
         if (_Health <= 0 && !_death)
         {
-            Hero.instance.audioSource.clip = Hero.instance.Manager._DeathSound;
-            Hero.instance.audioSource.loop = false;
-            Hero.instance.audioSource.Play();
+            AudioManager.instance.Play(Hero.AudioClips.Death.ToString());
             _death = true;
             _anima.SetTrigger("Death");
             Invoke("GameOver", 3f);
@@ -99,24 +82,20 @@ public class HeroManager : MonoBehaviour
         _TakeDamage = true;
         if (Hero.instance.Motor._blocking)
         {
-            Hero.instance.audioSource.clip = Hero.instance.Manager._BlockSound;
+            AudioManager.instance.Play(Hero.AudioClips.Block.ToString());
             _Health -= damage * (_Shield / 100);
             Hero.instance.Motor._anima.SetTrigger("TakeHitWhenBlocking");
         }
         else
         {
-            Hero.instance.audioSource.clip = Hero.instance.Manager._HitSound;
+            AudioManager.instance.Play(Hero.AudioClips.Hit.ToString());
             _Health -= damage;
             Hero.instance.Motor._anima.SetTrigger("TakeHit");
         }
-        Hero.instance.audioSource.pitch = 1;
-        Hero.instance.audioSource.loop = false;
-        Hero.instance.audioSource.Play();
     }
 
     public void ResetHeroDealAttack()
     {
-        _DealDamage = false;
     }
     /*
     private void OnGUI()
