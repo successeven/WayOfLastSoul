@@ -3,34 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+enum AttackEnum
+{
+    None = 0,
+    BackSlide = 1,
+    Rapira = 2,
+    StrikeRoll = 3,
+    Strike_1 = 4,
+    Strike_2 = 5,
+    Strike_3 = 6
+}
+
 public class AttackController : MonoBehaviour
 {
 
-		public List<AttackItem> _AttaksList;
-
-		public List<AttackItem> _OrderAttackToPlay;
-
-		// Use this for initialization
-		void Start()
-		{
-
-		}
-
-		// Update is called once per frame
-		void Update()
-		{
-
-		}
-
-		public void AddAttack(bool isCombo)
-		{
-				if (_OrderAttackToPlay.Count == 0)
-				{
-						_OrderAttackToPlay.Add(_AttaksList.Where(x => x._isCombo == isCombo).OrderBy(z => z._ID).First());
-						return;
-				}
-
-
-
-		}
 }
