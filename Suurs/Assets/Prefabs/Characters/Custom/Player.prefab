@@ -466,7 +466,7 @@ GameObject:
   - component: {fileID: 114456228864175552}
   - component: {fileID: 66706512540749566}
   - component: {fileID: 58765833034248016}
-  - component: {fileID: 82006067956415376}
+  - component: {fileID: 114539364752535130}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -2728,101 +2728,6 @@ CompositeCollider2D:
       - {x: -0.5978636, y: -0.9370014}
       - {x: 0.752077, y: -1.0278833}
   m_VertexDistance: 0.0005
---- !u!82 &82006067956415376
-AudioSource:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1408493594927794}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 0
-  m_Volume: 0.3
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!95 &95206287249511994
 Animator:
   serializedVersion: 3
@@ -4372,6 +4277,78 @@ MonoBehaviour:
   m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 0}
   m_AttachedIK: {fileID: 0}
+--- !u!114 &114539364752535130
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1408493594927794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ae59368d1d300b4f8e4a8c9a403c045, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Run
+    clip: {fileID: 8300000, guid: 619be61f1c7d66f45b27fedd7e3d92ed, type: 3}
+    volume: 0.404
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: Roll
+    clip: {fileID: 8300000, guid: 4bcf6e1ccb1f6e4419ef2ff40eeef0ba, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Hit
+    clip: {fileID: 8300000, guid: b157bdb695de88c48a00166946137794, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Strike_1
+    clip: {fileID: 8300000, guid: c52193a9d99b31d4ba6f1e4648095980, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Strike_2
+    clip: {fileID: 8300000, guid: 4dbdbe206c3a5404690125fe65ebceb1, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Strike_3
+    clip: {fileID: 8300000, guid: d7094a32ac9367b4ca6e932d204e8011, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Rapira
+    clip: {fileID: 8300000, guid: d2f7cfa59ede1ce40bd2c62131cb4d5a, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Back_Slide
+    clip: {fileID: 8300000, guid: 6cd04dd3e65212545b97344931222ed0, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Block
+    clip: {fileID: 8300000, guid: cb6197ccaf7933c4f88b16ce9943026c, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Death
+    clip: {fileID: 8300000, guid: fa69b34efc19a72469382976f8e1a5e6, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
 --- !u!114 &114547102689775738
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4729,16 +4706,6 @@ MonoBehaviour:
   _Vitality: 0
   _DeltaRoll: 1500
   _DeltaBack_Slide: 1000
-  _RunSound: {fileID: 8300000, guid: 619be61f1c7d66f45b27fedd7e3d92ed, type: 3}
-  _RollSound: {fileID: 8300000, guid: 4bcf6e1ccb1f6e4419ef2ff40eeef0ba, type: 3}
-  _HitSound: {fileID: 8300000, guid: b157bdb695de88c48a00166946137794, type: 3}
-  _AttackStrike_1: {fileID: 8300000, guid: 1b3140190ab8aba4eac7429b0113f369, type: 3}
-  _AttackStrike_2: {fileID: 8300000, guid: 4dbdbe206c3a5404690125fe65ebceb1, type: 3}
-  _AttackStrike_3: {fileID: 8300000, guid: d7094a32ac9367b4ca6e932d204e8011, type: 3}
-  _AttackRapira: {fileID: 8300000, guid: d2f7cfa59ede1ce40bd2c62131cb4d5a, type: 3}
-  _AttackBack_Slide: {fileID: 8300000, guid: 6cd04dd3e65212545b97344931222ed0, type: 3}
-  _BlockSound: {fileID: 8300000, guid: cb6197ccaf7933c4f88b16ce9943026c, type: 3}
-  _DeathSound: {fileID: 8300000, guid: fa69b34efc19a72469382976f8e1a5e6, type: 3}
   _attackItems:
   - {fileID: 11400000, guid: 786debf8a9c318f48b4ad9b932df32d6, type: 2}
   - {fileID: 11400000, guid: e9a60469f9a1efb48bf08aaf872fccd9, type: 2}

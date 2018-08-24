@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Item", menuName = "Attacks/Item")]
+[System.Serializable]
 public class AttackItem : ScriptableObject
 {
     new public string name = "New Item";  // Name of the item

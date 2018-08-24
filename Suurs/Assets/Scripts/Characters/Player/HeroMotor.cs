@@ -115,19 +115,16 @@ public class HeroMotor : CharacterMotor
     {
         _attacks = true;
         SwordCollider.enabled = true;
-        Hero.instance.audioSource.Play();
+        AudioManager.instance.Play(Hero.AudioClips.Strike_1.ToString());        
         for (float t = 0; t <= time; t += Time.deltaTime)
             yield return null;
 
     }
 
-    private IEnumerator DoAttack(AudioClip sound, float time)
+    private IEnumerator DoAttack(string AudioClipName, float time)
     {
         _attacks = true;
-        Hero.instance.audioSource.clip = sound;
-        Hero.instance.audioSource.pitch = 1;
-        Hero.instance.audioSource.loop = false;
-        Hero.instance.audioSource.PlayOneShot(sound);
+        AudioManager.instance.Play(AudioClipName);
         SwordCollider.enabled = true;
         Debug.Log(Hero.instance.audioSource.isPlaying);
         for (float t = 0; t <= time; t += Time.deltaTime)
@@ -141,7 +138,7 @@ public class HeroMotor : CharacterMotor
     private IEnumerator DoRapira(float time)
     {
         _attacks = true;
-        Hero.instance.audioSource.Play();
+        AudioManager.instance.Play(Hero.AudioClips.Rapira.ToString());
         SwordCollider.enabled = true;
         for (float t = 0; t <= time; t += Time.deltaTime)
         {
@@ -153,7 +150,7 @@ public class HeroMotor : CharacterMotor
     private IEnumerator DoBack_Slide(float time)
     {
         _attacks = true;
-        Hero.instance.audioSource.Play();
+        AudioManager.instance.Play(Hero.AudioClips.Back_Slide.ToString());
         SwordCollider.enabled = true;
         yield return new WaitForSeconds(0.15f);
         for (float t = 0; t <= time - 0.15f; t += Time.deltaTime)
@@ -195,9 +192,6 @@ public class HeroMotor : CharacterMotor
 
     void Rapira()
     {
-        Hero.instance.audioSource.clip = Hero.instance.Manager._AttackRapira;
-        Hero.instance.audioSource.pitch = 1;
-        Hero.instance.audioSource.loop = false;
         if (_anima.GetInteger("Attack Index") != (int)AttackEnum.Rapira)
             StartCoroutine(DoRapira(.33f));
         _anima.SetInteger("Attack Index", (int)AttackEnum.Rapira);
@@ -206,9 +200,6 @@ public class HeroMotor : CharacterMotor
 
     void StrikeRoll()
     {
-        Hero.instance.audioSource.clip = Hero.instance.Manager._AttackStrike_2;
-        Hero.instance.audioSource.pitch = 1;
-        Hero.instance.audioSource.loop = false;
         if (_anima.GetInteger("Attack Index") != (int)AttackEnum.StrikeRoll)
             StartCoroutine(DoStrikeRoll(.37f));
         _anima.SetInteger("Attack Index", (int)AttackEnum.StrikeRoll);
@@ -223,7 +214,7 @@ public class HeroMotor : CharacterMotor
         {
             Debug.Log("StartCoroutine Strike_1");
             //StopCoroutine(AttackCoroutine);
-            AttackCoroutine = StartCoroutine(DoAttack(Hero.instance.Manager._AttackStrike_1, 0.9f));
+            AttackCoroutine = StartCoroutine(DoAttack(Hero.AudioClips.Strike_1.ToString(), 0.9f));
         }
         _anima.SetInteger("Attack Index", (int)AttackEnum.Strike_1);
         _anima.SetBool("Attack", true);
@@ -236,7 +227,7 @@ public class HeroMotor : CharacterMotor
             Debug.Log("StartCoroutine Strike_2");
 
             StopCoroutine(AttackCoroutine);
-            AttackCoroutine = StartCoroutine(DoAttack(Hero.instance.Manager._AttackStrike_2, .03f));
+            AttackCoroutine = StartCoroutine(DoAttack(Hero.AudioClips.Strike_2.ToString(), .03f));
         }
         _anima.SetInteger("Attack Index", (int)AttackEnum.Strike_2);
         _anima.SetBool("Attack", true);
@@ -248,7 +239,7 @@ public class HeroMotor : CharacterMotor
         {
             Debug.Log("StartCoroutine Strike_3");
             StopCoroutine(AttackCoroutine);
-            AttackCoroutine = StartCoroutine(DoAttack(Hero.instance.Manager._AttackStrike_3, .4f));
+            AttackCoroutine = StartCoroutine(DoAttack(Hero.AudioClips.Strike_3.ToString(), .4f));
         }
         _anima.SetInteger("Attack Index", (int)AttackEnum.Strike_3);
         _anima.SetBool("Attack", true);
@@ -257,9 +248,6 @@ public class HeroMotor : CharacterMotor
     public void Back_Slide()
     {
         _attacks = true;
-        Hero.instance.audioSource.clip = Hero.instance.Manager._AttackBack_Slide;
-        Hero.instance.audioSource.pitch = 1;
-        Hero.instance.audioSource.loop = false;
         _lastBack_SlideTime = Time.fixedTime;
         _attacks = true;
         if (_anima.GetInteger("Attack Index") != (int)AttackEnum.BackSlide)
@@ -271,10 +259,6 @@ public class HeroMotor : CharacterMotor
 
     public void Roll()
     {
-        Hero.instance.audioSource.clip = Hero.instance.Manager._RollSound;
-        Hero.instance.audioSource.pitch = 1;
-        Hero.instance.audioSource.loop = false;
-        Hero.instance.audioSource.Play();
         _rolling = true;
         _lastRollTime = Time.fixedTime;
         _anima.SetTrigger("Roll");
@@ -283,6 +267,7 @@ public class HeroMotor : CharacterMotor
 
     private IEnumerator DoRolling(float time)
     {
+        AudioManager.instance.Play(Hero.AudioClips.Roll.ToString());
         Physics.IgnoreLayerCollision(9, 11, true);
         for (float t = 0; t <= time; t += Time.deltaTime)
         {
