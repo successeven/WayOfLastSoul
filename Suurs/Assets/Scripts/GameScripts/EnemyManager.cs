@@ -23,21 +23,7 @@ public class EnemyManager : MonoBehaviour
         SetStartSkills();
     }
 
-    private void Update()
-    {
-        if (_HP <= 0 && !_death)
-        {
-            _death = true;
-            _anima.SetTrigger("Death");
-            Invoke("DestroyObject", 3f);
-        }
-    }
-
-    protected virtual void DestroyObject()
-    {
-        Destroy(transform.root.gameObject);
-    }
-
+    
     protected virtual void SetStartSkills()
     {
     }

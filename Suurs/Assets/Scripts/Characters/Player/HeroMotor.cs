@@ -127,7 +127,7 @@ public class HeroMotor : CharacterMotor
     {
         _attacks = true;
         SwordCollider.enabled = true;
-        AudioManager.instance.Play(Hero.AudioClips.Strike_1.ToString());        
+        Hero.instance.audioManager.Play(Hero.AudioClips.Strike_1.ToString());        
         for (float t = 0; t <= time; t += Time.deltaTime)
             yield return null;
 
@@ -136,7 +136,7 @@ public class HeroMotor : CharacterMotor
     private IEnumerator DoAttack(string AudioClipName, float time)
     {
         _attacks = true;
-        AudioManager.instance.Play(AudioClipName);
+        Hero.instance.audioManager.Play(AudioClipName);
         SwordCollider.enabled = true;
         for (float t = 0; t <= time; t += Time.deltaTime)
         {
@@ -149,7 +149,7 @@ public class HeroMotor : CharacterMotor
     private IEnumerator DoRapira(float time)
     {
         _attacks = true;
-        AudioManager.instance.Play(Hero.AudioClips.Rapira.ToString());
+        Hero.instance.audioManager.Play(Hero.AudioClips.Rapira.ToString());
         SwordCollider.enabled = true;
         for (float t = 0; t <= time; t += Time.deltaTime)
         {
@@ -161,7 +161,7 @@ public class HeroMotor : CharacterMotor
     private IEnumerator DoBack_Slide(float time)
     {
         _attacks = true;
-        AudioManager.instance.Play(Hero.AudioClips.Back_Slide.ToString());
+        Hero.instance.audioManager.Play(Hero.AudioClips.Back_Slide.ToString());
         SwordCollider.enabled = true;
         yield return new WaitForSeconds(0.15f);
         for (float t = 0; t <= time - 0.15f; t += Time.deltaTime)
@@ -275,7 +275,7 @@ public class HeroMotor : CharacterMotor
 
     private IEnumerator DoRolling(float time)
     {
-        AudioManager.instance.Play(Hero.AudioClips.Roll.ToString());
+        Hero.instance.audioManager.Play(Hero.AudioClips.Roll.ToString());
         Physics.IgnoreLayerCollision(9, 11, true);
         for (float t = 0; t <= time; t += Time.deltaTime)
         {

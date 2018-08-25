@@ -34,12 +34,12 @@ public class CharacterMotor : MonoBehaviour
         if (CanMove())
         {
             if (!Hero.instance.Manager._TakeDamage)
-                if (inMoveDirection != 0 && !AudioManager.instance.IsPlaing(Hero.AudioClips.Run.ToString()))
-                    AudioManager.instance.Play(Hero.AudioClips.Run.ToString());
+                if (inMoveDirection != 0 && !Hero.instance.audioManager.IsPlaying(Hero.AudioClips.Run.ToString()))
+                    Hero.instance.audioManager.Play(Hero.AudioClips.Run.ToString());
                 else if (inMoveDirection == 0)
-                    AudioManager.instance.Stop(Hero.AudioClips.Run.ToString());
+                    Hero.instance.audioManager.Stop(Hero.AudioClips.Run.ToString());
 
-            AudioManager.instance.SetPitch(Hero.AudioClips.Run.ToString(), Math.Abs(inMoveDirection));
+            Hero.instance.audioManager.SetPitch(Hero.AudioClips.Run.ToString(), Math.Abs(inMoveDirection));
             _rigidbody.velocity = new Vector2(inMoveDirection * _speed, _rigidbody.velocity.y);
             if (inMoveDirection > 0 && !_acingRight)
                 Flip();
