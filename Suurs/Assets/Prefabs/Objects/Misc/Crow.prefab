@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4883949953236272}
   - component: {fileID: 114032893491961910}
   - component: {fileID: 58043252529459072}
+  - component: {fileID: 114706592245098442}
   m_Layer: 0
   m_Name: Crow
   m_TagString: Untagged
@@ -130,6 +131,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EffectObject: {fileID: 1340404308238938}
   SpriteObject: {fileID: 1337973255928612}
+--- !u!114 &114706592245098442
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1290431276608834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ae59368d1d300b4f8e4a8c9a403c045, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Move
+    clip: {fileID: 8300000, guid: 4ab06716f3d8dcb488b9334f8e01fa46, type: 3}
+    volume: 0.4
+    pitch: 1
+    loop: 0
+    Surround: 1
+    source: {fileID: 0}
 --- !u!198 &198600436337059842
 ParticleSystem:
   m_ObjectHideFlags: 1

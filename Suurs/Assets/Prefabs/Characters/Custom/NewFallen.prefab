@@ -394,13 +394,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4798800229258944}
-  - component: {fileID: 114322523037330832}
   - component: {fileID: 50277253468663172}
   - component: {fileID: 66585530854919538}
   - component: {fileID: 58196293665616302}
   - component: {fileID: 114227765258187510}
   - component: {fileID: 114602374173286652}
   - component: {fileID: 95661231146516334}
+  - component: {fileID: 114436592116111126}
   m_Layer: 11
   m_Name: NewFallen
   m_TagString: Enemy
@@ -727,7 +727,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1544302372299438}
-  m_LocalRotation: {x: 0, y: 0, z: 0.9996972, w: 0.024605727}
+  m_LocalRotation: {x: 0, y: 0, z: 0.9996972, w: 0.024607277}
   m_LocalPosition: {x: 0.9411875, y: 0.17544083, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -741,7 +741,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1533319804401474}
-  m_LocalRotation: {x: 0, y: 0, z: -0.3758559, w: 0.9266781}
+  m_LocalRotation: {x: 0, y: 0, z: -0.3758537, w: 0.926679}
   m_LocalPosition: {x: 0.8436345, y: 0.000000059604645, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -988,7 +988,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1700937352666732}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 127.22965, y: -25.361704, z: 1}
+  m_LocalPosition: {x: 44.332077, y: -38.064877, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4760731988454808}
@@ -1307,66 +1307,66 @@ CompositeCollider2D:
   - m_Collider: {fileID: 60926515095003506}
     m_ColliderPaths:
     - - X: -6751636
-        Y: 19836764
+        Y: 19836784
       - X: -5423901
-        Y: 15863143
+        Y: 15863162
       - X: -3932563
-        Y: 13481328
+        Y: 13481348
       - X: -423613
-        Y: 15822613
+        Y: 15822632
       - X: 1385976
-        Y: 17502736
+        Y: 17502754
       - X: 2012437
-        Y: 19173760
+        Y: 19173778
       - X: 1955462
-        Y: 21305842
+        Y: 21305862
       - X: 478198
-        Y: 23364904
+        Y: 23364924
       - X: -3688189
-        Y: 24284572
+        Y: 24284592
       - X: -6010704
-        Y: 22553834
+        Y: 22553854
   - m_Collider: {fileID: 60002262510673186}
     m_ColliderPaths:
     - - X: -5375305
-        Y: 9462150
+        Y: 9462169
       - X: -5358740
-        Y: 6627815
+        Y: 6627834
       - X: -3963959
-        Y: 2230987
+        Y: 2231006
       - X: -3033235
-        Y: -2535123
+        Y: -2535104
       - X: -3408071
-        Y: -13621626
+        Y: -13621607
       - X: 9613895
-        Y: -11769601
+        Y: -11769582
       - X: 5419022
-        Y: 12652552
+        Y: 12652571
       - X: 1087517
-        Y: 16865054
+        Y: 16865072
       - X: -3412522
-        Y: 13920580
+        Y: 13920599
   m_CompositePaths:
     m_Paths:
-    - - {x: 0.9613895, y: -1.1769601}
-      - {x: 0.5419022, y: 1.2652552}
-      - {x: 0.1087517, y: 1.6865054}
-      - {x: -0.0227812, y: 1.6004405}
-      - {x: 0.13859761, y: 1.7502736}
-      - {x: 0.2012437, y: 1.917376}
-      - {x: 0.1955462, y: 2.1305842}
-      - {x: 0.0478198, y: 2.3364904}
-      - {x: -0.3688189, y: 2.4284573}
-      - {x: -0.6010704, y: 2.2553835}
-      - {x: -0.6751636, y: 1.9836764}
-      - {x: -0.5423901, y: 1.5863143}
-      - {x: -0.3932563, y: 1.3481328}
-      - {x: -0.3470034, y: 1.3789942}
-      - {x: -0.5375305, y: 0.94621503}
-      - {x: -0.535874, y: 0.66278154}
-      - {x: -0.3963959, y: 0.2230987}
-      - {x: -0.3033235, y: -0.2535123}
-      - {x: -0.3408071, y: -1.3621626}
+    - - {x: 0.9613895, y: -1.1769582}
+      - {x: 0.5419022, y: 1.2652571}
+      - {x: 0.1087517, y: 1.6865072}
+      - {x: -0.0227814, y: 1.6004422}
+      - {x: 0.13859761, y: 1.7502754}
+      - {x: 0.2012437, y: 1.9173778}
+      - {x: 0.1955462, y: 2.1305861}
+      - {x: 0.0478198, y: 2.3364925}
+      - {x: -0.3688189, y: 2.4284592}
+      - {x: -0.6010704, y: 2.2553854}
+      - {x: -0.6751636, y: 1.9836785}
+      - {x: -0.5423901, y: 1.5863162}
+      - {x: -0.3932563, y: 1.3481349}
+      - {x: -0.3470034, y: 1.3789964}
+      - {x: -0.5375305, y: 0.9462169}
+      - {x: -0.535874, y: 0.6627834}
+      - {x: -0.3963959, y: 0.2231006}
+      - {x: -0.3033235, y: -0.25351042}
+      - {x: -0.3408071, y: -1.3621607}
   m_VertexDistance: 0.0005
 --- !u!95 &95661231146516334
 Animator:
@@ -2126,7 +2126,7 @@ MonoBehaviour:
   _deltaTimeAttack: 2000
   _deltaDistanceAttack: 3.7
   _deltaDistanceSpeed: 1.5
-  _canAttack: 1
+  _canAttack: 0
   _canMove: 1
   _damageLength: 5
 --- !u!114 &114285128742175436
@@ -2141,7 +2141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 0.466}
-  m_Length: 1.3381926
+  m_Length: 1.3381932
   m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 4494780619113528}
   m_AttachedIK: {fileID: 114855017762525004}
@@ -2161,19 +2161,6 @@ MonoBehaviour:
   m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 0}
   m_AttachedIK: {fileID: 0}
---- !u!114 &114322523037330832
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1700937352666732}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 533669fe702b5414cbcdd5a5efeb8e36, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Poses:
-  - {fileID: 11400000, guid: bf76263449bd8514a8cb4d87d66eaa39, type: 2}
 --- !u!114 &114369325123161780
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2186,7 +2173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 0.466}
-  m_Length: 0.8436345
+  m_Length: 0.8436327
   m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 4433017782984828}
   m_AttachedIK: {fileID: 114027590007683224}
@@ -2228,6 +2215,46 @@ MonoBehaviour:
   - {fileID: 4412445372725402}
   - {fileID: 4692717650153556}
   - {fileID: 4480568455128498}
+--- !u!114 &114436592116111126
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1700937352666732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ae59368d1d300b4f8e4a8c9a403c045, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Move
+    clip: {fileID: 8300000, guid: 49db5d4d7ce818045953748b62373e3c, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 1
+    Surround: 0
+    source: {fileID: 0}
+  - name: Strike
+    clip: {fileID: 8300000, guid: 8088cb8527159ca41b9953903613baa2, type: 3}
+    volume: 0.8
+    pitch: 1
+    loop: 0
+    Surround: 0
+    source: {fileID: 0}
+  - name: Death
+    clip: {fileID: 8300000, guid: b6f486307e49b774691949a9de65bbcd, type: 3}
+    volume: 0.9
+    pitch: 1
+    loop: 0
+    Surround: 0
+    source: {fileID: 0}
+  - name: When_Hit
+    clip: {fileID: 8300000, guid: c13333d6aa15022428bcd1242c8dd32f, type: 3}
+    volume: 0.5
+    pitch: 1.5
+    loop: 0
+    Surround: 0
+    source: {fileID: 0}
 --- !u!114 &114525745157899100
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2256,7 +2283,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 0.466}
-  m_Length: 0.9362379
+  m_Length: 0.93623626
   m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 4739458734828482}
   m_AttachedIK: {fileID: 114027590007683224}
@@ -2305,7 +2332,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 0.466}
-  m_Length: 0.8385644
+  m_Length: 0.83856684
   m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 4761331904141020}
   m_AttachedIK: {fileID: 114043972906517394}
@@ -2321,7 +2348,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 0.466}
-  m_Length: 0.58178765
+  m_Length: 0.5817892
   m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 4215012229569200}
   m_AttachedIK: {fileID: 0}

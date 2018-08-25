@@ -123,7 +123,7 @@ GameObject:
   m_Component:
   - component: {fileID: 122382019}
   - component: {fileID: 122382020}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Land
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -202,7 +202,7 @@ GameObject:
   - component: {fileID: 333286572}
   - component: {fileID: 333286574}
   - component: {fileID: 333286573}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Ground (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -307,7 +307,7 @@ GameObject:
   m_Component:
   - component: {fileID: 462491171}
   - component: {fileID: 462491172}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Land
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -385,7 +385,7 @@ GameObject:
   m_Component:
   - component: {fileID: 666347680}
   - component: {fileID: 666347681}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Land
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -498,7 +498,7 @@ Prefab:
     - target: {fileID: 224700536196953304, guid: 476f99bc5477ab04b86a0ad8169d76b3,
         type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 224700536196953304, guid: 476f99bc5477ab04b86a0ad8169d76b3,
         type: 2}
@@ -550,10 +550,10 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 224815275609241440, guid: 476f99bc5477ab04b86a0ad8169d76b3,
+    - target: {fileID: 114429948829765076, guid: 476f99bc5477ab04b86a0ad8169d76b3,
         type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
+      propertyPath: m_Text
+      value: Scene 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 476f99bc5477ab04b86a0ad8169d76b3, type: 2}
@@ -568,7 +568,7 @@ GameObject:
   m_Component:
   - component: {fileID: 735680142}
   - component: {fileID: 735680143}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Land
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -647,7 +647,7 @@ GameObject:
   - component: {fileID: 776074550}
   - component: {fileID: 776074552}
   - component: {fileID: 776074551}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Ground (16)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -779,11 +779,16 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4016876983898472, guid: 83d62e4aef5c0aa4cb5c5f749efe29c3, type: 2}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83d62e4aef5c0aa4cb5c5f749efe29c3, type: 2}
   m_IsPrefabAsset: 0
+--- !u!20 &805552610 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 20712495398801556, guid: 83d62e4aef5c0aa4cb5c5f749efe29c3,
+    type: 2}
+  m_PrefabInternal: {fileID: 805552609}
 --- !u!1 &954943799
 GameObject:
   m_ObjectHideFlags: 0
@@ -795,7 +800,7 @@ GameObject:
   - component: {fileID: 954943800}
   - component: {fileID: 954943802}
   - component: {fileID: 954943801}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Ground (12)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -932,7 +937,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4847141378856108, guid: ff67578568f7eaa4bb05f0ce16ab729c, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114755468157654676, guid: ff67578568f7eaa4bb05f0ce16ab729c,
         type: 2}
@@ -947,12 +952,12 @@ Prefab:
     - target: {fileID: 114755468157654676, guid: ff67578568f7eaa4bb05f0ce16ab729c,
         type: 2}
       propertyPath: _countEnemy
-      value: 40
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114755468157654676, guid: ff67578568f7eaa4bb05f0ce16ab729c,
         type: 2}
       propertyPath: _Lengthmap
-      value: 200
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 114755468157654676, guid: ff67578568f7eaa4bb05f0ce16ab729c,
         type: 2}
@@ -967,7 +972,7 @@ Prefab:
     - target: {fileID: 114755468157654676, guid: ff67578568f7eaa4bb05f0ce16ab729c,
         type: 2}
       propertyPath: _countEnemyByPoint
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114755468157654676, guid: ff67578568f7eaa4bb05f0ce16ab729c,
         type: 2}
@@ -999,7 +1004,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1332252218}
   - component: {fileID: 1332252219}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Land
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1078,7 +1083,7 @@ GameObject:
   - component: {fileID: 1383607099}
   - component: {fileID: 1383607101}
   - component: {fileID: 1383607100}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Ground (14)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1184,7 +1189,7 @@ GameObject:
   - component: {fileID: 1419119644}
   - component: {fileID: 1419119646}
   - component: {fileID: 1419119645}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Ground (13)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1321,7 +1326,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4497342909367490, guid: bbd1bf84d6e981e4587be5e189853b6e, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 137140848618746916, guid: bbd1bf84d6e981e4587be5e189853b6e,
         type: 2}
@@ -1496,7 +1501,7 @@ Prefab:
     - target: {fileID: 137075849071444660, guid: bbd1bf84d6e981e4587be5e189853b6e,
         type: 2}
       propertyPath: m_AABB.m_Extent.y
-      value: 0.000002386123
+      value: 0.0000033168012
       objectReference: {fileID: 0}
     - target: {fileID: 137075849071444660, guid: bbd1bf84d6e981e4587be5e189853b6e,
         type: 2}
@@ -1791,7 +1796,7 @@ GameObject:
   - component: {fileID: 1614967297}
   - component: {fileID: 1614967299}
   - component: {fileID: 1614967298}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Ground (15)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1897,7 +1902,7 @@ GameObject:
   - component: {fileID: 1649072032}
   - component: {fileID: 1649072034}
   - component: {fileID: 1649072033}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Ground (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2002,7 +2007,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1681858471}
   - component: {fileID: 1681858472}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Land
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2080,7 +2085,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1854742488}
   - component: {fileID: 1854742489}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Land
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2158,7 +2163,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1918954314}
   - component: {fileID: 1918954315}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Land
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2236,7 +2241,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1932628021}
   - component: {fileID: 1932628022}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Land
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2314,7 +2319,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1940257169}
   - component: {fileID: 1940257170}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Land
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2419,7 +2424,83 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4908390637936424, guid: b618d50656640f5478a742e20e6ee925, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1960668091591440, guid: b618d50656640f5478a742e20e6ee925, type: 2}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1745308342085902, guid: b618d50656640f5478a742e20e6ee925, type: 2}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1442400566043144, guid: b618d50656640f5478a742e20e6ee925, type: 2}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1590348931450040, guid: b618d50656640f5478a742e20e6ee925, type: 2}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1633957256758344, guid: b618d50656640f5478a742e20e6ee925, type: 2}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1969062554145200, guid: b618d50656640f5478a742e20e6ee925, type: 2}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1267349354406116, guid: b618d50656640f5478a742e20e6ee925, type: 2}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1771591638285488, guid: b618d50656640f5478a742e20e6ee925, type: 2}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1413608985625204, guid: b618d50656640f5478a742e20e6ee925, type: 2}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1300930869585646, guid: b618d50656640f5478a742e20e6ee925, type: 2}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1440466935023708, guid: b618d50656640f5478a742e20e6ee925, type: 2}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1044244985633876, guid: b618d50656640f5478a742e20e6ee925, type: 2}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1107479277414516, guid: b618d50656640f5478a742e20e6ee925, type: 2}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1753050409089366, guid: b618d50656640f5478a742e20e6ee925, type: 2}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1892194042257820, guid: b618d50656640f5478a742e20e6ee925, type: 2}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1381739514482814, guid: b618d50656640f5478a742e20e6ee925, type: 2}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1315945111083616, guid: b618d50656640f5478a742e20e6ee925, type: 2}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1612012953433458, guid: b618d50656640f5478a742e20e6ee925, type: 2}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1304543034507390, guid: b618d50656640f5478a742e20e6ee925, type: 2}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b618d50656640f5478a742e20e6ee925, type: 2}
@@ -2525,7 +2606,7 @@ Prefab:
         type: 2}
       propertyPath: m_Camera
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 805552610}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 070d71c2c55615f4d9fb517d72a0faad, type: 2}
   m_IsPrefabAsset: 0
@@ -2540,7 +2621,7 @@ GameObject:
   - component: {fileID: 2064459699}
   - component: {fileID: 2064459701}
   - component: {fileID: 2064459700}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Ground (17)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2646,7 +2727,7 @@ GameObject:
   - component: {fileID: 2066374245}
   - component: {fileID: 2066374247}
   - component: {fileID: 2066374246}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Ground (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2752,7 +2833,7 @@ GameObject:
   - component: {fileID: 2067896977}
   - component: {fileID: 2067896979}
   - component: {fileID: 2067896978}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Ground (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

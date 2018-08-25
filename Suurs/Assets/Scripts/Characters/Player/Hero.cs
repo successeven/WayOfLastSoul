@@ -23,60 +23,67 @@ public class Hero : MonoBehaviour
         Death
     }
 
-		#region Singleton
+    #region Singleton
 
-		public static Hero instance;
+    public static Hero instance;
 
-		void Awake()
-		{
-				instance = this;
-				_heroController = GetComponent<HeroController>();
-				_heroManager = GetComponent<HeroManager>();
-				_heroMotor = GetComponent<HeroMotor>();
-		}
+    void Awake()
+    {
+        instance = this;
+        _heroController = GetComponent<HeroController>();
+        _heroManager = GetComponent<HeroManager>();
+        _heroMotor = GetComponent<HeroMotor>();
+    }
 
-		#endregion
+    #endregion
 
-		HeroController _heroController;
-		public HeroController Controller
-		{
-				get
-				{
-						return _heroController;
-				}
-		}
+    HeroController _heroController;
+    public HeroController Controller
+    {
+        get
+        {
+            return _heroController;
+        }
+    }
 
-		HeroManager _heroManager;
-		public HeroManager Manager
-		{
-				get
-				{
-						return _heroManager;
-				}
-		}
-
-
-		HeroMotor _heroMotor;
-		public HeroMotor Motor
-		{
-				get
-				{
-						return _heroMotor;
-				}
-		}
+    HeroManager _heroManager;
+    public HeroManager Manager
+    {
+        get
+        {
+            return _heroManager;
+        }
+    }
 
 
-		public const string GameOverAD = "ca-app-pub-4537576181628162/5928041347";
-		public const string bannerAD = "ca-app-pub-4537576181628162/5626457313";
+    HeroMotor _heroMotor;
+    public HeroMotor Motor
+    {
+        get
+        {
+            return _heroMotor;
+        }
+    }
+    public AudioManager audioManager { get; private set; }
 
-		public void Move(float inSpeed)
-		{
-				_heroMotor.Move(inSpeed);
-		}
 
-		// Update is called once per frame
-		void Update()
-		{
 
-		}
+    public const string GameOverAD = "ca-app-pub-4537576181628162/5928041347";
+    public const string bannerAD = "ca-app-pub-4537576181628162/5626457313";
+
+    private void Start()
+    {
+        audioManager = GetComponent<AudioManager>();
+    }
+
+    public void Move(float inSpeed)
+    {
+        _heroMotor.Move(inSpeed);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 }

@@ -52,7 +52,7 @@ public class HeroManager : MonoBehaviour
     {
         if (_Health <= 0 && !_death)
         {
-            AudioManager.instance.Play(Hero.AudioClips.Death.ToString());
+            Hero.instance.audioManager.Play(Hero.AudioClips.Death.ToString());
             _death = true;
             _anima.SetTrigger("Death");
             Invoke("GameOver", 3f);
@@ -89,13 +89,13 @@ public class HeroManager : MonoBehaviour
         if (Hero.instance.Motor._blocking)
         {
             EZCameraShake.CameraShaker.Instance.ShakeOnce(4f, 10f, .1f, .5f);
-            AudioManager.instance.Play(Hero.AudioClips.Block.ToString());
+            Hero.instance.audioManager.Play(Hero.AudioClips.Block.ToString());
             _Health -= damage * ((100f -_Shield) / 100f);
             Hero.instance.Motor._anima.SetTrigger("TakeHitWhenBlocking");
         }
         else
         {
-            AudioManager.instance.Play(Hero.AudioClips.Hit.ToString());
+            Hero.instance.audioManager.Play(Hero.AudioClips.Hit.ToString());
             _Health -= damage;
             Hero.instance.Motor._anima.SetTrigger("TakeHit");
         }
