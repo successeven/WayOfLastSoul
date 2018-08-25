@@ -67,4 +67,11 @@ public class MyFSM
     {
         return _queueStates.Count;
     }
+
+    public void FinishAllStates()
+    {
+        _queueStates.Clear();
+        FinishState();
+    }
+
 }

@@ -26,7 +26,7 @@ public class CameraMotor : MonoBehaviour
 						_MoveRightSide = Hero.instance.transform.localScale.x;
 				}
 				Vector3 desiredPosition = Hero.instance.transform.position + _offset;
-				transform.position = Vector3.Lerp(transform.position, desiredPosition, deltaCameraSpeed);
+				transform.root.transform.position = Vector3.Lerp(transform.position, desiredPosition, deltaCameraSpeed);
 
 		}
 }

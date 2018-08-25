@@ -19,6 +19,13 @@ public class HeroMotor : CharacterMotor
 
     MyFSM _fsm;
 
+    public int AttackIndex
+    {
+        get
+        {
+            return _anima.GetInteger("Attack Index");
+        }
+    }
 
     [SerializeField]
     float _attacksLength = 2f;
@@ -27,8 +34,8 @@ public class HeroMotor : CharacterMotor
 
     [NonSerialized]
     public bool _attacks = false;
-    [NonSerialized]
-    public int _attacksIndex = 0;
+
+
 
     [NonSerialized]
     public bool _holdAttack = false;
@@ -84,6 +91,11 @@ public class HeroMotor : CharacterMotor
         _fsm.Invoke();
     }
 
+    public void FinishAllAttacks()
+    {
+        _fsm.FinishAllStates();
+    }
+
     public void Attack()
     {
         if (_rolling)
@@ -126,7 +138,6 @@ public class HeroMotor : CharacterMotor
         _attacks = true;
         AudioManager.instance.Play(AudioClipName);
         SwordCollider.enabled = true;
-        Debug.Log(Hero.instance.audioSource.isPlaying);
         for (float t = 0; t <= time; t += Time.deltaTime)
         {
             _rigidbody.velocity = new Vector2(_attacksLength * transform.localScale.x, _rigidbody.velocity.y);
@@ -212,8 +223,6 @@ public class HeroMotor : CharacterMotor
     {
         if (_anima.GetInteger("Attack Index") != (int)AttackEnum.Strike_1)
         {
-            Debug.Log("StartCoroutine Strike_1");
-            //StopCoroutine(AttackCoroutine);
             AttackCoroutine = StartCoroutine(DoAttack(Hero.AudioClips.Strike_1.ToString(), 0.9f));
         }
         _anima.SetInteger("Attack Index", (int)AttackEnum.Strike_1);
@@ -249,7 +258,6 @@ public class HeroMotor : CharacterMotor
     {
         _attacks = true;
         _lastBack_SlideTime = Time.fixedTime;
-        _attacks = true;
         if (_anima.GetInteger("Attack Index") != (int)AttackEnum.BackSlide)
             StartCoroutine(DoBack_Slide(.45f));
         _anima.SetInteger("Attack Index", (int)AttackEnum.BackSlide);
