@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System.Linq;
+using EZCameraShake;
 
 public class HeroManager : MonoBehaviour
 {
@@ -21,7 +22,11 @@ public class HeroManager : MonoBehaviour
     public float _GlobalHealth = 100; ///Текущая глобальная жизнь
 
     public float _attack = 25; ///атака
+
+    [Range(0, 100)]
     public float _Shield = 50f; ///Щит   
+
+    [Range(0, 100)]
     public float _Protaction = 0f; ///Защита 
     public float _SpeedAttack = 100f; ///Скорость атаки
     public float _Agility = 0; ///Ловкость
@@ -67,7 +72,7 @@ public class HeroManager : MonoBehaviour
             if (Hero.instance.Motor.SwordCollider.enabled)
             {
                 Hero.instance.Motor.SwordCollider.enabled = false;
-                var _currentAttackItem = _attackItems.Where(x => x._ID == Hero.instance.Motor._attacksIndex).FirstOrDefault();
+                var _currentAttackItem = _attackItems.Where(x => x._ID == Hero.instance.Motor.AttackIndex).FirstOrDefault();
                 GameObject enemy = collision.transform.root.gameObject;
                 EnemyController enemyController = enemy.GetComponent<EnemyController>();
                 enemyController.TakeHit(_currentAttackItem._damage + (_attack / 100 * _currentAttackItem._damage));
@@ -78,12 +83,14 @@ public class HeroManager : MonoBehaviour
 
     public void TakeDamage(float damage) //Урон
     {
-        Debug.Log("TakeDamage");
+        Debug.Log("TakeDamage " + damage);
         _TakeDamage = true;
+        Hero.instance.Motor.FinishAllAttacks();
         if (Hero.instance.Motor._blocking)
         {
+            EZCameraShake.CameraShaker.Instance.ShakeOnce(4f, 10f, .1f, .5f);
             AudioManager.instance.Play(Hero.AudioClips.Block.ToString());
-            _Health -= damage * (_Shield / 100);
+            _Health -= damage * ((100f -_Shield) / 100f);
             Hero.instance.Motor._anima.SetTrigger("TakeHitWhenBlocking");
         }
         else
