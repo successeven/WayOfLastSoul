@@ -54,8 +54,10 @@ public class GemerationLevel : MonoBehaviour
     [SerializeField]
     public int _Сomplexity; //Сложность уровня
     [SerializeField]
+    [Range(0, 200)]
     int _countEnemy; //кол-во всего врагов на сцене
     [SerializeField]
+    [Range(0, 10)]
     int _countEnemyByPoint; //кол-во всего врагов в 1 месте
 
     [SerializeField] [Range(0, 50)] [Tooltip("Частота появления врага (платформ) (0 - все в 1 месте)")]
@@ -64,6 +66,7 @@ public class GemerationLevel : MonoBehaviour
 
     [Space(10)]
     [SerializeField]
+    [Range(0, 500)]
     int _Lengthmap; //длина карты
 
     [SerializeField]

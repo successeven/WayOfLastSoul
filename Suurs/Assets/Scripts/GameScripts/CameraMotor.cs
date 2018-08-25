@@ -19,14 +19,14 @@ public class CameraMotor : MonoBehaviour
 		{
 				if (Hero.instance == null)
 						return;
-
+        Debug.Log("HERE");
 				if (_MoveRightSide != Hero.instance.transform.localScale.x)
 				{
 						_offset.x *= -1;
 						_MoveRightSide = Hero.instance.transform.localScale.x;
 				}
 				Vector3 desiredPosition = Hero.instance.transform.position + _offset;
-				transform.root.transform.position = Vector3.Lerp(transform.position, desiredPosition, deltaCameraSpeed);
+				transform.root.transform.position = Vector3.Lerp(transform.root.transform.position, desiredPosition, deltaCameraSpeed);
 
 		}
 }
