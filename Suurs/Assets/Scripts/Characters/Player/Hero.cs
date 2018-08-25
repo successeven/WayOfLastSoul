@@ -8,6 +8,20 @@ using UnityEngine;
 [RequireComponent(typeof(HeroController))]
 public class Hero : MonoBehaviour
 {
+    public enum AudioClips
+    {
+        None,
+        Run,
+        Roll,
+        Hit,
+        Strike_1,
+        Strike_2,
+        Strike_3,
+        Rapira,
+        Back_Slide,
+        Block,
+        Death
+    }
 
 		#region Singleton
 
