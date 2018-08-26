@@ -88,7 +88,7 @@ public class HeroManager : MonoBehaviour
         Hero.instance.Motor.FinishAllAttacks();
         if (Hero.instance.Motor._blocking)
         {
-            EZCameraShake.CameraShaker.Instance.ShakeOnce(4f, 10f, .1f, .5f);
+            CameraShaker.Instance.ShakeOnce(4f, 10f, .1f, .5f);
             Hero.instance.audioManager.Play(Hero.AudioClips.Block.ToString());
             _Health -= damage * ((100f -_Shield) / 100f);
             Hero.instance.Motor._anima.SetTrigger("TakeHitWhenBlocking");
