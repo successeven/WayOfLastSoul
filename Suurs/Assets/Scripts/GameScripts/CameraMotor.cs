@@ -15,7 +15,7 @@ public class CameraMotor : MonoBehaviour
 
     float _MoveRightSide = 1; //1- вправо ; -1 влево
 
-    void FixedUpdate()
+    void LateUpdate()
     {
         if (Hero.instance == null)
             return;
@@ -25,7 +25,7 @@ public class CameraMotor : MonoBehaviour
             _MoveRightSide = Hero.instance.transform.localScale.x;
         }
         Vector3 desiredPosition = Hero.instance.transform.position + _offset;
-        transform.root.transform.position = Vector3.Lerp(transform.root.transform.position, desiredPosition, deltaCameraSpeed);
+        transform.position = Vector3.Lerp(transform.position, desiredPosition, deltaCameraSpeed);
 
     }
 }

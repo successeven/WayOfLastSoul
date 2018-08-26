@@ -19,7 +19,10 @@ public class FryingCrowController : MonoBehaviour
 
     private void Start()
     {
-        audioManager = transform.root.GetComponent<AudioManager>();
+        if(transform.parent == null)
+          audioManager = GetComponent<AudioManager>();
+        else
+          audioManager = GetComponentInParent<AudioManager>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
