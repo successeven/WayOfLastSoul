@@ -15,6 +15,9 @@ public class CharacterMotor : MonoBehaviour
 
     protected bool _acingRight = true;
 
+    [NonSerialized]
+    public float _currentSpeed;
+
     // Use this for initialization
     private void Awake()
     {
@@ -30,6 +33,7 @@ public class CharacterMotor : MonoBehaviour
 
     public virtual void Move(float inMoveDirection)
     {
+
         _anima.SetFloat("Speed", Mathf.Abs(inMoveDirection));
         if (CanMove())
         {
@@ -40,11 +44,18 @@ public class CharacterMotor : MonoBehaviour
                     Hero.instance.audioManager.Stop(Hero.AudioClips.Run.ToString());
 
             Hero.instance.audioManager.SetPitch(Hero.AudioClips.Run.ToString(), Math.Abs(inMoveDirection));
+
+            _currentSpeed = inMoveDirection * _speed;
             _rigidbody.velocity = new Vector2(inMoveDirection * _speed, _rigidbody.velocity.y);
+
             if (inMoveDirection > 0 && !_acingRight)
                 Flip();
             else if (inMoveDirection < 0 && _acingRight)
                 Flip();
+        }
+        else
+        {
+            _currentSpeed = 0;
         }
     }
 

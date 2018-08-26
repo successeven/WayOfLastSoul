@@ -22,9 +22,9 @@ public class Unit : MonoBehaviour
         inRigthPosition = !inRigthPosition;
 
         // Multiply the player's x local scale by -1.
-        Vector3 theScale = transform.root.localScale;
+        Vector3 theScale = transform.localScale;
         theScale.x *= -1;
-        transform.root.localScale = theScale;
+        transform.localScale = theScale;
     }
 
 		public void SetSpeed(float inSpeed)

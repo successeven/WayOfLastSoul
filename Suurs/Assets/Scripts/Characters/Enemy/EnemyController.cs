@@ -38,7 +38,7 @@ public class EnemyController : Unit
     {
         _anima = GetComponent<Animator>();
         _enemyManager = GetComponent<EnemyManager>();
-        _rigidbody = transform.root.GetComponent<Rigidbody2D>();
+        _rigidbody = GetComponent<Rigidbody2D>();
         audioManager = GetComponent<AudioManager>();
         AfterStart();
     }
@@ -106,6 +106,6 @@ public class EnemyController : Unit
 
     protected virtual void Die()
     {
-        Destroy(transform.root.gameObject);
+        Destroy(transform.gameObject);
     }
 }
