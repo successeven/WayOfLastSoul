@@ -34,7 +34,7 @@ public class FallenController : EnemyController
     protected override void DoMotion()
     {
         bool actionRight = false;
-        if (transform.root.localScale.x < 0)
+        if (transform.localScale.x < 0)
             actionRight = true;
         if (_distance <= _visibility && CanMove())
         {
@@ -47,7 +47,7 @@ public class FallenController : EnemyController
                 var deltaSpeed = (_distance > _deltaDistanceSpeed + 2 + _deltaDistanceAttack ? 0.7f :
                                                     _distance > _deltaDistanceSpeed + _deltaDistanceAttack ? 0.5f : 0.3f);
 
-                if (transform.root.position.x - Hero.instance.transform.position.x > 0)
+                if (transform.position.x - Hero.instance.transform.position.x > 0)
                     _moveLeftSide = -deltaSpeed;
                 else
                     _moveLeftSide = deltaSpeed;
