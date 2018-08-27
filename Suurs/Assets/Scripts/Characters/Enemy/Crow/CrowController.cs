@@ -50,10 +50,10 @@ public class CrowController : EnemyController
     int _moveSide = 1; //1- вправо ; -1 влево
     bool _animTakeOff = true;
 
-    float _currentDeltaTimeAttack;
+    float _currentDeltaTimeAttack = 0;
     float lastVoicetime;
     float deltaTimeVoice = 0;
-
+    int tempHeight;
 
     protected override void DoMotion()
     {
@@ -65,8 +65,9 @@ public class CrowController : EnemyController
                 if (_distance < _visibility)
                 {
                     stateCrow = StateCrow.Move;
-                    UnityEngine.Random.InitState(Guid.NewGuid().GetHashCode());
+                    if (_currentDeltaTimeAttack == 0)
                     _currentDeltaTimeAttack = UnityEngine.Random.Range(2f, _deltaTimeAttack);
+                    tempHeight = UnityEngine.Random.Range(7, 11);
                 }
                 else
                 {
@@ -112,8 +113,7 @@ public class CrowController : EnemyController
 
                 _tempPosition = new Vector3(
                     _CurrentPosX,
-                    Mathf.Sin(Time.realtimeSinceStartup * _verticalSpeed) * _amplitude + Hero.instance.transform.position.y + 8
-                    );
+                    Mathf.Sin(Time.realtimeSinceStartup * _verticalSpeed) * _amplitude + Hero.instance.transform.position.y + tempHeight);
 
                 transform.position = _tempPosition;
 
@@ -123,6 +123,7 @@ public class CrowController : EnemyController
                     if (_distance >= _distanceAttack - _deltaDistanceAttack && _distance <= _distanceAttack + _deltaDistanceAttack)
                     {
 
+                        _currentDeltaTimeAttack = UnityEngine.Random.Range(2f, _deltaTimeAttack);
                         actionRight = transform.root.localScale.x < 0;
                         if (_moveSide > 0 && transform.position.x - Hero.instance.transform.position.x > 0)
                             Flip(ref actionRight);
@@ -132,6 +133,7 @@ public class CrowController : EnemyController
                         _startAttackPosition = transform.position;
                         _startAttackPosition.x -= 10 * transform.localScale.x;
                         _targetAttack = Hero.instance.transform.position;
+                        _targetAttack.y -= 2;
                         stateCrow = StateCrow.Fly;
                     }
                 }

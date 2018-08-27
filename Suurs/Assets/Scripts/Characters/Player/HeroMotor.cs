@@ -93,6 +93,7 @@ public class HeroMotor : CharacterMotor
 
     public void FinishAllAttacks()
     {
+        _attacks = false;
         _fsm.FinishAllStates();
     }
 
@@ -223,7 +224,7 @@ public class HeroMotor : CharacterMotor
     {
         if (_anima.GetInteger("Attack Index") != (int)AttackEnum.Strike_1)
         {
-            AttackCoroutine = StartCoroutine(DoAttack(Hero.AudioClips.Strike_1.ToString(), 0.9f));
+            AttackCoroutine = StartCoroutine(DoAttack(Hero.AudioClips.Strike_1.ToString(), 0.6f));
         }
         _anima.SetInteger("Attack Index", (int)AttackEnum.Strike_1);
         _anima.SetBool("Attack", true);

@@ -75,7 +75,7 @@ public class HeroManager : MonoBehaviour
                 var _currentAttackItem = _attackItems.Where(x => x._ID == Hero.instance.Motor.AttackIndex).FirstOrDefault();
                 GameObject enemy = collision.transform.root.gameObject;
                 EnemyController enemyController = enemy.GetComponent<EnemyController>();
-                enemyController.TakeHit(_currentAttackItem._damage + (_attack / 100 * _currentAttackItem._damage));
+                enemyController.TakeHit(_currentAttackItem._damage);// + (_attack / 100 * _currentAttackItem._damage));
             }
         }
     }
@@ -88,13 +88,13 @@ public class HeroManager : MonoBehaviour
         Hero.instance.Motor.FinishAllAttacks();
         if (Hero.instance.Motor._blocking)
         {
-            CameraShaker.Instance.ShakeOnce(4f, 10f, .1f, .5f);
             Hero.instance.audioManager.Play(Hero.AudioClips.Block.ToString());
             _Health -= damage * ((100f -_Shield) / 100f);
             Hero.instance.Motor._anima.SetTrigger("TakeHitWhenBlocking");
         }
         else
         {
+            CameraShaker.Instance.ShakeOnce(4f, 10f, .1f, .5f);
             Hero.instance.audioManager.Play(Hero.AudioClips.Hit.ToString());
             _Health -= damage;
             Hero.instance.Motor._anima.SetTrigger("TakeHit");
