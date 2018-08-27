@@ -43,7 +43,7 @@ public class SnapScrolling : MonoBehaviour
         _posItems[inIndex] = -_instItems[inIndex].transform.localPosition;
     }
 
-    void Start()
+    void Awake()
     {
         _contentRect = GetComponent<RectTransform>();
         _instItems = new GameObject[_countItems];
@@ -58,9 +58,15 @@ public class SnapScrolling : MonoBehaviour
         _instItems[i++].GetComponent<Button>().onClick.AddListener(() => OnButtonOptionsClick());
         InstPanel(i, "EXIT");
         _instItems[i++].GetComponent<Button>().onClick.AddListener(() => OnButtonExitClick());
+        UpdateScroll();
     }
 
-    void FixedUpdate()
+    void LateUpdate()
+    {
+        UpdateScroll();
+    }
+
+    private void UpdateScroll()
     {
         if (_contentRect.anchoredPosition.y <= _posItems[0].y && !_isScrolling || _contentRect.anchoredPosition.y >= _posItems[_posItems.Length - 1].y && !_isScrolling)
             _scrollRect.inertia = false;
