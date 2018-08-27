@@ -7,131 +7,133 @@ using GoogleMobileAds.Api;
 public class UIController : MonoBehaviour
 {
 
-		#region Singleton
+    #region Singleton
 
-		public static UIController instance;
+    public static UIController instance;
 
-		void Awake()
-		{
-				instance = this;
-		}
+    void Awake()
+    {
+        instance = this;
+    }
 
-		#endregion
+    #endregion
 
 
-		enum StateScene
-		{
-				None = 0,
-				Start = 1,
-				Game = 2,
-				Pause = 3,
-				Exit = 4
-		}
-		Animator _anima;
+    enum StateScene
+    {
+        None = 0,
+        Start = 1,
+        Game = 2,
+        Pause = 3,
+        Exit = 4
+    }
+    Animator _anima;
 
-		bool needChange;
+    bool needChange;
 
-		bool gameLoad = false;
-		StateScene _state = StateScene.None;
-		public InterstitialAd ad;
-		
-		void Start()
-		{
-				_anima = GetComponent<Animator>();
-				ad = new InterstitialAd(Hero.GameOverAD);
-				AdRequest request = new AdRequest.Builder().Build();
-				ad.LoadAd(request);
-		}
+    bool gameLoad = false;
+    StateScene _state = StateScene.None;
+    public InterstitialAd ad;
 
-		public void ShowUI()
-		{
-				//_anima.enabled = true;
-				gameLoad = true;
-				_state = StateScene.Start;
-				needChange = true;
-		}
+    void Start()
+    {
+        _anima = GetComponent<Animator>();
+        ad = new InterstitialAd(Hero.GameOverAD);
+        AdRequest request = new AdRequest.Builder().Build();
+        ad.LoadAd(request);
+    }
 
-		public void HideUI()
-		{
-				_state = StateScene.Exit;
-				needChange = true;
-		}
+    public void ShowUI()
+    {
+        //_anima.enabled = true;
+        gameLoad = true;
+        _state = StateScene.Start;
+        needChange = true;
+    }
 
-		public void PauseGame()
-		{
-				_state = StateScene.Pause;
-				needChange = true;
-				Time.timeScale = 0.1f;
-		}
+    public void HideUI()
+    {
+        _state = StateScene.Exit;
+        needChange = true;
+    }
 
-		public void DisableTime()
-		{
-				Time.timeScale = 0;
-		}
+    public void PauseGame()
+    {
+        _state = StateScene.Pause;
+        needChange = true;
+        Time.timeScale = 0.1f;
+    }
 
-		public void NormalizeTime()
-		{
-				Time.timeScale = 1;
+    public void DisableTime()
+    {
+        Time.timeScale = 0;
+    }
 
-		}
+    public void NormalizeTime()
+    {
+        Time.timeScale = 1;
 
-		public void GameOver()
-		{
-				_anima.SetTrigger("GameOver");
-				Invoke("NextLevel", 6f);
-		}
+    }
 
-		void NextLevel()
-		{
-				if (ad.IsLoaded())
-						ad.Show();
-				PlayerPrefs.SetInt("NextLVL", 0);
-				SceneManager.LoadScene("Loading");
-		}
+    bool gameOver = false;
+    public void GameOver()
+    {
+        gameOver = true;
+        _anima.SetTrigger("GameOver");
+        Invoke("NextLevel", 6f);
+    }
 
-		public void ContinueGame()
-		{
-				Debug.Log("Continue");
-				_state = StateScene.Game;
-				needChange = true;
-				Time.timeScale = 0.1f;
-		}
+    void NextLevel()
+    {
+        if (ad.IsLoaded() && gameOver)
+            ad.Show();
+        PlayerPrefs.SetInt("NextLVL", 0);
+        SceneManager.LoadScene("Loading");
+    }
 
-		public void ExitGame()
-		{
-				Time.timeScale = 1;
-				SceneManager.LoadScene("Menu");
-		}
+    public void ContinueGame()
+    {
+        Debug.Log("Continue");
+        _state = StateScene.Game;
+        needChange = true;
+        Time.timeScale = 0.1f;
+    }
 
-		// Update is called once per frame
-		void Update()
-		{
-				if (!gameLoad)
-						return;
+    public void ExitGame()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene("Menu");
+    }
 
-				if (!needChange)
-						return;
+    // Update is called once per frame
+    void Update()
+    {
+        if (!gameLoad)
+            return;
 
-				switch (_state)
-				{
-						case StateScene.Start:
-								_anima.SetInteger("State", 1);
-								break;
+        if (!needChange)
+            return;
 
-						case StateScene.Pause:
-								_anima.SetInteger("State", 3);
-								break;
+        switch (_state)
+        {
+            case StateScene.Start:
+                _anima.SetInteger("State", 1);
+                break;
 
-						case StateScene.Game:
-								_anima.SetInteger("State", 4);
-								break;
+            case StateScene.Pause:
+                _anima.SetInteger("State", 3);
+                break;
 
-						case StateScene.Exit:
-								_anima.SetInteger("State", 2);
-								break;
-				}
+            case StateScene.Game:
+                _anima.SetInteger("State", 4);
+                break;
 
-				_anima.SetTrigger("Change");
-				needChange = false;
-		}
+            case StateScene.Exit:
+                _anima.SetInteger("State", 2);
+                break;
+        }
+
+        _anima.SetTrigger("Change");
+        needChange = false;
+    }
 }

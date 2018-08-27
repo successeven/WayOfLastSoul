@@ -125,7 +125,7 @@ public class SnapScrolling : MonoBehaviour
 
     public void OnButtonOptionsClick()
     {
-        _anima.SetBool("Options", true);
+
     }
 
     public void OnButtonExitClick()
