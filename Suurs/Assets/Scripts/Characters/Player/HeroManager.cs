@@ -73,7 +73,7 @@ public class HeroManager : MonoBehaviour
             {
                 Hero.instance.Motor.SwordCollider.enabled = false;
                 var _currentAttackItem = _attackItems.Where(x => x._ID == Hero.instance.Motor.AttackIndex).FirstOrDefault();
-                GameObject enemy = collision.transform.root.gameObject;
+                GameObject enemy = collision.transform.gameObject;
                 EnemyController enemyController = enemy.GetComponent<EnemyController>();
                 enemyController.TakeHit(_currentAttackItem._damage);// + (_attack / 100 * _currentAttackItem._damage));
             }
