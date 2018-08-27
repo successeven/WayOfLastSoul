@@ -234,8 +234,6 @@ public class HeroMotor : CharacterMotor
     {
         if (_anima.GetInteger("Attack Index") != (int)AttackEnum.Strike_2)
         {
-            Debug.Log("StartCoroutine Strike_2");
-
             StopCoroutine(AttackCoroutine);
             AttackCoroutine = StartCoroutine(DoAttack(Hero.AudioClips.Strike_2.ToString(), .03f));
         }
@@ -247,7 +245,6 @@ public class HeroMotor : CharacterMotor
     {
         if (_anima.GetInteger("Attack Index") != (int)AttackEnum.Strike_3)
         {
-            Debug.Log("StartCoroutine Strike_3");
             StopCoroutine(AttackCoroutine);
             AttackCoroutine = StartCoroutine(DoAttack(Hero.AudioClips.Strike_3.ToString(), .4f));
         }
