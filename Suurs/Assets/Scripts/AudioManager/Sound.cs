@@ -15,8 +15,12 @@ public class Sound {
 
 	public bool loop = false;
     public bool Surround = false;
-    
-	[HideInInspector]
+
+    [Range(1f, 100f)]
+    public float MinDistance= 1f;
+
+
+    [HideInInspector]
 	public AudioSource source;
 
 }

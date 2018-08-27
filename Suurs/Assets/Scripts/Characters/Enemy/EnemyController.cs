@@ -10,7 +10,7 @@ public class EnemyController : Unit
 
 
     [SerializeField]
-    protected int _deltaTimeAttack = 2000;
+    protected float _deltaTimeAttack = 2f;
 
     [SerializeField]
     protected float _deltaDistanceAttack = 2f;

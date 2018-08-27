@@ -18,7 +18,6 @@ public class CrowManager : EnemyManager
 						var unit = GetComponent<Unit>();
 						unit.SetSpeed(PlayerPrefs.GetInt("CrowSpeed"));
 				}
-				*/
 				
         int playerLVL = Hero.instance.Manager._Level;
 
@@ -28,6 +27,7 @@ public class CrowManager : EnemyManager
         int delta = (int)Math.Truncate((complexity * 10) + (10 * timeGame) + (playerLVL / 2));
         _attack += delta;
         _HP += (int)Math.Truncate(delta * 1.5f);
-		}
+				*/
+    }
 
 }
