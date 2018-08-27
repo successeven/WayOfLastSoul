@@ -4,7 +4,7 @@ using System;
 using UnityEditor;
 using System.Collections.Generic;
 using UnityEngine.U2D;
-
+using System.Linq;
 
 [Flags]
 public enum InclineLandType
@@ -49,6 +49,18 @@ public enum Objects
     Corpse_3 = 8192
 }
 
+[Serializable]
+public class CompleteGround
+{
+    [Range(1, 100)]
+    public int percent;
+    public GameObject completeGround;
+    [HideInInspector]
+    public bool SetDone = false; //флаг: "Локация обработана"
+    [HideInInspector]
+    public int mapIndex; //флаг: "Локация обработана"
+}
+
 public class GemerationLevel : MonoBehaviour
 {
     [SerializeField]
@@ -60,7 +72,9 @@ public class GemerationLevel : MonoBehaviour
     [Range(0, 10)]
     int _countEnemyByPoint; //кол-во всего врагов в 1 месте
 
-    [SerializeField] [Range(0, 50)] [Tooltip("Частота появления врага (платформ) (0 - все в 1 месте)")]
+    [SerializeField]
+    [Range(0, 50)]
+    [Tooltip("Частота появления врага (платформ) (0 - все в 1 месте)")]
     int _frequencySpawn; //через сколько платформ появится враг
 
 
@@ -76,19 +90,19 @@ public class GemerationLevel : MonoBehaviour
     [SerializeField]
     GameObject _СurrentObject;//Текущая позиция
 
-    [Space( 10)]
+    [Space(10)]
     [SerializeField]
     [EnumFlag]
     Objects _Objects;
     List<Objects> _selectObjects;
 
-    [Space( 10)]
+    [Space(10)]
     [SerializeField]
     [EnumFlag]
     LandType _Lands;
     List<LandType> _selectLands;
 
-    [Space (10)]
+    [Space(10)]
     [SerializeField]
     [EnumFlag]
     InclineLandType _InclineLands;
@@ -117,6 +131,11 @@ public class GemerationLevel : MonoBehaviour
     [SerializeField]
     List<GameObject> _Enemys;
 
+    [Space(10)]
+    [Header("готовые платформы")]
+    [SerializeField]
+    CompleteGround[] completeGrounds;
+
 
     Dictionary<string, GameObject> _GroundsbyName;
 
@@ -130,15 +149,17 @@ public class GemerationLevel : MonoBehaviour
         }
         else
             return _GroundsbyName[name];
+
+
     }
 
     private void Awake()
     {
         _GroundsbyName = new Dictionary<string, GameObject>();
         foreach (var item in _Grounds)
-            _GroundsbyName.Add(item.name.Split('_')[0] , item);
+            _GroundsbyName.Add(item.name.Split('_')[0], item);
 
-				_map = new int[_Lengthmap];
+        _map = new int[_Lengthmap + completeGrounds.Length];
 
         _selectObjects = new List<Objects>();
         foreach (Objects i in Enum.GetValues(typeof(Objects)))
@@ -170,6 +191,7 @@ public class GemerationLevel : MonoBehaviour
     {
         _map[0] = 0;// Первая и вторая локация обязательно горизонтальная . т к стартовая позиция с травой 
         _map[1] = 0;// Первая и вторая локация обязательно горизонтальная . т к стартовая позиция с травой 
+
         for (int i = 2; i < _Lengthmap - 2; i++)
         {
             int level = GetLevel();
@@ -182,6 +204,25 @@ public class GemerationLevel : MonoBehaviour
                     level = 0;
             }
             _map[i] = level;
+
+
+            if (completeGrounds.Length == 0)
+                continue;
+
+            int percent = -1;
+            for (int j = 0; j < completeGrounds.Length; j++)
+                if (!completeGrounds[j].SetDone)
+                {
+                    percent = completeGrounds[j].percent;
+                    int value = (int)Math.Truncate(_Lengthmap * (percent / 100f));
+                    if (i == value)
+                    {
+                        _map[i] = 2;
+                        completeGrounds[j].mapIndex = i;
+                        completeGrounds[j].SetDone = true;
+                    }
+                    break;
+                }
         }
         _map[_Lengthmap - 2] = 0; // Последняя локация обязательно горизонтальная. 
         _map[_Lengthmap - 1] = 0; // Последняя локация обязательно горизонтальная. 
@@ -236,7 +277,7 @@ public class GemerationLevel : MonoBehaviour
                 _landsOnMap[currentIndex++] = LandType.Grass;
         }
 
-   //     _landsOnMap[currentIndex] = LandType.Stones;
+        //     _landsOnMap[currentIndex] = LandType.Stones;
         #endregion
 
         #region Finish
@@ -307,7 +348,7 @@ public class GemerationLevel : MonoBehaviour
                 _landsOnMap[i] = _selectLands[currentLandType];
         }
         #endregion
-      
+
     }
 
     private void Generation()
@@ -333,6 +374,19 @@ public class GemerationLevel : MonoBehaviour
                     if (i >= 5)
                         IncertEnemy(i);
                     break;
+                default:
+                    var temp = completeGrounds.Where(x => x.mapIndex == i).FirstOrDefault();
+
+                    if (temp == null)
+                        ground = GetGroundbyName(GroundName.Horizontal);
+                    else
+                    {
+                        ground = temp.completeGround;
+                        IncertPrefab(ground, _map[i]);
+                        continue;
+                    }
+                    IncertPrefab(ground, _map[i]);
+                    break;
             }
             DrawLand(i, ref drawingGrass);
         }
@@ -350,7 +404,7 @@ public class GemerationLevel : MonoBehaviour
             GameObject currentPosPuzzle = _СurrentObject.transform.Find("ConnectionPuzzle").gameObject;
             UnityEngine.Random.InitState(Guid.NewGuid().GetHashCode());
 
-            GameObject enemy = _Enemys[UnityEngine.Random.Range(0, _Enemys.Count )];
+            GameObject enemy = _Enemys[UnityEngine.Random.Range(0, _Enemys.Count)];
             int countEnemy = UnityEngine.Random.Range(1, _countEnemyByPoint + 1);
             int deltaX = 0;
             for (int i = 0; i < countEnemy; i++)
@@ -398,13 +452,13 @@ public class GemerationLevel : MonoBehaviour
                 if (drawObject.ToString().Contains("Column"))
                 {
                     Vector3 theScale = drawingObject.transform.localScale;
-                    float scailPoint = UnityEngine.Random.Range(0.5f,1.2f);
+                    float scailPoint = UnityEngine.Random.Range(0.5f, 1.2f);
                     theScale.x *= scailPoint;
                     theScale.y *= scailPoint;
                     drawingObject.transform.localScale = theScale;
 
                     Quaternion target = Quaternion.Euler(0, 0, UnityEngine.Random.Range(-20, 20));
-                    drawingObject.transform.rotation = target; 
+                    drawingObject.transform.rotation = target;
                 }
             }
         }
@@ -454,6 +508,7 @@ public class GemerationLevel : MonoBehaviour
             _currentPosPuzzle.transform.position.z);
 
         _СurrentObject = Instantiate(inGround, position, _currentPosPuzzle.transform.rotation);
+
         if (inLevel == -1)
         {
             GameObject _NewPuzzle = _СurrentObject.transform.Find("ConnectionPuzzle").gameObject;
