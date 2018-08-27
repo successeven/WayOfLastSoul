@@ -70,7 +70,7 @@ public class FallenController : EnemyController
 
     protected override void DoAttack()
     {
-        int currentDeltaAttack = (int)Math.Truncate((Time.fixedTime - _lastAttackTime) * 1000);
+        var currentDeltaAttack = Time.fixedTime - _lastAttackTime;
         if ((_distance <= _deltaDistanceAttack) && !_attacks && currentDeltaAttack > _deltaTimeAttack && !_reciveDamage)
         {
             audioManager.Play(FallenSounds.Strike.ToString());

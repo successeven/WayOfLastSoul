@@ -85,6 +85,8 @@ public class StartScenes : MonoBehaviour
                 if (Hero.instance.transform.position.x <= _StartPos.transform.position.x - 5)
                 {
                     PlayerPrefs.SetInt("NextLVL", -4); //назад всегда возвращаемся на респ
+                    if (Hero.instance.transform.localScale.x > 0)
+                        Hero.instance.Motor.Flip();
                     changeLocation = true;
                 }
 
@@ -116,6 +118,7 @@ public class StartScenes : MonoBehaviour
                 var closePos = _StartPos.transform.position.x - Hero.instance.transform.position.x > 0 ? _StartPos : _FinishPos;
                 distance = (int)Mathf.Abs((Hero.instance.transform.position.x - closePos.transform.position.x));
                 Hero.instance.Controller._interfaceBlocked = true;
+
                 Hero.instance.Move(.9f * Hero.instance.transform.localScale.x);
                 percent = 100f - (30f - distance) / 30f * 100f;
                 alpha = (int)Mathf.Round((255 * (percent * 0.01f)));

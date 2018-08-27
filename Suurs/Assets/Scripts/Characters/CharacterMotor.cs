@@ -59,7 +59,7 @@ public class CharacterMotor : MonoBehaviour
         }
     }
 
-    protected void Flip()
+    public void Flip()
     {
         // Switch the way the player is labelled as facing.
         _acingRight = !_acingRight;
