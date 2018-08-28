@@ -92,16 +92,20 @@ public class StartScenes : MonoBehaviour
 
                 if (Hero.instance.transform.position.x >= _FinishPos.transform.position.x + 5)
                 {
+
                     int CompletedLVL = PlayerPrefs.GetInt("CompletedLVL");
-                    if (CompletedLVL < 3) //временная проверка конца игры...
+                    if (CompletedLVL >= 1) //временная проверка конца игры...
                         CompletedLVL++;
                     else
-                        CompletedLVL = 3;
+                        CompletedLVL = 1;
 
                     if (SceneManager.GetActiveScene().name == "Respawn")
                         PlayerPrefs.SetInt("NextLVL", CompletedLVL);
                     else
+                    {
                         PlayerPrefs.SetInt("CompletedLVL", CompletedLVL);
+                        PlayerPrefs.SetInt("NextLVL", CompletedLVL + 1);
+                    }
 
                     changeLocation = true;
                 }

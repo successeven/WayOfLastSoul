@@ -1111,7 +1111,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1906586852753298}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 45.449646, y: -34.51781, z: 0}
+  m_LocalPosition: {x: -14.03956, y: -52.037437, z: 0}
   m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_Children:
   - {fileID: 4322003171758280}
@@ -2220,7 +2220,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 0
   _visibility: 17
-  _deltaTimeAttack: 2000
+  _deltaTimeAttack: 2
   _deltaDistanceAttack: 7.5
   _deltaDistanceSpeed: 2
   _canAttack: 1
@@ -2239,7 +2239,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Length: 1.4316188
+  m_Length: 1.431619
   m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 4327682232502150}
   m_AttachedIK: {fileID: 114833777738063798}
@@ -2441,6 +2441,7 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     Surround: 0
+    MinDistance: 1
     source: {fileID: 0}
   - name: When_Hit
     clip: {fileID: 8300000, guid: bd2daa4df86da8549abc4500aef06c31, type: 3}
@@ -2448,6 +2449,7 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     Surround: 0
+    MinDistance: 1
     source: {fileID: 0}
   - name: Death
     clip: {fileID: 8300000, guid: 6793a852f2d87ae45bc10372843e73f6, type: 3}
@@ -2455,6 +2457,7 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     Surround: 0
+    MinDistance: 1
     source: {fileID: 0}
 --- !u!114 &114660637839173880
 MonoBehaviour:
@@ -2590,7 +2593,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Length: 1
+  m_Length: 0.9999999
   m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 4483372421278044}
   m_AttachedIK: {fileID: 0}
