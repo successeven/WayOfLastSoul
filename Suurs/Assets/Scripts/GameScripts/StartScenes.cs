@@ -152,8 +152,8 @@ public class StartScenes : MonoBehaviour
         {
             if (operation.progress == 0.9f)
             {
-                if (UIController.instance.ad.IsLoaded())
-                    UIController.instance.ad.Show();
+               /* if (UIController.instance.ad.IsLoaded())
+                    UIController.instance.ad.Show();*/
                 if (_isLoaded)
                     operation.allowSceneActivation = true;
             }
