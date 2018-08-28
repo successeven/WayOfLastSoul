@@ -41,6 +41,7 @@ public class UIController : MonoBehaviour
         ad = new InterstitialAd(Hero.GameOverAD);
         AdRequest request = new AdRequest.Builder().Build();
         ad.LoadAd(request);
+        gameOver = false;
     }
 
     public void ShowUI()

@@ -252,15 +252,22 @@ public class HeroMotor : CharacterMotor
         _anima.SetBool("Attack", true);
     }
 
-    public void Back_Slide()
+    void Back_Slide()
     {
         _attacks = true;
         _lastBack_SlideTime = Time.fixedTime;
         if (_anima.GetInteger("Attack Index") != (int)AttackEnum.BackSlide)
-            StartCoroutine(DoBack_Slide(.45f));
+            StartCoroutine(DoBack_Slide(.43f));
         _anima.SetInteger("Attack Index", (int)AttackEnum.BackSlide);
         _anima.SetBool("Attack", true);
         _blocking = false;
+    }
+    
+    public void StartBack_Slide()
+    {
+        _fsm.RunState((int)AttackEnum.BackSlide);
+        if (_fsm.GetCurrentState() == Moves)
+            _fsm.FinishState();
     }
 
     public void Roll()

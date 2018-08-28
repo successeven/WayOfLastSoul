@@ -75,6 +75,11 @@ public class HeroManager : MonoBehaviour
                 var _currentAttackItem = _attackItems.Where(x => x._ID == Hero.instance.Motor.AttackIndex).FirstOrDefault();
                 GameObject enemy = collision.transform.gameObject;
                 EnemyController enemyController = enemy.GetComponent<EnemyController>();
+                if (enemyController == null)
+                {
+                    Debug.LogWarning("Не найден контроллер врага!!!");
+                    return;
+                }
                 enemyController.TakeHit(_currentAttackItem._damage);// + (_attack / 100 * _currentAttackItem._damage));
             }
         }
@@ -83,7 +88,6 @@ public class HeroManager : MonoBehaviour
 
     public void TakeDamage(float damage) //Урон
     {
-        Debug.Log("TakeDamage " + damage);
         _TakeDamage = true;
         Hero.instance.Motor.FinishAllAttacks();
         if (Hero.instance.Motor._blocking)
