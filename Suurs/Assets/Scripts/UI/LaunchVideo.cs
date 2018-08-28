@@ -7,19 +7,32 @@ using UnityEngine.Video;
 public class LaunchVideo : MonoBehaviour
 {
     public string _nextSceneName;
+    public bool _canSkip = false;
+    public GameObject textToShow;
+
     bool _finishLoad = false;
+    bool _MoveEnd = false;
+    bool _TapSkip = false;
 
     void Start()
     {
         StartCoroutine(AsyncLoad());
         var video = GetComponentInChildren<VideoPlayer>();
         video.loopPointReached += EndReached;
+        textToShow.SetActive(false);
     }
 
     void EndReached(VideoPlayer vp)
     {
-        _finishLoad = true;
+        _MoveEnd = true;
     }
+
+    public void SkipVideo()
+    {
+        Debug.Log("Клик блять");
+        _TapSkip = true;
+    }
+
 
     IEnumerator AsyncLoad()
     {
@@ -33,7 +46,11 @@ public class LaunchVideo : MonoBehaviour
         {
             if (operation.progress == 0.9f)
             {
-                if (_finishLoad)
+                _finishLoad = true;
+                if (_canSkip)
+                  textToShow.SetActive(true);
+
+                if (_MoveEnd || _TapSkip)
                     operation.allowSceneActivation = true;
             }
             yield return null;
