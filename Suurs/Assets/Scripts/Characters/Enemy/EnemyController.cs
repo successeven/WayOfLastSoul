@@ -26,7 +26,9 @@ public class EnemyController : Unit
     public bool _canMove = true;
 
     protected bool _moving = false;
-    protected bool _reciveDamage = false;
+
+		[NonSerialized]
+		public bool _reciveDamage = false;
     [NonSerialized]
     public bool _attacks = false;
     protected float _lastAttackTime;

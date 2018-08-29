@@ -37,12 +37,12 @@ public class GuardController : EnemyController
 
     protected override bool CanMove()
     {
-        return (!_attacks && !_reciveDamage && _canMove);
+        return (!_attacks && _canMove);
     }
 
     protected override void DoMotion()
     {
-        Move(_rigidbody, _speed, _moveLeftSide);
+       // Move(_rigidbody, _speed, _moveLeftSide);
         if (_distance <= _visibility && CanMove())
         {
             if (!spawnDone)
@@ -52,10 +52,6 @@ public class GuardController : EnemyController
             }
             else if (!audioManager.IsPlaying(GuardSounds.Idle.ToString()))
                 audioManager.Play(GuardSounds.Idle.ToString());
-
-
-
-
 
             _anima.SetTrigger("Spawn");
         }
@@ -82,8 +78,6 @@ public class GuardController : EnemyController
             return;
 
         _HitPartical.Play();
-        //StartCoroutine(DoTakeHit(0.5f));
-        _reciveDamage = false;
     }
 
     private IEnumerator DoTakeHit(float time)

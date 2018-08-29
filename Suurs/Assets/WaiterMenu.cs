@@ -36,7 +36,7 @@ public class WaiterMenu : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if (Time.fixedTime - startScene > 7f)
+        if (Time.fixedTime - startScene > 5f)
             _finishLoad = true;
 
     }

@@ -15,7 +15,7 @@ public class CameraMotor : MonoBehaviour
 
     float _MoveRightSide = 1; //1- вправо ; -1 влево
 
-    void LateUpdate()
+    void FixedUpdate()
     {
         if (Hero.instance == null)
             return;

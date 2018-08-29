@@ -30,8 +30,6 @@ public class HeroMotor : CharacterMotor
     [SerializeField]
     float _attacksLength = 2f;
 
-    public PolygonCollider2D SwordCollider;
-
     [NonSerialized]
     public bool _attacks = false;
 
@@ -55,7 +53,8 @@ public class HeroMotor : CharacterMotor
     [NonSerialized]
     public float _lastRollTime = 0;
 
-    [SerializeField]
+
+		[SerializeField]
     float _rollLength = 20f;
     #endregion
 
@@ -127,7 +126,6 @@ public class HeroMotor : CharacterMotor
     private IEnumerator DoStrikeRoll(float time)
     {
         _attacks = true;
-        SwordCollider.enabled = true;
         Hero.instance.audioManager.Play(Hero.AudioClips.Strike_1.ToString());        
         for (float t = 0; t <= time; t += Time.deltaTime)
             yield return null;
@@ -138,7 +136,6 @@ public class HeroMotor : CharacterMotor
     {
         _attacks = true;
         Hero.instance.audioManager.Play(AudioClipName);
-        SwordCollider.enabled = true;
         for (float t = 0; t <= time; t += Time.deltaTime)
         {
             _rigidbody.velocity = new Vector2(_attacksLength * transform.localScale.x, _rigidbody.velocity.y);
@@ -151,7 +148,6 @@ public class HeroMotor : CharacterMotor
     {
         _attacks = true;
         Hero.instance.audioManager.Play(Hero.AudioClips.Rapira.ToString());
-        SwordCollider.enabled = true;
         for (float t = 0; t <= time; t += Time.deltaTime)
         {
             _rigidbody.velocity = new Vector2(_deltaRapiraLength * transform.localScale.x, _rigidbody.velocity.y);
@@ -163,7 +159,6 @@ public class HeroMotor : CharacterMotor
     {
         _attacks = true;
         Hero.instance.audioManager.Play(Hero.AudioClips.Back_Slide.ToString());
-        SwordCollider.enabled = true;
         yield return new WaitForSeconds(0.15f);
         for (float t = 0; t <= time - 0.15f; t += Time.deltaTime)
         {
@@ -179,7 +174,6 @@ public class HeroMotor : CharacterMotor
 
     public void ResetAttack()
     {
-        SwordCollider.enabled = false;
         _fsm.FinishState();
         _attacks = false;
     }
@@ -268,6 +262,7 @@ public class HeroMotor : CharacterMotor
     {
 				_fsm.FinishAllStates();
         _fsm.RunState((int)AttackEnum.BackSlide);
+				_lastBack_SlideTime = Time.fixedTime;
         if (_fsm.GetCurrentState() == Moves)
             _fsm.FinishState();
     }
