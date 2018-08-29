@@ -185,8 +185,9 @@ public class HeroMotor : CharacterMotor
     }
 
     public void SetBlock()
-    {
-        _blocking = true;
+		{
+				_fsm.FinishAllStates();
+				_blocking = true;
         _anima.SetBool("Blocking", _blocking);
     }
 
@@ -265,6 +266,7 @@ public class HeroMotor : CharacterMotor
     
     public void StartBack_Slide()
     {
+				_fsm.FinishAllStates();
         _fsm.RunState((int)AttackEnum.BackSlide);
         if (_fsm.GetCurrentState() == Moves)
             _fsm.FinishState();
