@@ -1,0 +1,3770 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Assembly-CSharp-Editor</name>
+    </assembly>
+    <members>
+        <member name="T:TriangleNet.Algorithm.Dwyer">
+             <summary>
+             Builds a delaunay triangulation using the divide-and-conquer algorithm.
+             </summary>
+             <remarks>
+             The divide-and-conquer bounding box
+            
+             I originally implemented the divide-and-conquer and incremental Delaunay
+             triangulations using the edge-based data structure presented by Guibas
+             and Stolfi. Switching to a triangle-based data structure doubled the
+             speed. However, I had to think of a few extra tricks to maintain the
+             elegance of the original algorithms.
+            
+             The "bounding box" used by my variant of the divide-and-conquer
+             algorithm uses one triangle for each edge of the convex hull of the
+             triangulation. These bounding triangles all share a common apical
+             vertex, which is represented by NULL and which represents nothing.
+             The bounding triangles are linked in a circular fan about this NULL
+             vertex, and the edges on the convex hull of the triangulation appear
+             opposite the NULL vertex. You might find it easiest to imagine that
+             the NULL vertex is a point in 3D space behind the center of the
+             triangulation, and that the bounding triangles form a sort of cone.
+            
+             This bounding box makes it easy to represent degenerate cases. For
+             instance, the triangulation of two vertices is a single edge. This edge
+             is represented by two bounding box triangles, one on each "side" of the
+             edge. These triangles are also linked together in a fan about the NULL
+             vertex.
+            
+             The bounding box also makes it easy to traverse the convex hull, as the
+             divide-and-conquer algorithm needs to do.
+             </remarks>
+        </member>
+        <member name="M:TriangleNet.Algorithm.Dwyer.VertexSort(System.Int32,System.Int32)">
+            <summary>
+            Sort an array of vertices by x-coordinate, using the y-coordinate as a secondary key.
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <remarks>
+            Uses quicksort. Randomized O(n log n) time. No, I did not make any of
+            the usual quicksort mistakes.
+            </remarks>
+        </member>
+        <member name="M:TriangleNet.Algorithm.Dwyer.VertexMedian(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            An order statistic algorithm, almost.  Shuffles an array of vertices so that 
+            the first 'median' vertices occur lexicographically before the remaining vertices.
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <param name="median"></param>
+            <param name="axis"></param>
+            <remarks>
+            Uses the x-coordinate as the primary key if axis == 0; the y-coordinate
+            if axis == 1.  Very similar to the vertexsort() procedure, but runs in
+            randomized linear time.
+            </remarks>
+        </member>
+        <member name="M:TriangleNet.Algorithm.Dwyer.AlternateAxes(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Sorts the vertices as appropriate for the divide-and-conquer algorithm with 
+            alternating cuts.
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <param name="axis"></param>
+            <remarks>
+            Partitions by x-coordinate if axis == 0; by y-coordinate if axis == 1.
+            For the base case, subsets containing only two or three vertices are
+            always sorted by x-coordinate.
+            </remarks>
+        </member>
+        <member name="M:TriangleNet.Algorithm.Dwyer.MergeHulls(TriangleNet.Data.Otri@,TriangleNet.Data.Otri@,TriangleNet.Data.Otri@,TriangleNet.Data.Otri@,System.Int32)">
+             <summary>
+             Merge two adjacent Delaunay triangulations into a single Delaunay triangulation.
+             </summary>
+             <param name="farleft">Bounding triangles of the left triangulation.</param>
+             <param name="innerleft">Bounding triangles of the left triangulation.</param>
+             <param name="innerright">Bounding triangles of the right triangulation.</param>
+             <param name="farright">Bounding triangles of the right triangulation.</param>
+             <param name="axis"></param>
+             <remarks>
+             This is similar to the algorithm given by Guibas and Stolfi, but uses
+             a triangle-based, rather than edge-based, data structure.
+            
+             The algorithm walks up the gap between the two triangulations, knitting
+             them together.  As they are merged, some of their bounding triangles
+             are converted into real triangles of the triangulation.  The procedure
+             pulls each hull's bounding triangles apart, then knits them together
+             like the teeth of two gears.  The Delaunay property determines, at each
+             step, whether the next "tooth" is a bounding triangle of the left hull
+             or the right.  When a bounding triangle becomes real, its apex is
+             changed from NULL to a real vertex.
+            
+             Only two new triangles need to be allocated.  These become new bounding
+             triangles at the top and bottom of the seam.  They are used to connect
+             the remaining bounding triangles (those that have not been converted
+             into real triangles) into a single fan.
+            
+             On entry, 'farleft' and 'innerleft' are bounding triangles of the left
+             triangulation.  The origin of 'farleft' is the leftmost vertex, and
+             the destination of 'innerleft' is the rightmost vertex of the
+             triangulation.  Similarly, 'innerright' and 'farright' are bounding
+             triangles of the right triangulation.  The origin of 'innerright' and
+             destination of 'farright' are the leftmost and rightmost vertices.
+            
+             On completion, the origin of 'farleft' is the leftmost vertex of the
+             merged triangulation, and the destination of 'farright' is the rightmost
+             vertex.
+             </remarks>
+        </member>
+        <member name="M:TriangleNet.Algorithm.Dwyer.DivconqRecurse(System.Int32,System.Int32,System.Int32,TriangleNet.Data.Otri@,TriangleNet.Data.Otri@)">
+             <summary>
+             Recursively form a Delaunay triangulation by the divide-and-conquer method.
+             </summary>
+             <param name="left"></param>
+             <param name="right"></param>
+             <param name="axis"></param>
+             <param name="farleft"></param>
+             <param name="farright"></param>
+             <remarks>
+             Recursively breaks down the problem into smaller pieces, which are
+             knitted together by mergehulls(). The base cases (problems of two or
+             three vertices) are handled specially here.
+            
+             On completion, 'farleft' and 'farright' are bounding triangles such that
+             the origin of 'farleft' is the leftmost vertex (breaking ties by
+             choosing the highest leftmost vertex), and the destination of
+             'farright' is the rightmost vertex (breaking ties by choosing the
+             lowest rightmost vertex).
+             </remarks>
+        </member>
+        <member name="M:TriangleNet.Algorithm.Dwyer.RemoveGhosts(TriangleNet.Data.Otri@)">
+            <summary>
+            Removes ghost triangles.
+            </summary>
+            <param name="startghost"></param>
+            <returns>Number of vertices on the hull.</returns>
+        </member>
+        <member name="M:TriangleNet.Algorithm.Dwyer.Triangulate(TriangleNet.Mesh)">
+            <summary>
+            Form a Delaunay triangulation by the divide-and-conquer method.
+            </summary>
+            <returns></returns>
+            <remarks>
+            Sorts the vertices, calls a recursive procedure to triangulate them, and
+            removes the bounding box, setting boundary markers as appropriate.
+            </remarks>
+        </member>
+        <member name="T:TriangleNet.Algorithm.Incremental">
+            <summary>
+            Builds a delaunay triangulation using the incremental algorithm.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Algorithm.Incremental.GetBoundingBox">
+            <summary>
+            Form an "infinite" bounding triangle to insert vertices into.
+            </summary>
+            <remarks>
+            The vertices at "infinity" are assigned finite coordinates, which are
+            used by the point location routines, but (mostly) ignored by the
+            Delaunay edge flip routines.
+            </remarks>
+        </member>
+        <member name="M:TriangleNet.Algorithm.Incremental.RemoveBox">
+            <summary>
+            Remove the "infinite" bounding triangle, setting boundary markers as appropriate.
+            </summary>
+            <returns>Returns the number of edges on the convex hull of the triangulation.</returns>
+            <remarks>
+            The triangular bounding box has three boundary triangles (one for each
+            side of the bounding box), and a bunch of triangles fanning out from
+            the three bounding box vertices (one triangle for each edge of the
+            convex hull of the inner mesh).  This routine removes these triangles.
+            </remarks>
+        </member>
+        <member name="M:TriangleNet.Algorithm.Incremental.Triangulate(TriangleNet.Mesh)">
+            <summary>
+            Form a Delaunay triangulation by incrementally inserting vertices.
+            </summary>
+            <returns>Returns the number of edges on the convex hull of the 
+            triangulation.</returns>
+        </member>
+        <member name="T:TriangleNet.Algorithm.ITriangulator">
+            <summary>
+            TODO: Update summary.
+            </summary>
+        </member>
+        <member name="T:TriangleNet.Algorithm.SweepLine">
+            <summary>
+            Builds a delaunay triangulation using the sweepline algorithm.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Algorithm.SweepLine.RemoveGhosts(TriangleNet.Data.Otri@)">
+            <summary>
+            Removes ghost triangles.
+            </summary>
+            <param name="startghost"></param>
+            <returns>Number of vertices on the hull.</returns>
+        </member>
+        <member name="T:TriangleNet.Algorithm.SweepLine.SweepEvent">
+            <summary>
+            A node in a heap used to store events for the sweepline Delaunay algorithm.
+            </summary>
+            <remarks>
+            Only used in the sweepline algorithm.
+            
+            Nodes do not point directly to their parents or children in the heap. Instead, each
+            node knows its position in the heap, and can look up its parent and children in a
+            separate array. To distinguish site events from circle events, all circle events are
+            given an invalid (smaller than 'xmin') x-coordinate 'xkey'.
+            </remarks>
+        </member>
+        <member name="T:TriangleNet.Algorithm.SweepLine.SweepEventVertex">
+            <summary>
+            Introducing a new class which aggregates a sweep event is the easiest way
+            to handle the pointer magic of the original code (casting a sweep event 
+            to vertex etc.).
+            </summary>
+        </member>
+        <member name="T:TriangleNet.Algorithm.SweepLine.SplayNode">
+            <summary>
+            A node in the splay tree.
+            </summary>
+            <remarks>
+            Only used in the sweepline algorithm.
+            
+            Each node holds an oriented ghost triangle that represents a boundary edge
+            of the growing triangulation. When a circle event covers two boundary edges
+            with a triangle, so that they are no longer boundary edges, those edges are
+            not immediately deleted from the tree; rather, they are lazily deleted when
+            they are next encountered. (Since only a random sample of boundary edges are
+            kept in the tree, lazy deletion is faster.) 'keydest' is used to verify that
+            a triangle is still the same as when it entered the splay tree; if it has
+            been rotated (due to a circle event), it no longer represents a boundary
+            edge and should be deleted.
+            </remarks>
+        </member>
+        <!-- Проигнорирован некорректный комментарий XML для члена "T:TriangleNet.BadTriQueue" -->
+        <member name="M:TriangleNet.BadTriQueue.Enqueue(TriangleNet.Data.BadTriangle)">
+            <summary>
+            Add a bad triangle data structure to the end of a queue.
+            </summary>
+            <param name="badtri">The bad triangle to enqueue.</param>
+        </member>
+        <member name="M:TriangleNet.BadTriQueue.Enqueue(TriangleNet.Data.Otri@,System.Double,TriangleNet.Data.Vertex,TriangleNet.Data.Vertex,TriangleNet.Data.Vertex)">
+            <summary>
+            Add a bad triangle to the end of a queue.
+            </summary>
+            <param name="enqtri"></param>
+            <param name="minedge"></param>
+            <param name="enqapex"></param>
+            <param name="enqorg"></param>
+            <param name="enqdest"></param>
+        </member>
+        <member name="M:TriangleNet.BadTriQueue.Dequeue">
+            <summary>
+            Remove a triangle from the front of the queue.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:TriangleNet.Behavior">
+            <summary>
+            Controls the behavior of the meshing software.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Behavior.#ctor(System.Boolean,System.Double)">
+            <summary>
+            Creates an instance of the Behavior class.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Behavior.Update">
+            <summary>
+            Update quality options dependencies.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Behavior.NoExact">
+            <summary>
+            No exact arithmetic.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Behavior.Verbose">
+            <summary>
+            Log detailed information.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Behavior.Quality">
+            <summary>
+            Quality mesh generation.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Behavior.MinAngle">
+            <summary>
+            Minimum angle constraint.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Behavior.MaxAngle">
+            <summary>
+            Maximum angle constraint.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Behavior.MaxArea">
+            <summary>
+            Maximum area constraint.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Behavior.VarArea">
+            <summary>
+            Apply a maximum triangle area constraint.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Behavior.Poly">
+            <summary>
+            Input is a Planar Straight Line Graph.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Behavior.Usertest">
+            <summary>
+            Apply a user-defined triangle constraint.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Behavior.Convex">
+            <summary>
+            Enclose the convex hull with segments.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Behavior.ConformingDelaunay">
+            <summary>
+            Conforming Delaunay (all triangles are truly Delaunay).
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Behavior.Algorithm">
+            <summary>
+            Algorithm to use for triangulation.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Behavior.NoBisect">
+            <summary>
+            Suppresses boundary segment splitting.
+            </summary>
+            <remarks>
+            0 = split segments
+            1 = no new vertices on the boundary
+            2 = prevent all segment splitting, including internal boundaries
+            </remarks>
+        </member>
+        <member name="P:TriangleNet.Behavior.SteinerPoints">
+            <summary>
+            Use maximum number of Steiner points.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Behavior.UseBoundaryMarkers">
+            <summary>
+            Compute boundary information.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Behavior.NoHoles">
+            <summary>
+            Ignores holes in polygons.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Behavior.Jettison">
+            <summary>
+            Jettison unused vertices from output.
+            </summary>
+        </member>
+        <member name="T:TriangleNet.Carver">
+            <summary>
+            Carves holes into the triangulation.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Carver.InfectHull">
+            <summary>
+            Virally infect all of the triangles of the convex hull that are not 
+            protected by subsegments. Where there are subsegments, set boundary 
+            markers as appropriate.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Carver.Plague">
+             <summary>
+             Spread the virus from all infected triangles to any neighbors not 
+             protected by subsegments. Delete all infected triangles.
+             </summary>
+             <remarks>
+             This is the procedure that actually creates holes and concavities.
+            
+             This procedure operates in two phases. The first phase identifies all
+             the triangles that will die, and marks them as infected. They are
+             marked to ensure that each triangle is added to the virus pool only
+             once, so the procedure will terminate.
+            
+             The second phase actually eliminates the infected triangles. It also
+             eliminates orphaned vertices.
+             </remarks>
+        </member>
+        <member name="M:TriangleNet.Carver.CarveHoles">
+            <summary>
+            Find the holes and infect them. Find the area constraints and infect 
+            them. Infect the convex hull. Spread the infection and kill triangles. 
+            Spread the area constraints.
+            </summary>
+        </member>
+        <member name="T:TriangleNet.Data.BadSubseg">
+            <summary>
+            A queue used to store encroached subsegments.
+            </summary>
+            <remarks>
+            Each subsegment's vertices are stored so that we can check whether a 
+            subsegment is still the same.
+            </remarks>
+        </member>
+        <member name="T:TriangleNet.Data.BadTriangle">
+            <summary>
+            A queue used to store bad triangles.
+            </summary>
+            <remarks>
+            The key is the square of the cosine of the smallest angle of the triangle.
+            Each triangle's vertices are stored so that one can check whether a
+            triangle is still the same.
+            </remarks>
+        </member>
+        <member name="T:TriangleNet.Data.Osub">
+            <summary>
+            An oriented subsegment.
+            </summary>
+            <remarks>
+            Iincludes a pointer to a subsegment and an orientation. The orientation
+            denotes a side of the edge.  Hence, there are two possible orientations.
+            By convention, the edge is always directed so that the "side" denoted
+            is the right side of the edge.
+            </remarks>
+        </member>
+        <member name="M:TriangleNet.Data.Osub.Sym(TriangleNet.Data.Osub@)">
+            <summary>
+            Reverse the orientation of a subsegment. [sym(ab) -> ba]
+            </summary>
+            <remarks>ssym() toggles the orientation of a subsegment.
+            </remarks>
+        </member>
+        <member name="M:TriangleNet.Data.Osub.SymSelf">
+            <summary>
+            Reverse the orientation of a subsegment. [sym(ab) -> ba]
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Data.Osub.Pivot(TriangleNet.Data.Osub@)">
+            <summary>
+            Find adjoining subsegment with the same origin. [pivot(ab) -> a*]
+            </summary>
+            <remarks>spivot() finds the other subsegment (from the same segment) 
+            that shares the same origin.
+            </remarks>
+        </member>
+        <member name="M:TriangleNet.Data.Osub.PivotSelf">
+            <summary>
+            Find adjoining subsegment with the same origin. [pivot(ab) -> a*]
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Data.Osub.Next(TriangleNet.Data.Osub@)">
+            <summary>
+            Find next subsegment in sequence. [next(ab) -> b*]
+            </summary>
+            <remarks>snext() finds the next subsegment (from the same segment) in 
+            sequence; one whose origin is the input subsegment's destination.
+            </remarks>
+        </member>
+        <member name="M:TriangleNet.Data.Osub.NextSelf">
+            <summary>
+            Find next subsegment in sequence. [next(ab) -> b*]
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Data.Osub.Org">
+            <summary>
+            Get the origin of a subsegment
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Data.Osub.Dest">
+            <summary>
+            Get the destination of a subsegment
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Data.Osub.SetOrg(TriangleNet.Data.Vertex)">
+            <summary>
+            Set the origin or destination of a subsegment.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Data.Osub.SetDest(TriangleNet.Data.Vertex)">
+            <summary>
+            Set destination of a subsegment.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Data.Osub.SegOrg">
+            <summary>
+            Get the origin of the segment that includes the subsegment.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Data.Osub.SegDest">
+            <summary>
+            Get the destination of the segment that includes the subsegment.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Data.Osub.SetSegOrg(TriangleNet.Data.Vertex)">
+            <summary>
+            Set the origin of the segment that includes the subsegment.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Data.Osub.SetSegDest(TriangleNet.Data.Vertex)">
+            <summary>
+            Set the destination of the segment that includes the subsegment.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Data.Osub.Mark">
+            <summary>
+            Read a boundary marker.
+            </summary>
+            <remarks>Boundary markers are used to hold user-defined tags for 
+            setting boundary conditions in finite element solvers.</remarks>
+        </member>
+        <member name="M:TriangleNet.Data.Osub.SetMark(System.Int32)">
+            <summary>
+            Set a boundary marker.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Data.Osub.Bond(TriangleNet.Data.Osub@)">
+            <summary>
+            Bond two subsegments together. [bond(abc, ba)]
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Data.Osub.Dissolve">
+            <summary>
+            Dissolve a subsegment bond (from one side).
+            </summary>
+            <remarks>Note that the other subsegment will still think it's 
+            connected to this subsegment.</remarks>
+        </member>
+        <member name="M:TriangleNet.Data.Osub.Copy(TriangleNet.Data.Osub@)">
+            <summary>
+            Copy a subsegment.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Data.Osub.Equal(TriangleNet.Data.Osub)">
+            <summary>
+            Test for equality of subsegments.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Data.Osub.IsDead(TriangleNet.Data.Segment)">
+            <summary>
+            Check a subsegment's deallocation.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Data.Osub.Kill(TriangleNet.Data.Segment)">
+            <summary>
+            Set a subsegment's deallocation.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Data.Osub.TriPivot(TriangleNet.Data.Otri@)">
+            <summary>
+            Finds a triangle abutting a subsegment.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Data.Osub.TriDissolve">
+            <summary>
+            Dissolve a bond (from the subsegment side).
+            </summary>
+        </member>
+        <member name="T:TriangleNet.Data.Otri">
+            <summary>
+            An oriented triangle.
+            </summary>
+            <remarks>
+            Includes a pointer to a triangle and orientation.
+            The orientation denotes an edge of the triangle. Hence, there are
+            three possible orientations. By convention, each edge always points
+            counterclockwise about the corresponding triangle.
+            </remarks>
+        </member>
+        <member name="M:TriangleNet.Data.Otri.Sym(TriangleNet.Data.Otri@)">
+            <summary>
+            Find the abutting triangle; same edge. [sym(abc) -> ba*]
+            </summary>
+            <remarks>
+            Note that the edge direction is necessarily reversed, because the handle specified 
+            by an oriented triangle is directed counterclockwise around the triangle.
+            </remarks>
+        </member>
+        <member name="M:TriangleNet.Data.Otri.SymSelf">
+            <summary>
+            Find the abutting triangle; same edge. [sym(abc) -> ba*]
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Data.Otri.Lnext(TriangleNet.Data.Otri@)">
+            <summary>
+            Find the next edge (counterclockwise) of a triangle. [lnext(abc) -> bca]
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Data.Otri.LnextSelf">
+            <summary>
+            Find the next edge (counterclockwise) of a triangle. [lnext(abc) -> bca]
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Data.Otri.Lprev(TriangleNet.Data.Otri@)">
+            <summary>
+            Find the previous edge (clockwise) of a triangle. [lprev(abc) -> cab]
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Data.Otri.LprevSelf">
+            <summary>
+            Find the previous edge (clockwise) of a triangle. [lprev(abc) -> cab]
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Data.Otri.Onext(TriangleNet.Data.Otri@)">
+            <summary>
+            Find the next edge counterclockwise with the same origin. [onext(abc) -> ac*]
+            </summary>
+            <remarks>onext() spins counterclockwise around a vertex; that is, it finds 
+            the next edge with the same origin in the counterclockwise direction. This
+            edge is part of a different triangle.
+            </remarks>
+        </member>
+        <member name="M:TriangleNet.Data.Otri.OnextSelf">
+            <summary>
+            Find the next edge counterclockwise with the same origin. [onext(abc) -> ac*]
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Data.Otri.Oprev(TriangleNet.Data.Otri@)">
+            <summary>
+            Find the next edge clockwise with the same origin. [oprev(abc) -> a*b]
+            </summary>
+            <remarks>oprev() spins clockwise around a vertex; that is, it finds the 
+            next edge with the same origin in the clockwise direction.  This edge is 
+            part of a different triangle.
+            </remarks>
+        </member>
+        <member name="M:TriangleNet.Data.Otri.OprevSelf">
+            <summary>
+            Find the next edge clockwise with the same origin. [oprev(abc) -> a*b]
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Data.Otri.Dnext(TriangleNet.Data.Otri@)">
+            <summary>
+            Find the next edge counterclockwise with the same destination. [dnext(abc) -> *ba]
+            </summary>
+            <remarks>dnext() spins counterclockwise around a vertex; that is, it finds 
+            the next edge with the same destination in the counterclockwise direction.
+            This edge is part of a different triangle.
+            </remarks>
+        </member>
+        <member name="M:TriangleNet.Data.Otri.DnextSelf">
+            <summary>
+            Find the next edge counterclockwise with the same destination. [dnext(abc) -> *ba]
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Data.Otri.Dprev(TriangleNet.Data.Otri@)">
+            <summary>
+            Find the next edge clockwise with the same destination. [dprev(abc) -> cb*]
+            </summary>
+            <remarks>dprev() spins clockwise around a vertex; that is, it finds the 
+            next edge with the same destination in the clockwise direction. This edge 
+            is part of a different triangle.
+            </remarks>
+        </member>
+        <member name="M:TriangleNet.Data.Otri.DprevSelf">
+            <summary>
+            Find the next edge clockwise with the same destination. [dprev(abc) -> cb*]
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Data.Otri.Rnext(TriangleNet.Data.Otri@)">
+            <summary>
+            Find the next edge (counterclockwise) of the adjacent triangle. [rnext(abc) -> *a*]
+            </summary>
+            <remarks>rnext() moves one edge counterclockwise about the adjacent 
+            triangle. (It's best understood by reading Guibas and Stolfi. It 
+            involves changing triangles twice.)
+            </remarks>
+        </member>
+        <member name="M:TriangleNet.Data.Otri.RnextSelf">
+            <summary>
+            Find the next edge (counterclockwise) of the adjacent triangle. [rnext(abc) -> *a*]
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Data.Otri.Rprev(TriangleNet.Data.Otri@)">
+            <summary>
+            Find the previous edge (clockwise) of the adjacent triangle. [rprev(abc) -> b**]
+            </summary>
+            <remarks>rprev() moves one edge clockwise about the adjacent triangle.
+            (It's best understood by reading Guibas and Stolfi.  It involves
+            changing triangles twice.)
+            </remarks>
+        </member>
+        <member name="M:TriangleNet.Data.Otri.RprevSelf">
+            <summary>
+            Find the previous edge (clockwise) of the adjacent triangle. [rprev(abc) -> b**]
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Data.Otri.Org">
+            <summary>
+            Origin [org(abc) -> a]
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Data.Otri.Dest">
+            <summary>
+            Destination [dest(abc) -> b]
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Data.Otri.Apex">
+            <summary>
+            Apex [apex(abc) -> c]
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Data.Otri.SetOrg(TriangleNet.Data.Vertex)">
+            <summary>
+            Set Origin
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Data.Otri.SetDest(TriangleNet.Data.Vertex)">
+            <summary>
+            Set Destination
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Data.Otri.SetApex(TriangleNet.Data.Vertex)">
+            <summary>
+            Set Apex
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Data.Otri.Bond(TriangleNet.Data.Otri@)">
+            <summary>
+            Bond two triangles together at the resepective handles. [bond(abc, bad)]
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Data.Otri.Dissolve">
+            <summary>
+            Dissolve a bond (from one side).  
+            </summary>
+            <remarks>Note that the other triangle will still think it's connected to 
+            this triangle. Usually, however, the other triangle is being deleted 
+            entirely, or bonded to another triangle, so it doesn't matter.
+            </remarks>
+        </member>
+        <member name="M:TriangleNet.Data.Otri.Copy(TriangleNet.Data.Otri@)">
+            <summary>
+            Copy an oriented triangle.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Data.Otri.Equal(TriangleNet.Data.Otri)">
+            <summary>
+            Test for equality of oriented triangles.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Data.Otri.Infect">
+            <summary>
+            Infect a triangle with the virus.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Data.Otri.Uninfect">
+            <summary>
+            Cure a triangle from the virus.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Data.Otri.IsInfected">
+            <summary>
+            Test a triangle for viral infection.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Data.Otri.IsDead(TriangleNet.Data.Triangle)">
+            <summary>
+            Check a triangle's deallocation.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Data.Otri.Kill(TriangleNet.Data.Triangle)">
+            <summary>
+            Set a triangle's deallocation.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Data.Otri.SegPivot(TriangleNet.Data.Osub@)">
+            <summary>
+            Finds a subsegment abutting a triangle.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Data.Otri.SegBond(TriangleNet.Data.Osub@)">
+            <summary>
+            Bond a triangle to a subsegment.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Data.Otri.SegDissolve">
+            <summary>
+            Dissolve a bond (from the triangle side).
+            </summary>
+        </member>
+        <member name="T:TriangleNet.Data.Segment">
+            <summary>
+            The subsegment data structure.
+            </summary>
+            <remarks>
+            Each subsegment contains two pointers to adjoining subsegments, plus
+            four pointers to vertices, plus two pointers to adjoining triangles,
+            plus one boundary marker.
+            </remarks>
+        </member>
+        <member name="P:TriangleNet.Data.Segment.P0">
+            <summary>
+            Gets the first endpoints vertex id.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Data.Segment.P1">
+            <summary>
+            Gets the seconds endpoints vertex id.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Data.Segment.Boundary">
+            <summary>
+            Gets the segment boundary mark.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Data.Segment.GetVertex(System.Int32)">
+            <summary>
+            Gets the segments endpoint.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Data.Segment.GetTriangle(System.Int32)">
+            <summary>
+            Gets an adjoining triangle.
+            </summary>
+        </member>
+        <member name="T:TriangleNet.Data.Triangle">
+            <summary>
+            The triangle data structure.
+            </summary>
+            <remarks>
+            Each triangle contains three pointers to adjoining triangles, plus three 
+            pointers to vertices, plus three pointers to subsegments (declared below;
+            these pointers are usually 'dummysub'). It may or may not also contain 
+            user-defined attributes and/or a floating-point "area constraint".
+            </remarks>
+        </member>
+        <member name="P:TriangleNet.Data.Triangle.ID">
+            <summary>
+            Gets the triangle id.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Data.Triangle.P0">
+            <summary>
+            Gets the first corners vertex id.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Data.Triangle.P1">
+            <summary>
+            Gets the seconds corners vertex id.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Data.Triangle.GetVertex(System.Int32)">
+            <summary>
+            Gets the specified corners vertex.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Data.Triangle.P2">
+            <summary>
+            Gets the third corners vertex id.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Data.Triangle.N0">
+            <summary>
+            Gets the first neighbors id.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Data.Triangle.N1">
+            <summary>
+            Gets the second neighbors id.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Data.Triangle.N2">
+            <summary>
+            Gets the third neighbors id.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Data.Triangle.GetNeighbor(System.Int32)">
+            <summary>
+            Gets a triangles' neighbor.
+            </summary>
+            <param name="index">The neighbor index (0, 1 or 2).</param>
+            <returns>The neigbbor opposite of vertex with given index.</returns>
+        </member>
+        <member name="M:TriangleNet.Data.Triangle.GetSegment(System.Int32)">
+            <summary>
+            Gets a triangles segment.
+            </summary>
+            <param name="index">The vertex index (0, 1 or 2).</param>
+            <returns>The segment opposite of vertex with given index.</returns>
+        </member>
+        <member name="P:TriangleNet.Data.Triangle.Area">
+            <summary>
+            Gets the triangle area constraint.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Data.Triangle.Region">
+            <summary>
+            Region ID the triangle belongs to.
+            </summary>
+        </member>
+        <member name="T:TriangleNet.Data.Vertex">
+            <summary>
+            The vertex data structure.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Data.Vertex.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:TriangleNet.Data.Vertex" /> class.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Data.Vertex.#ctor(System.Double,System.Double)">
+            <summary>
+            Initializes a new instance of the <see cref="T:TriangleNet.Data.Vertex" /> class.
+            </summary>
+            <param name="x">The x coordinate of the vertex.</param>
+            <param name="y">The y coordinate of the vertex.</param>
+        </member>
+        <member name="M:TriangleNet.Data.Vertex.#ctor(System.Double,System.Double,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:TriangleNet.Data.Vertex" /> class.
+            </summary>
+            <param name="x">The x coordinate of the vertex.</param>
+            <param name="y">The y coordinate of the vertex.</param>
+            <param name="mark">The boundary mark.</param>
+        </member>
+        <member name="M:TriangleNet.Data.Vertex.#ctor(System.Double,System.Double,System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:TriangleNet.Data.Vertex" /> class.
+            </summary>
+            <param name="x">The x coordinate of the vertex.</param>
+            <param name="y">The y coordinate of the vertex.</param>
+            <param name="mark">The boundary mark.</param>
+            <param name="attribs">The number of point attributes.</param>
+        </member>
+        <member name="P:TriangleNet.Data.Vertex.Type">
+            <summary>
+            Gets the vertex type.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Data.Vertex.Item(System.Int32)">
+            <summary>
+            Gets the specified coordinate of the vertex.
+            </summary>
+            <param name="i">Coordinate index.</param>
+            <returns>X coordinate, if index is 0, Y coordinate, if index is 1.</returns>
+        </member>
+        <member name="T:TriangleNet.TriangulationAlgorithm">
+            <summary>
+            Implemented triangulation algorithms.
+            </summary>
+        </member>
+        <member name="T:TriangleNet.LocateResult">
+            <summary>
+            Labels that signify the result of point location.
+            </summary>
+            <remarks>The result of a search indicates that the point falls in the 
+            interior of a triangle, on an edge, on a vertex, or outside the mesh.
+            </remarks>
+        </member>
+        <member name="T:TriangleNet.InsertVertexResult">
+            <summary>
+            Labels that signify the result of vertex insertion.
+            </summary>
+            <remarks>The result indicates that the vertex was inserted with complete 
+            success, was inserted but encroaches upon a subsegment, was not inserted 
+            because it lies on a segment, or was not inserted because another vertex 
+            occupies the same location.
+            </remarks>
+        </member>
+        <member name="T:TriangleNet.FindDirectionResult">
+            <summary>
+            Labels that signify the result of direction finding.
+            </summary>
+            <remarks>The result indicates that a segment connecting the two query 
+            points falls within the direction triangle, along the left edge of the 
+            direction triangle, or along the right edge of the direction triangle.
+            </remarks>
+        </member>
+        <member name="T:TriangleNet.VertexType">
+            <summary>
+            The type of the mesh vertex.
+            </summary>
+        </member>
+        <member name="T:TriangleNet.NodeNumbering">
+            <summary>
+            Node renumbering algorithms.
+            </summary>
+        </member>
+        <member name="T:TriangleNet.Geometry.BoundingBox">
+            <summary>
+            A simple bounding box class.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Geometry.BoundingBox.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:TriangleNet.Geometry.BoundingBox" /> class.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Geometry.BoundingBox.#ctor(System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Initializes a new instance of the <see cref="T:TriangleNet.Geometry.BoundingBox" /> class
+            with predefined bounds.
+            </summary>
+            <param name="xmin">Minimum x value.</param>
+            <param name="ymin">Minimum y value.</param>
+            <param name="xmax">Maximum x value.</param>
+            <param name="ymax">Maximum y value.</param>
+        </member>
+        <member name="P:TriangleNet.Geometry.BoundingBox.Xmin">
+            <summary>
+            Gets the minimum x value (left boundary).
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Geometry.BoundingBox.Ymin">
+            <summary>
+            Gets the minimum y value (bottom boundary).
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Geometry.BoundingBox.Xmax">
+            <summary>
+            Gets the maximum x value (right boundary).
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Geometry.BoundingBox.Ymax">
+            <summary>
+            Gets the maximum y value (top boundary).
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Geometry.BoundingBox.Width">
+            <summary>
+            Gets the width of the bounding box.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Geometry.BoundingBox.Height">
+            <summary>
+            Gets the height of the bounding box.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Geometry.BoundingBox.Update(System.Double,System.Double)">
+            <summary>
+            Update bounds.
+            </summary>
+            <param name="x">X coordinate.</param>
+            <param name="y">Y coordinate.</param>
+        </member>
+        <member name="M:TriangleNet.Geometry.BoundingBox.Scale(System.Double,System.Double)">
+            <summary>
+            Scale bounds.
+            </summary>
+            <param name="dx">Add dx to left and right bounds.</param>
+            <param name="dy">Add dy to top and bottom bounds.</param>
+        </member>
+        <member name="M:TriangleNet.Geometry.BoundingBox.Contains(TriangleNet.Geometry.Point)">
+            <summary>
+            Check if given point is inside bounding box.
+            </summary>
+            <param name="pt">Point to check.</param>
+            <returns>Return true, if bounding box contains given point.</returns>
+        </member>
+        <member name="T:TriangleNet.Geometry.Edge">
+            <summary>
+            Represents a straight line segment in 2D space.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Geometry.Edge.P0">
+            <summary>
+            Gets the first endpoints index.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Geometry.Edge.P1">
+            <summary>
+            Gets the second endpoints index.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Geometry.Edge.Boundary">
+            <summary>
+            Gets the segments boundary mark.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Geometry.Edge.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:TriangleNet.Geometry.Edge" /> class.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Geometry.Edge.#ctor(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:TriangleNet.Geometry.Edge" /> class.
+            </summary>
+        </member>
+        <member name="T:TriangleNet.Geometry.EdgeEnumerator">
+            <summary>
+            Enumerates the edges of a triangulation.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Geometry.EdgeEnumerator.#ctor(TriangleNet.Mesh)">
+            <summary>
+            Initializes a new instance of the <see cref="T:TriangleNet.Geometry.EdgeEnumerator" /> class.
+            </summary>
+        </member>
+        <member name="T:TriangleNet.Geometry.InputGeometry">
+            <summary>
+            The input geometry which will be triangulated. May represent a 
+            pointset or a planar straight line graph.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Geometry.InputGeometry.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:TriangleNet.Geometry.InputGeometry" /> class.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Geometry.InputGeometry.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:TriangleNet.Geometry.InputGeometry" /> class. 
+            The point list will be initialized with a given capacity.
+            </summary>
+            <param name="capacity">Point list capacity.</param>
+        </member>
+        <member name="P:TriangleNet.Geometry.InputGeometry.Bounds">
+            <summary>
+            Gets the bounding box of the input geometry.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Geometry.InputGeometry.HasSegments">
+            <summary>
+            Indicates, whether the geometry should be treated as a PSLG.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Geometry.InputGeometry.Count">
+            <summary>
+            Gets the number of points.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Geometry.InputGeometry.Points">
+            <summary>
+            Gets the list of input points.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Geometry.InputGeometry.Segments">
+            <summary>
+            Gets the list of input segments.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Geometry.InputGeometry.Holes">
+            <summary>
+            Gets the list of input holes.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Geometry.InputGeometry.Regions">
+            <summary>
+            Gets the list of regions.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Geometry.InputGeometry.Clear">
+            <summary>
+            Clear input geometry.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Geometry.InputGeometry.AddPoint(System.Double,System.Double)">
+            <summary>
+            Adds a point to the geometry.
+            </summary>
+            <param name="x">X coordinate.</param>
+            <param name="y">Y coordinate.</param>
+        </member>
+        <member name="M:TriangleNet.Geometry.InputGeometry.AddPoint(System.Double,System.Double,System.Int32)">
+            <summary>
+            Adds a point to the geometry.
+            </summary>
+            <param name="x">X coordinate.</param>
+            <param name="y">Y coordinate.</param>
+            <param name="boundary">Boundary marker.</param>
+        </member>
+        <member name="M:TriangleNet.Geometry.InputGeometry.AddPoint(System.Double,System.Double,System.Int32,System.Double)">
+            <summary>
+            Adds a point to the geometry.
+            </summary>
+            <param name="x">X coordinate.</param>
+            <param name="y">Y coordinate.</param>
+            <param name="boundary">Boundary marker.</param>
+            <param name="attribute">Point attribute.</param>
+        </member>
+        <member name="M:TriangleNet.Geometry.InputGeometry.AddPoint(System.Double,System.Double,System.Int32,System.Double[])">
+            <summary>
+            Adds a point to the geometry.
+            </summary>
+            <param name="x">X coordinate.</param>
+            <param name="y">Y coordinate.</param>
+            <param name="boundary">Boundary marker.</param>
+            <param name="attribs">Point attributes.</param>
+        </member>
+        <member name="M:TriangleNet.Geometry.InputGeometry.AddHole(System.Double,System.Double)">
+            <summary>
+            Adds a hole location to the geometry.
+            </summary>
+            <param name="x">X coordinate of the hole.</param>
+            <param name="y">Y coordinate of the hole.</param>
+        </member>
+        <member name="M:TriangleNet.Geometry.InputGeometry.AddRegion(System.Double,System.Double,System.Int32)">
+            <summary>
+            Adds a hole location to the geometry.
+            </summary>
+            <param name="x">X coordinate of the hole.</param>
+            <param name="y">Y coordinate of the hole.</param>
+            <param name="id">The region id.</param>
+        </member>
+        <member name="M:TriangleNet.Geometry.InputGeometry.AddSegment(System.Int32,System.Int32)">
+            <summary>
+            Adds a segment to the geometry.
+            </summary>
+            <param name="p0">First endpoint.</param>
+            <param name="p1">Second endpoint.</param>
+        </member>
+        <member name="M:TriangleNet.Geometry.InputGeometry.AddSegment(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Adds a segment to the geometry.
+            </summary>
+            <param name="p0">First endpoint.</param>
+            <param name="p1">Second endpoint.</param>
+            <param name="boundary">Segment marker.</param>
+        </member>
+        <member name="T:TriangleNet.Geometry.ISegment">
+            <summary>
+            Interface for segment geometry.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Geometry.ISegment.P0">
+            <summary>
+            Gets the first endpoints vertex id.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Geometry.ISegment.P1">
+            <summary>
+            Gets the seconds endpoints vertex id.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Geometry.ISegment.Boundary">
+            <summary>
+            Gets the segment boundary mark.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Geometry.ISegment.GetVertex(System.Int32)">
+            <summary>
+            Gets the segments endpoint.
+            </summary>
+            <param name="index">The vertex index (0 or 1).</param>
+        </member>
+        <member name="M:TriangleNet.Geometry.ISegment.GetTriangle(System.Int32)">
+            <summary>
+            Gets an adjoining triangle.
+            </summary>
+            <param name="index">The triangle index (0 or 1).</param>
+        </member>
+        <member name="T:TriangleNet.Geometry.ITriangle">
+            <summary>
+            Triangle interface.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Geometry.ITriangle.ID">
+            <summary>
+            The triangle id.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Geometry.ITriangle.P0">
+            <summary>
+            First vertex id of the triangle.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Geometry.ITriangle.P1">
+            <summary>
+            Second vertex id of the triangle.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Geometry.ITriangle.P2">
+            <summary>
+            Third vertex id of the triangle.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Geometry.ITriangle.GetVertex(System.Int32)">
+            <summary>
+            Gets a triangles vertex.
+            </summary>
+            <param name="index">The vertex index (0, 1 or 2).</param>
+            <returns>The vertex of the specified corner index.</returns>
+        </member>
+        <member name="P:TriangleNet.Geometry.ITriangle.SupportsNeighbors">
+            <summary>
+            True if the triangle implementation contains neighbor information.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Geometry.ITriangle.N0">
+            <summary>
+            First neighbor.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Geometry.ITriangle.N1">
+            <summary>
+            Second neighbor.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Geometry.ITriangle.N2">
+            <summary>
+            Third neighbor.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Geometry.ITriangle.GetNeighbor(System.Int32)">
+            <summary>
+            Gets a triangles neighbor.
+            </summary>
+            <param name="index">The vertex index (0, 1 or 2).</param>
+            <returns>The neigbbor opposite of vertex with given index.</returns>
+        </member>
+        <member name="M:TriangleNet.Geometry.ITriangle.GetSegment(System.Int32)">
+            <summary>
+            Gets a triangles segment.
+            </summary>
+            <param name="index">The vertex index (0, 1 or 2).</param>
+            <returns>The segment opposite of vertex with given index.</returns>
+        </member>
+        <member name="P:TriangleNet.Geometry.ITriangle.Area">
+            <summary>
+            Triangle area constraint.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Geometry.ITriangle.Region">
+            <summary>
+            Region ID the triangle belongs to.
+            </summary>
+        </member>
+        <member name="T:TriangleNet.Geometry.Point">
+            <summary>
+            Represents a 2D point.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Geometry.Point.ID">
+            <summary>
+            Gets the vertex id.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Geometry.Point.X">
+            <summary>
+            Gets the vertex x coordinate.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Geometry.Point.Y">
+            <summary>
+            Gets the vertex y coordinate.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Geometry.Point.Boundary">
+            <summary>
+            Gets the vertex boundary mark.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Geometry.Point.Attributes">
+            <summary>
+            Gets the vertex attributes (may be null).
+            </summary>
+        </member>
+        <member name="T:TriangleNet.Geometry.RegionPointer">
+            <summary>
+            Pointer to a region in the mesh geometry. A region is a well-defined
+            subset of the geomerty (enclosed by subsegments).
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Geometry.RegionPointer.#ctor(System.Double,System.Double,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:TriangleNet.Geometry.RegionPointer" /> class.
+            </summary>
+            <param name="x">X coordinate of the region.</param>
+            <param name="y">Y coordinate of the region.</param>
+            <param name="id">Region id.</param>
+        </member>
+        <member name="T:TriangleNet.IO.DataReader">
+            <summary>
+            The DataReader class provides methods for mesh reconstruction.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.IO.DataReader.Reconstruct(TriangleNet.Mesh,TriangleNet.Geometry.InputGeometry,TriangleNet.Geometry.ITriangle[])">
+             <summary>
+             Reconstruct a triangulation from its raw data representation.
+             </summary>
+             <param name="mesh"></param>
+             <param name="input"></param>
+             <returns></returns>
+             <remarks>
+             Reads an .ele file and reconstructs the original mesh.  If the -p switch
+             is used, this procedure will also read a .poly file and reconstruct the
+             subsegments of the original mesh.  If the -a switch is used, this
+             procedure will also read an .area file and set a maximum area constraint
+             on each triangle.
+            
+             Vertices that are not corners of triangles, such as nodes on edges of
+             subparametric elements, are discarded.
+            
+             This routine finds the adjacencies between triangles (and subsegments)
+             by forming one stack of triangles for each vertex. Each triangle is on
+             three different stacks simultaneously. Each triangle's subsegment
+             pointers are used to link the items in each stack. This memory-saving
+             feature makes the code harder to read. The most important thing to keep
+             in mind is that each triangle is removed from a stack precisely when
+             the corresponding pointer is adjusted to refer to a subsegment rather
+             than the next triangle of the stack.
+             </remarks>
+        </member>
+        <member name="T:TriangleNet.IO.DebugWriter">
+            <summary>
+            Writes a the current mesh into a text file.
+            </summary>
+            <remarks>
+            File format:
+            
+            num_nodes
+            id_1 nx ny mark
+            ...
+            id_n nx ny mark
+            
+            num_segs
+            id_1 p1 p2 mark
+            ...
+            id_n p1 p2 mark
+            
+            num_tris
+            id_1 p1 p2 p3 n1 n2 n3
+            ...
+            id_n p1 p2 p3 n1 n2 n3
+            </remarks>
+        </member>
+        <member name="M:TriangleNet.IO.DebugWriter.Start(System.String)">
+            <summary>
+            Start a new session with given name.
+            </summary>
+            <param name="name">Name of the session (and output files).</param>
+        </member>
+        <member name="M:TriangleNet.IO.DebugWriter.Write(TriangleNet.Mesh,System.Boolean)">
+            <summary>
+            Write complete mesh to file.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.IO.DebugWriter.Finish">
+            <summary>
+            Finish this session.
+            </summary>
+        </member>
+        <member name="T:TriangleNet.IO.FileReader">
+            <summary>
+            Helper methods for reading Triangle file formats.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.IO.FileReader.ReadVertex(TriangleNet.Geometry.InputGeometry,System.Int32,System.String[],System.Int32,System.Int32)">
+            <summary>
+            Read vertex information of the given line.
+            </summary>
+            <param name="data">The input geometry.</param>
+            <param name="index">The current vertex index.</param>
+            <param name="line">The current line.</param>
+            <param name="attributes">Number of point attributes</param>
+            <param name="marks">Number of point markers (0 or 1)</param>
+        </member>
+        <member name="M:TriangleNet.IO.FileReader.Read(System.String,TriangleNet.Geometry.InputGeometry@)">
+            <summary>
+            Reads geometry information from .node or .poly files.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.IO.FileReader.Read(System.String,TriangleNet.Geometry.InputGeometry@,System.Collections.Generic.List{TriangleNet.Geometry.ITriangle}@)">
+            <summary>
+            Reads a mesh from .node, .poly or .ele files.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.IO.FileReader.Read(System.String)">
+            <summary>
+            Reads geometry information from .node or .poly files.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.IO.FileReader.ReadNodeFile(System.String)">
+            <summary>
+            Read the vertices from a file, which may be a .node or .poly file.
+            </summary>
+            <param name="nodefilename"></param>
+            <remarks>Will NOT read associated .ele by default.</remarks>
+        </member>
+        <member name="M:TriangleNet.IO.FileReader.ReadNodeFile(System.String,System.Boolean)">
+            <summary>
+            Read the vertices from a file, which may be a .node or .poly file.
+            </summary>
+            <param name="nodefilename"></param>
+            <param name="readElements"></param>
+        </member>
+        <member name="M:TriangleNet.IO.FileReader.ReadPolyFile(System.String)">
+            <summary>
+            Read the vertices and segments from a .poly file.
+            </summary>
+            <param name="polyfilename"></param>
+            <remarks>Will NOT read associated .ele by default.</remarks>
+        </member>
+        <member name="M:TriangleNet.IO.FileReader.ReadPolyFile(System.String,System.Boolean)">
+            <summary>
+            Read the vertices and segments from a .poly file.
+            </summary>
+            <param name="polyfilename"></param>
+            <param name="readElements">If true, look for an associated .ele file.</param>
+            <remarks>Will NOT read associated .area by default.</remarks>
+        </member>
+        <member name="M:TriangleNet.IO.FileReader.ReadPolyFile(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Read the vertices and segments from a .poly file.
+            </summary>
+            <param name="polyfilename"></param>
+            <param name="readElements">If true, look for an associated .ele file.</param>
+            <param name="readElements">If true, look for an associated .area file.</param>
+        </member>
+        <member name="M:TriangleNet.IO.FileReader.ReadEleFile(System.String)">
+            <summary>
+            Read elements from an .ele file.
+            </summary>
+            <param name="elefilename">The file name.</param>
+            <returns>A list of triangles.</returns>
+        </member>
+        <member name="M:TriangleNet.IO.FileReader.ReadEleFile(System.String,System.Boolean)">
+            <summary>
+            Read the elements from an .ele file.
+            </summary>
+            <param name="elefilename"></param>
+            <param name="data"></param>
+            <param name="readArea"></param>
+        </member>
+        <member name="M:TriangleNet.IO.FileReader.ReadAreaFile(System.String,System.Int32)">
+            <summary>
+            Read the area constraints from an .area file.
+            </summary>
+            <param name="areafilename"></param>
+            <param name="intriangles"></param>
+            <param name="data"></param>
+        </member>
+        <member name="M:TriangleNet.IO.FileReader.ReadEdgeFile(System.String,System.Int32)">
+            <summary>
+            Read an .edge file.
+            </summary>
+            <param name="edgeFile">The file name.</param>
+            <param name="invertices">The number of input vertices (read from a .node or .poly file).</param>
+            <returns>A List of edges.</returns>
+        </member>
+        <member name="T:TriangleNet.IO.FileWriter">
+            <summary>
+            Helper methods for writing Triangle file formats.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.IO.FileWriter.Write(TriangleNet.Mesh,System.String)">
+            <summary>
+            Number the vertices and write them to a .node file.
+            </summary>
+            <param name="mesh"></param>
+            <param name="filename"></param>
+        </member>
+        <member name="M:TriangleNet.IO.FileWriter.WriteNodes(TriangleNet.Mesh,System.String)">
+            <summary>
+            Number the vertices and write them to a .node file.
+            </summary>
+            <param name="mesh"></param>
+            <param name="filename"></param>
+        </member>
+        <member name="M:TriangleNet.IO.FileWriter.WriteNodes(System.IO.StreamWriter,TriangleNet.Mesh)">
+            <summary>
+            Number the vertices and write them to a .node file.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.IO.FileWriter.WriteNodes(System.IO.StreamWriter,System.Collections.Generic.IEnumerable{TriangleNet.Data.Vertex},System.Boolean,System.Int32,System.Boolean)">
+            <summary>
+            Write the vertices to a stream.
+            </summary>
+            <param name="nodes"></param>
+            <param name="writer"></param>
+        </member>
+        <member name="M:TriangleNet.IO.FileWriter.WriteElements(TriangleNet.Mesh,System.String)">
+            <summary>
+            Write the triangles to an .ele file.
+            </summary>
+            <param name="mesh"></param>
+            <param name="filename"></param>
+        </member>
+        <member name="M:TriangleNet.IO.FileWriter.WritePoly(TriangleNet.Mesh,System.String)">
+            <summary>
+            Write the segments and holes to a .poly file.
+            </summary>
+            <param name="mesh"></param>
+            <param name="filename"></param>
+        </member>
+        <member name="M:TriangleNet.IO.FileWriter.WritePoly(TriangleNet.Mesh,System.String,System.Boolean)">
+            <summary>
+            Write the segments and holes to a .poly file.
+            </summary>
+            <param name="mesh">Data source.</param>
+            <param name="filename">File name.</param>
+            <param name="writeNodes">Write nodes into this file.</param>
+            <remarks>If the nodes should not be written into this file, 
+            make sure a .node file was written before, so that the nodes 
+            are numbered right.</remarks>
+        </member>
+        <member name="M:TriangleNet.IO.FileWriter.WriteEdges(TriangleNet.Mesh,System.String)">
+            <summary>
+            Write the edges to an .edge file.
+            </summary>
+            <param name="mesh"></param>
+            <param name="filename"></param>
+        </member>
+        <member name="M:TriangleNet.IO.FileWriter.WriteNeighbors(TriangleNet.Mesh,System.String)">
+            <summary>
+            Write the triangle neighbors to a .neigh file.
+            </summary>
+            <param name="mesh"></param>
+            <param name="filename"></param>
+            <remarks>WARNING: Be sure WriteElements has been called before, 
+            so the elements are numbered right!</remarks>
+        </member>
+        <member name="M:TriangleNet.IO.FileWriter.WriteVoronoi(TriangleNet.Mesh,System.String)">
+             <summary>
+             Write the Voronoi diagram to a .voro file.
+             </summary>
+             <param name="mesh"></param>
+             <param name="filename"></param>
+             <returns></returns>
+             <remarks>
+             The Voronoi diagram is the geometric dual of the Delaunay triangulation.
+             Hence, the Voronoi vertices are listed by traversing the Delaunay
+             triangles, and the Voronoi edges are listed by traversing the Delaunay
+             edges.
+            
+             WARNING:  In order to assign numbers to the Voronoi vertices, this
+             procedure messes up the subsegments or the extra nodes of every
+             element.  Hence, you should call this procedure last.</remarks>
+        </member>
+        <member name="M:TriangleNet.IO.FileWriter.WriteOffFile(TriangleNet.Mesh,System.String)">
+            <summary>
+            Write the triangulation to an .off file.
+            </summary>
+            <param name="mesh"></param>
+            <param name="filename"></param>
+            <remarks>
+            OFF stands for the Object File Format, a format used by the Geometry
+            Center's Geomview package.
+            </remarks>
+        </member>
+        <member name="T:TriangleNet.IO.IGeometryFormat">
+            <summary>
+            Interface for geometry input.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.IO.IGeometryFormat.Read(System.String)">
+            <summary>
+            Read a file containing geometry information.
+            </summary>
+            <param name="filename">The path of the file to read.</param>
+            <returns>An instance of the <see cref="T:TriangleNet.Geometry.InputGeometry" /> class.</returns>
+        </member>
+        <member name="T:TriangleNet.IO.IMeshFormat">
+            <summary>
+            Interface for mesh I/O.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.IO.IMeshFormat.Import(System.String)">
+            <summary>
+            Read a file containing a mesh.
+            </summary>
+            <param name="filename">The path of the file to read.</param>
+            <returns>An instance of the <see cref="T:TriangleNet.Mesh" /> class.</returns>
+        </member>
+        <member name="M:TriangleNet.IO.IMeshFormat.Write(TriangleNet.Mesh,System.String)">
+            <summary>
+            Save a mesh to disk.
+            </summary>
+            <param name="mesh">An instance of the <see cref="T:TriangleNet.Mesh" /> class.</param>
+            <param name="filename">The path of the file to save.</param>
+        </member>
+        <member name="T:TriangleNet.IO.InputTriangle">
+            <summary>
+            Simple triangle class for input.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.IO.InputTriangle.ID">
+            <summary>
+            Gets the triangle id.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.IO.InputTriangle.P0">
+            <summary>
+            Gets the first corners vertex id.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.IO.InputTriangle.P1">
+            <summary>
+            Gets the seconds corners vertex id.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.IO.InputTriangle.P2">
+            <summary>
+            Gets the third corners vertex id.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.IO.InputTriangle.GetVertex(System.Int32)">
+            <summary>
+            Gets the specified corners vertex.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.IO.InputTriangle.Area">
+            <summary>
+            Gets the triangle area constraint.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.IO.InputTriangle.Region">
+            <summary>
+            Region ID the triangle belongs to.
+            </summary>
+        </member>
+        <member name="T:TriangleNet.IO.TriangleFormat">
+            <summary>
+            Implements geometry and mesh file formats of the the original Triangle code.
+            </summary>
+        </member>
+        <member name="T:TriangleNet.Log.ILog`1">
+            <summary>
+            A basic log interface.
+            </summary>
+        </member>
+        <member name="T:TriangleNet.Log.ILogItem">
+            <summary>
+            A basic log item interface.
+            </summary>
+        </member>
+        <member name="T:TriangleNet.Log.SimpleLog">
+            <summary>
+            A simple logger, which logs messages to a List.
+            </summary>
+            <remarks>Using singleton pattern as proposed by Jon Skeet.
+            http://csharpindepth.com/Articles/General/Singleton.aspx
+            </remarks>
+        </member>
+        <member name="T:TriangleNet.Log.SimpleLogItem">
+            <summary>
+            Represents an item stored in the log.
+            </summary>
+        </member>
+        <member name="T:TriangleNet.Mesh">
+            <summary>
+            Mesh data structure.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Mesh.Behavior">
+            <summary>
+            Gets the mesh behavior instance.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Mesh.Bounds">
+            <summary>
+            Gets the mesh bounding box.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Mesh.Vertices">
+            <summary>
+            Gets the mesh vertices.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Mesh.Holes">
+            <summary>
+            Gets the mesh holes.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Mesh.Triangles">
+            <summary>
+            Gets the mesh triangles.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Mesh.Segments">
+            <summary>
+            Gets the mesh segments.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Mesh.Edges">
+            <summary>
+            Gets the mesh edges.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Mesh.NumberOfInputPoints">
+            <summary>
+            Gets the number of input vertices.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Mesh.NumberOfEdges">
+            <summary>
+            Gets the number of mesh edges.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Mesh.IsPolygon">
+            <summary>
+            Indicates whether the input is a PSLG or a point set.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Mesh.CurrentNumbering">
+            <summary>
+            Gets the current node numbering.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Mesh.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:TriangleNet.Mesh" /> class.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Mesh.#ctor(TriangleNet.Behavior)">
+            <summary>
+            Initializes a new instance of the <see cref="T:TriangleNet.Mesh" /> class.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Mesh.Load(System.String)">
+            <summary>
+            Load a mesh from file (.node/poly and .ele).
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Mesh.Load(TriangleNet.Geometry.InputGeometry,System.Collections.Generic.List{TriangleNet.Geometry.ITriangle})">
+            <summary>
+            Reconstructs a mesh from raw input data.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Mesh.Triangulate(System.String)">
+            <summary>
+            Triangulate given input file (.node or .poly).
+            </summary>
+            <param name="input"></param>
+        </member>
+        <member name="M:TriangleNet.Mesh.Triangulate(TriangleNet.Geometry.InputGeometry)">
+            <summary>
+            Triangulate given input data.
+            </summary>
+            <param name="input"></param>
+        </member>
+        <member name="M:TriangleNet.Mesh.Refine(System.Boolean)">
+            <summary>
+            Refines the current mesh by finding the maximum triangle area and setting
+            the a global area constraint to half its size.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Mesh.Refine(System.Double)">
+            <summary>
+            Refines the current mesh by setting a global area constraint.
+            </summary>
+            <param name="areaConstraint">Global area constraint.</param>
+        </member>
+        <member name="M:TriangleNet.Mesh.Refine">
+            <summary>
+            Refines the current mesh.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Mesh.Smooth">
+            <summary>
+            Smooth the current mesh.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Mesh.Renumber">
+            <summary>
+            Renumber vertex and triangle id's.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Mesh.Renumber(TriangleNet.NodeNumbering)">
+            <summary>
+            Renumber vertex and triangle id's.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Mesh.Check(System.Boolean@,System.Boolean@)">
+            <summary>
+            Check mesh consistency and (constrained) Delaunay property.
+            </summary>
+            <param name="isConsistent">Value indicating if mesh topology is consistent.</param>
+            <param name="isDelaunay">Value indicating if mesh is Delaunay.</param>
+        </member>
+        <member name="M:TriangleNet.Mesh.Delaunay">
+            <summary>
+            Form a Delaunay triangulation.
+            </summary>
+            <returns>The number of points on the hull.</returns>
+        </member>
+        <member name="M:TriangleNet.Mesh.ResetData">
+            <summary>
+            Reset all the mesh data. This method will also wipe 
+            out all mesh data.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Mesh.Reset">
+            <summary>
+            Reset the mesh triangulation state.
+            </summary>
+        </member>
+        <!-- Проигнорирован некорректный комментарий XML для члена "M:TriangleNet.Mesh.DummyInit" -->
+        <member name="M:TriangleNet.Mesh.TransferNodes(TriangleNet.Geometry.InputGeometry)">
+            <summary>
+            Read the vertices from memory.
+            </summary>
+            <param name="data">The input data.</param>
+        </member>
+        <member name="M:TriangleNet.Mesh.MakeVertexMap">
+            <summary>
+            Construct a mapping from vertices to triangles to improve the speed of 
+            point location for segment insertion.
+            </summary>
+            <remarks>
+            Traverses all the triangles, and provides each corner of each triangle
+            with a pointer to that triangle. Of course, pointers will be overwritten
+            by other pointers because (almost) each vertex is a corner of several
+            triangles, but in the end every vertex will point to some triangle
+            that contains it.
+            </remarks>
+        </member>
+        <member name="M:TriangleNet.Mesh.MakeTriangle(TriangleNet.Data.Otri@)">
+            <summary>
+            Create a new triangle with orientation zero.
+            </summary>
+            <param name="newotri">Reference to the new triangle.</param>
+        </member>
+        <member name="M:TriangleNet.Mesh.MakeSegment(TriangleNet.Data.Osub@)">
+            <summary>
+            Create a new subsegment with orientation zero.
+            </summary>
+            <param name="newsubseg">Reference to the new subseg.</param>
+        </member>
+        <member name="M:TriangleNet.Mesh.InsertVertex(TriangleNet.Data.Vertex,TriangleNet.Data.Otri@,TriangleNet.Data.Osub@,System.Boolean,System.Boolean)">
+             <summary>
+             Insert a vertex into a Delaunay triangulation, performing flips as necessary 
+             to maintain the Delaunay property.
+             </summary>
+             <param name="newvertex">The point to be inserted.</param>
+             <param name="searchtri">The triangle to start the search.</param>
+             <param name="splitseg">Segment to split.</param>
+             <param name="segmentflaws">Check for creation of encroached subsegments.</param>
+             <param name="triflaws">Check for creation of bad quality triangles.</param>
+             <returns>If a duplicate vertex or violated segment does not prevent the 
+             vertex from being inserted, the return value will be ENCROACHINGVERTEX if 
+             the vertex encroaches upon a subsegment (and checking is enabled), or
+             SUCCESSFULVERTEX otherwise. In either case, 'searchtri' is set to a handle
+             whose origin is the newly inserted vertex.</returns>
+             <remarks>
+             The point 'newvertex' is located. If 'searchtri.triangle' is not NULL,
+             the search for the containing triangle begins from 'searchtri'.  If
+             'searchtri.triangle' is NULL, a full point location procedure is called.
+             If 'insertvertex' is found inside a triangle, the triangle is split into
+             three; if 'insertvertex' lies on an edge, the edge is split in two,
+             thereby splitting the two adjacent triangles into four. Edge flips are
+             used to restore the Delaunay property. If 'insertvertex' lies on an
+             existing vertex, no action is taken, and the value DUPLICATEVERTEX is
+             returned. On return, 'searchtri' is set to a handle whose origin is the
+             existing vertex.
+            
+             InsertVertex() does not use flip() for reasons of speed; some
+             information can be reused from edge flip to edge flip, like the
+             locations of subsegments.
+             
+             Param 'splitseg': Normally, the parameter 'splitseg' is set to NULL, 
+             implying that no subsegment should be split. In this case, if 'insertvertex' 
+             is found to lie on a segment, no action is taken, and the value VIOLATINGVERTEX 
+             is returned. On return, 'searchtri' is set to a handle whose primary edge is the 
+             violated subsegment.
+             If the calling routine wishes to split a subsegment by inserting a vertex in it, 
+             the parameter 'splitseg' should be that subsegment. In this case, 'searchtri' 
+             MUST be the triangle handle reached by pivoting from that subsegment; no point 
+             location is done.
+             
+             Param 'segmentflaws': Flags that indicate whether or not there should
+             be checks for the creation of encroached subsegments. If a newly inserted 
+             vertex encroaches upon subsegments, these subsegments are added to the list 
+             of subsegments to be split if 'segmentflaws' is set.
+             
+             Param 'triflaws': Flags that indicate whether or not there should be
+             checks for the creation of bad quality triangles. If bad triangles are 
+             created, these are added to the queue if 'triflaws' is set.
+             </remarks>
+        </member>
+        <member name="M:TriangleNet.Mesh.InsertSubseg(TriangleNet.Data.Otri@,System.Int32)">
+            <summary>
+            Create a new subsegment and inserts it between two triangles. Its 
+            vertices are properly initialized.
+            </summary>
+            <param name="tri">The new subsegment is inserted at the edge 
+            described by this handle.</param>
+            <param name="subsegmark">The marker 'subsegmark' is applied to the 
+            subsegment and, if appropriate, its vertices.</param>
+        </member>
+        <member name="M:TriangleNet.Mesh.Flip(TriangleNet.Data.Otri@)">
+             <summary>
+             Transform two triangles to two different triangles by flipping an edge 
+             counterclockwise within a quadrilateral.
+             </summary>
+             <param name="flipedge">Handle to the edge that will be flipped.</param>
+             <remarks>Imagine the original triangles, abc and bad, oriented so that the
+             shared edge ab lies in a horizontal plane, with the vertex b on the left
+             and the vertex a on the right. The vertex c lies below the edge, and
+             the vertex d lies above the edge. The 'flipedge' handle holds the edge
+             ab of triangle abc, and is directed left, from vertex a to vertex b.
+            
+             The triangles abc and bad are deleted and replaced by the triangles cdb
+             and dca.  The triangles that represent abc and bad are NOT deallocated;
+             they are reused for dca and cdb, respectively.  Hence, any handles that
+             may have held the original triangles are still valid, although not
+             directed as they were before.
+            
+             Upon completion of this routine, the 'flipedge' handle holds the edge
+             dc of triangle dca, and is directed down, from vertex d to vertex c.
+             (Hence, the two triangles have rotated counterclockwise.)
+            
+             WARNING:  This transformation is geometrically valid only if the
+             quadrilateral adbc is convex.  Furthermore, this transformation is
+             valid only if there is not a subsegment between the triangles abc and
+             bad.  This routine does not check either of these preconditions, and
+             it is the responsibility of the calling routine to ensure that they are
+             met.  If they are not, the streets shall be filled with wailing and
+             gnashing of teeth.
+             
+             Terminology
+            
+             A "local transformation" replaces a small set of triangles with another
+             set of triangles.  This may or may not involve inserting or deleting a
+             vertex.
+            
+             The term "casing" is used to describe the set of triangles that are
+             attached to the triangles being transformed, but are not transformed
+             themselves.  Think of the casing as a fixed hollow structure inside
+             which all the action happens.  A "casing" is only defined relative to
+             a single transformation; each occurrence of a transformation will
+             involve a different casing.
+             </remarks>
+        </member>
+        <member name="M:TriangleNet.Mesh.Unflip(TriangleNet.Data.Otri@)">
+             <summary>
+             Transform two triangles to two different triangles by flipping an edge 
+             clockwise within a quadrilateral. Reverses the flip() operation so that 
+             the data structures representing the triangles are back where they were 
+             before the flip().
+             </summary>
+             <param name="flipedge"></param>
+             <remarks>
+             See above Flip() remarks for more information.
+            
+             Upon completion of this routine, the 'flipedge' handle holds the edge
+             cd of triangle cdb, and is directed up, from vertex c to vertex d.
+             (Hence, the two triangles have rotated clockwise.)
+             </remarks>
+        </member>
+        <!-- Проигнорирован некорректный комментарий XML для члена "M:TriangleNet.Mesh.TriangulatePolygon(TriangleNet.Data.Otri,TriangleNet.Data.Otri,System.Int32,System.Boolean,System.Boolean)" -->
+        <member name="M:TriangleNet.Mesh.DeleteVertex(TriangleNet.Data.Otri@)">
+             <summary>
+             Delete a vertex from a Delaunay triangulation, ensuring that the 
+             triangulation remains Delaunay.
+             </summary>
+             <param name="deltri"></param>
+             <remarks>The origin of 'deltri' is deleted. The union of the triangles 
+             adjacent to this vertex is a polygon, for which the Delaunay triangulation 
+             is found. Two triangles are removed from the mesh.
+            
+             Only interior vertices that do not lie on segments or boundaries 
+             may be deleted.
+             </remarks>
+        </member>
+        <member name="M:TriangleNet.Mesh.UndoVertex">
+            <summary>
+            Undo the most recent vertex insertion.
+            </summary>
+            <remarks>
+            Walks through the list of transformations (flips and a vertex insertion)
+            in the reverse of the order in which they were done, and undoes them.
+            The inserted vertex is removed from the triangulation and deallocated.
+            Two triangles (possibly just one) are also deallocated.
+            </remarks>
+        </member>
+        <member name="M:TriangleNet.Mesh.FindDirection(TriangleNet.Data.Otri@,TriangleNet.Data.Vertex)">
+            <summary>
+            Find the first triangle on the path from one point to another.
+            </summary>
+            <param name="searchtri"></param>
+            <param name="searchpoint"></param>
+            <returns>
+            The return value notes whether the destination or apex of the found
+            triangle is collinear with the two points in question.</returns>
+            <remarks>
+            Finds the triangle that intersects a line segment drawn from the
+            origin of 'searchtri' to the point 'searchpoint', and returns the result
+            in 'searchtri'. The origin of 'searchtri' does not change, even though
+            the triangle returned may differ from the one passed in. This routine
+            is used to find the direction to move in to get from one point to
+            another.
+            </remarks>
+        </member>
+        <member name="M:TriangleNet.Mesh.SegmentIntersection(TriangleNet.Data.Otri@,TriangleNet.Data.Osub@,TriangleNet.Data.Vertex)">
+             <summary>
+             Find the intersection of an existing segment and a segment that is being 
+             inserted. Insert a vertex at the intersection, splitting an existing subsegment.
+             </summary>
+             <param name="splittri"></param>
+             <param name="splitsubseg"></param>
+             <param name="endpoint2"></param>
+             <remarks>
+             The segment being inserted connects the apex of splittri to endpoint2.
+             splitsubseg is the subsegment being split, and MUST adjoin splittri.
+             Hence, endpoints of the subsegment being split are the origin and
+             destination of splittri.
+            
+             On completion, splittri is a handle having the newly inserted
+             intersection point as its origin, and endpoint1 as its destination.
+             </remarks>
+        </member>
+        <member name="M:TriangleNet.Mesh.ScoutSegment(TriangleNet.Data.Otri@,TriangleNet.Data.Vertex,System.Int32)">
+             <summary>
+             Scout the first triangle on the path from one endpoint to another, and check 
+             for completion (reaching the second endpoint), a collinear vertex, or the 
+             intersection of two segments.
+             </summary>
+             <param name="searchtri"></param>
+             <param name="endpoint2"></param>
+             <param name="newmark"></param>
+             <returns>Returns true if the entire segment is successfully inserted, and false 
+             if the job must be finished by ConstrainedEdge().</returns>
+             <remarks>
+             If the first triangle on the path has the second endpoint as its
+             destination or apex, a subsegment is inserted and the job is done.
+            
+             If the first triangle on the path has a destination or apex that lies on
+             the segment, a subsegment is inserted connecting the first endpoint to
+             the collinear vertex, and the search is continued from the collinear
+             vertex.
+            
+             If the first triangle on the path has a subsegment opposite its origin,
+             then there is a segment that intersects the segment being inserted.
+             Their intersection vertex is inserted, splitting the subsegment.
+             </remarks>
+        </member>
+        <member name="M:TriangleNet.Mesh.DelaunayFixup(TriangleNet.Data.Otri@,System.Boolean)">
+             <summary>
+             Enforce the Delaunay condition at an edge, fanning out recursively from 
+             an existing vertex. Pay special attention to stacking inverted triangles.
+             </summary>
+             <param name="fixuptri"></param>
+             <param name="leftside">Indicates whether or not fixuptri is to the left of 
+             the segment being inserted. (Imagine that the segment is pointing up from
+             endpoint1 to endpoint2.)</param>
+             <remarks>
+             This is a support routine for inserting segments into a constrained
+             Delaunay triangulation.
+            
+             The origin of fixuptri is treated as if it has just been inserted, and
+             the local Delaunay condition needs to be enforced. It is only enforced
+             in one sector, however, that being the angular range defined by
+             fixuptri.
+            
+             This routine also needs to make decisions regarding the "stacking" of
+             triangles. (Read the description of ConstrainedEdge() below before
+             reading on here, so you understand the algorithm.) If the position of
+             the new vertex (the origin of fixuptri) indicates that the vertex before
+             it on the polygon is a reflex vertex, then "stack" the triangle by
+             doing nothing.  (fixuptri is an inverted triangle, which is how stacked
+             triangles are identified.)
+            
+             Otherwise, check whether the vertex before that was a reflex vertex.
+             If so, perform an edge flip, thereby eliminating an inverted triangle
+             (popping it off the stack). The edge flip may result in the creation
+             of a new inverted triangle, depending on whether or not the new vertex
+             is visible to the vertex three edges behind on the polygon.
+            
+             If neither of the two vertices behind the new vertex are reflex
+             vertices, fixuptri and fartri, the triangle opposite it, are not
+             inverted; hence, ensure that the edge between them is locally Delaunay.
+             </remarks>
+        </member>
+        <member name="M:TriangleNet.Mesh.ConstrainedEdge(TriangleNet.Data.Otri@,TriangleNet.Data.Vertex,System.Int32)">
+             <summary>
+             Force a segment into a constrained Delaunay triangulation by deleting the 
+             triangles it intersects, and triangulating the polygons that form on each 
+             side of it.
+             </summary>
+             <param name="starttri"></param>
+             <param name="endpoint2"></param>
+             <param name="newmark"></param>
+             <remarks>
+             Generates a single subsegment connecting 'endpoint1' to 'endpoint2'.
+             The triangle 'starttri' has 'endpoint1' as its origin.  'newmark' is the
+             boundary marker of the segment.
+            
+             To insert a segment, every triangle whose interior intersects the
+             segment is deleted. The union of these deleted triangles is a polygon
+             (which is not necessarily monotone, but is close enough), which is
+             divided into two polygons by the new segment. This routine's task is
+             to generate the Delaunay triangulation of these two polygons.
+            
+             You might think of this routine's behavior as a two-step process.  The
+             first step is to walk from endpoint1 to endpoint2, flipping each edge
+             encountered.  This step creates a fan of edges connected to endpoint1,
+             including the desired edge to endpoint2. The second step enforces the
+             Delaunay condition on each side of the segment in an incremental manner:
+             proceeding along the polygon from endpoint1 to endpoint2 (this is done
+             independently on each side of the segment), each vertex is "enforced"
+             as if it had just been inserted, but affecting only the previous
+             vertices. The result is the same as if the vertices had been inserted
+             in the order they appear on the polygon, so the result is Delaunay.
+            
+             In truth, ConstrainedEdge() interleaves these two steps. The procedure
+             walks from endpoint1 to endpoint2, and each time an edge is encountered
+             and flipped, the newly exposed vertex (at the far end of the flipped
+             edge) is "enforced" upon the previously flipped edges, usually affecting
+             only one side of the polygon (depending upon which side of the segment
+             the vertex falls on).
+            
+             The algorithm is complicated by the need to handle polygons that are not
+             convex.  Although the polygon is not necessarily monotone, it can be
+             triangulated in a manner similar to the stack-based algorithms for
+             monotone polygons. For each reflex vertex (local concavity) of the
+             polygon, there will be an inverted triangle formed by one of the edge
+             flips. (An inverted triangle is one with negative area - that is, its
+             vertices are arranged in clockwise order - and is best thought of as a
+             wrinkle in the fabric of the mesh.)  Each inverted triangle can be
+             thought of as a reflex vertex pushed on the stack, waiting to be fixed
+             later.
+            
+             A reflex vertex is popped from the stack when a vertex is inserted that
+             is visible to the reflex vertex. (However, if the vertex behind the
+             reflex vertex is not visible to the reflex vertex, a new inverted
+             triangle will take its place on the stack.) These details are handled
+             by the DelaunayFixup() routine above.
+             </remarks>
+        </member>
+        <member name="M:TriangleNet.Mesh.InsertSegment(TriangleNet.Data.Vertex,TriangleNet.Data.Vertex,System.Int32)">
+            <summary>
+            Insert a PSLG segment into a triangulation.
+            </summary>
+            <param name="endpoint1"></param>
+            <param name="endpoint2"></param>
+            <param name="newmark"></param>
+        </member>
+        <member name="M:TriangleNet.Mesh.MarkHull">
+            <summary>
+            Cover the convex hull of a triangulation with subsegments.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Mesh.FormSkeleton(TriangleNet.Geometry.InputGeometry)">
+            <summary>
+            Create the segments of a triangulation, including PSLG segments and edges 
+            on the convex hull.
+            </summary>
+            <param name="segmentlist"></param>
+            <param name="segmentmarkerlist"></param>
+            <param name="numberofsegments"></param>
+        </member>
+        <member name="M:TriangleNet.Mesh.TriangleDealloc(TriangleNet.Data.Triangle)">
+            <summary>
+            Deallocate space for a triangle, marking it dead.
+            </summary>
+            <param name="dyingtriangle"></param>
+        </member>
+        <member name="M:TriangleNet.Mesh.VertexDealloc(TriangleNet.Data.Vertex)">
+            <summary>
+            Deallocate space for a vertex, marking it dead.
+            </summary>
+            <param name="dyingvertex"></param>
+        </member>
+        <member name="M:TriangleNet.Mesh.SubsegDealloc(TriangleNet.Data.Segment)">
+            <summary>
+            Deallocate space for a subsegment, marking it dead.
+            </summary>
+            <param name="dyingsubseg"></param>
+        </member>
+        <member name="T:TriangleNet.NewLocation">
+            <summary>
+            Find new Steiner Point locations.
+            </summary>
+            <remarks>
+            http://www.cise.ufl.edu/~ungor/aCute/index.html
+            </remarks>
+        </member>
+        <member name="M:TriangleNet.NewLocation.FindLocation(TriangleNet.Data.Vertex,TriangleNet.Data.Vertex,TriangleNet.Data.Vertex,System.Double@,System.Double@,System.Boolean,TriangleNet.Data.Otri)">
+            <summary>
+            Find a new location for a Steiner point.
+            </summary>
+            <param name="torg"></param>
+            <param name="tdest"></param>
+            <param name="tapex"></param>
+            <param name="xi"></param>
+            <param name="eta"></param>
+            <param name="offcenter"></param>
+            <param name="badotri"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TriangleNet.NewLocation.FindNewLocationWithoutMaxAngle(TriangleNet.Data.Vertex,TriangleNet.Data.Vertex,TriangleNet.Data.Vertex,System.Double@,System.Double@,System.Boolean,TriangleNet.Data.Otri)">
+            <summary>
+            Find a new location for a Steiner point.
+            </summary>
+            <param name="torg"></param>
+            <param name="tdest"></param>
+            <param name="tapex"></param>
+            <param name="circumcenter"></param>
+            <param name="xi"></param>
+            <param name="eta"></param>
+            <param name="offcenter"></param>
+            <param name="badotri"></param>
+        </member>
+        <member name="M:TriangleNet.NewLocation.FindNewLocation(TriangleNet.Data.Vertex,TriangleNet.Data.Vertex,TriangleNet.Data.Vertex,System.Double@,System.Double@,System.Boolean,TriangleNet.Data.Otri)">
+            <summary>
+            Find a new location for a Steiner point.
+            </summary>
+            <param name="torg"></param>
+            <param name="tdest"></param>
+            <param name="tapex"></param>
+            <param name="circumcenter"></param>
+            <param name="xi"></param>
+            <param name="eta"></param>
+            <param name="offcenter"></param>
+            <param name="badotri"></param>
+        </member>
+        <!-- Проигнорирован некорректный комментарий XML для члена "M:TriangleNet.NewLocation.LongestShortestEdge(System.Double,System.Double,System.Double)" -->
+        <member name="M:TriangleNet.NewLocation.DoSmoothing(TriangleNet.Data.Otri,TriangleNet.Data.Vertex,TriangleNet.Data.Vertex,TriangleNet.Data.Vertex,System.Double[]@)">
+            <summary>
+            Checks if smothing is possible for a given bad triangle.
+            </summary>
+            <param name="badotri"></param>
+            <param name="torg"></param>
+            <param name="tdest"></param>
+            <param name="tapex"></param>
+            <param name="newloc">The new location for the point, if somothing is possible.</param>
+            <returns>Returns 1, 2 or 3 if smoothing will work, 0 otherwise.</returns>
+        </member>
+        <member name="M:TriangleNet.NewLocation.GetStarPoints(TriangleNet.Data.Otri,TriangleNet.Data.Vertex,TriangleNet.Data.Vertex,TriangleNet.Data.Vertex,System.Int32,System.Double[]@)">
+            <summary>
+            Finds the star of a given point.
+            </summary>
+            <param name="badotri"></param>
+            <param name="p"></param>
+            <param name="q"></param>
+            <param name="r"></param>
+            <param name="whichPoint"></param>
+            <param name="points">List of points on the star of the given point.</param>
+            <returns>Number of points on the star of the given point.</returns>
+        </member>
+        <member name="M:TriangleNet.NewLocation.GetNeighborsVertex(TriangleNet.Data.Otri,System.Double,System.Double,System.Double,System.Double,System.Double[]@,TriangleNet.Data.Otri@)">
+            <summary>
+            Gets a neighbours vertex.
+            </summary>
+            <param name="badotri"></param>
+            <param name="first_x"></param>
+            <param name="first_y"></param>
+            <param name="second_x"></param>
+            <param name="second_y"></param>
+            <param name="thirdpoint">Neighbor's third vertex incident to given edge.</param>
+            <param name="neighotri">Pointer for the neighbor triangle.</param>
+            <returns>Returns true if vertex was found.</returns>
+        </member>
+        <member name="M:TriangleNet.NewLocation.GetWedgeIntersectionWithoutMaxAngle(System.Int32,System.Double[],System.Double[]@)">
+            <summary>
+            Find a new point location by wedge intersection.
+            </summary>
+            <param name="numpoints"></param>
+            <param name="points"></param>
+            <param name="newloc">A new location for the point according to surrounding points.</param>
+            <returns>Returns true if new location found</returns>
+        </member>
+        <member name="M:TriangleNet.NewLocation.GetWedgeIntersection(System.Int32,System.Double[],System.Double[]@)">
+            <summary>
+            Find a new point location by wedge intersection.
+            </summary>
+            <param name="numpoints"></param>
+            <param name="points"></param>
+            <param name="newloc">A new location for the point according to surrounding points.</param>
+            <returns>Returns true if new location found</returns>
+        </member>
+        <member name="M:TriangleNet.NewLocation.ValidPolygonAngles(System.Int32,System.Double[])">
+            <summary>
+            Check polygon for min angle.
+            </summary>
+            <param name="numpoints"></param>
+            <param name="points"></param>
+            <returns>Returns true if the polygon has angles greater than 2*minangle.</returns>
+        </member>
+        <member name="M:TriangleNet.NewLocation.IsBadPolygonAngle(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Given three coordinates of a polygon, tests to see if it satisfies the minimum 
+            angle condition for relocation.
+            </summary>
+            <param name="x1"></param>
+            <param name="y1"></param>
+            <param name="x2"></param>
+            <param name="y2"></param>
+            <param name="x3"></param>
+            <param name="y3"></param>
+            <returns>Returns true, if it is a BAD polygon corner, returns false if it is a GOOD 
+            polygon corner</returns>
+        </member>
+        <!-- Проигнорирован некорректный комментарий XML для члена "M:TriangleNet.NewLocation.LineLineIntersection(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double[]@)" -->
+        <member name="M:TriangleNet.NewLocation.HalfPlaneIntersection(System.Int32,System.Double[]@,System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Returns the convex polygon which is the intersection of the given convex 
+            polygon with the halfplane on the left side (regarding the directional vector) 
+            of the given line.
+            </summary>
+            <param name="numvertices"></param>
+            <param name="convexPoly"></param>
+            <param name="x1"></param>
+            <param name="y1"></param>
+            <param name="x2"></param>
+            <param name="y2"></param>
+            <returns></returns>
+            <remarks>
+            http://www.mathematik.uni-ulm.de/stochastik/lehre/ws03_04/rt/Geometry2D.ps
+            </remarks>
+        </member>
+        <member name="M:TriangleNet.NewLocation.SplitConvexPolygon(System.Int32,System.Double[],System.Double,System.Double,System.Double,System.Double,System.Double[][]@)">
+            <summary>
+            Splits a convex polygons into one or two polygons through the intersection 
+            with the given line (regarding the directional vector of the given line).
+            </summary>
+            <param name="numvertices"></param>
+            <param name="convexPoly"></param>
+            <param name="x1"></param>
+            <param name="y1"></param>
+            <param name="x2"></param>
+            <param name="y2"></param>
+            <param name="polys"></param>
+            <returns></returns>
+            <remarks>
+            http://www.mathematik.uni-ulm.de/stochastik/lehre/ws03_04/rt/Geometry2D.ps
+            </remarks>
+        </member>
+        <member name="M:TriangleNet.NewLocation.LinePointLocation(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Determines on which side (relative to the direction) of the given line and the 
+            point lies (regarding the directional vector) of the given line.
+            </summary>
+            <param name="x1"></param>
+            <param name="y1"></param>
+            <param name="x2"></param>
+            <param name="y2"></param>
+            <param name="x"></param>
+            <param name="y"></param>
+            <returns></returns>
+            <remarks>
+            http://www.mathematik.uni-ulm.de/stochastik/lehre/ws03_04/rt/Geometry2D.ps
+            </remarks>
+        </member>
+        <member name="M:TriangleNet.NewLocation.LineLineSegmentIntersection(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double[]@)">
+            <summary>
+            Given four points representing one line and a line segment, returns the intersection point
+            </summary>
+            <param name="x1"></param>
+            <param name="y1"></param>
+            <param name="x2"></param>
+            <param name="y2"></param>
+            <param name="x3"></param>
+            <param name="y3"></param>
+            <param name="x4"></param>
+            <param name="y4"></param>
+            <param name="p"></param>
+            <remarks>
+            referenced to: http://local.wasp.uwa.edu.au/~pbourke/geometry/
+            </remarks>
+        </member>
+        <member name="M:TriangleNet.NewLocation.FindPolyCentroid(System.Int32,System.Double[],System.Double[]@)">
+            <summary>
+            Returns the centroid of a given polygon 
+            </summary>
+            <param name="numpoints"></param>
+            <param name="points"></param>
+            <param name="centroid">Centroid of a given polygon </param>
+        </member>
+        <member name="M:TriangleNet.NewLocation.CircleLineIntersection(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double[]@)">
+            <summary>
+            Given two points representing a line and  a radius together with a center point 
+            representing a circle, returns the intersection points.
+            </summary>
+            <param name="x1"></param>
+            <param name="y1"></param>
+            <param name="x2"></param>
+            <param name="y2"></param>
+            <param name="x3"></param>
+            <param name="y3"></param>
+            <param name="r"></param>
+            <param name="p">Pointer to list of intersection points</param>
+            <remarks>
+            referenced to: http://local.wasp.uwa.edu.au/~pbourke/geometry/sphereline/
+            </remarks>
+        </member>
+        <member name="M:TriangleNet.NewLocation.ChooseCorrectPoint(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Boolean)">
+            <summary>
+            Given three points, check if the point is the correct point that we are looking for.
+            </summary>
+            <param name="x1">P1 coordinates (bisector point of dual edge on triangle)</param>
+            <param name="y1">P1 coordinates (bisector point of dual edge on triangle)</param>
+            <param name="x2">P2 coordinates (intersection point)</param>
+            <param name="y2">P2 coordinates (intersection point)</param>
+            <param name="x3">P3 coordinates (circumcenter point)</param>
+            <param name="y3">P3 coordinates (circumcenter point)</param>
+            <param name="isObtuse"></param>
+            <returns>Returns true, if given point is the correct one otherwise return false.</returns>
+        </member>
+        <member name="M:TriangleNet.NewLocation.PointBetweenPoints(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double[]@)">
+            <summary>
+            This function returns a pointer array which first index indicates the whether 
+            the point is in between the other points, followed by coordinate pairs.
+            </summary>
+            <param name="x1">P1 coordinates [point of line] (point on Voronoi edge - intersection)</param>
+            <param name="y1">P1 coordinates [point of line] (point on Voronoi edge - intersection)</param>
+            <param name="x2">P2 coordinates [point of line] (circumcenter)</param>
+            <param name="y2">P2 coordinates [point of line] (circumcenter)</param>
+            <param name="x">P3 coordinates [point to be compared]	(neighbor's circumcenter)</param>
+            <param name="y">P3 coordinates [point to be compared]	(neighbor's circumcenter)</param>
+            <param name="p"></param>
+        </member>
+        <member name="M:TriangleNet.NewLocation.IsBadTriangleAngle(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Given three coordinates of a triangle, tests a triangle to see if it satisfies 
+            the minimum and/or maximum angle condition.
+            </summary>
+            <param name="x1"></param>
+            <param name="y1"></param>
+            <param name="x2"></param>
+            <param name="y2"></param>
+            <param name="x3"></param>
+            <param name="y3"></param>
+            <returns>Returns true, if it is a BAD triangle, returns false if it is a GOOD triangle.</returns>
+        </member>
+        <member name="M:TriangleNet.NewLocation.MinDistanceToNeighbor(System.Double,System.Double,TriangleNet.Data.Otri@)">
+            <summary>
+            Given the triangulation, and a vertex returns the minimum distance to the 
+            vertices of the triangle where the given vertex located.
+            </summary>
+            <param name="newlocX"></param>
+            <param name="newlocY"></param>
+            <param name="searchtri"></param>
+            <returns></returns>
+        </member>
+        <member name="T:TriangleNet.Primitives">
+            <summary>
+            Provides some primitives regularly used in computational geometry.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Primitives.ExactInit">
+             <summary>
+             Initialize the variables used for exact arithmetic.
+             </summary>
+             <remarks>
+             'epsilon' is the largest power of two such that 1.0 + epsilon = 1.0 in
+             floating-point arithmetic. 'epsilon' bounds the relative roundoff
+             error. It is used for floating-point error analysis.
+            
+             'splitter' is used to split floating-point numbers into two half-
+             length significands for exact multiplication.
+            
+             I imagine that a highly optimizing compiler might be too smart for its
+             own good, and somehow cause this routine to fail, if it pretends that
+             floating-point arithmetic is too much like real arithmetic.
+            
+             Don't change this routine unless you fully understand it.
+             </remarks>
+        </member>
+        <member name="M:TriangleNet.Primitives.CounterClockwise(TriangleNet.Geometry.Point,TriangleNet.Geometry.Point,TriangleNet.Geometry.Point)">
+             <summary>
+             Check, if the three points appear in counterclockwise order. The result is 
+             also a rough approximation of twice the signed area of the triangle defined 
+             by the three points.
+             </summary>
+             <param name="pa">Point a.</param>
+             <param name="pb">Point b.</param>
+             <param name="pc">Point c.</param>
+             <returns>Return a positive value if the points pa, pb, and pc occur in 
+             counterclockwise order; a negative value if they occur in clockwise order; 
+             and zero if they are collinear.</returns>
+             <remarks>
+             Uses exact arithmetic if necessary to ensure a correct answer. The
+             result returned is the determinant of a matrix. This determinant is
+             computed adaptively, in the sense that exact arithmetic is used only to
+             the degree it is needed to ensure that the returned value has the
+             correct sign. Hence, this function is usually quite fast, but will run
+             more slowly when the input points are collinear or nearly so.
+            
+             See Robust Predicates paper for details.
+             </remarks>
+        </member>
+        <member name="M:TriangleNet.Primitives.InCircle(TriangleNet.Geometry.Point,TriangleNet.Geometry.Point,TriangleNet.Geometry.Point,TriangleNet.Geometry.Point)">
+             <summary>
+             Check if the point pd lies inside the circle passing through pa, pb, and pc. The 
+             points pa, pb, and pc must be in counterclockwise order, or the sign of the result 
+             will be reversed.
+             </summary>
+             <param name="pa">Point a.</param>
+             <param name="pb">Point b.</param>
+             <param name="pc">Point c.</param>
+             <param name="pd">Point d.</param>
+             <returns>Return a positive value if the point pd lies inside the circle passing through 
+             pa, pb, and pc; a negative value if it lies outside; and zero if the four points 
+             are cocircular.</returns>
+             <remarks>
+             Uses exact arithmetic if necessary to ensure a correct answer.  The
+             result returned is the determinant of a matrix.  This determinant is
+             computed adaptively, in the sense that exact arithmetic is used only to
+             the degree it is needed to ensure that the returned value has the
+             correct sign.  Hence, this function is usually quite fast, but will run
+             more slowly when the input points are cocircular or nearly so.
+            
+             See Robust Predicates paper for details.
+             </remarks>
+        </member>
+        <member name="M:TriangleNet.Primitives.NonRegular(TriangleNet.Geometry.Point,TriangleNet.Geometry.Point,TriangleNet.Geometry.Point,TriangleNet.Geometry.Point)">
+            <summary>
+            Return a positive value if the point pd is incompatible with the circle 
+            or plane passing through pa, pb, and pc (meaning that pd is inside the 
+            circle or below the plane); a negative value if it is compatible; and 
+            zero if the four points are cocircular/coplanar. The points pa, pb, and 
+            pc must be in counterclockwise order, or the sign of the result will be 
+            reversed.
+            </summary>
+            <param name="pa">Point a.</param>
+            <param name="pb">Point b.</param>
+            <param name="pc">Point c.</param>
+            <param name="pd">Point d.</param>
+            <returns>Return a positive value if the point pd lies inside the circle passing through 
+            pa, pb, and pc; a negative value if it lies outside; and zero if the four points 
+            are cocircular.</returns>
+        </member>
+        <member name="M:TriangleNet.Primitives.FindCircumcenter(TriangleNet.Geometry.Point,TriangleNet.Geometry.Point,TriangleNet.Geometry.Point,System.Double@,System.Double@,System.Double)">
+            <summary>
+            Find the circumcenter of a triangle.
+            </summary>
+            <param name="torg">Triangle point.</param>
+            <param name="tdest">Triangle point.</param>
+            <param name="tapex">Triangle point.</param>
+            <param name="xi">Relative coordinate of new location.</param>
+            <param name="eta">Relative coordinate of new location.</param>
+            <param name="offconstant">Off-center constant.</param>
+            <returns>Coordinates of the circumcenter (or off-center)</returns>
+        </member>
+        <member name="M:TriangleNet.Primitives.FindCircumcenter(TriangleNet.Geometry.Point,TriangleNet.Geometry.Point,TriangleNet.Geometry.Point,System.Double@,System.Double@)">
+            <summary>
+            Find the circumcenter of a triangle.
+            </summary>
+            <param name="torg">Triangle point.</param>
+            <param name="tdest">Triangle point.</param>
+            <param name="tapex">Triangle point.</param>
+            <param name="xi">Relative coordinate of new location.</param>
+            <param name="eta">Relative coordinate of new location.</param>
+            <returns>Coordinates of the circumcenter</returns>
+            <remarks>
+            The result is returned both in terms of x-y coordinates and xi-eta
+            (barycentric) coordinates. The xi-eta coordinate system is defined in
+            terms of the triangle: the origin of the triangle is the origin of the
+            coordinate system; the destination of the triangle is one unit along the
+            xi axis; and the apex of the triangle is one unit along the eta axis.
+            This procedure also returns the square of the length of the triangle's
+            shortest edge.
+            </remarks>
+        </member>
+        <member name="T:TriangleNet.Quality">
+            <summary>
+            Provides methods for mesh quality enforcement and testing.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Quality.AddBadSubseg(TriangleNet.Data.BadSubseg)">
+            <summary>
+            Add a bad subsegment to the queue.
+            </summary>
+            <param name="badseg">Bad subsegment.</param>
+        </member>
+        <member name="M:TriangleNet.Quality.CheckMesh">
+            <summary>
+            Test the mesh for topological consistency.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Quality.CheckDelaunay">
+            <summary>
+            Ensure that the mesh is (constrained) Delaunay.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Quality.CheckSeg4Encroach(TriangleNet.Data.Osub@)">
+             <summary>
+             Check a subsegment to see if it is encroached; add it to the list if it is.
+             </summary>
+             <param name="testsubseg">The subsegment to check.</param>
+             <returns>Returns a nonzero value if the subsegment is encroached.</returns>
+             <remarks>
+             A subsegment is encroached if there is a vertex in its diametral lens.
+             For Ruppert's algorithm (-D switch), the "diametral lens" is the
+             diametral circle. For Chew's algorithm (default), the diametral lens is
+             just big enough to enclose two isosceles triangles whose bases are the
+             subsegment. Each of the two isosceles triangles has two angles equal
+             to 'b.minangle'.
+            
+             Chew's algorithm does not require diametral lenses at all--but they save
+             time. Any vertex inside a subsegment's diametral lens implies that the
+             triangle adjoining the subsegment will be too skinny, so it's only a
+             matter of time before the encroaching vertex is deleted by Chew's
+             algorithm. It's faster to simply not insert the doomed vertex in the
+             first place, which is why I use diametral lenses with Chew's algorithm.
+             </remarks>
+        </member>
+        <member name="M:TriangleNet.Quality.TestTriangle(TriangleNet.Data.Otri@)">
+            <summary>
+            Test a triangle for quality and size.
+            </summary>
+            <param name="testtri">Triangle to check.</param>
+            <remarks>
+            Tests a triangle to see if it satisfies the minimum angle condition and
+            the maximum area condition.  Triangles that aren't up to spec are added
+            to the bad triangle queue.
+            </remarks>
+        </member>
+        <member name="M:TriangleNet.Quality.TallyEncs">
+            <summary>
+            Traverse the entire list of subsegments, and check each to see if it 
+            is encroached. If so, add it to the list.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Quality.SplitEncSegs(System.Boolean)">
+            <summary>
+            Split all the encroached subsegments.
+            </summary>
+            <param name="triflaws">A flag that specifies whether one should take 
+            note of new bad triangles that result from inserting vertices to repair 
+            encroached subsegments.</param>
+            <remarks>
+            Each encroached subsegment is repaired by splitting it - inserting a
+            vertex at or near its midpoint.  Newly inserted vertices may encroach
+            upon other subsegments; these are also repaired.
+            </remarks>
+        </member>
+        <member name="M:TriangleNet.Quality.TallyFaces">
+            <summary>
+            Test every triangle in the mesh for quality measures.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Quality.SplitTriangle(TriangleNet.Data.BadTriangle)">
+            <summary>
+            Inserts a vertex at the circumcenter of a triangle. Deletes 
+            the newly inserted vertex if it encroaches upon a segment.
+            </summary>
+            <param name="badtri"></param>
+        </member>
+        <member name="M:TriangleNet.Quality.EnforceQuality">
+            <summary>
+            Remove all the encroached subsegments and bad triangles from the triangulation.
+            </summary>
+        </member>
+        <member name="T:TriangleNet.Sampler">
+            <summary>
+            Used for triangle sampling in the Mesh.Locate method.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Sampler.Reset">
+            <summary>
+            Reset the sampler.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Sampler.Update(TriangleNet.Mesh)">
+            <summary>
+            Update sampling parameters if mesh changed.
+            </summary>
+            <param name="mesh">Current mesh.</param>
+        </member>
+        <member name="M:TriangleNet.Sampler.Update(TriangleNet.Mesh,System.Boolean)">
+            <summary>
+            Update sampling parameters if mesh changed.
+            </summary>
+            <param name="mesh">Current mesh.</param>
+        </member>
+        <member name="M:TriangleNet.Sampler.GetSamples(TriangleNet.Mesh)">
+            <summary>
+            Get a random sample set of triangle keys.
+            </summary>
+            <returns>Array of triangle keys.</returns>
+        </member>
+        <member name="T:TriangleNet.Smoothing.ISmoother">
+            <summary>
+            Interface for mesh smoothers.
+            </summary>
+        </member>
+        <member name="T:TriangleNet.Smoothing.SimpleSmoother">
+            <summary>
+            Simple mesh smoother implementation.
+            </summary>
+            <remarks>
+            Vertices wich should not move (e.g. segment vertices) MUST have a
+            boundary mark greater than 0.
+            </remarks>
+        </member>
+        <member name="M:TriangleNet.Smoothing.SimpleSmoother.Step">
+            <summary>
+            Smooth all free nodes.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Smoothing.SimpleSmoother.Rebuild">
+            <summary>
+            Rebuild the input geometry.
+            </summary>
+        </member>
+        <member name="T:TriangleNet.Tools.AdjacencyMatrix">
+            <summary>
+            The adjacency matrix of the mesh.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Tools.AdjacencyMatrix.Bandwidth">
+            <summary>
+            Computes the bandwidth of an adjacency matrix.
+            </summary>
+            <returns>Bandwidth of the adjacency matrix.</returns>
+        </member>
+        <member name="M:TriangleNet.Tools.AdjacencyMatrix.AdjacencyCount(TriangleNet.Mesh)">
+             <summary>
+             Counts adjacencies in a triangulation.
+             </summary>
+             <remarks>
+             This routine is called to count the adjacencies, so that the
+             appropriate amount of memory can be set aside for storage when
+             the adjacency structure is created.
+            
+             The triangulation is assumed to involve 3-node triangles.
+            
+             Two nodes are "adjacent" if they are both nodes in some triangle.
+             Also, a node is considered to be adjacent to itself.
+            
+             Diagram:
+            
+                   3
+                s  |\
+                i  | \
+                d  |  \
+                e  |   \  side 1
+                   |    \
+                2  |     \
+                   |      \
+                   1-------2
+            
+                     side 3
+             </remarks>
+        </member>
+        <member name="M:TriangleNet.Tools.AdjacencyMatrix.AdjacencySet(TriangleNet.Mesh,System.Int32[])">
+            <summary>
+            Sets adjacencies in a triangulation.
+            </summary>
+            <remarks>
+            This routine can be used to create the compressed column storage
+            for a linear triangle finite element discretization of Poisson's
+            equation in two dimensions.
+            </remarks>
+        </member>
+        <member name="M:TriangleNet.Tools.AdjacencyMatrix.CreateHeap(System.Int32[],System.Int32,System.Int32)">
+             <summary>
+             Reorders an array of integers into a descending heap.
+             </summary>
+             <param name="size">the size of the input array.</param>
+             <param name="a">an unsorted array.</param>
+             <remarks>
+             A heap is an array A with the property that, for every index J,
+             A[J] >= A[2*J+1] and A[J] >= A[2*J+2], (as long as the indices
+             2*J+1 and 2*J+2 are legal).
+            
+             Diagram:
+            
+                              A(0)
+                            /      \
+                        A(1)         A(2)
+                      /     \        /  \
+                  A(3)       A(4)  A(5) A(6)
+                  /  \       /   \
+                A(7) A(8)  A(9) A(10)
+             </remarks>
+        </member>
+        <member name="M:TriangleNet.Tools.AdjacencyMatrix.HeapSort(System.Int32[],System.Int32,System.Int32)">
+            <summary>
+            ascending sorts an array of integers using heap sort.
+            </summary>
+            <param name="size">Number of entries in the array.</param>
+            <param name="a">Array to be sorted;</param>
+        </member>
+        <member name="T:TriangleNet.Tools.BoundedVoronoi">
+            <summary>
+            The Bounded Voronoi Diagram is the dual of a PSLG triangulation.
+            </summary>
+            <remarks>
+            2D Centroidal Voronoi Tessellations with Constraints, 2010,
+            Jane Tournois, Pierre Alliez and Olivier Devillers
+            </remarks>
+        </member>
+        <member name="M:TriangleNet.Tools.BoundedVoronoi.#ctor(TriangleNet.Mesh)">
+            <summary>
+            Initializes a new instance of the <see cref="T:TriangleNet.Tools.BoundedVoronoi" /> class.
+            </summary>
+            <param name="mesh">Mesh instance.</param>
+        </member>
+        <member name="M:TriangleNet.Tools.BoundedVoronoi.#ctor(TriangleNet.Mesh,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:TriangleNet.Tools.BoundedVoronoi" /> class.
+            </summary>
+            <param name="mesh">Mesh instance.</param>
+        </member>
+        <member name="P:TriangleNet.Tools.BoundedVoronoi.Points">
+            <summary>
+            Gets the list of Voronoi vertices.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Tools.BoundedVoronoi.Regions">
+            <summary>
+            Gets the list of Voronoi regions.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Tools.BoundedVoronoi.Generate">
+            <summary>
+            Computes the bounded voronoi diagram.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Tools.BoundedVoronoi.TagBlindTriangles">
+            <summary>
+            Tag all blind triangles.
+            </summary>
+            <remarks>
+            A triangle is said to be blind if the triangle and its circumcenter
+            lie on two different sides of a constrained edge.
+            </remarks>
+        </member>
+        <member name="M:TriangleNet.Tools.BoundedVoronoi.TriangleIsBlinded(TriangleNet.Data.Otri@,TriangleNet.Data.Osub@)">
+            <summary>
+            Check if given triangle is blinded by given segment.
+            </summary>
+            <param name="tri">Triangle.</param>
+            <param name="seg">Segments</param>
+            <returns>Returns true, if the triangle is blinded.</returns>
+        </member>
+        <member name="M:TriangleNet.Tools.BoundedVoronoi.SegmentsIntersect(TriangleNet.Geometry.Point,TriangleNet.Geometry.Point,TriangleNet.Geometry.Point,TriangleNet.Geometry.Point,TriangleNet.Geometry.Point@,System.Boolean)">
+            <summary>
+            Determines the intersection point of the line segment defined by points A and B with the 
+            line segment defined by points C and D.
+            </summary>
+            <param name="seg">The first segment AB.</param>
+            <param name="pc">Endpoint C of second segment.</param>
+            <param name="pd">Endpoint D of second segment.</param>
+            <param name="p">Reference to the intersection point.</param>
+            <param name="strictIntersect">If false, pa and pb represent a line.</param>
+            <returns>Returns true if the intersection point was found, and stores that point in X,Y.
+            Returns false if there is no determinable intersection point, in which case X,Y will
+            be unmodified.
+            </returns>
+        </member>
+        <member name="T:TriangleNet.Tools.CuthillMcKee">
+            <summary>
+            Applies the Cuthill and McKee renumbering algorithm to reduce the bandwidth of
+            the adjacency matrix associated with the mesh.
+            </summary>
+            <remarks>
+            Some useful slides:
+            http://bobbyness.net/NerdyStuff/node%20ordering/node_ordering.html
+            </remarks>
+        </member>
+        <member name="M:TriangleNet.Tools.CuthillMcKee.Renumber(TriangleNet.Mesh)">
+            <summary>
+            Gets the permutation vector for the Reverse Cuthill-McKee numbering.
+            </summary>
+            <param name="mesh">The mesh.</param>
+            <returns>Permutation vector.</returns>
+        </member>
+        <member name="M:TriangleNet.Tools.CuthillMcKee.PermBandwidth(System.Int32[],System.Int32[])">
+            <summary>
+            Computes the bandwidth of a permuted adjacency matrix.
+            </summary>
+            <param name="perm">The permutation.</param>
+            <param name="perm_inv">The inverse permutation.</param>
+            <returns>Bandwidth of the permuted adjacency matrix.</returns>
+            <remarks>
+            The matrix is defined by the adjacency information and a permutation.  
+            The routine also computes the bandwidth and the size of the envelope.
+            </remarks>
+        </member>
+        <member name="M:TriangleNet.Tools.CuthillMcKee.GenerateRcm">
+            <summary>
+            Finds the reverse Cuthill-Mckee ordering for a general graph.
+            </summary>
+            <returns>The RCM ordering.</returns>
+            <remarks>
+            For each connected component in the graph, the routine obtains
+            an ordering by calling RCM.
+            </remarks>
+        </member>
+        <member name="M:TriangleNet.Tools.CuthillMcKee.Rcm(System.Int32,System.Int32[],System.Int32[],System.Int32,System.Int32@)">
+             <summary>
+             RCM renumbers a connected component by the reverse Cuthill McKee algorithm.
+             </summary>
+             <param name="root">the node that defines the connected component. It is used as the starting 
+             point for the RCM ordering.</param>
+             <param name="mask">Input/output, int MASK(NODE_NUM), a mask for the nodes. Only those nodes with 
+             nonzero input mask values are considered by the routine. The nodes numbered by RCM will have 
+             their mask values set to zero.</param>
+             <param name="perm">Output, int PERM(NODE_NUM), the RCM ordering.</param>
+             <param name="iccsze">Output, int ICCSZE, the size of the connected component that has been numbered.</param>
+             <param name="node_num">the number of nodes.</param>
+             <remarks>
+                The connected component is specified by a node ROOT and a mask.
+                The numbering starts at the root node.
+            
+                An outline of the algorithm is as follows:
+            
+                X(1) = ROOT.
+            
+                for ( I = 1 to N-1)
+                  Find all unlabeled neighbors of X(I),
+                  assign them the next available labels, in order of increasing degree.
+            
+                When done, reverse the ordering.
+             </remarks>
+        </member>
+        <member name="M:TriangleNet.Tools.CuthillMcKee.FindRoot(System.Int32@,System.Int32[],System.Int32@,System.Int32[],System.Int32[],System.Int32)">
+             <summary>
+             Finds a pseudo-peripheral node.
+             </summary>
+             <param name="root">On input, ROOT is a node in the the component of the graph for 
+             which a pseudo-peripheral node is sought. On output, ROOT is the pseudo-peripheral 
+             node obtained.</param>
+             <param name="mask">MASK[NODE_NUM], specifies a section subgraph. Nodes for which MASK 
+             is zero are ignored by FNROOT.</param>
+             <param name="level_num">Output, int LEVEL_NUM, is the number of levels in the level 
+             structure rooted at the node ROOT.</param>
+             <param name="level_row">Output, int LEVEL_ROW(NODE_NUM+1), the level structure array pair 
+             containing the level structure found.</param>
+             <param name="level">Output, int LEVEL(NODE_NUM), the level structure array pair 
+             containing the level structure found.</param>
+             <param name="node_num">the number of nodes.</param>
+             <remarks>
+             The diameter of a graph is the maximum distance (number of edges)
+             between any two nodes of the graph.
+            
+             The eccentricity of a node is the maximum distance between that
+             node and any other node of the graph.
+            
+             A peripheral node is a node whose eccentricity equals the
+             diameter of the graph.
+            
+             A pseudo-peripheral node is an approximation to a peripheral node;
+             it may be a peripheral node, but all we know is that we tried our
+             best.
+            
+             The routine is given a graph, and seeks pseudo-peripheral nodes,
+             using a modified version of the scheme of Gibbs, Poole and
+             Stockmeyer.  It determines such a node for the section subgraph
+             specified by MASK and ROOT.
+            
+             The routine also determines the level structure associated with
+             the given pseudo-peripheral node; that is, how far each node
+             is from the pseudo-peripheral node.  The level structure is
+             returned as a list of nodes LS, and pointers to the beginning
+             of the list of nodes that are at a distance of 0, 1, 2, ...,
+             NODE_NUM-1 from the pseudo-peripheral node.
+            
+             Reference:
+                Alan George, Joseph Liu,
+                Computer Solution of Large Sparse Positive Definite Systems,
+                Prentice Hall, 1981.
+            
+                Norman Gibbs, William Poole, Paul Stockmeyer,
+                An Algorithm for Reducing the Bandwidth and Profile of a Sparse Matrix,
+                SIAM Journal on Numerical Analysis,
+                Volume 13, pages 236-250, 1976.
+            
+                Norman Gibbs,
+                Algorithm 509: A Hybrid Profile Reduction Algorithm,
+                ACM Transactions on Mathematical Software,
+                Volume 2, pages 378-387, 1976.
+             </remarks>
+        </member>
+        <member name="M:TriangleNet.Tools.CuthillMcKee.GetLevelSet(System.Int32@,System.Int32[],System.Int32@,System.Int32[],System.Int32[],System.Int32)">
+             <summary>
+             Generates the connected level structure rooted at a given node.
+             </summary>
+             <param name="root">the node at which the level structure is to be rooted.</param>
+             <param name="mask">MASK[NODE_NUM]. On input, only nodes with nonzero MASK are to be processed. 
+             On output, those nodes which were included in the level set have MASK set to 1.</param>
+             <param name="level_num">Output, int LEVEL_NUM, the number of levels in the level structure. ROOT is 
+             in level 1.  The neighbors of ROOT are in level 2, and so on.</param>
+             <param name="level_row">Output, int LEVEL_ROW[NODE_NUM+1], the rooted level structure.</param>
+             <param name="level">Output, int LEVEL[NODE_NUM], the rooted level structure.</param>
+             <param name="node_num">the number of nodes.</param>
+             <remarks>
+             Only nodes for which MASK is nonzero will be considered.
+            
+             The root node chosen by the user is assigned level 1, and masked.
+             All (unmasked) nodes reachable from a node in level 1 are
+             assigned level 2 and masked.  The process continues until there
+             are no unmasked nodes adjacent to any node in the current level.
+             The number of levels may vary between 2 and NODE_NUM.
+            
+             Reference:
+                Alan George, Joseph Liu,
+                Computer Solution of Large Sparse Positive Definite Systems,
+                Prentice Hall, 1981.
+             </remarks>
+        </member>
+        <member name="M:TriangleNet.Tools.CuthillMcKee.Degree(System.Int32,System.Int32[],System.Int32[],System.Int32@,System.Int32[],System.Int32)">
+             <summary>
+             Computes the degrees of the nodes in the connected component.
+             </summary>
+             <param name="root">the node that defines the connected component.</param>
+             <param name="mask">MASK[NODE_NUM], is nonzero for those nodes which are to be considered.</param>
+             <param name="deg">Output, int DEG[NODE_NUM], contains, for each  node in the connected component, its degree.</param>
+             <param name="iccsze">Output, int ICCSIZE, the number of nodes in the connected component.</param>
+             <param name="ls">Output, int LS[NODE_NUM], stores in entries 1 through ICCSIZE the nodes in the 
+             connected component, starting with ROOT, and proceeding by levels.</param>
+             <param name="node_num">the number of nodes.</param>
+             <remarks>
+                The connected component is specified by MASK and ROOT.
+                Nodes for which MASK is zero are ignored.
+            
+              Reference:
+                Alan George, Joseph Liu,
+                Computer Solution of Large Sparse Positive Definite Systems,
+                Prentice Hall, 1981.
+             </remarks>
+        </member>
+        <member name="M:TriangleNet.Tools.CuthillMcKee.PermInverse(System.Int32,System.Int32[])">
+            <summary>
+            Produces the inverse of a given permutation.
+            </summary>
+            <param name="n">Number of items permuted.</param>
+            <param name="perm">PERM[N], a permutation.</param>
+            <returns>The inverse permutation.</returns>
+        </member>
+        <member name="M:TriangleNet.Tools.CuthillMcKee.ReverseVector(System.Int32[],System.Int32,System.Int32)">
+             <summary>
+             Reverses the elements of an integer vector.
+             </summary>
+             <param name="size">number of entries in the array.</param>
+             <param name="a">the array to be reversed.</param>
+             <example>
+               Input:
+                 N = 5,
+                 A = ( 11, 12, 13, 14, 15 ).
+            
+               Output:
+                 A = ( 15, 14, 13, 12, 11 ).
+             </example>
+        </member>
+        <member name="T:TriangleNet.Tools.IVoronoi">
+            <summary>
+            TODO: Update summary.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Tools.IVoronoi.Points">
+            <summary>
+            Gets the list of Voronoi vertices.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Tools.IVoronoi.Regions">
+            <summary>
+            Gets the list of Voronoi regions.
+            </summary>
+        </member>
+        <member name="T:TriangleNet.Tools.QuadTree">
+            <summary>
+            A Quadtree implementation optimised for triangles.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Tools.QuadTree.#ctor(TriangleNet.Mesh,System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:TriangleNet.Tools.QuadTree" /> class.
+            </summary>
+            <param name="mesh">Mesh containing triangles.</param>
+            <param name="maxDepth">The maximum depth of the tree.</param>
+            <param name="sizeBound">The maximum number of triangles contained in a leaf.</param>
+            <remarks>
+            The quadtree does not track changes of the mesh. If a mesh is refined or
+            changed in any other way, a new quadtree has to be built to make the point
+            location work.
+            
+            A node of the tree will be split, if its level if less than the max depth parameter
+            AND the number of triangles in the node is greater than the size bound.
+            </remarks>
+        </member>
+        <member name="M:TriangleNet.Tools.QuadTree.IsPointInTriangle(TriangleNet.Geometry.Point,TriangleNet.Geometry.Point,TriangleNet.Geometry.Point,TriangleNet.Geometry.Point)">
+            <summary>
+            Test, if a given point lies inside a triangle.
+            </summary>
+            <param name="p">Point to locate.</param>
+            <param name="t0">Corner point of triangle.</param>
+            <param name="t1">Corner point of triangle.</param>
+            <param name="t2">Corner point of triangle.</param>
+            <returns>True, if point is inside or on the edge of this triangle.</returns>
+        </member>
+        <member name="T:TriangleNet.Tools.QuadNode">
+            <summary>
+            A node of the quadtree.
+            </summary>
+        </member>
+        <member name="T:TriangleNet.Tools.QualityMeasure">
+            <summary>
+            Provides mesh quality information.
+            </summary>
+            <remarks>
+            Given a triangle abc with points A (ax, ay), B (bx, by), C (cx, cy).
+            
+            The side lengths are given as
+              a = sqrt((cx - bx)^2 + (cy - by)^2) -- side BC opposite of A
+              b = sqrt((cx - ax)^2 + (cy - ay)^2) -- side CA opposite of B
+              c = sqrt((ax - bx)^2 + (ay - by)^2) -- side AB opposite of C
+              
+            The angles are given as
+              ang_a = acos((b^2 + c^2 - a^2)  / (2 * b * c)) -- angle at A
+              ang_b = acos((c^2 + a^2 - b^2)  / (2 * c * a)) -- angle at B
+              ang_c = acos((a^2 + b^2 - c^2)  / (2 * a * b)) -- angle at C
+              
+            The semiperimeter is given as
+              s = (a + b + c) / 2
+              
+            The area is given as
+              D = abs(ax * (by - cy) + bx * (cy - ay) + cx * (ay - by)) / 2
+                = sqrt(s * (s - a) * (s - b) * (s - c))
+                 
+            The inradius is given as
+              r = D / s
+              
+            The circumradius is given as
+              R = a * b * c / (4 * D)
+            
+            The altitudes are given as
+              alt_a = 2 * D / a -- altitude above side a
+              alt_b = 2 * D / b -- altitude above side b
+              alt_c = 2 * D / c -- altitude above side c
+            
+            The aspect ratio may be given as the ratio of the longest to the
+            shortest edge or, more commonly as the ratio of the circumradius 
+            to twice the inradius
+              ar = R / (2 * r)
+                 = a * b * c / (8 * (s - a) * (s - b) * (s - c))
+                 = a * b * c / ((b + c - a) * (c + a - b) * (a + b - c))
+            </remarks>
+        </member>
+        <member name="P:TriangleNet.Tools.QualityMeasure.AreaMinimum">
+            <summary>
+            Minimum triangle area.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Tools.QualityMeasure.AreaMaximum">
+            <summary>
+            Maximum triangle area.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Tools.QualityMeasure.AreaRatio">
+            <summary>
+            Ratio of maximum and minimum triangle area.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Tools.QualityMeasure.AlphaMinimum">
+            <summary>
+            Smallest angle.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Tools.QualityMeasure.AlphaMaximum">
+            <summary>
+            Maximum smallest angle.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Tools.QualityMeasure.AlphaAverage">
+            <summary>
+            Average angle.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Tools.QualityMeasure.AlphaArea">
+            <summary>
+            Average angle weighted by area.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Tools.QualityMeasure.Q_Minimum">
+            <summary>
+            Smallest aspect ratio.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Tools.QualityMeasure.Q_Maximum">
+            <summary>
+            Largest aspect ratio.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Tools.QualityMeasure.Q_Average">
+            <summary>
+            Average aspect ratio.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Tools.QualityMeasure.Q_Area">
+            <summary>
+            Average aspect ratio weighted by area.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Tools.QualityMeasure.Bandwidth">
+             <summary>
+             Determines the bandwidth of the coefficient matrix.
+             </summary>
+             <returns>Bandwidth of the coefficient matrix.</returns>
+             <remarks>
+             The quantity computed here is the "geometric" bandwidth determined
+             by the finite element mesh alone.
+            
+             If a single finite element variable is associated with each node
+             of the mesh, and if the nodes and variables are numbered in the
+             same way, then the geometric bandwidth is the same as the bandwidth
+             of a typical finite element matrix.
+            
+             The bandwidth M is defined in terms of the lower and upper bandwidths:
+            
+               M = ML + 1 + MU
+            
+             where 
+            
+               ML = maximum distance from any diagonal entry to a nonzero
+               entry in the same row, but earlier column,
+            
+               MU = maximum distance from any diagonal entry to a nonzero
+               entry in the same row, but later column.
+            
+             Because the finite element node adjacency relationship is symmetric,
+             we are guaranteed that ML = MU.
+             </remarks>
+        </member>
+        <member name="M:TriangleNet.Tools.QualityMeasure.AreaMeasure.Reset">
+            <summary>
+            Reset all values.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Tools.QualityMeasure.AreaMeasure.Measure(TriangleNet.Geometry.Point,TriangleNet.Geometry.Point,TriangleNet.Geometry.Point)">
+            <summary>
+            Compute the area of given triangle.
+            </summary>
+            <param name="a">Triangle corner a.</param>
+            <param name="b">Triangle corner b.</param>
+            <param name="c">Triangle corner c.</param>
+            <returns>Triangle area.</returns>
+        </member>
+        <member name="T:TriangleNet.Tools.QualityMeasure.AlphaMeasure">
+             <summary>
+             The alpha measure determines the triangulated pointset quality.
+             </summary>
+             <remarks>
+             The alpha measure evaluates the uniformity of the shapes of the triangles
+             defined by a triangulated pointset.
+            
+             We compute the minimum angle among all the triangles in the triangulated
+             dataset and divide by the maximum possible value (which, in degrees,
+             is 60). The best possible value is 1, and the worst 0. A good
+             triangulation should have an alpha score close to 1.
+             </remarks>
+        </member>
+        <member name="M:TriangleNet.Tools.QualityMeasure.AlphaMeasure.Reset">
+            <summary>
+            Reset all values.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Tools.QualityMeasure.AlphaMeasure.Measure(System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Compute q value of given triangle.
+            </summary>
+            <param name="ab">Side length ab.</param>
+            <param name="bc">Side length bc.</param>
+            <param name="ca">Side length ca.</param>
+            <param name="area">Triangle area.</param>
+            <returns></returns>
+        </member>
+        <member name="M:TriangleNet.Tools.QualityMeasure.AlphaMeasure.Normalize(System.Int32,System.Double)">
+            <summary>
+            Normalize values.
+            </summary>
+        </member>
+        <member name="T:TriangleNet.Tools.QualityMeasure.Q_Measure">
+             <summary>
+             The Q measure determines the triangulated pointset quality.
+             </summary>
+             <remarks>
+             The Q measure evaluates the uniformity of the shapes of the triangles
+             defined by a triangulated pointset. It uses the aspect ratio
+            
+                2 * (incircle radius) / (circumcircle radius)
+            
+             In an ideally regular mesh, all triangles would have the same
+             equilateral shape, for which Q = 1. A good mesh would have
+             0.5 &lt; Q.
+             </remarks>
+        </member>
+        <member name="M:TriangleNet.Tools.QualityMeasure.Q_Measure.Reset">
+            <summary>
+            Reset all values.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Tools.QualityMeasure.Q_Measure.Measure(System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Compute q value of given triangle.
+            </summary>
+            <param name="ab">Side length ab.</param>
+            <param name="bc">Side length bc.</param>
+            <param name="ca">Side length ca.</param>
+            <param name="area">Triangle area.</param>
+            <returns></returns>
+        </member>
+        <member name="M:TriangleNet.Tools.QualityMeasure.Q_Measure.Normalize(System.Int32,System.Double)">
+            <summary>
+            Normalize values.
+            </summary>
+        </member>
+        <member name="T:TriangleNet.Tools.RegionIterator">
+            <summary>
+            Iterates the region a given triangle belongs to and applies an action
+            to each connected trianlge in that region. Default action is to set the 
+            region id.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Tools.RegionIterator.ProcessRegion(System.Action{TriangleNet.Data.Triangle})">
+             <summary>
+             Spread regional attributes and/or area constraints (from a .poly file) 
+             throughout the mesh.
+             </summary>
+             <param name="attribute"></param>
+             <param name="area"></param>
+             <remarks>
+             This procedure operates in two phases. The first phase spreads an
+             attribute and/or an area constraint through a (segment-bounded) region.
+             The triangles are marked to ensure that each triangle is added to the
+             virus pool only once, so the procedure will terminate.
+            
+             The second phase uninfects all infected triangles, returning them to
+             normal.
+             </remarks>
+        </member>
+        <member name="M:TriangleNet.Tools.RegionIterator.Process(TriangleNet.Data.Triangle)">
+            <summary>
+            Set the region attribute of all trianlges connected to given triangle.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Tools.RegionIterator.Process(TriangleNet.Data.Triangle,System.Action{TriangleNet.Data.Triangle})">
+            <summary>
+            Process all trianlges connected to given triangle and apply given action.
+            </summary>
+        </member>
+        <member name="T:TriangleNet.Tools.Statistic">
+            <summary>
+            Gather mesh statistics.
+            </summary>
+        </member>
+        <member name="F:TriangleNet.Tools.Statistic.InCircleCount">
+            <summary>
+            Number of incircle tests performed.
+            </summary>
+        </member>
+        <member name="F:TriangleNet.Tools.Statistic.CounterClockwiseCount">
+            <summary>
+            Number of counterclockwise tests performed.
+            </summary>
+        </member>
+        <member name="F:TriangleNet.Tools.Statistic.Orient3dCount">
+            <summary>
+            Number of 3D orientation tests performed.
+            </summary>
+        </member>
+        <member name="F:TriangleNet.Tools.Statistic.HyperbolaCount">
+            <summary>
+            Number of right-of-hyperbola tests performed.
+            </summary>
+        </member>
+        <member name="F:TriangleNet.Tools.Statistic.CircumcenterCount">
+            <summary>
+            // Number of circumcenter calculations performed.
+            </summary>
+        </member>
+        <member name="F:TriangleNet.Tools.Statistic.CircleTopCount">
+            <summary>
+            Number of circle top calculations performed.
+            </summary>
+        </member>
+        <member name="F:TriangleNet.Tools.Statistic.RelocationCount">
+            <summary>
+            Number of vertex relocations.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Tools.Statistic.ShortestEdge">
+            <summary>
+            Gets the shortest edge.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Tools.Statistic.LongestEdge">
+            <summary>
+            Gets the longest edge.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Tools.Statistic.ShortestAltitude">
+            <summary>
+            Gets the shortest altitude.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Tools.Statistic.LargestAspectRatio">
+            <summary>
+            Gets the largest aspect ratio.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Tools.Statistic.SmallestArea">
+            <summary>
+            Gets the smallest area.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Tools.Statistic.LargestArea">
+            <summary>
+            Gets the largest area.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Tools.Statistic.SmallestAngle">
+            <summary>
+            Gets the smallest angle.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Tools.Statistic.LargestAngle">
+            <summary>
+            Gets the largest angle.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Tools.Statistic.InputVertices">
+            <summary>
+            Gets the number of input vertices.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Tools.Statistic.InputTriangles">
+            <summary>
+            Gets the number of input triangles.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Tools.Statistic.InputSegments">
+            <summary>
+            Gets the number of input segments.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Tools.Statistic.InputHoles">
+            <summary>
+            Gets the number of input holes.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Tools.Statistic.Vertices">
+            <summary>
+            Gets the number of mesh vertices.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Tools.Statistic.Triangles">
+            <summary>
+            Gets the number of mesh triangles.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Tools.Statistic.Edges">
+            <summary>
+            Gets the number of mesh edges.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Tools.Statistic.BoundaryEdges">
+            <summary>
+            Gets the number of exterior boundary edges.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Tools.Statistic.InteriorBoundaryEdges">
+            <summary>
+            Gets the number of interior boundary edges.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Tools.Statistic.ConstrainedEdges">
+            <summary>
+            Gets the number of constrained edges.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Tools.Statistic.AngleHistogram">
+            <summary>
+            Gets the angle histogram.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Tools.Statistic.MinAngleHistogram">
+            <summary>
+            Gets the min angles histogram.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Tools.Statistic.MaxAngleHistogram">
+            <summary>
+            Gets the max angles histogram.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Tools.Statistic.Update(TriangleNet.Mesh,System.Int32)">
+            <summary>
+            Update statistics about the quality of the mesh.
+            </summary>
+            <param name="mesh"></param>
+        </member>
+        <member name="T:TriangleNet.Tools.Voronoi">
+            <summary>
+            The Voronoi Diagram is the dual of a pointset triangulation.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Tools.Voronoi.#ctor(TriangleNet.Mesh)">
+            <summary>
+            Initializes a new instance of the <see cref="T:TriangleNet.Tools.Voronoi" /> class.
+            </summary>
+            <param name="mesh"></param>
+            <remarks>
+            Be sure MakeVertexMap has been called (should always be the case).
+            </remarks>
+        </member>
+        <member name="P:TriangleNet.Tools.Voronoi.Points">
+            <summary>
+            Gets the list of Voronoi vertices.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Tools.Voronoi.Regions">
+            <summary>
+            Gets the list of Voronoi regions.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.Tools.Voronoi.Generate">
+             <summary>
+             Gets the Voronoi diagram as raw output data.
+             </summary>
+             <param name="mesh"></param>
+             <returns></returns>
+             <remarks>
+             The Voronoi diagram is the geometric dual of the Delaunay triangulation.
+             Hence, the Voronoi vertices are listed by traversing the Delaunay
+             triangles, and the Voronoi edges are listed by traversing the Delaunay
+             edges.
+            </remarks>
+        </member>
+        <member name="M:TriangleNet.Tools.Voronoi.ConstructVoronoiRegion(TriangleNet.Data.Vertex)">
+            <summary>
+            Construct Voronoi region for given vertex.
+            </summary>
+            <param name="vertex"></param>
+            <returns>The circumcenter indices which make up the cell.</returns>
+        </member>
+        <member name="T:TriangleNet.Tools.VoronoiRegion">
+            <summary>
+            Represents a region in the Voronoi diagram.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Tools.VoronoiRegion.ID">
+            <summary>
+            Gets the Voronoi region id (which is the same as the generators vertex id).
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Tools.VoronoiRegion.Generator">
+            <summary>
+            Gets the Voronoi regions generator.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Tools.VoronoiRegion.Vertices">
+            <summary>
+            Gets the Voronoi vertices on the regions boundary.
+            </summary>
+        </member>
+        <member name="P:TriangleNet.Tools.VoronoiRegion.Bounded">
+            <summary>
+            Gets or sets whether the Voronoi region is bounded.
+            </summary>
+        </member>
+        <member name="T:TriangleNet.TriangleLocator">
+            <summary>
+            TODO: Update summary.
+            </summary>
+        </member>
+        <member name="M:TriangleNet.TriangleLocator.PreciseLocate(TriangleNet.Geometry.Point,TriangleNet.Data.Otri@,System.Boolean)">
+             <summary>
+             Find a triangle or edge containing a given point.
+             </summary>
+             <param name="searchpoint">The point to locate.</param>
+             <param name="searchtri">The triangle to start the search at.</param>
+             <param name="stopatsubsegment"> If 'stopatsubsegment' is set, the search 
+             will stop if it tries to walk through a subsegment, and will return OUTSIDE.</param>
+             <returns>Location information.</returns>
+             <remarks>
+             Begins its search from 'searchtri'. It is important that 'searchtri'
+             be a handle with the property that 'searchpoint' is strictly to the left
+             of the edge denoted by 'searchtri', or is collinear with that edge and
+             does not intersect that edge. (In particular, 'searchpoint' should not
+             be the origin or destination of that edge.)
+            
+             These conditions are imposed because preciselocate() is normally used in
+             one of two situations:
+            
+             (1)  To try to find the location to insert a new point.  Normally, we
+                  know an edge that the point is strictly to the left of. In the
+                  incremental Delaunay algorithm, that edge is a bounding box edge.
+                  In Ruppert's Delaunay refinement algorithm for quality meshing,
+                  that edge is the shortest edge of the triangle whose circumcenter
+                  is being inserted.
+            
+             (2)  To try to find an existing point.  In this case, any edge on the
+                  convex hull is a good starting edge. You must screen out the
+                  possibility that the vertex sought is an endpoint of the starting
+                  edge before you call preciselocate().
+            
+             On completion, 'searchtri' is a triangle that contains 'searchpoint'.
+            
+             This implementation differs from that given by Guibas and Stolfi.  It
+             walks from triangle to triangle, crossing an edge only if 'searchpoint'
+             is on the other side of the line containing that edge. After entering
+             a triangle, there are two edges by which one can leave that triangle.
+             If both edges are valid ('searchpoint' is on the other side of both
+             edges), one of the two is chosen by drawing a line perpendicular to
+             the entry edge (whose endpoints are 'forg' and 'fdest') passing through
+             'fapex'. Depending on which side of this perpendicular 'searchpoint'
+             falls on, an exit edge is chosen.
+            
+             This implementation is empirically faster than the Guibas and Stolfi
+             point location routine (which I originally used), which tends to spiral
+             in toward its target.
+            
+             Returns ONVERTEX if the point lies on an existing vertex. 'searchtri'
+             is a handle whose origin is the existing vertex.
+            
+             Returns ONEDGE if the point lies on a mesh edge. 'searchtri' is a
+             handle whose primary edge is the edge on which the point lies.
+            
+             Returns INTRIANGLE if the point lies strictly within a triangle.
+             'searchtri' is a handle on the triangle that contains the point.
+            
+             Returns OUTSIDE if the point lies outside the mesh. 'searchtri' is a
+             handle whose primary edge the point is to the right of.  This might
+             occur when the circumcenter of a triangle falls just slightly outside
+             the mesh due to floating-point roundoff error. It also occurs when
+             seeking a hole or region point that a foolish user has placed outside
+             the mesh.
+            
+             WARNING:  This routine is designed for convex triangulations, and will
+             not generally work after the holes and concavities have been carved.
+             However, it can still be used to find the circumcenter of a triangle, as
+             long as the search is begun from the triangle in question.</remarks>
+        </member>
+        <member name="M:TriangleNet.TriangleLocator.Locate(TriangleNet.Geometry.Point,TriangleNet.Data.Otri@)">
+             <summary>
+             Find a triangle or edge containing a given point.
+             </summary>
+             <param name="searchpoint">The point to locate.</param>
+             <param name="searchtri">The triangle to start the search at.</param>
+             <returns>Location information.</returns>
+             <remarks>
+             Searching begins from one of:  the input 'searchtri', a recently
+             encountered triangle 'recenttri', or from a triangle chosen from a
+             random sample. The choice is made by determining which triangle's
+             origin is closest to the point we are searching for. Normally,
+             'searchtri' should be a handle on the convex hull of the triangulation.
+            
+             Details on the random sampling method can be found in the Mucke, Saias,
+             and Zhu paper cited in the header of this code.
+            
+             On completion, 'searchtri' is a triangle that contains 'searchpoint'.
+            
+             Returns ONVERTEX if the point lies on an existing vertex. 'searchtri'
+             is a handle whose origin is the existing vertex.
+            
+             Returns ONEDGE if the point lies on a mesh edge. 'searchtri' is a
+             handle whose primary edge is the edge on which the point lies.
+            
+             Returns INTRIANGLE if the point lies strictly within a triangle.
+             'searchtri' is a handle on the triangle that contains the point.
+            
+             Returns OUTSIDE if the point lies outside the mesh. 'searchtri' is a
+             handle whose primary edge the point is to the right of.  This might
+             occur when the circumcenter of a triangle falls just slightly outside
+             the mesh due to floating-point roundoff error. It also occurs when
+             seeking a hole or region point that a foolish user has placed outside
+             the mesh.
+            
+             WARNING:  This routine is designed for convex triangulations, and will
+             not generally work after the holes and concavities have been carved.
+             </remarks>
+        </member>
+        <member name="T:UnityEditor.UI.ExtensionMenuOptions">
+            <summary>
+            This script adds the Extensions UI menu options to the Unity Editor.
+            </summary>
+        </member>
+    </members>
+</doc>
