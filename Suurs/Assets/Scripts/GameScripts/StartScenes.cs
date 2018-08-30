@@ -114,7 +114,10 @@ public class StartScenes : MonoBehaviour
                 {
                     _stateScene = StateScene.Finish;
                     _imageSprite.enabled = true;
-                    UIController.instance.HideUI();
+										var count = PlayerPrefs.GetInt("CountChangeLevel");
+										count++;
+										PlayerPrefs.SetInt("CountChangeLevel", count);
+										UIController.instance.HideUI();
                     StartCoroutine(AsyncLoad());
                 }
                 break;
@@ -152,8 +155,11 @@ public class StartScenes : MonoBehaviour
         {
             if (operation.progress == 0.9f)
             {
-                if (UIController.instance.ad.IsLoaded())
-                    UIController.instance.ad.Show();
+                if (UIController.instance.ad.IsLoaded() && PlayerPrefs.GetInt("CountChangeLevel") == 3)
+								{
+										UIController.instance.ad.Show();
+										PlayerPrefs.SetInt("CountChangeLevel", 0);
+								}
                 if (_isLoaded)
                     operation.allowSceneActivation = true;
             }

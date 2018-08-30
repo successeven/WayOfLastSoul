@@ -52,7 +52,7 @@ public class HeroController : MonoBehaviour
 						Hero.instance.Motor.Attack();
 				}
 
-				int deltaRoll = (int)Math.Truncate((Time.fixedTime - Hero.instance.Motor._lastRollTime) * 1000);
+				float deltaRoll = Time.fixedTime - Hero.instance.Motor._lastRollTime;
 				if (CrossPlatformInputManager.GetButtonDown("Roll") && deltaRoll > Hero.instance.Manager._DeltaRoll)
 						Hero.instance.Motor.Roll();
 
@@ -80,7 +80,9 @@ public class HeroController : MonoBehaviour
 
 				if (_doubleBlock)
 				{
-						Hero.instance.Motor.StartBack_Slide();
+						float deltaBackSlide = Time.fixedTime - Hero.instance.Motor._lastBack_SlideTime;
+						if (deltaBackSlide > Hero.instance.Manager._DeltaBack_Slide)
+								Hero.instance.Motor.StartBack_Slide();
 						_doubleBlock = false;
 				}
 		}
@@ -88,9 +90,9 @@ public class HeroController : MonoBehaviour
 		void ResetStats()
 		{
 				Hero.instance.Manager._TakeDamage = false;
-			/*	if (Hero.instance.Motor._attacks)
-				{
-						Hero.instance.Motor.ResetAttack();
-				}*/
+				/*	if (Hero.instance.Motor._attacks)
+					{
+							Hero.instance.Motor.ResetAttack();
+					}*/
 		}
 }

@@ -89,7 +89,6 @@ public class FallenController : EnemyController
         if (_enemyManager._HP <= 0)
             return;
         _anima.SetTrigger("TakeHit");
-        _reciveDamage = false;
     }
 
     protected override void Die()

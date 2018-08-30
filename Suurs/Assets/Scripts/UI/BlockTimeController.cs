@@ -12,7 +12,7 @@ public class BlockTimeController : MonoBehaviour
 
 		void LateUpdate()
 		{
-				int deltaJump = (int)Math.Truncate((Time.fixedTime - Hero.instance.Motor._lastBack_SlideTime) * 1000);
-				_rollTimeImage.fillAmount = 1f - (Hero.instance.Manager._DeltaBack_Slide - deltaJump) / (float)Hero.instance.Manager._DeltaBack_Slide;
+				var deltatBack_SlideTime = Time.fixedTime - Hero.instance.Motor._lastBack_SlideTime;
+				_rollTimeImage.fillAmount = 1f - (Hero.instance.Manager._DeltaBack_Slide - deltatBack_SlideTime) / Hero.instance.Manager._DeltaBack_Slide;
 		}
 }
