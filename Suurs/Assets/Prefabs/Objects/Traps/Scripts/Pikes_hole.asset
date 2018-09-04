@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1893448595, guid: a040fb66244a7f54289914d98ea4ef7d, type: 3}
+  m_Name: Pikes_hole
+  m_EditorClassIdentifier: 
+  _data:
+    _json: '{"graph":{"variables":{"collection":{"$content":[],"$version":"A"},"$version":"A"},"controlInputDefinitions":[],"controlOutputDefinitions":[],"valueInputDefinitions":[],"valueOutputDefinitions":[],"title":null,"summary":null,"pan":{"x":115.4315,"y":-18.16357},"zoom":1.0,"elements":[{"chainable":false,"member":{"name":"CompareTag","parameterTypes":["System.String"],"targetType":"UnityEngine.GameObject","targetTypeName":"UnityEngine.GameObject","$version":"A"},"defaultValues":{"target":null,"%tag":{"$content":"Player","$type":"System.String"}},"position":{"x":-39.0,"y":0.0},"guid":"c9942eb5-3bed-44c5-95bc-6cd64f15e8f4","$version":"A","$type":"Bolt.InvokeMember","$id":"9"},{"argumentCount":0,"defaultValues":{"name":{"$content":"Death","$type":"System.String"},"target":null},"position":{"x":386.0,"y":-110.0},"guid":"e561863c-2b40-4f75-92d1-869afe149f4d","$version":"A","$type":"Bolt.TriggerCustomEvent","$id":"12"},{"defaultValues":{},"position":{"x":162.0,"y":-200.0},"guid":"84c29796-3689-44af-af46-4a744da85e10","$version":"A","$type":"Bolt.Branch","$id":"14"},{"coroutine":false,"defaultValues":{"target":null},"position":{"x":-336.0,"y":-207.0},"guid":"63ecd9c7-e594-4c92-913a-4c22f432f3ef","$version":"A","$type":"Bolt.OnCollisionEnter2D","$id":"16"},{"sourceUnit":{"$ref":"16"},"sourceKey":"trigger","destinationUnit":{"$ref":"14"},"destinationKey":"enter","guid":"a728fb7f-c37f-475d-9bc4-1cfac94b6a45","$type":"Bolt.ControlConnection"},{"sourceUnit":{"$ref":"14"},"sourceKey":"ifTrue","destinationUnit":{"$ref":"12"},"destinationKey":"enter","guid":"2c6afb9b-718e-45d1-866d-f6c11344b5f8","$type":"Bolt.ControlConnection"},{"sourceUnit":{"$ref":"16"},"sourceKey":"collider","destinationUnit":{"$ref":"9"},"destinationKey":"target","guid":"c881ba14-0f33-4f19-af6c-258fdfe005a0","$type":"Bolt.ValueConnection"},{"sourceUnit":{"$ref":"9"},"sourceKey":"result","destinationUnit":{"$ref":"14"},"destinationKey":"condition","guid":"3beead38-724b-4092-9c9d-1ce8b818e636","$type":"Bolt.ValueConnection"},{"sourceUnit":{"$ref":"16"},"sourceKey":"collider","destinationUnit":{"$ref":"12"},"destinationKey":"target","guid":"0cb15cf0-7007-4c1c-bf02-90de5380e707","$type":"Bolt.ValueConnection"},{"position":{"xMin":-428.6666,"yMin":-329.6666,"xMax":583.0001,"yMax":133.6668},"label":"Death
+      on collision","comment":null,"color":{"r":0.0,"g":0.0,"b":0.0,"a":1.0},"guid":"153dfb82-0788-47c9-ad32-29b5abc8311b","$version":"A","$type":"Ludiq.GraphGroup"}],"$version":"A"}}'
+    _objectReferences: []
