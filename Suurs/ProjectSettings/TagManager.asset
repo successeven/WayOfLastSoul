@@ -4,17 +4,14 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - MainSprint
-  - Puzzle
-  - ScriptManager
+  - Shootable
   - Start
-  - FallenSword
-  - PlayerSword
-  - Enemy
-  - Fallen
-  - GlobalHealth
   - FireCup.Fire
   - Effects
+  - GlobalHealth
+  - Puzzle
+  - Enemy
+  - FallenSword
   - Grounds
   layers:
   - Default
@@ -25,11 +22,11 @@ TagManager:
   - UI
   - 
   - 
-  - BackGround
-  - Players
-  - Grounds
-  - Enemy
-  - Trap
+  - Lighting
+  - Ground
+  - Postprocessing
+  - 
+  - 
   - 
   - 
   - 
@@ -50,12 +47,12 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Fire
+    uniqueID: 3804908061
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Object
-    uniqueID: 2179563667
-    locked: 0
   - name: Front
-    uniqueID: 2055302791
+    uniqueID: 3703800071
     locked: 0
