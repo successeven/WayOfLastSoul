@@ -27,7 +27,17 @@ public class MyFSM
         return  _currentState;
     }
 
-    public void AddStates(int IndexState, State newState)
+		public bool isNextState(int IndexState)
+		{				
+				var item = _queueStates.Peek();
+				State tempState;
+				if (_AllStates.TryGetValue(IndexState, out tempState) && item == tempState)
+						return true;
+				else
+						return false;
+		}
+
+		public void AddStates(int IndexState, State newState)
     {
         if (!_AllStates.ContainsKey(IndexState))
             _AllStates.Add(IndexState, newState);
