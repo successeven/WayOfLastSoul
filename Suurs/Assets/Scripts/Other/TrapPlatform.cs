@@ -4,7 +4,7 @@ using UnityEngine;
 public class TrapPlatform : MonoBehaviour
 {
 
-		Rigidbody rig;
+		Rigidbody2D rig;
 		public float DeathTime = 2f;
 		public GameObject ParticlePrefab;
 		AudioSource Sound;
@@ -18,7 +18,7 @@ public class TrapPlatform : MonoBehaviour
 		// Use this for initialization
 		void Start()
 		{
-				rig = GetComponent<Rigidbody>();
+				rig = GetComponent<Rigidbody2D>();
 				Sound = GetComponent<AudioSource>();
 				position = transform.position.y;
 				trans = transform.position;
@@ -34,8 +34,11 @@ public class TrapPlatform : MonoBehaviour
 				}
 		}
 
-		void OnCollisionEnter(Collision col)
+
+
+		void OnCollisionEnter2D(Collision2D col)
 		{
+				Debug.Log(col.collider.tag);
 				if (col.collider.tag == "Player")
 				{
 						StartCoroutine(Falling());
