@@ -38,6 +38,13 @@ GameObject:
   - component: {fileID: 4143142281980036}
   - component: {fileID: 95861803244338238}
   - component: {fileID: 212724821151231500}
+  - component: {fileID: 50455048443370004}
+  - component: {fileID: 70867669551125398}
+  - component: {fileID: 114075576042836314}
+  - component: {fileID: 114555214731849818}
+  - component: {fileID: 114281376694724410}
+  - component: {fileID: 114604600778058850}
+  - component: {fileID: 114108479245824594}
   m_Layer: 0
   m_Name: Hero
   m_TagString: Untagged
@@ -68,7 +75,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1295029570191918}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -42.45, y: -11.35, z: -12.393228}
+  m_LocalPosition: {x: 97.03, y: 141.26, z: -12.393228}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4668845180670920}
@@ -102,6 +109,41 @@ Transform:
   m_Father: {fileID: 4143142281980036}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &50455048443370004
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1295029570191918}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 50
+  m_LinearDrag: 5.04
+  m_AngularDrag: 0.05
+  m_GravityScale: 4
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 0
+  m_CollisionDetection: 0
+  m_Constraints: 4
+--- !u!70 &70867669551125398
+CapsuleCollider2D:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1295029570191918}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 1.45, y: 4.19}
+  m_Direction: 0
 --- !u!95 &95861803244338238
 Animator:
   serializedVersion: 3
@@ -111,7 +153,7 @@ Animator:
   m_GameObject: {fileID: 1295029570191918}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1e23c566e375c8d40817a92b326bb84c, type: 2}
+  m_Controller: {fileID: 9100000, guid: e5c62f5c83fcff54c8ada43d49d3e3ba, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -120,6 +162,166 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114075576042836314
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1295029570191918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da9f166269ae67044bc320f59c91cc20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114108479245824594
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1295029570191918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ae59368d1d300b4f8e4a8c9a403c045, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Run
+    clip: {fileID: 8300000, guid: 619be61f1c7d66f45b27fedd7e3d92ed, type: 3}
+    volume: 0.404
+    pitch: 1
+    loop: 1
+    Surround: 0
+    MinDistance: 1
+    source: {fileID: 0}
+  - name: Roll
+    clip: {fileID: 8300000, guid: 4bcf6e1ccb1f6e4419ef2ff40eeef0ba, type: 3}
+    volume: 0.6
+    pitch: 1
+    loop: 0
+    Surround: 0
+    MinDistance: 1
+    source: {fileID: 0}
+  - name: Hit
+    clip: {fileID: 8300000, guid: b157bdb695de88c48a00166946137794, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    Surround: 0
+    MinDistance: 1
+    source: {fileID: 0}
+  - name: Strike_1
+    clip: {fileID: 8300000, guid: c52193a9d99b31d4ba6f1e4648095980, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    Surround: 0
+    MinDistance: 1
+    source: {fileID: 0}
+  - name: Strike_2
+    clip: {fileID: 8300000, guid: 4dbdbe206c3a5404690125fe65ebceb1, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    Surround: 0
+    MinDistance: 1
+    source: {fileID: 0}
+  - name: Strike_3
+    clip: {fileID: 8300000, guid: d7094a32ac9367b4ca6e932d204e8011, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    Surround: 0
+    MinDistance: 1
+    source: {fileID: 0}
+  - name: Rapira
+    clip: {fileID: 8300000, guid: d2f7cfa59ede1ce40bd2c62131cb4d5a, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    Surround: 0
+    MinDistance: 1
+    source: {fileID: 0}
+  - name: Back_Slide
+    clip: {fileID: 8300000, guid: 6cd04dd3e65212545b97344931222ed0, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    Surround: 0
+    MinDistance: 1
+    source: {fileID: 0}
+  - name: Block
+    clip: {fileID: 8300000, guid: cb6197ccaf7933c4f88b16ce9943026c, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    Surround: 0
+    MinDistance: 1
+    source: {fileID: 0}
+  - name: Death
+    clip: {fileID: 8300000, guid: fa69b34efc19a72469382976f8e1a5e6, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    Surround: 0
+    MinDistance: 1
+    source: {fileID: 0}
+--- !u!114 &114281376694724410
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1295029570191918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8085ebd291059bf4abefaf6066dd11bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Level: 1
+  _MaxHealth: 100
+  _Health: 100
+  _MaxEnergy: 100
+  _Energy: 100
+  _GlobalMaxHealth: 100
+  _GlobalHealth: 100
+  _attack: 25
+  _Shield: 50
+  _Protaction: 0
+  _SpeedAttack: 100
+  _Agility: 0
+  _Power: 0
+  _Vitality: 0
+  _DeltaRoll: 2
+  _DeltaBack_Slide: 1
+  _attackItems: []
+--- !u!114 &114555214731849818
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1295029570191918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a9ebd794981f094f8d6377344b33ce3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114604600778058850
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1295029570191918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1116f21fb55453429748e23c6431722, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 16
+  _attacksLength: 2
+  _canMove: 1
+  _rollLength: 20
+  _deltaRapiraTime: 1.5
+  _deltaRapiraLength: 1.5
+  _backSlideLength: 5
 --- !u!198 &198178867990622702
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -4742,18 +4944,18 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_SortingLayerID: -591167225
+  m_SortingLayer: 1
+  m_SortingOrder: 5
+  m_Sprite: {fileID: 21300000, guid: 9ec618841c6e14842a36e7239b0109ac, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 4.11, y: 5.57}
+  m_Size: {x: 3.4685717, y: 4.55}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!212 &212825707430346504
