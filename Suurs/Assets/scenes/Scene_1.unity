@@ -915,11 +915,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4172111986321154, guid: efac2ff5a2b1354438035cbfd0170e64, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -11.6
+      value: -24.57
       objectReference: {fileID: 0}
     - target: {fileID: 4172111986321154, guid: efac2ff5a2b1354438035cbfd0170e64, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -7.07
+      value: -12.75
       objectReference: {fileID: 0}
     - target: {fileID: 4172111986321154, guid: efac2ff5a2b1354438035cbfd0170e64, type: 2}
       propertyPath: m_LocalPosition.z
@@ -952,6 +952,206 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: efac2ff5a2b1354438035cbfd0170e64, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1 &1027547011 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1109186666151748, guid: efac2ff5a2b1354438035cbfd0170e64,
+    type: 2}
+  m_PrefabInternal: {fileID: 1027547010}
+--- !u!114 &1027547012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1027547011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ae59368d1d300b4f8e4a8c9a403c045, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Run
+    clip: {fileID: 8300000, guid: 619be61f1c7d66f45b27fedd7e3d92ed, type: 3}
+    volume: 0.404
+    pitch: 1
+    loop: 1
+    Surround: 0
+    MinDistance: 1
+    source: {fileID: 0}
+  - name: Roll
+    clip: {fileID: 8300000, guid: 4bcf6e1ccb1f6e4419ef2ff40eeef0ba, type: 3}
+    volume: 0.6
+    pitch: 1
+    loop: 0
+    Surround: 0
+    MinDistance: 1
+    source: {fileID: 0}
+  - name: Hit
+    clip: {fileID: 8300000, guid: b157bdb695de88c48a00166946137794, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    Surround: 0
+    MinDistance: 1
+    source: {fileID: 0}
+  - name: Strike_1
+    clip: {fileID: 8300000, guid: c52193a9d99b31d4ba6f1e4648095980, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    Surround: 0
+    MinDistance: 1
+    source: {fileID: 0}
+  - name: Strike_2
+    clip: {fileID: 8300000, guid: 4dbdbe206c3a5404690125fe65ebceb1, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    Surround: 0
+    MinDistance: 1
+    source: {fileID: 0}
+  - name: Strike_3
+    clip: {fileID: 8300000, guid: d7094a32ac9367b4ca6e932d204e8011, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    Surround: 0
+    MinDistance: 1
+    source: {fileID: 0}
+  - name: Rapira
+    clip: {fileID: 8300000, guid: d2f7cfa59ede1ce40bd2c62131cb4d5a, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    Surround: 0
+    MinDistance: 1
+    source: {fileID: 0}
+  - name: Back_Slide
+    clip: {fileID: 8300000, guid: 6cd04dd3e65212545b97344931222ed0, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    Surround: 0
+    MinDistance: 1
+    source: {fileID: 0}
+  - name: Block
+    clip: {fileID: 8300000, guid: cb6197ccaf7933c4f88b16ce9943026c, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    Surround: 0
+    MinDistance: 1
+    source: {fileID: 0}
+  - name: Death
+    clip: {fileID: 8300000, guid: fa69b34efc19a72469382976f8e1a5e6, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    Surround: 0
+    MinDistance: 1
+    source: {fileID: 0}
+--- !u!114 &1027547013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1027547011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da9f166269ae67044bc320f59c91cc20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1027547014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1027547011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a9ebd794981f094f8d6377344b33ce3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1027547015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1027547011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8085ebd291059bf4abefaf6066dd11bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Level: 1
+  _MaxHealth: 100
+  _Health: 100
+  _MaxEnergy: 100
+  _Energy: 100
+  _GlobalMaxHealth: 100
+  _GlobalHealth: 100
+  _attack: 25
+  _Shield: 50
+  _Protaction: 0
+  _SpeedAttack: 100
+  _Agility: 0
+  _Power: 0
+  _Vitality: 0
+  _DeltaRoll: 2
+  _DeltaBack_Slide: 1
+  _attackItems: []
+--- !u!114 &1027547016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1027547011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1116f21fb55453429748e23c6431722, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 16
+  _attacksLength: 2
+  _canMove: 1
+  _rollLength: 20
+  _deltaRapiraTime: 1.5
+  _deltaRapiraLength: 1.5
+  _backSlideLength: 5
+--- !u!50 &1027547017
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1027547011}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 50
+  m_LinearDrag: 5.04
+  m_AngularDrag: 0.05
+  m_GravityScale: 4
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 0
+  m_CollisionDetection: 0
+  m_Constraints: 4
+--- !u!70 &1027547018
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1027547011}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.09, y: 1.73}
+  m_Size: {x: 1.5, y: 3.44}
+  m_Direction: 0
 --- !u!1001 &1076228673
 Prefab:
   m_ObjectHideFlags: 0
