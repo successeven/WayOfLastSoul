@@ -9,7 +9,7 @@ public class HeroMotor : CharacterMotor
 		enum StatsEnum
 		{
 				None = 0,
-				BackSlide = 1,
+				Dodge = 1,
 				Rapira = 2,
 				StrikeRoll = 3,
 				Strike_1 = 4,
@@ -65,11 +65,11 @@ public class HeroMotor : CharacterMotor
 		public float _deltaRapiraLength = 1.5f;
 		#endregion
 
-		#region Back Slide
+		#region Dodge
 		[SerializeField]
-		float _backSlideLength = 5f;
+		float _dodgeLength = 5f;
 		[NonSerialized]
-		public float _lastBack_SlideTime = 0;
+		public float _lastDodgeTime = 0;
 		#endregion
 
 		StatsEnum currentAttackEnum = StatsEnum.None;
@@ -77,7 +77,7 @@ public class HeroMotor : CharacterMotor
 		private void Start()
 		{
 				_fsm = new MyFSM(Moves);
-				_fsm.AddStates((int)StatsEnum.BackSlide, Back_Slide);
+				_fsm.AddStates((int)StatsEnum.Dodge, Dodge);
 				_fsm.AddStates((int)StatsEnum.Rapira, Rapira);
 				_fsm.AddStates((int)StatsEnum.StrikeRoll, StrikeRoll);
 				_fsm.AddStates((int)StatsEnum.Strike_1, Strike_1);
@@ -155,16 +155,19 @@ public class HeroMotor : CharacterMotor
 				}
 		}
 
-		private IEnumerator DoBack_Slide(float time)
+		private IEnumerator DoDodge(float time)
 		{
-				_attacks = true;
-				Hero.instance.audioManager.Play(Hero.AudioClips.Back_Slide.ToString());
-				yield return new WaitForSeconds(0.15f);
-				for (float t = 0; t <= time - 0.15f; t += Time.deltaTime)
+				_canMove = false;
+				_blocking = false;
+				_lastDodgeTime = Time.fixedTime;
+				_anima.SetTrigger("Dodge");
+				Hero.instance.audioManager.Play(Hero.AudioClips.Dodge.ToString());
+				for (float t = 0; t <= time; t += Time.deltaTime)
 				{
-						_rigidbody.velocity = new Vector2(-_backSlideLength * transform.localScale.x, _rigidbody.velocity.y);
+						_rigidbody.velocity = new Vector2(-_dodgeLength * transform.localScale.x, _rigidbody.velocity.y);
 						yield return null;
 				}
+				_canMove = true;
 		}
 
 		protected override bool CanMove()
@@ -250,24 +253,14 @@ public class HeroMotor : CharacterMotor
 				_anima.SetBool("Attack", true);
 		}
 
-		void Back_Slide()
+		void Dodge()
 		{
-				_attacks = true;
-				_lastBack_SlideTime = Time.fixedTime;
-				if (_anima.GetInteger("Attack Index") != (int)StatsEnum.BackSlide)
-						StartCoroutine(DoBack_Slide(.43f));
-				_anima.SetInteger("Attack Index", (int)StatsEnum.BackSlide);
-				_anima.SetBool("Attack", true);
-				_blocking = false;
 		}
 
-		public void StartBack_Slide()
+		public void StartDodge()
 		{
 				_fsm.FinishAllStates();
-				_fsm.RunState((int)StatsEnum.BackSlide);
-				_lastBack_SlideTime = Time.fixedTime;
-				if (_fsm.GetCurrentState() == Moves)
-						_fsm.FinishState();
+				StartCoroutine(DoDodge(0.5f));
 		}
 
 		public void Roll()
