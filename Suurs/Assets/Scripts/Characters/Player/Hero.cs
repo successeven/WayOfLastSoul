@@ -78,7 +78,7 @@ public class Hero : MonoBehaviour
 
     public void Move(float inSpeed)
     {
-        _heroMotor.Move(inSpeed);
+        _heroMotor.Move(inSpeed, false);
     }
 
     // Update is called once per frame

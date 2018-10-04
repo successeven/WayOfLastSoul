@@ -46,18 +46,7 @@ public class HeroMotor : CharacterMotor
 
 		public bool _canMove = true;
 
-
-		#region Roll
-		[NonSerialized]
-		public bool _rolling = false;
-		[NonSerialized]
-		public float _lastRollTime = 0;
-
-
-		[SerializeField]
-		float _rollLength = 20f;
-		#endregion
-
+		
 		#region Rapira
 		[SerializeField]
 		public float _deltaRapiraTime = 1.5f;
@@ -98,12 +87,7 @@ public class HeroMotor : CharacterMotor
 
 		public void Attack()
 		{
-				if (_rolling)
-				{
-						currentAttackEnum = StatsEnum.StrikeRoll;
-
-				}
-				else if (_deltaRapiraTime > Time.fixedTime - _lastAttackTime)
+				if (_deltaRapiraTime > Time.fixedTime - _lastAttackTime)
 				{
 						_lastAttackTime = Time.fixedTime;
 						if (_fsm.GetCurrentState() == Moves)
@@ -172,7 +156,7 @@ public class HeroMotor : CharacterMotor
 
 		protected override bool CanMove()
 		{
-				return (!_attacks && !_rolling && !_blocking && _canMove);
+				return (!_attacks && /*!_rolling &&*/ !_blocking && _canMove);
 		}
 
 		public void ResetAttack()
@@ -256,13 +240,17 @@ public class HeroMotor : CharacterMotor
 		void Dodge()
 		{
 		}
+		public void Jump()
+		{
+				_anima.SetBool("IsJumping", true);
+		}
 
 		public void StartDodge()
 		{
 				_fsm.FinishAllStates();
 				StartCoroutine(DoDodge(0.5f));
 		}
-
+		/*
 		public void Roll()
 		{
 				_fsm.FinishAllStates();
@@ -284,4 +272,5 @@ public class HeroMotor : CharacterMotor
 				_rolling = false;
 				Physics.IgnoreLayerCollision(9, 11, false);
 		}
+		*/
 }

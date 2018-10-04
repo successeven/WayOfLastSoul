@@ -18,6 +18,8 @@ public class HeroController : MonoBehaviour
 		public bool _interfaceBlocked = true;
 
 
+		bool jump = false;
+
 		void FixedUpdate()
 		{
 
@@ -27,10 +29,10 @@ public class HeroController : MonoBehaviour
 				if (_interfaceBlocked)
 						return;
 
-
-				Hero.instance.Motor.Move(CrossPlatformInputManager.GetAxis("Horizontal"));
-
+				Hero.instance.Motor.Move(CrossPlatformInputManager.GetAxis("Horizontal"), jump);
+				jump = false;
 		}
+
 
 		private void Update()
 		{
@@ -51,10 +53,17 @@ public class HeroController : MonoBehaviour
 						_holdAttack = false;
 						Hero.instance.Motor.Attack();
 				}
-
+				/*
 				float deltaRoll = Time.fixedTime - Hero.instance.Motor._lastRollTime;
 				if (CrossPlatformInputManager.GetButtonDown("Roll") && deltaRoll > Hero.instance.Manager._DeltaRoll)
-						Hero.instance.Motor.Roll();
+						Hero.instance.Motor.Roll();*/
+
+
+				if (CrossPlatformInputManager.GetButtonDown("Jump"))
+				{
+						jump = true;
+						Debug.Log("Прыгнули!! ");
+				}
 
 				float timeDelta = Time.time - _lastBlockClickTime;
 				if (CrossPlatformInputManager.GetButtonDown("Block"))

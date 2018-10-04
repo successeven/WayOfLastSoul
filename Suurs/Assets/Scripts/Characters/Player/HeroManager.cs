@@ -60,6 +60,11 @@ public class HeroManager : MonoBehaviour
 		{
 				UIController.instance.GameOver();
 		}
+		
+		public void OnLanding()
+		{
+				_anima.SetBool("IsJumping", false);
+		}
 
 		private void OnTriggerExit2D(Collider2D collision)
 		{
