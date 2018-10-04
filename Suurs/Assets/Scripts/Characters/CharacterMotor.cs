@@ -59,7 +59,9 @@ public class CharacterMotor : MonoBehaviour
 						{
 								m_Grounded = true;
 								if (!wasGrounded)
+								{
 										OnLandEvent.Invoke();
+								}
 						}
 				}
 		}
@@ -69,7 +71,6 @@ public class CharacterMotor : MonoBehaviour
 		{
 
 				_anima.SetFloat("Speed", Mathf.Abs(inMoveDirection));
-				Debug.Log(jump);
 				if (CanMove() && m_Grounded)
 				{
 						if (!Hero.instance.Manager._TakeDamage)
@@ -95,7 +96,6 @@ public class CharacterMotor : MonoBehaviour
 						{
 								m_Grounded = false;
 								_rigidbody.AddForce(new Vector2(0f, _JumpForce));
-								Hero.instance.Motor.Jump();
 						}
 				}
 				else

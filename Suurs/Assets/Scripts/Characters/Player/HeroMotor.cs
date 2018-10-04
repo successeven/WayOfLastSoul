@@ -240,10 +240,6 @@ public class HeroMotor : CharacterMotor
 		void Dodge()
 		{
 		}
-		public void Jump()
-		{
-				_anima.SetBool("IsJumping", true);
-		}
 
 		public void StartDodge()
 		{

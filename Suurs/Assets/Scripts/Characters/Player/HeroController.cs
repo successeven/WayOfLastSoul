@@ -62,7 +62,8 @@ public class HeroController : MonoBehaviour
 				if (CrossPlatformInputManager.GetButtonDown("Jump"))
 				{
 						jump = true;
-						Debug.Log("Прыгнули!! ");
+						Hero.instance.Motor._anima.SetBool("IsFly", true);
+						Hero.instance.Motor._anima.SetTrigger("IsJumping");
 				}
 
 				float timeDelta = Time.time - _lastBlockClickTime;

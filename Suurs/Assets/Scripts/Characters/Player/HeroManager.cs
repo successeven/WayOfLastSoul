@@ -63,7 +63,8 @@ public class HeroManager : MonoBehaviour
 		
 		public void OnLanding()
 		{
-				_anima.SetBool("IsJumping", false);
+				Debug.Log("оТМЕНЯЕМ");
+				_anima.SetBool("IsFly", false);
 		}
 
 		private void OnTriggerExit2D(Collider2D collision)
