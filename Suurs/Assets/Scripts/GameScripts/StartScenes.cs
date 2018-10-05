@@ -68,7 +68,7 @@ public class StartScenes : MonoBehaviour
                 }
                 else
                 {
-                    var deltaSpeed = distance > 5 ? 0.9f : distance > 3 ? 0.7f : distance > 1 ? 0.3f : 0.11f;
+                    var deltaSpeed = distance > 5 ? 0.9f : 0.7f;
                     Hero.instance.Move(deltaSpeed * Hero.instance.transform.localScale.x);
                 }
 

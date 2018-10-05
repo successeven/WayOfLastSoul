@@ -11,7 +11,7 @@ public class HeroMotor : CharacterMotor
 				None = 0,
 				Dodge = 1,
 				Rapira = 2,
-				StrikeRoll = 3,
+				Jump = 3,
 				Strike_1 = 4,
 				Strike_2 = 5,
 				Strike_3 = 6
@@ -33,10 +33,8 @@ public class HeroMotor : CharacterMotor
 		[NonSerialized]
 		public bool _attacks = false;
 
-
-
 		[NonSerialized]
-		public bool _holdAttack = false;
+		public bool _jump = false;
 
 		[NonSerialized]
 		public float _lastAttackTime = 0;
@@ -66,17 +64,17 @@ public class HeroMotor : CharacterMotor
 		private void Start()
 		{
 				_fsm = new MyFSM(Moves);
-				_fsm.AddStates((int)StatsEnum.Dodge, Dodge);
+				//_fsm.AddStates((int)StatsEnum.Dodge, Dodge);
 				_fsm.AddStates((int)StatsEnum.Rapira, Rapira);
-				_fsm.AddStates((int)StatsEnum.StrikeRoll, StrikeRoll);
 				_fsm.AddStates((int)StatsEnum.Strike_1, Strike_1);
 				_fsm.AddStates((int)StatsEnum.Strike_2, Strike_2);
 				_fsm.AddStates((int)StatsEnum.Strike_3, Strike_3);
 		}
 
-		private void Update()
+		private void FixedUpdate()
 		{
 				_fsm.Invoke();
+				CheckGround();
 		}
 
 		public void FinishAllAttacks()
@@ -159,7 +157,7 @@ public class HeroMotor : CharacterMotor
 				return (!_attacks && /*!_rolling &&*/ !_blocking && _canMove);
 		}
 
-		public void ResetAttack()
+		public void ResetState()
 		{
 				//	if (_fsm.isNextState((int)StatsEnum.Strike_2) || _fsm.isNextState((int)StatsEnum.Strike_3))
 
@@ -185,6 +183,19 @@ public class HeroMotor : CharacterMotor
 				_attacks = false;
 				_anima.SetInteger("Attack Index", 0);
 				_anima.SetBool("Attack", false);
+
+				if (m_Grounded && _jump)
+				{
+						_jump = false;
+						_anima.SetBool("IsFly", true);
+						m_Grounded = false;
+						_rigidbody.AddForce(new Vector2(0f, _JumpForce));
+				}
+		}
+
+		public void OnLanding()
+		{
+				_anima.SetBool("IsFly", m_Grounded);
 		}
 
 		void Rapira()
@@ -194,16 +205,7 @@ public class HeroMotor : CharacterMotor
 				_anima.SetInteger("Attack Index", (int)StatsEnum.Rapira);
 				_anima.SetBool("Attack", true);
 		}
-
-		void StrikeRoll()
-		{
-				if (_anima.GetInteger("Attack Index") != (int)StatsEnum.StrikeRoll)
-						StartCoroutine(DoStrikeRoll(.37f));
-				_anima.SetInteger("Attack Index", (int)StatsEnum.StrikeRoll);
-				_anima.SetBool("Attack", true);
-
-		}
-
+		
 		Coroutine AttackCoroutine;
 		void Strike_1()
 		{
@@ -236,37 +238,17 @@ public class HeroMotor : CharacterMotor
 				_anima.SetInteger("Attack Index", (int)StatsEnum.Strike_3);
 				_anima.SetBool("Attack", true);
 		}
-
-		void Dodge()
-		{
-		}
-
+		
 		public void StartDodge()
 		{
 				_fsm.FinishAllStates();
 				StartCoroutine(DoDodge(0.5f));
 		}
-		/*
-		public void Roll()
+
+		public void Jump()
 		{
-				_fsm.FinishAllStates();
-				_rolling = true;
-				_lastRollTime = Time.fixedTime;
-				_anima.SetTrigger("Roll");
-				StartCoroutine(DoRolling(1f));
+				_jump = true;
+				_fsm.FinishOtherStates();
 		}
 
-		private IEnumerator DoRolling(float time)
-		{
-				Hero.instance.audioManager.Play(Hero.AudioClips.Roll.ToString());
-				Physics.IgnoreLayerCollision(9, 11, true);
-				for (float t = 0; t <= time; t += Time.deltaTime)
-				{
-						_rigidbody.velocity = new Vector2(_rollLength * transform.localScale.x, _rigidbody.velocity.y);
-						yield return null;
-				}
-				_rolling = false;
-				Physics.IgnoreLayerCollision(9, 11, false);
-		}
-		*/
 }
