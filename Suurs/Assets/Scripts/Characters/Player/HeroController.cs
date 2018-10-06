@@ -87,8 +87,7 @@ public class HeroController : MonoBehaviour
 				if (_doubleBlock)
 				{
 						float deltaBackSlide = Time.fixedTime - Hero.instance.Motor._lastDodgeTime;
-						/*if (deltaBackSlide > Hero.instance.Manager._DeltaBack_Slide)
-								Hero.instance.Motor.StartDodge();*/
+						Hero.instance.Motor.Dodge();
 						_doubleBlock = false;
 				}
 		}

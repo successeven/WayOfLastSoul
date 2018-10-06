@@ -11,7 +11,7 @@ public class CharacterMotor : MonoBehaviour
 		[SerializeField] private Transform m_GroundCheck;             // A position marking where to check if the player is grounded.
 		[SerializeField] private float _speed = 16f;
 
-		public float k_GroundedRadius = .4f;
+		public float k_GroundedRadius = 1f;
 
 		protected Rigidbody2D _rigidbody;
 
@@ -49,7 +49,7 @@ public class CharacterMotor : MonoBehaviour
 				bool wasGrounded = m_Grounded;
 				m_Grounded = false;
 				Collider2D[] colliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
-
+				_anima.SetFloat("v_speed", _rigidbody.velocity.y);
 				for (int i = 0; i < colliders.Length; i++)
 				{
 						if (colliders[i].gameObject != gameObject)
