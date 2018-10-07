@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 198541190880550940}
   - component: {fileID: 199517555863546796}
   m_Layer: 0
-  m_Name: line
+  m_Name: Line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -96,6 +96,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1591531576372350
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4743022569224096}
+  m_Layer: 0
+  m_Name: Sword
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1653220340479408
 GameObject:
   m_ObjectHideFlags: 1
@@ -124,7 +139,7 @@ GameObject:
   - component: {fileID: 198501239733929210}
   - component: {fileID: 199407045866286026}
   m_Layer: 11
-  m_Name: death
+  m_Name: Death
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -172,9 +187,14 @@ GameObject:
   m_Component:
   - component: {fileID: 4855660946101034}
   - component: {fileID: 95345571725624062}
+  - component: {fileID: 50414098590150732}
+  - component: {fileID: 70876126589658570}
+  - component: {fileID: 114594966474470664}
+  - component: {fileID: 114649831204708218}
+  - component: {fileID: 114424042911717474}
   m_Layer: 0
   m_Name: Fallen
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -280,6 +300,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4285229344362978}
+  - {fileID: 4743022569224096}
   m_Father: {fileID: 4855660946101034}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -296,6 +317,19 @@ Transform:
   m_Father: {fileID: 4331032808392714}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 82.454}
+--- !u!4 &4743022569224096
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1591531576372350}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4518681938685722}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4814231327087960
 Transform:
   m_ObjectHideFlags: 1
@@ -316,7 +350,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1864930919276234}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -15.33888, y: -13.036026, z: 0}
+  m_LocalPosition: {x: 7.46, y: -13.32, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4518681938685722}
@@ -349,6 +383,41 @@ Transform:
   m_Father: {fileID: 4404720111976494}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!50 &50414098590150732
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1864930919276234}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 1
+  m_Mass: 4.7186885
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
+--- !u!70 &70876126589658570
+CapsuleCollider2D:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1864930919276234}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 1.7}
+  m_Size: {x: 1.15, y: 4.35}
+  m_Direction: 0
 --- !u!95 &95345571725624062
 Animator:
   serializedVersion: 3
@@ -367,6 +436,82 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114424042911717474
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1864930919276234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ae59368d1d300b4f8e4a8c9a403c045, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Move
+    clip: {fileID: 8300000, guid: 49db5d4d7ce818045953748b62373e3c, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 1
+    Surround: 0
+    MinDistance: 1
+    source: {fileID: 0}
+  - name: Strike
+    clip: {fileID: 8300000, guid: 8088cb8527159ca41b9953903613baa2, type: 3}
+    volume: 0.8
+    pitch: 1
+    loop: 0
+    Surround: 0
+    MinDistance: 1
+    source: {fileID: 0}
+  - name: Death
+    clip: {fileID: 8300000, guid: b6f486307e49b774691949a9de65bbcd, type: 3}
+    volume: 0.9
+    pitch: 1
+    loop: 0
+    Surround: 0
+    MinDistance: 1
+    source: {fileID: 0}
+  - name: When_Hit
+    clip: {fileID: 8300000, guid: c13333d6aa15022428bcd1242c8dd32f, type: 3}
+    volume: 0.5
+    pitch: 1.5
+    loop: 0
+    Surround: 0
+    MinDistance: 1
+    source: {fileID: 0}
+--- !u!114 &114594966474470664
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1864930919276234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8d6525b6d5899f4a82e77026ea968f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _attack: 40
+  _HP: 150
+--- !u!114 &114649831204708218
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1864930919276234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80e904a6b1e90ce4d8810fadaf9b13f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 8
+  _visibility: 25
+  _deltaTimeAttack: 5
+  _deltaDistanceAttack: 5
+  _deltaDistanceSpeed: 1.5
+  _canAttack: 1
+  _canMove: 1
+  _damageLength: 5
 --- !u!198 &198146882908976708
 ParticleSystem:
   m_ObjectHideFlags: 1
