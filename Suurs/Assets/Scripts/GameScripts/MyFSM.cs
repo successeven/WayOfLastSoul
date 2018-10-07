@@ -84,4 +84,9 @@ public class MyFSM
         FinishState();
     }
 
+		public void FinishOtherStates()
+		{
+				_queueStates.Clear();
+		}
+
 }

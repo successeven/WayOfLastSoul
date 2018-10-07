@@ -18,7 +18,7 @@ public class Hero : MonoBehaviour
         Strike_2,
         Strike_3,
         Rapira,
-        Back_Slide,
+        Dodge,
         Block,
         Death
     }

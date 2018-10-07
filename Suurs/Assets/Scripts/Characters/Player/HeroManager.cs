@@ -4,43 +4,54 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class HeroManager : MonoBehaviour
+[Serializable]
+public class HeroData
 {
-
 		public int _Level = 1; ///уровень
-
 		public float _MaxHealth = 100; ///Максимальная жизнь	
 		public float _Health = 100; ///Текущая жизнь
-
-		public float _MaxEnergy = 100; ///Максимальная энергия	
-		public float _Energy = 100; ///Текущая энергия
-
-		public float _GlobalMaxHealth = 100; ///Максимальная глобальная жизнь
-		public float _GlobalHealth = 100; ///Текущая глобальная жизнь
 
 		public float _attack = 25; ///атака
 
 		[Range(0, 100)]
 		public float _Shield = 50f; ///Щит   
+		/*
+public float _MaxEnergy = 100; ///Максимальная энергия	
+public float _Energy = 100; ///Текущая энергия
+
+public float _GlobalMaxHealth = 100; ///Максимальная глобальная жизнь
+public float _GlobalHealth = 100; ///Текущая глобальная жизнь
+
+
+[Range(0, 100)]
+public float _Protaction = 0f; ///Защита 
+public float _SpeedAttack = 100f; ///Скорость атаки
+public float _Agility = 0; ///Ловкость
+public float _Power = 0; ///Сила
+public float _Vitality = 0; ///Жизнеспособность
+*/
+}
+
+public class HeroManager : MonoBehaviour
+{
+		public HeroData _data;
+
+		public int _Level = 1; ///уровень
+		public float _MaxHealth = 100; ///Максимальная жизнь	
+		public float _Health = 100; ///Текущая жизнь
+		public float _attack = 25; ///атака
 
 		[Range(0, 100)]
-		public float _Protaction = 0f; ///Защита 
-		public float _SpeedAttack = 100f; ///Скорость атаки
-		public float _Agility = 0; ///Ловкость
-		public float _Power = 0; ///Сила
-		public float _Vitality = 0; ///Жизнеспособность
-		public float _DeltaRoll = 2f; ///Интервал кувырков (в милисекундах) 
-		public float _DeltaBack_Slide = 1f; ///Интервал Back_Slide (в милисекундах) 
-
-		Animator _anima;
-		bool _death = false;
+		public float _Shield = 50f; ///Щит   
 
 		public List<AttackItem> _attackItems;
+		Animator _anima;
+		bool _death = false;
 
 		[NonSerialized]
 		public bool _TakeDamage = false;
 
-		private void Start()
+		private void Awake()
 		{
 				_anima = GetComponent<Animator>();
 		}
@@ -60,6 +71,7 @@ public class HeroManager : MonoBehaviour
 		{
 				UIController.instance.GameOver();
 		}
+
 
 		private void OnTriggerExit2D(Collider2D collision)
 		{
@@ -95,8 +107,7 @@ public class HeroManager : MonoBehaviour
 						}
 				}
 		}
-
-
+		
 		public void TakeDamage(float damage) //Урон
 		{
 				_TakeDamage = true;
@@ -116,70 +127,4 @@ public class HeroManager : MonoBehaviour
 				}
 		}
 
-		public void ResetHeroDealAttack()
-		{
-		}
-		/*
-		private void OnGUI()
-		{
-						string boxText =
-								"Level = " + _Level + "\n" +
-								"Attack = " + _attack + "\n" +
-								"Agility = " + _Agility + "\n";
-						GUI.Box(new Rect(0, 0, 150, 100), boxText);
-		}
-		*/
-		void AddAgility()
-		{
-				if (_Agility == 100)
-						return;
-
-				_SpeedAttack += _SpeedAttack * 0.002f;
-				_DeltaRoll -= 0.1f;
-				_Agility++;
-				if ((_Agility != 0) && (_Agility % 7 == 0))
-						_SpeedAttack += _SpeedAttack * 0.02f;
-				if ((_Agility != 0) && (_Agility % 100 == 0))
-						_SpeedAttack += _SpeedAttack * 0.02f;
-
-		}
-		void AddPower()
-		{
-				if (_Power == 100)
-						return;
-
-				_attack += 2;
-				_MaxHealth += 2;
-				_Power++;
-				if ((_Power != 0) && (_Power % 10 == 0))
-				{
-						_attack += 10 + (int)(_Power / 10) * 10;
-						_MaxHealth += 10;
-				}
-				if ((_Agility != 0) && (_Agility % 100 == 0))
-						_SpeedAttack += _SpeedAttack * 0.02f;
-
-		}
-		void AddVitality()
-		{
-				if (_Vitality == 100)
-						return;
-
-				_MaxHealth += 10;
-				_Shield += 2f;
-				_Vitality++;
-				if ((_Vitality != 0) && (_Vitality % 10 == 0))
-				{
-						_MaxHealth += 10 + (int)(_Vitality / 10) * 10;
-						_Protaction += 5f;
-				}
-				/*
-								if ((_Agility != 0) && (_Agility % 100 == 0))
-												_SpeedAttack += _SpeedAttack * 0.02f;*/
-		}
-
-		void Load()
-		{
-				//PlayerPrefs.
-		}
 }

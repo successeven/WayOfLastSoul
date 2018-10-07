@@ -1,17 +1,14 @@
 ﻿
-using UnityEngine;
 using System;
 using System.Collections;
-using System.Linq;
+using UnityEngine;
 
 public class HeroMotor : CharacterMotor
 {
 		enum StatsEnum
 		{
 				None = 0,
-				BackSlide = 1,
-				Rapira = 2,
-				StrikeRoll = 3,
+				Shield_Attack = 2,
 				Strike_1 = 4,
 				Strike_2 = 5,
 				Strike_3 = 6
@@ -33,10 +30,11 @@ public class HeroMotor : CharacterMotor
 		[NonSerialized]
 		public bool _attacks = false;
 
-
+		[NonSerialized]
+		public bool _jump = false;
 
 		[NonSerialized]
-		public bool _holdAttack = false;
+		public bool _dodge = false;
 
 		[NonSerialized]
 		public float _lastAttackTime = 0;
@@ -47,29 +45,26 @@ public class HeroMotor : CharacterMotor
 		public bool _canMove = true;
 
 
-		#region Roll
-		[NonSerialized]
-		public bool _rolling = false;
-		[NonSerialized]
-		public float _lastRollTime = 0;
-
-
+		#region Shield_Attack
 		[SerializeField]
-		float _rollLength = 20f;
+		public float _deltaShield_AttackTime = 1.5f;
+		[SerializeField]
+		float _deltaShield_AttackLength = 1.5f;
+		[SerializeField]
+		float _deltaShield_AttackHeight = 1.5f;
+		[SerializeField]
+		float _deltaShield_AttackForceX = 1.5f;
 		#endregion
 
-		#region Rapira
+		[Space(10)]
+		#region Dodge
+		bool _isDodging = false;
 		[SerializeField]
-		public float _deltaRapiraTime = 1.5f;
+		float _dodgeLength = 5f;
 		[SerializeField]
-		public float _deltaRapiraLength = 1.5f;
-		#endregion
-
-		#region Back Slide
-		[SerializeField]
-		float _backSlideLength = 5f;
+		float _dodgeHeight = 5f;
 		[NonSerialized]
-		public float _lastBack_SlideTime = 0;
+		public float _lastDodgeTime = 0;
 		#endregion
 
 		StatsEnum currentAttackEnum = StatsEnum.None;
@@ -77,17 +72,16 @@ public class HeroMotor : CharacterMotor
 		private void Start()
 		{
 				_fsm = new MyFSM(Moves);
-				_fsm.AddStates((int)StatsEnum.BackSlide, Back_Slide);
-				_fsm.AddStates((int)StatsEnum.Rapira, Rapira);
-				_fsm.AddStates((int)StatsEnum.StrikeRoll, StrikeRoll);
+				_fsm.AddStates((int)StatsEnum.Shield_Attack, Shield_Attack);
 				_fsm.AddStates((int)StatsEnum.Strike_1, Strike_1);
 				_fsm.AddStates((int)StatsEnum.Strike_2, Strike_2);
 				_fsm.AddStates((int)StatsEnum.Strike_3, Strike_3);
 		}
 
-		private void Update()
+		private void FixedUpdate()
 		{
 				_fsm.Invoke();
+				CheckGround();
 		}
 
 		public void FinishAllAttacks()
@@ -96,14 +90,14 @@ public class HeroMotor : CharacterMotor
 				_fsm.FinishAllStates();
 		}
 
+		protected override bool CanMove()
+		{
+				return (!_attacks && !_isDodging && !_blocking && _canMove);
+		}
+
 		public void Attack()
 		{
-				if (_rolling)
-				{
-						currentAttackEnum = StatsEnum.StrikeRoll;
-
-				}
-				else if (_deltaRapiraTime > Time.fixedTime - _lastAttackTime)
+				if (_deltaShield_AttackTime > Time.fixedTime - _lastAttackTime)
 				{
 						_lastAttackTime = Time.fixedTime;
 						if (_fsm.GetCurrentState() == Moves)
@@ -116,67 +110,40 @@ public class HeroMotor : CharacterMotor
 								return;
 				}
 				else
-						currentAttackEnum = StatsEnum.Rapira;
+						currentAttackEnum = StatsEnum.Shield_Attack;
 
 				_fsm.RunState((int)currentAttackEnum);
 				if (_fsm.GetCurrentState() == Moves)
 						_fsm.FinishState();
 		}
 
-		private IEnumerator DoStrikeRoll(float time)
+		void Moves()
 		{
-				_attacks = true;
-				Hero.instance.audioManager.Play(Hero.AudioClips.Strike_1.ToString());
-				for (float t = 0; t <= time; t += Time.deltaTime)
-						yield return null;
+				_attacks = false;
+				_anima.SetInteger("Attack Index", 0);
+				_anima.SetBool("Attack", false);
 
-		}
-
-		private IEnumerator DoAttack(string AudioClipName, float time)
-		{
-				_attacks = true;
-				Hero.instance.audioManager.Play(AudioClipName);
-				for (float t = 0; t <= time; t += Time.deltaTime)
+				if (m_Grounded && _jump)
 				{
-						_rigidbody.velocity = new Vector2(_attacksLength * transform.localScale.x, _rigidbody.velocity.y);
-						yield return null;
+						_jump = false;
+						m_Grounded = false;
+						_rigidbody.AddForce(new Vector2(_rigidbody.velocity.x, _JumpForce), ForceMode2D.Impulse);
+						_anima.SetTrigger("Jump");
 				}
 
-		}
-
-		private IEnumerator DoRapira(float time)
-		{
-				_attacks = true;
-				Hero.instance.audioManager.Play(Hero.AudioClips.Rapira.ToString());
-				for (float t = 0; t <= time; t += Time.deltaTime)
+				if (m_Grounded && _dodge)
 				{
-						_rigidbody.velocity = new Vector2(_deltaRapiraLength * transform.localScale.x, _rigidbody.velocity.y);
-						yield return null;
+						_dodge = false;
+						if (!_isDodging)
+						{
+								StartCoroutine(DoDodge(.3f));
+								_anima.SetTrigger("Dodge");
+						}
 				}
 		}
 
-		private IEnumerator DoBack_Slide(float time)
+		public void ResetState()
 		{
-				_attacks = true;
-				Hero.instance.audioManager.Play(Hero.AudioClips.Back_Slide.ToString());
-				yield return new WaitForSeconds(0.15f);
-				for (float t = 0; t <= time - 0.15f; t += Time.deltaTime)
-				{
-						_rigidbody.velocity = new Vector2(-_backSlideLength * transform.localScale.x, _rigidbody.velocity.y);
-						yield return null;
-				}
-		}
-
-		protected override bool CanMove()
-		{
-				return (!_attacks && !_rolling && !_blocking && _canMove);
-		}
-
-		public void ResetAttack()
-		{
-				//	if (_fsm.isNextState((int)StatsEnum.Strike_2) || _fsm.isNextState((int)StatsEnum.Strike_3))
-
-
 				_fsm.FinishState();
 		}
 
@@ -193,30 +160,25 @@ public class HeroMotor : CharacterMotor
 				_anima.SetBool("Blocking", _blocking);
 		}
 
-		void Moves()
+		public void OnLanding()
 		{
-				_attacks = false;
-				_anima.SetInteger("Attack Index", 0);
-				_anima.SetBool("Attack", false);
+				_anima.SetBool("IsFly", !m_Grounded);
 		}
 
-		void Rapira()
+		Vector2 _startPos;
+		void Shield_Attack()
 		{
-				if (_anima.GetInteger("Attack Index") != (int)StatsEnum.Rapira)
-						StartCoroutine(DoRapira(.33f));
-				_anima.SetInteger("Attack Index", (int)StatsEnum.Rapira);
+				if (_anima.GetInteger("Attack Index") != (int)StatsEnum.Shield_Attack)
+				{
+						Debug.Log("Запуск!");
+						_startPos = transform.position;
+						StartCoroutine(DoShield_Attack(2.6f, _startPos));
+
+				}
+				_anima.SetInteger("Attack Index", (int)StatsEnum.Shield_Attack);
 				_anima.SetBool("Attack", true);
 		}
-
-		void StrikeRoll()
-		{
-				if (_anima.GetInteger("Attack Index") != (int)StatsEnum.StrikeRoll)
-						StartCoroutine(DoStrikeRoll(.37f));
-				_anima.SetInteger("Attack Index", (int)StatsEnum.StrikeRoll);
-				_anima.SetBool("Attack", true);
-
-		}
-
+		
 		Coroutine AttackCoroutine;
 		void Strike_1()
 		{
@@ -249,46 +211,76 @@ public class HeroMotor : CharacterMotor
 				_anima.SetInteger("Attack Index", (int)StatsEnum.Strike_3);
 				_anima.SetBool("Attack", true);
 		}
+		
+		public void Jump()
+		{
+				_jump = true;
+				_fsm.FinishOtherStates();
+		}
 
-		void Back_Slide()
+		public void Dodge()
+		{
+				_dodge = true;
+				_fsm.FinishAllStates();
+		}
+
+		private IEnumerator DoStrikeRoll(float time)
 		{
 				_attacks = true;
-				_lastBack_SlideTime = Time.fixedTime;
-				if (_anima.GetInteger("Attack Index") != (int)StatsEnum.BackSlide)
-						StartCoroutine(DoBack_Slide(.43f));
-				_anima.SetInteger("Attack Index", (int)StatsEnum.BackSlide);
-				_anima.SetBool("Attack", true);
-				_blocking = false;
+				Hero.instance.audioManager.Play(Hero.AudioClips.Strike_1.ToString());
+				for (float t = 0; t <= time; t += Time.deltaTime)
+						yield return null;
+
 		}
 
-		public void StartBack_Slide()
-		{
-				_fsm.FinishAllStates();
-				_fsm.RunState((int)StatsEnum.BackSlide);
-				_lastBack_SlideTime = Time.fixedTime;
-				if (_fsm.GetCurrentState() == Moves)
-						_fsm.FinishState();
-		}
 
-		public void Roll()
+		private IEnumerator DoDodge(float time)
 		{
-				_fsm.FinishAllStates();
-				_rolling = true;
-				_lastRollTime = Time.fixedTime;
-				_anima.SetTrigger("Roll");
-				StartCoroutine(DoRolling(1f));
-		}
-
-		private IEnumerator DoRolling(float time)
-		{
-				Hero.instance.audioManager.Play(Hero.AudioClips.Roll.ToString());
-				Physics.IgnoreLayerCollision(9, 11, true);
+				_isDodging = true;
+				Hero.instance.audioManager.Play(Hero.AudioClips.Dodge.ToString());
+				yield return new WaitForSeconds(.04f);
 				for (float t = 0; t <= time; t += Time.deltaTime)
 				{
-						_rigidbody.velocity = new Vector2(_rollLength * transform.localScale.x, _rigidbody.velocity.y);
+						_rigidbody.AddForce(new Vector2(-_dodgeLength * transform.localScale.x, _dodgeHeight), ForceMode2D.Impulse);
 						yield return null;
 				}
-				_rolling = false;
-				Physics.IgnoreLayerCollision(9, 11, false);
+				_isDodging = false;
 		}
+
+		private IEnumerator DoAttack(string AudioClipName, float time)
+		{
+				_attacks = true;
+				Hero.instance.audioManager.Play(AudioClipName);
+				for (float t = 0; t <= time; t += Time.deltaTime)
+				{
+						_rigidbody.velocity = new Vector2(_attacksLength * transform.localScale.x, _rigidbody.velocity.y);
+						yield return null;
+				}
+
+		}
+
+		private IEnumerator DoShield_Attack(float time, Vector2 startPos)
+		{
+				_attacks = true;
+				Hero.instance.audioManager.Play(Hero.AudioClips.Rapira.ToString());
+				yield return new WaitForSeconds(1f);
+				Vector2 EndPos = startPos;
+				for (float t = 0; t <= time; t += Time.deltaTime)
+				{
+						if (transform.position.x > startPos.x + _deltaShield_AttackLength)
+						{
+								EndPos.x = startPos.x + (_deltaShield_AttackLength * transform.localScale.x);
+								EndPos.y = transform.position.y;
+								transform.position = EndPos;
+								_rigidbody.velocity = new Vector2(_rigidbody.velocity.x / 2, 0);
+								yield break;
+						}
+						else
+						{
+								_rigidbody.AddForce(new Vector2(_deltaShield_AttackForceX * transform.localScale.x, _deltaShield_AttackHeight), ForceMode2D.Impulse);
+								yield return null;
+						}
+				}
+		}
+
 }

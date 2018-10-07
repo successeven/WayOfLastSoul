@@ -14,7 +14,7 @@ public class RollTimeController : MonoBehaviour
 
 		void LateUpdate()
 		{
-				var deltaRoll = Time.fixedTime - Hero.instance.Motor._lastRollTime;
-				_rollTimeImage.fillAmount = 1f - (Hero.instance.Manager._DeltaRoll - deltaRoll) / (float)Hero.instance.Manager._DeltaRoll;
+		/*		var deltaRoll = Time.fixedTime - Hero.instance.Motor._lastRollTime;
+				_rollTimeImage.fillAmount = 1f - (Hero.instance.Manager._DeltaRoll - deltaRoll) / (float)Hero.instance.Manager._DeltaRoll;*/
 		}
 }
