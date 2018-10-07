@@ -86,7 +86,15 @@ public class EnemyController : Unit
 
         if (_canAttack)
             DoAttack();
-    }
+
+				DoFixedUpdate();
+
+		}
+
+		protected virtual void DoFixedUpdate()
+		{
+
+		}
 
 
     protected virtual void DoMotion()

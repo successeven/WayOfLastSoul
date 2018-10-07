@@ -1,23 +1,18 @@
 fileFormatVersion: 2
-guid: 526c41ff10a10c84d816b014b4272479
+guid: 96e2cf134fd31764a85a32abdcf6123e
 TextureImporter:
   fileIDToRecycleName:
-    21300000: When_hit_0
-    21300002: When_hit_1
-    21300004: When_hit_2
-    21300006: When_hit_3
-    21300008: When_hit_4
-    21300010: When_hit_5
-    21300012: When_hit_6
-    21300014: When_hit_7
-    21300016: When_hit_8
-    21300018: When_hit_9
-    21300020: When_hit_10
-    21300022: When_hit_11
-    21300024: When_hit_12
-    21300026: When_hit_13
-    21300028: When_hit_14
-    21300030: When_hit_15
+    21300000: Idle_Move_0
+    21300002: Idle_Move_1
+    21300004: Idle_Move_2
+    21300006: Idle_Move_3
+    21300008: Idle_Move_4
+    21300010: Idle_Move_5
+    21300012: Idle_Move_6
+    21300014: Idle_Move_7
+    21300016: Idle_Move_8
+    21300018: Idle_Move_9
+    21300020: Idle_Move_10
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -52,18 +47,18 @@ TextureImporter:
     mipBias: -100
     wrapU: 1
     wrapV: 1
-    wrapW: -1
+    wrapW: 1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
   spriteMode: 2
-  spriteExtrude: 1
+  spriteExtrude: 0
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 1
+  spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -76,7 +71,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 2
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 4096
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -87,7 +82,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   - serializedVersion: 2
     buildTarget: Standalone
-    maxTextureSize: 2048
+    maxTextureSize: 4096
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -98,7 +93,18 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   - serializedVersion: 2
     buildTarget: Android
-    maxTextureSize: 2048
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Windows Store Apps
+    maxTextureSize: 4096
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -111,321 +117,221 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: When_hit_0
+      name: Idle_Move_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 954.6666
-        width: 360
-        height: 477.33334
-      alignment: 5
-      pivot: {x: 1, y: 0.5}
+        y: 1600
+        width: 900
+        height: 800
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e91762d1e2e111d4a89449b419de6142
+      spriteID: 82fa1b243a6c6514aa9f19022c2eba55
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: When_hit_1
+      name: Idle_Move_1
       rect:
         serializedVersion: 2
-        x: 360
-        y: 954.6666
-        width: 360
-        height: 477.33334
-      alignment: 5
-      pivot: {x: 1, y: 0.5}
+        x: 900
+        y: 1600
+        width: 900
+        height: 800
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 29c20336568956c418cd3784bd1ed320
+      spriteID: 0aa5882c2afb97144b92a5c398bae88b
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: When_hit_2
-      rect:
-        serializedVersion: 2
-        x: 720
-        y: 954.6666
-        width: 360
-        height: 477.33334
-      alignment: 5
-      pivot: {x: 1, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2bf890760a5aab94f808a8bfd900b16d
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: When_hit_3
-      rect:
-        serializedVersion: 2
-        x: 1080
-        y: 954.6666
-        width: 360
-        height: 477.33334
-      alignment: 5
-      pivot: {x: 1, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d7b4286b4249ffb45bf61e9184cadbb9
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: When_hit_4
-      rect:
-        serializedVersion: 2
-        x: 1440
-        y: 954.6666
-        width: 360
-        height: 477.33334
-      alignment: 5
-      pivot: {x: 1, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 81e7fd856d9670242af2c08fbe9b547c
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: When_hit_5
+      name: Idle_Move_2
       rect:
         serializedVersion: 2
         x: 1800
-        y: 954.6666
-        width: 360
-        height: 477.33334
-      alignment: 5
-      pivot: {x: 1, y: 0.5}
+        y: 1600
+        width: 900
+        height: 800
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 76ed8b1a7fd4abe4282663e510b4b693
+      spriteID: 1c913085fd844c548be97bdd461ce6db
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: When_hit_6
+      name: Idle_Move_3
+      rect:
+        serializedVersion: 2
+        x: 2700
+        y: 1600
+        width: 900
+        height: 800
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9776cb4830649334eb3409dbba4174a9
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Idle_Move_4
+      rect:
+        serializedVersion: 2
+        x: 3600
+        y: 1600
+        width: 900
+        height: 800
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cde75fafb1f588e42bac885c9e0fc748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Idle_Move_5
       rect:
         serializedVersion: 2
         x: 0
-        y: 477.66666
-        width: 360
-        height: 477.33334
-      alignment: 5
-      pivot: {x: 1, y: 0.5}
+        y: 800
+        width: 900
+        height: 800
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3ac3da84a71de6248b21f04df25877d0
+      spriteID: 92657d878dfae9f40b102b6eec7a9b64
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: When_hit_7
+      name: Idle_Move_6
       rect:
         serializedVersion: 2
-        x: 360
-        y: 477.66666
-        width: 360
-        height: 477.33334
-      alignment: 5
-      pivot: {x: 1, y: 0.5}
+        x: 900
+        y: 800
+        width: 900
+        height: 800
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bcabbcdd73d7f02479bb6e0e74c75683
+      spriteID: 1aba8afee6123f145b24eaff8aa78863
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: When_hit_8
-      rect:
-        serializedVersion: 2
-        x: 720
-        y: 477.66666
-        width: 360
-        height: 477.33334
-      alignment: 5
-      pivot: {x: 1, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 727020bcc86bff14ab6a390f080fa90d
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: When_hit_9
-      rect:
-        serializedVersion: 2
-        x: 1080
-        y: 477.66666
-        width: 360
-        height: 477.33334
-      alignment: 5
-      pivot: {x: 1, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f652f00ff1459694099b8d7a3ad211bc
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: When_hit_10
-      rect:
-        serializedVersion: 2
-        x: 1440
-        y: 477.66666
-        width: 360
-        height: 477.33334
-      alignment: 5
-      pivot: {x: 1, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 80d1152b343bee842b666afaf582e341
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: When_hit_11
+      name: Idle_Move_7
       rect:
         serializedVersion: 2
         x: 1800
-        y: 477.66666
-        width: 360
-        height: 477.33334
-      alignment: 5
-      pivot: {x: 1, y: 0.5}
+        y: 800
+        width: 900
+        height: 800
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a03957b48f67f544ea72e299cf0e99fb
+      spriteID: 8052a0a46ba63064a9bcc5860695330e
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: When_hit_12
+      name: Idle_Move_8
+      rect:
+        serializedVersion: 2
+        x: 2700
+        y: 800
+        width: 900
+        height: 800
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5e6f15bd87e170458128fe342b06247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Idle_Move_9
+      rect:
+        serializedVersion: 2
+        x: 3600
+        y: 800
+        width: 900
+        height: 800
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b7a49e66512b034aaf9397fe3370cc8
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Idle_Move_10
       rect:
         serializedVersion: 2
         x: 0
-        y: 0.6666565
-        width: 360
-        height: 477.33334
-      alignment: 5
-      pivot: {x: 1, y: 0.5}
+        y: 0
+        width: 900
+        height: 800
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cf121d3ae1957fc4c897609e5bac5bc0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: When_hit_13
-      rect:
-        serializedVersion: 2
-        x: 360
-        y: 0.6666565
-        width: 360
-        height: 477.33334
-      alignment: 5
-      pivot: {x: 1, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b3e80ae01154e9b4ab5a57938720f5b1
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: When_hit_14
-      rect:
-        serializedVersion: 2
-        x: 720
-        y: 0.6666565
-        width: 360
-        height: 477.33334
-      alignment: 5
-      pivot: {x: 1, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 59341db4680806f488eef0725376e03f
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: When_hit_15
-      rect:
-        serializedVersion: 2
-        x: 1080
-        y: 0.6666565
-        width: 360
-        height: 477.33334
-      alignment: 5
-      pivot: {x: 1, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: fa00a12b82c2ad346a4088d8c8558fd7
+      spriteID: 81c72195a5f9e024caf095d027d25854
       vertices: []
       indices: 
       edges: []
@@ -433,7 +339,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 6ef1d332794040a42aac5b07baaf0880
+    spriteID: a8475246c99d5944e9c26a85dda12207
     vertices: []
     indices: 
     edges: []

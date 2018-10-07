@@ -15,21 +15,6 @@ public class HeroData
 
 		[Range(0, 100)]
 		public float _Shield = 50f; ///Щит   
-		/*
-public float _MaxEnergy = 100; ///Максимальная энергия	
-public float _Energy = 100; ///Текущая энергия
-
-public float _GlobalMaxHealth = 100; ///Максимальная глобальная жизнь
-public float _GlobalHealth = 100; ///Текущая глобальная жизнь
-
-
-[Range(0, 100)]
-public float _Protaction = 0f; ///Защита 
-public float _SpeedAttack = 100f; ///Скорость атаки
-public float _Agility = 0; ///Ловкость
-public float _Power = 0; ///Сила
-public float _Vitality = 0; ///Жизнеспособность
-*/
 }
 
 public class HeroManager : MonoBehaviour
@@ -53,6 +38,7 @@ public class HeroManager : MonoBehaviour
 
 		private void Awake()
 		{
+				LoadData();
 				_anima = GetComponent<Animator>();
 		}
 
@@ -71,8 +57,7 @@ public class HeroManager : MonoBehaviour
 		{
 				UIController.instance.GameOver();
 		}
-
-
+		
 		private void OnTriggerExit2D(Collider2D collision)
 		{
 				if (collision.tag == "Enemy" && Hero.instance.Motor._attacks)
@@ -127,4 +112,8 @@ public class HeroManager : MonoBehaviour
 				}
 		}
 
+		void LoadData()
+		{
+
+		}
 }

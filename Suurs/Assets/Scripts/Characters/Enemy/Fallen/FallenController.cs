@@ -22,7 +22,7 @@ public class FallenController : EnemyController
         if (_attacks)
         {
             _attacks = false;
-            _enemyManager.ResetEnemyDealAttack();
+						_enemyManager.ResetEnemyDealAttack();
         }
     }
 
@@ -75,7 +75,6 @@ public class FallenController : EnemyController
         {
             audioManager.Play(FallenSounds.Strike.ToString());
             _attacks = true;
-            _anima.SetTrigger("Attack");
             _lastAttackTime = Time.fixedTime;
         }
     }
@@ -97,4 +96,8 @@ public class FallenController : EnemyController
         base.Die();
     }
 
+		protected override void DoFixedUpdate()
+		{
+				_anima.SetBool("Attack", _attacks);
+		}
 }
