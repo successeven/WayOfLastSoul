@@ -53,9 +53,14 @@ public class CrowController : EnemyController
     float _currentDeltaTimeAttack = 0;
     float lastVoicetime;
     float deltaTimeVoice = 0;
-    int tempHeight;
+		int tempHeight;
 
-    protected override void DoMotion()
+		protected override void AfterStart()
+		{
+				tempHeight = UnityEngine.Random.Range(7, 11);
+		}
+
+		protected override void DoMotion()
     {
         if (Hero.instance.Manager._Health <= 0 && stateCrow != StateCrow.Idle)
             stateCrow = StateCrow.TakeOff;
@@ -67,7 +72,7 @@ public class CrowController : EnemyController
                     stateCrow = StateCrow.Move;
                     if (_currentDeltaTimeAttack == 0)
                     _currentDeltaTimeAttack = UnityEngine.Random.Range(2f, _deltaTimeAttack);
-										tempHeight = UnityEngine.Random.Range(7, 11);
+										//tempHeight = UnityEngine.Random.Range(7, 11);
 								}
                 else
                 {
@@ -129,7 +134,7 @@ public class CrowController : EnemyController
                             Flip(ref actionRight);
                         else if (_moveSide < 0 && transform.position.x - Hero.instance.transform.position.x < 0)
                             Flip(ref actionRight);
-                        _anima.SetTrigger("Fly");
+                        _anima.SetTrigger("Dive");
 												tempHeight = UnityEngine.Random.Range(7, 11);
 												_tempPosition = new Vector3(
 														_CurrentPosX,
@@ -139,7 +144,7 @@ public class CrowController : EnemyController
 
 												_startAttackPosition.x -= 10 * transform.localScale.x;
                         _targetAttack = Hero.instance.transform.position;
-                        _targetAttack.y -= 2;
+                        
                         stateCrow = StateCrow.Fly;
                     }
                 }
