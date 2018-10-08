@@ -53,9 +53,14 @@ GameObject:
   m_Component:
   - component: {fileID: 4084341486404668}
   - component: {fileID: 95877227296838204}
+  - component: {fileID: 50841807054006896}
+  - component: {fileID: 58132495716637450}
+  - component: {fileID: 114256367031710718}
+  - component: {fileID: 114173771893878946}
+  - component: {fileID: 114333813791460726}
   m_Layer: 0
   m_Name: Crow
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -149,8 +154,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1180071981848250}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.375921, y: -6.2168593, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -6.93, y: -4.75, z: 0}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_Children:
   - {fileID: 4081276343574012}
   m_Father: {fileID: 0}
@@ -176,7 +181,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1731408205027822}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.542, y: -0.086, z: 0}
+  m_LocalPosition: {x: 0, y: 0.53, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4905388207085572}
@@ -225,6 +230,41 @@ Transform:
   m_Father: {fileID: 4081276343574012}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &50841807054006896
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1180071981848250}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 10
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!58 &58132495716637450
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1180071981848250}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.3, y: 0.88}
+  serializedVersion: 2
+  m_Radius: 1.2
 --- !u!95 &95877227296838204
 Animator:
   serializedVersion: 3
@@ -243,6 +283,94 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114173771893878946
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1180071981848250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31324d009b181dd47bd64c7aab337783, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 10
+  _visibility: 25
+  _deltaTimeAttack: 10
+  _deltaDistanceAttack: 0.5
+  _deltaDistanceSpeed: 4
+  _canAttack: 1
+  _canMove: 1
+  _SpeedAttack: 10
+  _distanceAttack: 10
+  _verticalSpeed: 1
+  _amplitude: 0.5
+  _patrolLength: 8
+--- !u!114 &114256367031710718
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1180071981848250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ae59368d1d300b4f8e4a8c9a403c045, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Move
+    clip: {fileID: 8300000, guid: 82bad9459d941db40b622ba6a686b188, type: 3}
+    volume: 0.7
+    pitch: 0.85
+    loop: 1
+    Surround: 1
+    MinDistance: 10.9
+    source: {fileID: 0}
+  - name: Strike
+    clip: {fileID: 8300000, guid: 07a728a791a9fde40b84021ab8cde190, type: 3}
+    volume: 0.7
+    pitch: 1
+    loop: 0
+    Surround: 0
+    MinDistance: 1
+    source: {fileID: 0}
+  - name: Voice_1
+    clip: {fileID: 8300000, guid: 6acec205adf0b1c4db5498ae2655ae49, type: 3}
+    volume: 0.6
+    pitch: 1
+    loop: 0
+    Surround: 1
+    MinDistance: 1
+    source: {fileID: 0}
+  - name: Voice_2
+    clip: {fileID: 8300000, guid: 250d44e18ed385945955b1307fe8d5d3, type: 3}
+    volume: 0.6
+    pitch: 1
+    loop: 0
+    Surround: 1
+    MinDistance: 1
+    source: {fileID: 0}
+  - name: Voice
+    clip: {fileID: 8300000, guid: e5fe93580f976bd47ae12a892b6f55bd, type: 3}
+    volume: 0.6
+    pitch: 1
+    loop: 0
+    Surround: 1
+    MinDistance: 10
+    source: {fileID: 0}
+--- !u!114 &114333813791460726
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1180071981848250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abf829a029670b34a97d65a3f3da5097, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _attack: 15
+  _HP: 20
 --- !u!198 &198128135998656314
 ParticleSystem:
   m_ObjectHideFlags: 1

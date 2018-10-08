@@ -8,6 +8,7 @@ public class HeroMotor : CharacterMotor
 		enum StatsEnum
 		{
 				None = 0,
+				Uppercut = 1,
 				Shield_Attack = 2,
 				Strike_1 = 4,
 				Strike_2 = 5,
@@ -76,6 +77,7 @@ public class HeroMotor : CharacterMotor
 				_fsm.AddStates((int)StatsEnum.Strike_1, Strike_1);
 				_fsm.AddStates((int)StatsEnum.Strike_2, Strike_2);
 				_fsm.AddStates((int)StatsEnum.Strike_3, Strike_3);
+				_fsm.AddStates((int)StatsEnum.Uppercut, DoUppercut);
 		}
 
 		private void FixedUpdate()
@@ -170,10 +172,8 @@ public class HeroMotor : CharacterMotor
 		{
 				if (_anima.GetInteger("Attack Index") != (int)StatsEnum.Shield_Attack)
 				{
-						Debug.Log("Запуск!");
 						_startPos = transform.position;
 						StartCoroutine(DoShield_Attack(2.6f, _startPos));
-
 				}
 				_anima.SetInteger("Attack Index", (int)StatsEnum.Shield_Attack);
 				_anima.SetBool("Attack", true);
@@ -218,22 +218,31 @@ public class HeroMotor : CharacterMotor
 				_fsm.FinishOtherStates();
 		}
 
+		public void Uppercut()
+		{
+				_fsm.RunState((int)StatsEnum.Uppercut);
+				if (_fsm.GetCurrentState() == Moves)
+						_fsm.FinishState();
+		}
+
+		void DoUppercut()
+		{
+				Debug.Log("Апперкот!");
+				if (_anima.GetInteger("Attack Index") != (int)StatsEnum.Uppercut)
+				{
+						Hero.instance.audioManager.Play(Hero.AudioClips.Uppercut.ToString());
+				}
+				_anima.SetInteger("Attack Index", (int)StatsEnum.Uppercut);
+				_anima.SetBool("Attack", true);
+		}
+
+
 		public void Dodge()
 		{
 				_dodge = true;
 				_fsm.FinishAllStates();
 		}
-
-		private IEnumerator DoStrikeRoll(float time)
-		{
-				_attacks = true;
-				Hero.instance.audioManager.Play(Hero.AudioClips.Strike_1.ToString());
-				for (float t = 0; t <= time; t += Time.deltaTime)
-						yield return null;
-
-		}
-
-
+		
 		private IEnumerator DoDodge(float time)
 		{
 				_isDodging = true;
@@ -262,7 +271,7 @@ public class HeroMotor : CharacterMotor
 		private IEnumerator DoShield_Attack(float time, Vector2 startPos)
 		{
 				_attacks = true;
-				Hero.instance.audioManager.Play(Hero.AudioClips.Rapira.ToString());
+				Hero.instance.audioManager.Play(Hero.AudioClips.Shield_Attack.ToString());
 				yield return new WaitForSeconds(1f);
 				Vector2 EndPos = startPos;
 				for (float t = 0; t <= time; t += Time.deltaTime)

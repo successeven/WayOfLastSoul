@@ -12,12 +12,12 @@ public class Hero : MonoBehaviour
     {
         None,
         Run,
-        Roll,
         Hit,
+				Uppercut,
         Strike_1,
         Strike_2,
         Strike_3,
-        Rapira,
+        Shield_Attack,
         Dodge,
         Block,
         Death

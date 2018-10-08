@@ -62,6 +62,9 @@ public class HeroController : MonoBehaviour
 				if (CrossPlatformInputManager.GetButtonDown("Jump"))
 						Hero.instance.Motor.Jump();
 				
+				if (CrossPlatformInputManager.GetButtonDown("Uppercut"))
+						Hero.instance.Motor.Uppercut();
+
 				float timeDelta = Time.time - _lastBlockClickTime;
 				if (CrossPlatformInputManager.GetButtonDown("Block"))
 				{

@@ -2,17 +2,17 @@ fileFormatVersion: 2
 guid: d298ba500243bc3469938205ef854fb0
 TextureImporter:
   fileIDToRecycleName:
-    21300000: special_rocks_0
-    21300002: special_rocks_1
-    21300004: special_rocks_2
-    21300006: special_rocks_3
-    21300008: special_rocks_4
-    21300010: special_rocks_5
-    21300012: special_rocks_6
-    21300014: special_rocks_7
-    21300016: special_rocks_8
-    21300018: special_rocks_9
-    21300020: special_rocks_10
+    21300000: Rocks_1
+    21300002: Rocks_2
+    21300004: Rocks_3
+    21300006: Rocks_4
+    21300008: Rocks_7
+    21300010: Rocks_9
+    21300012: Rocks_10
+    21300014: Rocks_11
+    21300016: Rocks_5
+    21300018: Rocks_8
+    21300020: Rocks_6
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -52,7 +52,7 @@ TextureImporter:
   lightmap: 0
   compressionQuality: 50
   spriteMode: 2
-  spriteExtrude: 1
+  spriteExtrude: 0
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
@@ -71,7 +71,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 2
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 4096
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -82,7 +82,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   - serializedVersion: 2
     buildTarget: Standalone
-    maxTextureSize: 2048
+    maxTextureSize: 4096
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -93,7 +93,18 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   - serializedVersion: 2
     buildTarget: Android
-    maxTextureSize: 2048
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Windows Store Apps
+    maxTextureSize: 4096
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -106,7 +117,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: special_rocks_0
+      name: Rocks_1
       rect:
         serializedVersion: 2
         x: 959
@@ -114,7 +125,7 @@ TextureImporter:
         width: 1345
         height: 619
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -126,7 +137,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: special_rocks_1
+      name: Rocks_2
       rect:
         serializedVersion: 2
         x: 2844
@@ -134,7 +145,7 @@ TextureImporter:
         width: 2074
         height: 947
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -146,7 +157,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: special_rocks_2
+      name: Rocks_3
       rect:
         serializedVersion: 2
         x: 0
@@ -154,7 +165,7 @@ TextureImporter:
         width: 864
         height: 1960
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -166,7 +177,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: special_rocks_3
+      name: Rocks_4
       rect:
         serializedVersion: 2
         x: 1369
@@ -174,7 +185,7 @@ TextureImporter:
         width: 827
         height: 862
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -186,7 +197,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: special_rocks_4
+      name: Rocks_7
       rect:
         serializedVersion: 2
         x: 2822
@@ -194,7 +205,7 @@ TextureImporter:
         width: 372
         height: 837
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -206,7 +217,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: special_rocks_5
+      name: Rocks_9
       rect:
         serializedVersion: 2
         x: 3613
@@ -214,7 +225,7 @@ TextureImporter:
         width: 373
         height: 833
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -226,7 +237,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: special_rocks_6
+      name: Rocks_10
       rect:
         serializedVersion: 2
         x: 4348
@@ -234,7 +245,7 @@ TextureImporter:
         width: 371
         height: 834
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -246,7 +257,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: special_rocks_7
+      name: Rocks_11
       rect:
         serializedVersion: 2
         x: 5084
@@ -254,7 +265,7 @@ TextureImporter:
         width: 663
         height: 1908
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -266,7 +277,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: special_rocks_8
+      name: Rocks_5
       rect:
         serializedVersion: 2
         x: 1197
@@ -274,7 +285,7 @@ TextureImporter:
         width: 1083
         height: 507
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -286,7 +297,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: special_rocks_9
+      name: Rocks_8
       rect:
         serializedVersion: 2
         x: 2645
@@ -294,7 +305,7 @@ TextureImporter:
         width: 2419
         height: 681
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -306,7 +317,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: special_rocks_10
+      name: Rocks_6
       rect:
         serializedVersion: 2
         x: 1138
@@ -314,7 +325,7 @@ TextureImporter:
         width: 1162
         height: 331
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
