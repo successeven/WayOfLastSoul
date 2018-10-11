@@ -90,7 +90,7 @@ public class StartScenes : MonoBehaviour
                     changeLocation = true;
                 }
 
-                if (Hero.instance.transform.position.x >= _FinishPos.transform.position.x + 5)
+                if (Hero.instance.transform.position.x >= _FinishPos.transform.position.x + 15)
                 {
 
                     int CompletedLVL = PlayerPrefs.GetInt("CompletedLVL");
