@@ -98,9 +98,5 @@ public class HeroController : MonoBehaviour
 		void ResetStats()
 		{
 				Hero.instance.Manager._TakeDamage = false;
-				/*	if (Hero.instance.Motor._attacks)
-					{
-							Hero.instance.Motor.ResetAttack();
-					}*/
 		}
 }
