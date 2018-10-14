@@ -88,7 +88,7 @@ public class HeroManager : MonoBehaviour
 						if (!enemyController._reciveDamage)
 						{
 								var _currentAttackItem = _attackItems.Where(x => x._ID == Hero.instance.Motor.AttackIndex).FirstOrDefault();
-								enemyController.TakeHit(_currentAttackItem._damage);// + (_attack / 100 * _currentAttackItem._damage));
+								enemyController.TakeHit(_currentAttackItem._damage);
 						}
 				}
 		}
