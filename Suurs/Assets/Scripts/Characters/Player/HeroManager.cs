@@ -42,7 +42,7 @@ public class HeroManager : MonoBehaviour
 				_anima = GetComponent<Animator>();
 		}
 
-		private void Update()
+		private void FixedUpdate()
 		{
 				if (_Health <= 0 && !_death)
 				{
