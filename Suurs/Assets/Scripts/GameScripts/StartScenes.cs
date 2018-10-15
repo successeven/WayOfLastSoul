@@ -43,6 +43,7 @@ public class StartScenes : MonoBehaviour
 
     void StartGameUI()
     {
+				Hero.instance.Motor.ApplyGravityScale();
         _stateScene = StateScene.Load;
     }
 
