@@ -213,4 +213,9 @@ public class CrowController : EnemyController
         audioManager.Play(SoundCrow.Death.ToString());
         base.Die();
     }
+
+		protected override void Death()
+		{
+				_rigidbody.gravityScale = 10;
+		}
 }

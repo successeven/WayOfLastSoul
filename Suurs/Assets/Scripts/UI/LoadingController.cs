@@ -42,9 +42,9 @@ public class LoadingController : MonoBehaviour
 
     IEnumerator AsyncLoad()
     {
-        yield return new WaitForSeconds(1);
+        //yield return new WaitForSeconds(1);
         AsyncOperation operation = SceneManager.LoadSceneAsync(_LevelName);
-        operation.allowSceneActivation = false;
+				operation.allowSceneActivation = false;
 
         while (!operation.isDone)
         {

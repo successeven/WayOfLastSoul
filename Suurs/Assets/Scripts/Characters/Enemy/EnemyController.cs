@@ -59,6 +59,7 @@ public class EnemyController : Unit
         {
             _enemyManager._death = true;
             _anima.SetTrigger("Death");
+						Death();
             Invoke("Die", 3f);
         }
 
@@ -75,7 +76,11 @@ public class EnemyController : Unit
         }
     }
 
-    protected virtual void FixedUpdate()
+		protected virtual void Death()
+		{
+		}
+
+		protected virtual void FixedUpdate()
     {
         _distance = Vector2.Distance(transform.position, Hero.instance.transform.position);
         if (_enemyManager._HP <= 0 || Hero.instance.Manager._Health <= 0)

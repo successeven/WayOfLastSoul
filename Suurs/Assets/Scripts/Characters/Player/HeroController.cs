@@ -55,10 +55,6 @@ public class HeroController : MonoBehaviour
 						_holdAttack = false;
 						Hero.instance.Motor.Attack();
 				}
-				/*
-				float deltaRoll = Time.fixedTime - Hero.instance.Motor._lastRollTime;
-				if (CrossPlatformInputManager.GetButtonDown("Roll") && deltaRoll > Hero.instance.Manager._DeltaRoll)
-						Hero.instance.Motor.Roll();*/
 
 				if (CrossPlatformInputManager.GetButtonDown("Jump") && Hero.instance.Motor.m_Grounded)
 						Hero.instance.Motor.Jump();

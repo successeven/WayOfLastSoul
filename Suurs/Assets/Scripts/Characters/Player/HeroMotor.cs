@@ -66,6 +66,7 @@ public class HeroMotor : CharacterMotor
 		float _dodgeHeight = 5f;
 		[NonSerialized]
 		public float _lastDodgeTime = 0;
+
 		#endregion
 
 		StatsEnum currentAttackEnum = StatsEnum.None;
@@ -98,6 +99,11 @@ public class HeroMotor : CharacterMotor
 		protected override bool CanMove()
 		{
 				return (!_attacks && !_isDodging && !_blocking && _canMove);
+		}
+
+		public void ApplyGravityScale()
+		{
+				_rigidbody.gravityScale = 10;
 		}
 
 		public void Attack()
@@ -232,9 +238,10 @@ public class HeroMotor : CharacterMotor
 
 		void DoUppercut()
 		{
-				Debug.Log("Апперкот!");
+				_attacks = true;
 				if (_anima.GetInteger("Attack Index") != (int)StatsEnum.Uppercut)
 				{
+						_anima.SetFloat("Speed", 0);
 						Hero.instance.audioManager.Play(Hero.AudioClips.Uppercut.ToString());
 				}
 				_anima.SetInteger("Attack Index", (int)StatsEnum.Uppercut);
@@ -251,6 +258,7 @@ public class HeroMotor : CharacterMotor
 		private IEnumerator DoDodge(float time)
 		{
 				_isDodging = true;
+				_anima.SetFloat("Speed", 0);
 				Hero.instance.audioManager.Play(Hero.AudioClips.Dodge.ToString());
 				yield return new WaitForSeconds(.04f);
 				for (float t = 0; t <= time; t += Time.deltaTime)
@@ -264,6 +272,7 @@ public class HeroMotor : CharacterMotor
 		private IEnumerator DoAttack(string AudioClipName, float time)
 		{
 				_attacks = true;
+				_anima.SetFloat("Speed", 0);
 				Hero.instance.audioManager.Play(AudioClipName);
 				for (float t = 0; t <= time; t += Time.deltaTime)
 				{
@@ -276,6 +285,7 @@ public class HeroMotor : CharacterMotor
 		private IEnumerator DoShield_Attack(float time, Vector2 startPos)
 		{
 				_attacks = true;
+				_anima.SetFloat("Speed", 0);
 				Hero.instance.audioManager.Play(Hero.AudioClips.Shield_Attack.ToString());
 				yield return new WaitForSeconds(1f);
 				Vector2 EndPos = startPos;
