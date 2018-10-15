@@ -82,8 +82,11 @@ public class HeroMotor : CharacterMotor
 
 		private void FixedUpdate()
 		{
-				_fsm.Invoke();
-				CheckGround();
+				if (Hero.instance.Manager._Health > 0)
+				{
+						_fsm.Invoke();
+						CheckGround();
+				}				
 		}
 
 		public void FinishAllAttacks()

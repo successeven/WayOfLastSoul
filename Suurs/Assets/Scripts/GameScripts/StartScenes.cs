@@ -41,7 +41,7 @@ public class StartScenes : MonoBehaviour
         _startDistance = (int)Mathf.Abs((Hero.instance.transform.position.x - _StartPos.transform.position.x));
     }
 
-    void ChangeState()
+    void StartGameUI()
     {
         _stateScene = StateScene.Load;
     }
@@ -68,7 +68,7 @@ public class StartScenes : MonoBehaviour
                 }
                 else
                 {
-                    var deltaSpeed = distance > 5 ? 0.9f : 0.7f;
+                    var deltaSpeed = distance > 5 ? 1f : 0.8f;
                     Hero.instance.Move(deltaSpeed * Hero.instance.transform.localScale.x);
                 }
 
@@ -82,7 +82,7 @@ public class StartScenes : MonoBehaviour
                 break;
             case StateScene.Game:
                 bool changeLocation = false;
-                if (Hero.instance.transform.position.x <= _StartPos.transform.position.x - 5)
+                if (Hero.instance.transform.position.x <= _StartPos.transform.position.x - 15)
                 {
                     PlayerPrefs.SetInt("NextLVL", -4); //назад всегда возвращаемся на респ
                     if (Hero.instance.transform.localScale.x > 0)
@@ -129,7 +129,8 @@ public class StartScenes : MonoBehaviour
                 Hero.instance.Move(.9f * Hero.instance.transform.localScale.x);
                 percent = 100f - (30f - distance) / 30f * 100f;
                 alpha = (int)Mathf.Round((255 * (percent * 0.01f)));
-                if (alpha > 255)
+
+								if (alpha > 255)
                 {
                     _isLoaded = true;
                     _stateScene = StateScene.Exit;
@@ -154,12 +155,12 @@ public class StartScenes : MonoBehaviour
         while (!operation.isDone)
         {
             if (operation.progress == 0.9f)
-            {
+            {/*
                 if (UIController.instance.ad.IsLoaded() && PlayerPrefs.GetInt("CountChangeLevel") == 3)
 								{
 										UIController.instance.ad.Show();
 										PlayerPrefs.SetInt("CountChangeLevel", 0);
-								}
+								}*/
                 if (_isLoaded)
                     operation.allowSceneActivation = true;
             }
