@@ -29,13 +29,15 @@ public class HeroController : MonoBehaviour
 				if (_interfaceBlocked)
 						return;
 
-				Hero.instance.Motor.Move(CrossPlatformInputManager.GetAxis("Horizontal"));
+				Hero.instance.Motor.CurrentHorAxis = CrossPlatformInputManager.GetAxis("Horizontal");
 
 		}
 
 
 		private void Update()
 		{
+
+
 				if (Hero.instance.Manager._Health <= 0)
 						return;
 
@@ -57,7 +59,6 @@ public class HeroController : MonoBehaviour
 				float deltaRoll = Time.fixedTime - Hero.instance.Motor._lastRollTime;
 				if (CrossPlatformInputManager.GetButtonDown("Roll") && deltaRoll > Hero.instance.Manager._DeltaRoll)
 						Hero.instance.Motor.Roll();*/
-
 
 				if (CrossPlatformInputManager.GetButtonDown("Jump") && Hero.instance.Motor.m_Grounded)
 						Hero.instance.Motor.Jump();

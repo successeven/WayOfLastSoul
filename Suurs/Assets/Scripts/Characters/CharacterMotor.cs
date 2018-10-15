@@ -21,8 +21,19 @@ public class CharacterMotor : MonoBehaviour
 		protected bool _acingRight = true;
 		public bool m_Grounded;            // Whether or not the player is grounded.
 
-		[NonSerialized]
-		public float _currentSpeed;
+		float _currentHorAxis;
+			 
+		public float CurrentHorAxis
+		{
+				get
+				{
+						return _currentHorAxis;
+				}
+				set
+				{
+						_currentHorAxis = value;
+				}
+		}
 
 		private Vector3 m_Velocity = Vector3.zero;
 
@@ -61,35 +72,28 @@ public class CharacterMotor : MonoBehaviour
 				OnLandEvent.Invoke();
 		}
 
-		public virtual void Move(float inMoveDirection)
+		public virtual void Move()
 		{
 
-				_anima.SetFloat("Speed", Mathf.Abs(inMoveDirection));
+				_anima.SetFloat("Speed", Mathf.Abs(_currentHorAxis));
 				if (CanMove() && m_Grounded)
 				{
 						if (!Hero.instance.Manager._TakeDamage)
-								if (inMoveDirection != 0 && !Hero.instance.audioManager.IsPlaying(Hero.AudioClips.Run.ToString()))
+								if (_currentHorAxis != 0 && !Hero.instance.audioManager.IsPlaying(Hero.AudioClips.Run.ToString()))
 										Hero.instance.audioManager.Play(Hero.AudioClips.Run.ToString());
-								else if (inMoveDirection == 0)
+								else if (_currentHorAxis == 0)
 										Hero.instance.audioManager.Stop(Hero.AudioClips.Run.ToString());
 
-						Hero.instance.audioManager.SetPitch(Hero.AudioClips.Run.ToString(), Math.Abs(inMoveDirection));
+						Hero.instance.audioManager.SetPitch(Hero.AudioClips.Run.ToString(), Math.Abs(_currentHorAxis));
 
-						_currentSpeed = inMoveDirection * _speed;
-						//_rigidbody.velocity = new Vector2(inMoveDirection * _speed, _rigidbody.velocity.y);
-
-						Vector3 targetVelocity = new Vector2(inMoveDirection * _speed, _rigidbody.velocity.y);
+						Vector3 targetVelocity = new Vector2(_currentHorAxis * _speed, _rigidbody.velocity.y);
 						_rigidbody.velocity = Vector3.SmoothDamp(_rigidbody.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
 
-						if (inMoveDirection > 0 && !_acingRight)
+						if (_currentHorAxis > 0 && !_acingRight)
 								Flip();
-						else if (inMoveDirection < 0 && _acingRight)
+						else if (_currentHorAxis < 0 && _acingRight)
 								Flip();
 
-				}
-				else
-				{
-						_currentSpeed = 0;
 				}
 		}
 

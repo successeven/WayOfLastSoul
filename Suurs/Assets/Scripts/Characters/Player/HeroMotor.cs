@@ -128,6 +128,8 @@ public class HeroMotor : CharacterMotor
 				_anima.SetInteger("Attack Index", 0);
 				_anima.SetBool("Attack", false);
 
+				Move();
+
 				if (m_Grounded && _jump)
 				{
 						_jump = false;
