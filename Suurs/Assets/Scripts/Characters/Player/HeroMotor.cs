@@ -184,7 +184,7 @@ public class HeroMotor : CharacterMotor
 				if (_anima.GetInteger("Attack Index") != (int)StatsEnum.Shield_Attack)
 				{
 						_startPos = transform.position;
-						StartCoroutine(DoShield_Attack(2.6f, _startPos));
+						StartCoroutine(DoShield_Attack(1.06f, _startPos));
 				}
 				_anima.SetInteger("Attack Index", (int)StatsEnum.Shield_Attack);
 				_anima.SetBool("Attack", true);
@@ -287,7 +287,6 @@ public class HeroMotor : CharacterMotor
 				_attacks = true;
 				_anima.SetFloat("Speed", 0);
 				Hero.instance.audioManager.Play(Hero.AudioClips.Shield_Attack.ToString());
-				yield return new WaitForSeconds(1f);
 				Vector2 EndPos = startPos;
 				for (float t = 0; t <= time; t += Time.deltaTime)
 				{

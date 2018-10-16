@@ -29,11 +29,22 @@ public class HeroController : MonoBehaviour
 				if (_interfaceBlocked)
 						return;
 
+
+				if (_holdAttack)
+				{
+						float deltaPower = (Time.fixedTime - Hero.instance.Motor._lastAttackTime) / Hero.instance.Motor._deltaShield_AttackTime;
+
+						Debug.Log(Math.Min(deltaPower, 1));
+						Hero.instance.Motor._anima.SetFloat("Shield Power", Math.Min(deltaPower, 1));
+				}
+				else
+						Hero.instance.Motor._anima.SetFloat("Shield Power", 0);
+
 				Hero.instance.Motor.CurrentHorAxis = CrossPlatformInputManager.GetAxis("Horizontal");
 
 		}
 
-
+		float _timeAttackHold;
 		private void Update()
 		{
 
@@ -49,6 +60,8 @@ public class HeroController : MonoBehaviour
 						_holdAttack = true;
 						Hero.instance.Motor._lastAttackTime = Time.fixedTime;
 				}
+
+
 
 				if (CrossPlatformInputManager.GetButtonUp("Attack"))
 				{
