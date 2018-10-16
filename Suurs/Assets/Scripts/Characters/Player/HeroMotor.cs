@@ -291,7 +291,7 @@ public class HeroMotor : CharacterMotor
 				Vector2 EndPos = startPos;
 				for (float t = 0; t <= time; t += Time.deltaTime)
 				{
-						if (transform.position.x > startPos.x + _deltaShield_AttackLength)
+						if (Math.Abs(startPos.x - transform.position.x) > _deltaShield_AttackLength) 
 						{
 								EndPos.x = startPos.x + (_deltaShield_AttackLength * transform.localScale.x);
 								EndPos.y = transform.position.y;
