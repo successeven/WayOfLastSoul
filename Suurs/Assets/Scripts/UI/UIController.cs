@@ -38,9 +38,18 @@ public class UIController : MonoBehaviour
     void Start()
     {
         _anima = GetComponent<Animator>();
-    /*    ad = new InterstitialAd(Hero.GameOverAD);
-        AdRequest request = new AdRequest.Builder().Build();
-        ad.LoadAd(request);*/
+				try
+				{
+
+						ad = new InterstitialAd(Hero.GameOverAD);
+						AdRequest request = new AdRequest.Builder().Build();
+						ad.LoadAd(request);
+				}
+				catch (Exception ex)
+				{
+						Debug.LogError("не удалось загрузить рекламу! Ошибка: " + ex.ToString()) ;
+						throw;
+				}
         gameOver = false;
     }
 
@@ -86,9 +95,9 @@ public class UIController : MonoBehaviour
 
     void NextLevel()
     {
-      //  if (ad.IsLoaded() && gameOver)
-      //      ad.Show();
-        PlayerPrefs.SetInt("NextLVL", 0);
+				if (ad.IsLoaded() && gameOver)
+						ad.Show();
+				PlayerPrefs.SetInt("NextLVL", 0);
         SceneManager.LoadScene("Loading");
     }
 
