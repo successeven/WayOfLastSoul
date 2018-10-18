@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -38,9 +38,10 @@ public class UIController : MonoBehaviour
     void Start()
     {
         _anima = GetComponent<Animator>();
-    /*    ad = new InterstitialAd(Hero.GameOverAD);
+				MobileAds.Initialize(Hero.appId);
+				ad = new InterstitialAd(Hero.GameOverAD);
         AdRequest request = new AdRequest.Builder().Build();
-        ad.LoadAd(request);*/
+        ad.LoadAd(request);
         gameOver = false;
     }
 
@@ -86,8 +87,8 @@ public class UIController : MonoBehaviour
 
     void NextLevel()
     {
-      //  if (ad.IsLoaded() && gameOver)
-      //      ad.Show();
+        if (ad.IsLoaded() && gameOver)
+            ad.Show();
         PlayerPrefs.SetInt("NextLVL", 0);
         SceneManager.LoadScene("Loading");
     }

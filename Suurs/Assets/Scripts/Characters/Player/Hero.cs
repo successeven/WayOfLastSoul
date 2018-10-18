@@ -66,9 +66,8 @@ public class Hero : MonoBehaviour
     }
     public AudioManager audioManager { get; private set; }
 
-
-
-    public const string GameOverAD = "ca-app-pub-4537576181628162/5928041347";
+		public const string appId = "ca-app-pub-4537576181628162~8534023389";
+		public const string GameOverAD = "ca-app-pub-4537576181628162/5928041347";
     public const string bannerAD = "ca-app-pub-4537576181628162/5626457313";
 
     private void Start()
