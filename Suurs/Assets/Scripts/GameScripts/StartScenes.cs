@@ -156,12 +156,12 @@ public class StartScenes : MonoBehaviour
         while (!operation.isDone)
         {
             if (operation.progress == 0.9f)
-            {/*
+            {
                 if (UIController.instance.ad.IsLoaded() && PlayerPrefs.GetInt("CountChangeLevel") == 3)
 								{
 										UIController.instance.ad.Show();
 										PlayerPrefs.SetInt("CountChangeLevel", 0);
-								}*/
+								}
                 if (_isLoaded)
                     operation.allowSceneActivation = true;
             }

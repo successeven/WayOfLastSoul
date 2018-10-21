@@ -14,10 +14,7 @@ public class HeroController : MonoBehaviour
 		[NonSerialized]
 		public bool _holdAttack = false;
 
-		[NonSerialized]
 		public bool _interfaceBlocked = true;
-
-
 		bool jump = false;
 
 		void FixedUpdate()
@@ -34,7 +31,6 @@ public class HeroController : MonoBehaviour
 				{
 						float deltaPower = (Time.fixedTime - Hero.instance.Motor._lastAttackTime) / Hero.instance.Motor._deltaShield_AttackTime;
 
-						Debug.Log(Math.Min(deltaPower, 1));
 						Hero.instance.Motor._anima.SetFloat("Shield Power", Math.Min(deltaPower, 1));
 				}
 				else
