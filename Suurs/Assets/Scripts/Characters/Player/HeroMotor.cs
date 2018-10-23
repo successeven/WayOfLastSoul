@@ -37,8 +37,20 @@ public class HeroMotor : CharacterMotor
 		[NonSerialized]
 		public bool _dodge = false;
 
-		[NonSerialized]
-		public float _lastAttackTime = 0;
+		float _lastAttackTime = 0;
+
+		[HideInInspector]
+		public float LastAttackTime
+		{
+				get
+				{
+						return _blocking ? Time.fixedTime : _lastAttackTime;
+				}
+				set
+				{
+						_lastAttackTime = value;
+				}
+		}
 
 		[NonSerialized]
 		public bool _blocking = false;
@@ -87,7 +99,7 @@ public class HeroMotor : CharacterMotor
 				{
 						_fsm.Invoke();
 						CheckGround();
-				}				
+				}
 		}
 
 		public void FinishAllAttacks()
@@ -106,33 +118,42 @@ public class HeroMotor : CharacterMotor
 				_rigidbody.gravityScale = 10;
 		}
 
+		int comboCount = 0;
 		public void Attack()
 		{
+
+				if (_blocking)
+						return;
+
 				if (_deltaShield_AttackTime > Time.fixedTime - _lastAttackTime)
 				{
 						_lastAttackTime = Time.fixedTime;
-						if (_fsm.GetCurrentState() == Moves)
-						{
-								currentAttackEnum = StatsEnum.Strike_1;
-						}
-						else if (_fsm.GetCurrentState() != Strike_3)
-								currentAttackEnum++;
+
+						if (comboCount == 0)
+								comboCount = (int)StatsEnum.Strike_1;
+						else if (comboCount < (int)StatsEnum.Strike_3)
+								comboCount++;
 						else
 								return;
 				}
 				else
-						currentAttackEnum = StatsEnum.Shield_Attack;
+						comboCount = (int)StatsEnum.Shield_Attack;
 
-				_fsm.RunState((int)currentAttackEnum);
+				_fsm.RunState(comboCount);
 				if (_fsm.GetCurrentState() == Moves)
 						_fsm.FinishState();
 		}
 
 		void Moves()
 		{
+				comboCount = 0;
 				_attacks = false;
 				_anima.SetInteger("Attack Index", 0);
 				_anima.SetBool("Attack", false);
+				currentAttackEnum = StatsEnum.None;
+
+				if (_blocking)
+						return;
 
 				Move();
 
@@ -153,6 +174,16 @@ public class HeroMotor : CharacterMotor
 								_anima.SetTrigger("Dodge");
 						}
 				}
+		}
+
+		public bool CanBreakAnim()
+		{
+				if (currentAttackEnum == StatsEnum.Strike_3 || 
+						currentAttackEnum == StatsEnum.Uppercut ||
+						currentAttackEnum == StatsEnum.Shield_Attack)
+						return false;
+				else
+						return true;
 		}
 
 		public void ResetState()
@@ -181,51 +212,56 @@ public class HeroMotor : CharacterMotor
 		Vector2 _startPos;
 		void Shield_Attack()
 		{
-				if (_anima.GetInteger("Attack Index") != (int)StatsEnum.Shield_Attack)
+				if (currentAttackEnum != StatsEnum.Shield_Attack)
 				{
 						_startPos = transform.position;
 						StartCoroutine(DoShield_Attack(1.06f, _startPos));
 				}
-				_anima.SetInteger("Attack Index", (int)StatsEnum.Shield_Attack);
+				currentAttackEnum = StatsEnum.Shield_Attack;
+				_anima.SetInteger("Attack Index", (int)currentAttackEnum);
 				_anima.SetBool("Attack", true);
 		}
-		
+
 		Coroutine AttackCoroutine;
 		void Strike_1()
 		{
-				if (_anima.GetInteger("Attack Index") != (int)StatsEnum.Strike_1)
+				if (currentAttackEnum != StatsEnum.Strike_1)
 				{
 						AttackCoroutine = StartCoroutine(DoAttack(Hero.AudioClips.Strike_1.ToString(), 0.6f));
 				}
-				_anima.SetInteger("Attack Index", (int)StatsEnum.Strike_1);
+				currentAttackEnum = StatsEnum.Strike_1;
+				_anima.SetInteger("Attack Index", (int)currentAttackEnum);
 				_anima.SetBool("Attack", true);
 		}
 
 		void Strike_2()
 		{
-				if (_anima.GetInteger("Attack Index") != (int)StatsEnum.Strike_2)
+				if (currentAttackEnum != StatsEnum.Strike_2)
 				{
 						StopCoroutine(AttackCoroutine);
 						AttackCoroutine = StartCoroutine(DoAttack(Hero.AudioClips.Strike_2.ToString(), .03f));
 				}
-				_anima.SetInteger("Attack Index", (int)StatsEnum.Strike_2);
+				currentAttackEnum = StatsEnum.Strike_2;
+				_anima.SetInteger("Attack Index", (int)currentAttackEnum);
 				_anima.SetBool("Attack", true);
 		}
 
 		void Strike_3()
 		{
-				if (_anima.GetInteger("Attack Index") != (int)StatsEnum.Strike_3)
+				if (currentAttackEnum != StatsEnum.Strike_3)
 				{
 						StopCoroutine(AttackCoroutine);
 						AttackCoroutine = StartCoroutine(DoAttack(Hero.AudioClips.Strike_3.ToString(), .4f));
 				}
-				_anima.SetInteger("Attack Index", (int)StatsEnum.Strike_3);
+				currentAttackEnum = StatsEnum.Strike_3;
+				_anima.SetInteger("Attack Index", (int)currentAttackEnum);
 				_anima.SetBool("Attack", true);
 		}
-		
+
 		public void Jump()
 		{
 				_jump = true;
+				Hero.instance.audioManager.Stop(Hero.AudioClips.Run.ToString());
 				_fsm.FinishOtherStates();
 		}
 
@@ -239,12 +275,13 @@ public class HeroMotor : CharacterMotor
 		void DoUppercut()
 		{
 				_attacks = true;
-				if (_anima.GetInteger("Attack Index") != (int)StatsEnum.Uppercut)
+				if (currentAttackEnum != StatsEnum.Uppercut)
 				{
 						_anima.SetFloat("Speed", 0);
 						Hero.instance.audioManager.Play(Hero.AudioClips.Uppercut.ToString());
 				}
-				_anima.SetInteger("Attack Index", (int)StatsEnum.Uppercut);
+				currentAttackEnum = StatsEnum.Uppercut;
+				_anima.SetInteger("Attack Index", (int)currentAttackEnum);
 				_anima.SetBool("Attack", true);
 		}
 
@@ -254,7 +291,7 @@ public class HeroMotor : CharacterMotor
 				_dodge = true;
 				_fsm.FinishAllStates();
 		}
-		
+
 		private IEnumerator DoDodge(float time)
 		{
 				_isDodging = true;
@@ -290,7 +327,7 @@ public class HeroMotor : CharacterMotor
 				Vector2 EndPos = startPos;
 				for (float t = 0; t <= time; t += Time.deltaTime)
 				{
-						if (Math.Abs(startPos.x - transform.position.x) > _deltaShield_AttackLength) 
+						if (Math.Abs(startPos.x - transform.position.x) > _deltaShield_AttackLength)
 						{
 								EndPos.x = startPos.x + (_deltaShield_AttackLength * transform.localScale.x);
 								EndPos.y = transform.position.y;

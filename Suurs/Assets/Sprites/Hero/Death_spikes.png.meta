@@ -1,24 +1,20 @@
 fileFormatVersion: 2
-guid: 9aa7efd04a7f5b2458846ea3ec8682cb
+guid: 23d53333be66f8b4ba994d30160e8eeb
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Run_strike_0
-    21300002: Run_strike_1
-    21300004: Run_strike_2
-    21300006: Run_strike_3
-    21300008: Run_strike_4
-    21300010: Run_strike_5
-    21300012: Run_strike_6
-    21300014: Run_strike_7
-    21300016: Run_strike_8
-    21300018: Run_strike_9
-    21300020: Run_strike_10
-    21300022: Run_strike_11
-    21300024: Run_strike_12
-    21300026: Run_strike_13
-    21300028: Run_strike_14
-    21300030: Run_strike_15
-    21300032: Run_strike_16
+    21300000: Death_spikes_0
+    21300002: Death_spikes_1
+    21300004: Death_spikes_2
+    21300006: Death_spikes_3
+    21300008: Death_spikes_4
+    21300010: Death_spikes_5
+    21300012: Death_spikes_6
+    21300014: Death_spikes_7
+    21300016: Death_spikes_8
+    21300018: Death_spikes_9
+    21300020: Death_spikes_10
+    21300022: Death_spikes_11
+    21300024: Death_spikes_12
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -53,7 +49,7 @@ TextureImporter:
     mipBias: -100
     wrapU: 1
     wrapV: 1
-    wrapW: -1
+    wrapW: 1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -62,7 +58,7 @@ TextureImporter:
   spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 50
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
@@ -77,8 +73,8 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 2
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
-    resizeAlgorithm: 1
+    maxTextureSize: 1024
+    resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 3
     compressionQuality: 50
@@ -88,8 +84,8 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   - serializedVersion: 2
     buildTarget: Standalone
-    maxTextureSize: 2048
-    resizeAlgorithm: 1
+    maxTextureSize: 1024
+    resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 3
     compressionQuality: 50
@@ -99,8 +95,8 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   - serializedVersion: 2
     buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 1
+    maxTextureSize: 1024
+    resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 3
     compressionQuality: 50
@@ -109,20 +105,9 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
   - serializedVersion: 2
-    buildTarget: iPhone
-    maxTextureSize: 4096
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-  - serializedVersion: 2
     buildTarget: Windows Store Apps
-    maxTextureSize: 2048
-    resizeAlgorithm: 1
+    maxTextureSize: 1024
+    resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 3
     compressionQuality: 50
@@ -134,341 +119,261 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Run_strike_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 2298
-        width: 651
-        height: 766
-      alignment: 9
-      pivot: {x: 0.5, y: 0.15995657}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 462d87e6f04260442bd5d66977289250
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Run_strike_1
-      rect:
-        serializedVersion: 2
-        x: 651
-        y: 2298
-        width: 651
-        height: 766
-      alignment: 9
-      pivot: {x: 0.5, y: 0.15995657}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5c72cf7e629fa8143a816d13d9240cf3
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Run_strike_2
-      rect:
-        serializedVersion: 2
-        x: 1302
-        y: 2298
-        width: 651
-        height: 766
-      alignment: 9
-      pivot: {x: 0.5, y: 0.15995657}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 88eb74959df812a49961bcf815736781
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Run_strike_3
-      rect:
-        serializedVersion: 2
-        x: 1953
-        y: 2298
-        width: 651
-        height: 766
-      alignment: 9
-      pivot: {x: 0.5, y: 0.15995657}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 460fc3389008c83459949bb33c09fa36
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Run_strike_4
-      rect:
-        serializedVersion: 2
-        x: 2604
-        y: 2298
-        width: 651
-        height: 766
-      alignment: 9
-      pivot: {x: 0.5, y: 0.15995657}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1aec65a649ac3dd4f99cad318f372b17
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Run_strike_5
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 1532
-        width: 651
-        height: 766
-      alignment: 9
-      pivot: {x: 0.5, y: 0.15995657}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 98218c194fbe75d41bd000be15821c33
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Run_strike_6
-      rect:
-        serializedVersion: 2
-        x: 651
-        y: 1532
-        width: 651
-        height: 766
-      alignment: 9
-      pivot: {x: 0.5, y: 0.15995657}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b41beb9cd0412774c9221c4e28e130ae
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Run_strike_7
-      rect:
-        serializedVersion: 2
-        x: 1302
-        y: 1532
-        width: 651
-        height: 766
-      alignment: 9
-      pivot: {x: 0.5, y: 0.15995657}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: deabb087a71911e44b7bccf4a2369e70
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Run_strike_8
-      rect:
-        serializedVersion: 2
-        x: 1953
-        y: 1532
-        width: 651
-        height: 766
-      alignment: 9
-      pivot: {x: 0.5, y: 0.15995657}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9522821b54458484a8d78190cdb96f80
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Run_strike_9
-      rect:
-        serializedVersion: 2
-        x: 2604
-        y: 1532
-        width: 651
-        height: 766
-      alignment: 9
-      pivot: {x: 0.5, y: 0.15995657}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8702a059c12895d46a13d0f3477e9582
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Run_strike_10
+      name: Death_spikes_0
       rect:
         serializedVersion: 2
         x: 0
         y: 766
-        width: 651
-        height: 766
+        width: 350
+        height: 383
       alignment: 9
-      pivot: {x: 0.5, y: 0.15995657}
+      pivot: {x: 0.5, y: 0.16}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d8cd0145970749040be340534085c8e2
+      spriteID: dfc1cff25e50f8345b2efd902cf03f7d
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Run_strike_11
+      name: Death_spikes_1
       rect:
         serializedVersion: 2
-        x: 651
+        x: 350
         y: 766
-        width: 651
-        height: 766
+        width: 350
+        height: 383
       alignment: 9
-      pivot: {x: 0.5, y: 0.15995657}
+      pivot: {x: 0.5, y: 0.16}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 96b1734796f5e7f4b86bb1e53d4627ab
+      spriteID: 499894c34023c784cbf2cf8839a73e51
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Run_strike_12
+      name: Death_spikes_2
       rect:
         serializedVersion: 2
-        x: 1302
+        x: 700
         y: 766
-        width: 651
-        height: 766
+        width: 350
+        height: 383
       alignment: 9
-      pivot: {x: 0.5, y: 0.15995657}
+      pivot: {x: 0.5, y: 0.16}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e12ab807713a77b46ade4ffed81a2d02
+      spriteID: 754ac70516cdd544bbaa44f6619fc7e9
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Run_strike_13
+      name: Death_spikes_3
       rect:
         serializedVersion: 2
-        x: 1953
+        x: 1050
         y: 766
-        width: 651
-        height: 766
+        width: 350
+        height: 383
       alignment: 9
-      pivot: {x: 0.5, y: 0.15995657}
+      pivot: {x: 0.5, y: 0.16}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e5c07ab356691e841b8fe2b1592adcf9
+      spriteID: 6294e30fe20625f4e912c30e61bce98f
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Run_strike_14
+      name: Death_spikes_4
       rect:
         serializedVersion: 2
-        x: 2604
+        x: 1400
         y: 766
-        width: 651
-        height: 766
+        width: 350
+        height: 383
       alignment: 9
-      pivot: {x: 0.5, y: 0.15995657}
+      pivot: {x: 0.5, y: 0.16}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 80788fda2c27ccc498fd80a6ebdd7e0a
+      spriteID: 16f8ae86c76f64944a94d09c197896b6
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Run_strike_15
+      name: Death_spikes_5
+      rect:
+        serializedVersion: 2
+        x: 1750
+        y: 766
+        width: 350
+        height: 383
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 87c99ecb32fcadb4489c5065f9a1658b
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Death_spikes_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 383
+        width: 350
+        height: 383
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f77264c1f21cd704b8a6c71634cc8bf1
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Death_spikes_7
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 383
+        width: 350
+        height: 383
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2bba7645eabbf7429808c0a34649736
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Death_spikes_8
+      rect:
+        serializedVersion: 2
+        x: 700
+        y: 383
+        width: 350
+        height: 383
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7029f02c691b5c7469628f5b9782f67c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Death_spikes_9
+      rect:
+        serializedVersion: 2
+        x: 1050
+        y: 383
+        width: 350
+        height: 383
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c3312e1388f25e498d2c1ddab437354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Death_spikes_10
+      rect:
+        serializedVersion: 2
+        x: 1400
+        y: 383
+        width: 350
+        height: 383
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4dc5a219eeab8a14ab4ee8c7f85f50e4
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Death_spikes_11
+      rect:
+        serializedVersion: 2
+        x: 1750
+        y: 383
+        width: 350
+        height: 383
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2fb47b3aca377ec4ba15e815faeadf3a
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Death_spikes_12
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 651
-        height: 766
+        width: 350
+        height: 383
       alignment: 9
-      pivot: {x: 0.5, y: 0.15995657}
+      pivot: {x: 0.5, y: 0.16}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c02d5254e2e301a408816c05e7e17084
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Run_strike_16
-      rect:
-        serializedVersion: 2
-        x: 651
-        y: 0
-        width: 651
-        height: 766
-      alignment: 9
-      pivot: {x: 0.5, y: 0.15995657}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8d2c2690bfd702e499176c718f8e9a94
+      spriteID: 73bc66754f8a17b47a3c5975fb084468
       vertices: []
       indices: 
       edges: []
@@ -476,12 +381,12 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 6c0c35dc0f0ee2948896556528ea34da
+    spriteID: 85740d5b7fbf42d40919a4f24ab14258
     vertices: []
     indices: 
     edges: []
     weights: []
-  spritePackingTag: 
+  spritePackingTag: HERO
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
   userData: 
