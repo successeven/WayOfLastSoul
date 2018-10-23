@@ -1,18 +1,14 @@
 fileFormatVersion: 2
-guid: 96e2cf134fd31764a85a32abdcf6123e
+guid: 15ce16941cbdf7d4ebce45c389a92ea2
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Idle_Move_0
-    21300002: Idle_Move_1
-    21300004: Idle_Move_2
-    21300006: Idle_Move_3
-    21300008: Idle_Move_4
-    21300010: Idle_Move_5
-    21300012: Idle_Move_6
-    21300014: Idle_Move_7
-    21300016: Idle_Move_8
-    21300018: Idle_Move_9
-    21300020: Idle_Move_10
+    21300000: Teleport_0
+    21300002: Teleport_1
+    21300004: Teleport_2
+    21300006: Teleport_3
+    21300008: Teleport_4
+    21300010: Teleport_5
+    21300012: Teleport_6
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -71,7 +67,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 2
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 4096
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -82,7 +78,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   - serializedVersion: 2
     buildTarget: Standalone
-    maxTextureSize: 4096
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -93,18 +89,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   - serializedVersion: 2
     buildTarget: Android
-    maxTextureSize: 4096
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-  - serializedVersion: 2
-    buildTarget: Windows Store Apps
-    maxTextureSize: 4096
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -117,112 +102,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Idle_Move_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 1600
-        width: 900
-        height: 800
-      alignment: 9
-      pivot: {x: 0.5, y: 0.25}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 82fa1b243a6c6514aa9f19022c2eba55
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Idle_Move_1
-      rect:
-        serializedVersion: 2
-        x: 900
-        y: 1600
-        width: 900
-        height: 800
-      alignment: 9
-      pivot: {x: 0.5, y: 0.25}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0aa5882c2afb97144b92a5c398bae88b
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Idle_Move_2
-      rect:
-        serializedVersion: 2
-        x: 1800
-        y: 1600
-        width: 900
-        height: 800
-      alignment: 9
-      pivot: {x: 0.5, y: 0.25}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1c913085fd844c548be97bdd461ce6db
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Idle_Move_3
-      rect:
-        serializedVersion: 2
-        x: 2700
-        y: 1600
-        width: 900
-        height: 800
-      alignment: 9
-      pivot: {x: 0.5, y: 0.25}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9776cb4830649334eb3409dbba4174a9
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Idle_Move_4
-      rect:
-        serializedVersion: 2
-        x: 3600
-        y: 1600
-        width: 900
-        height: 800
-      alignment: 9
-      pivot: {x: 0.5, y: 0.25}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cde75fafb1f588e42bac885c9e0fc748
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Idle_Move_5
+      name: Teleport_0
       rect:
         serializedVersion: 2
         x: 0
         y: 800
-        width: 900
+        width: 900.4
         height: 800
       alignment: 9
       pivot: {x: 0.5, y: 0.25}
@@ -231,18 +116,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 92657d878dfae9f40b102b6eec7a9b64
+      spriteID: 6f45a6b204f27ec43b57f3428e071266
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Idle_Move_6
+      name: Teleport_1
       rect:
         serializedVersion: 2
         x: 900
         y: 800
-        width: 900
+        width: 900.4
         height: 800
       alignment: 9
       pivot: {x: 0.5, y: 0.25}
@@ -251,18 +136,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1aba8afee6123f145b24eaff8aa78863
+      spriteID: 70677f152ca82c34eb06c180996c35a8
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Idle_Move_7
+      name: Teleport_2
       rect:
         serializedVersion: 2
         x: 1800
         y: 800
-        width: 900
+        width: 900.4
         height: 800
       alignment: 9
       pivot: {x: 0.5, y: 0.25}
@@ -271,18 +156,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8052a0a46ba63064a9bcc5860695330e
+      spriteID: e146647bc67f9bd4d8be918a0b18825e
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Idle_Move_8
+      name: Teleport_3
       rect:
         serializedVersion: 2
         x: 2700
         y: 800
-        width: 900
+        width: 900.4
         height: 800
       alignment: 9
       pivot: {x: 0.5, y: 0.25}
@@ -291,18 +176,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a5e6f15bd87e170458128fe342b06247
+      spriteID: 4c37fd737649e2544bf6c0135abc5154
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Idle_Move_9
+      name: Teleport_4
       rect:
         serializedVersion: 2
         x: 3600
         y: 800
-        width: 900
+        width: 900.4
         height: 800
       alignment: 9
       pivot: {x: 0.5, y: 0.25}
@@ -311,18 +196,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4b7a49e66512b034aaf9397fe3370cc8
+      spriteID: 8332fcdc8cc96404d978515391403351
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Idle_Move_10
+      name: Teleport_5
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 900
+        width: 900.4
         height: 800
       alignment: 9
       pivot: {x: 0.5, y: 0.25}
@@ -331,7 +216,27 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 81c72195a5f9e024caf095d027d25854
+      spriteID: e84ee226d88ec4e49ab6557e60329749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Teleport_6
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 0
+        width: 900.4
+        height: 800
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f85d424a0500c23409a0b5ef9fbae7ff
       vertices: []
       indices: 
       edges: []
@@ -339,7 +244,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: a8475246c99d5944e9c26a85dda12207
+    spriteID: 9b842470e1d90c14d850180724a1e821
     vertices: []
     indices: 
     edges: []
