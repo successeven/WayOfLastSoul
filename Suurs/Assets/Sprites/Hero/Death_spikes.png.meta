@@ -1,15 +1,20 @@
 fileFormatVersion: 2
-guid: 2dbdcdc2cd60fdb4282b30e58673d8c2
+guid: 23d53333be66f8b4ba994d30160e8eeb
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Jump_Fly_0
-    21300002: Jump_Fly_1
-    21300004: Jump_Fly_2
-    21300006: Jump_Fly_3
-    21300008: Jump_Fly_4
-    21300010: Jump_Fly_5
-    21300012: Jump_Fly_6
-    21300014: Jump_Fly_7
+    21300000: Death_spikes_0
+    21300002: Death_spikes_1
+    21300004: Death_spikes_2
+    21300006: Death_spikes_3
+    21300008: Death_spikes_4
+    21300010: Death_spikes_5
+    21300012: Death_spikes_6
+    21300014: Death_spikes_7
+    21300016: Death_spikes_8
+    21300018: Death_spikes_9
+    21300020: Death_spikes_10
+    21300022: Death_spikes_11
+    21300024: Death_spikes_12
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -53,7 +58,7 @@ TextureImporter:
   spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 50
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
@@ -68,8 +73,8 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 2
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
-    resizeAlgorithm: 1
+    maxTextureSize: 1024
+    resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 3
     compressionQuality: 50
@@ -79,8 +84,8 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   - serializedVersion: 2
     buildTarget: Standalone
-    maxTextureSize: 2048
-    resizeAlgorithm: 1
+    maxTextureSize: 1024
+    resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 3
     compressionQuality: 50
@@ -90,8 +95,8 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   - serializedVersion: 2
     buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 1
+    maxTextureSize: 1024
+    resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 3
     compressionQuality: 50
@@ -101,8 +106,8 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   - serializedVersion: 2
     buildTarget: Windows Store Apps
-    maxTextureSize: 2048
-    resizeAlgorithm: 1
+    maxTextureSize: 1024
+    resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 3
     compressionQuality: 50
@@ -114,13 +119,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Jump_Fly_0
+      name: Death_spikes_0
       rect:
         serializedVersion: 2
         x: 0
         y: 766
-        width: 651
-        height: 766
+        width: 350
+        height: 383
       alignment: 9
       pivot: {x: 0.5, y: 0.16}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,19 +133,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c9e744b4f267f3f41a23d6a2ad8a35fd
+      spriteID: dfc1cff25e50f8345b2efd902cf03f7d
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump_Fly_1
+      name: Death_spikes_1
       rect:
         serializedVersion: 2
-        x: 651
+        x: 350
         y: 766
-        width: 651
-        height: 766
+        width: 350
+        height: 383
       alignment: 9
       pivot: {x: 0.5, y: 0.16}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -148,19 +153,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a889c216de254bf4ebcdd4cb2e806d62
+      spriteID: 499894c34023c784cbf2cf8839a73e51
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump_Fly_2
+      name: Death_spikes_2
       rect:
         serializedVersion: 2
-        x: 1302
+        x: 700
         y: 766
-        width: 651
-        height: 766
+        width: 350
+        height: 383
       alignment: 9
       pivot: {x: 0.5, y: 0.16}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -168,19 +173,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fb52974da7a489744b90fe0e75cc52fc
+      spriteID: 754ac70516cdd544bbaa44f6619fc7e9
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump_Fly_3
+      name: Death_spikes_3
       rect:
         serializedVersion: 2
-        x: 1953
+        x: 1050
         y: 766
-        width: 651
-        height: 766
+        width: 350
+        height: 383
       alignment: 9
       pivot: {x: 0.5, y: 0.16}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -188,19 +193,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f493c96382058a747bb009b53717176e
+      spriteID: 6294e30fe20625f4e912c30e61bce98f
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump_Fly_4
+      name: Death_spikes_4
       rect:
         serializedVersion: 2
-        x: 2604
+        x: 1400
         y: 766
-        width: 651
-        height: 766
+        width: 350
+        height: 383
       alignment: 9
       pivot: {x: 0.5, y: 0.16}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -208,19 +213,159 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1ca066bc744b6fc40b614d850619b26e
+      spriteID: 16f8ae86c76f64944a94d09c197896b6
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump_Fly_5
+      name: Death_spikes_5
+      rect:
+        serializedVersion: 2
+        x: 1750
+        y: 766
+        width: 350
+        height: 383
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 87c99ecb32fcadb4489c5065f9a1658b
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Death_spikes_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 383
+        width: 350
+        height: 383
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f77264c1f21cd704b8a6c71634cc8bf1
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Death_spikes_7
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 383
+        width: 350
+        height: 383
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2bba7645eabbf7429808c0a34649736
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Death_spikes_8
+      rect:
+        serializedVersion: 2
+        x: 700
+        y: 383
+        width: 350
+        height: 383
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7029f02c691b5c7469628f5b9782f67c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Death_spikes_9
+      rect:
+        serializedVersion: 2
+        x: 1050
+        y: 383
+        width: 350
+        height: 383
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c3312e1388f25e498d2c1ddab437354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Death_spikes_10
+      rect:
+        serializedVersion: 2
+        x: 1400
+        y: 383
+        width: 350
+        height: 383
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4dc5a219eeab8a14ab4ee8c7f85f50e4
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Death_spikes_11
+      rect:
+        serializedVersion: 2
+        x: 1750
+        y: 383
+        width: 350
+        height: 383
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2fb47b3aca377ec4ba15e815faeadf3a
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Death_spikes_12
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 651
-        height: 766
+        width: 350
+        height: 383
       alignment: 9
       pivot: {x: 0.5, y: 0.16}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -228,47 +373,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: be7bdff99d0f45c498fbdb91bf9331af
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Jump_Fly_6
-      rect:
-        serializedVersion: 2
-        x: 651
-        y: 0
-        width: 651
-        height: 766
-      alignment: 9
-      pivot: {x: 0.5, y: 0.16}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c7ba26499591ae74aa38bb0a592cc4db
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Jump_Fly_7
-      rect:
-        serializedVersion: 2
-        x: 1302
-        y: 0
-        width: 651
-        height: 766
-      alignment: 9
-      pivot: {x: 0.5, y: 0.16}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c2498a5db79b6ed43a74c3b14a38c0e2
+      spriteID: 73bc66754f8a17b47a3c5975fb084468
       vertices: []
       indices: 
       edges: []
@@ -276,7 +381,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 9cadceac6ca0a434da0f5d06ce910aca
+    spriteID: 85740d5b7fbf42d40919a4f24ab14258
     vertices: []
     indices: 
     edges: []
