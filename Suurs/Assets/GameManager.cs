@@ -2,25 +2,40 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Playables;
+using UnityEngine.Timeline;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : MonoBehaviour
+{
 
-	// Use this for initialization
-	void Start () {
-		
-	}
+		#region Singleton
+
+		public static GameManager instance;
+
+		void Awake()
+		{
+				instance = this;
+		}
+
+		#endregion
+		public List<PlayableDirector> playableDirectors;
+		public List<TimelineAsset> timelines;
+
+		public GameObject _startRayObj;
 	
-	// Update is called once per frame
-	void Update () {
+		public void PlayFromTimelines(int index)
+		{
+				TimelineAsset selectedAsset;
 
-#if UNITY_ANDROID
-				if (Input.touchCount == 1 && Input.GetTouch(0).phase == TouchPhase.Began)
+				if (timelines.Count <= index)
 				{
-						if (!EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
-						{
-
-						}
+						selectedAsset = timelines[timelines.Count - 1];
 				}
-#endif
+				else
+				{
+						selectedAsset = timelines[index];
+				}
+
+				playableDirectors[0].Play(selectedAsset);
 		}
 }

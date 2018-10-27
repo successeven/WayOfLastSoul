@@ -15,8 +15,9 @@ public class HeroController : MonoBehaviour
 		public bool _holdAttack = false;
 
 		public bool _interfaceBlocked = true;
-		bool jump = false;
 
+
+		float _currentHorAxis = 0;
 		void FixedUpdate()
 		{
 
@@ -26,17 +27,17 @@ public class HeroController : MonoBehaviour
 				if (_interfaceBlocked)
 						return;
 
+				if (!Hero.instance.Motor._blocking)
+						if (_holdAttack)
+						{
+								float deltaPower = (Time.fixedTime - Hero.instance.Motor.LastAttackTime) / Hero.instance.Motor._deltaShield_AttackTime;
+								Hero.instance.Motor._anima.SetFloat("Shield Power", Math.Min(deltaPower, 1));
+						}
+						else
+								Hero.instance.Motor._anima.SetFloat("Shield Power", 0);
 
-				if (_holdAttack)
-				{
-						float deltaPower = (Time.fixedTime - Hero.instance.Motor._lastAttackTime) / Hero.instance.Motor._deltaShield_AttackTime;
-
-						Hero.instance.Motor._anima.SetFloat("Shield Power", Math.Min(deltaPower, 1));
-				}
-				else
-						Hero.instance.Motor._anima.SetFloat("Shield Power", 0);
-
-				Hero.instance.Motor.CurrentHorAxis = CrossPlatformInputManager.GetAxis("Horizontal");
+				_currentHorAxis = CrossPlatformInputManager.GetAxis("Horizontal");
+				Hero.instance.Motor.CurrentHorAxis = Math.Abs(_currentHorAxis) > 0.4 ? _currentHorAxis : 0;
 
 		}
 
@@ -54,7 +55,7 @@ public class HeroController : MonoBehaviour
 				if (CrossPlatformInputManager.GetButtonDown("Attack"))
 				{
 						_holdAttack = true;
-						Hero.instance.Motor._lastAttackTime = Time.fixedTime;
+						Hero.instance.Motor.LastAttackTime = Time.fixedTime;
 				}
 
 
@@ -67,7 +68,7 @@ public class HeroController : MonoBehaviour
 
 				if (CrossPlatformInputManager.GetButtonDown("Jump") && Hero.instance.Motor.m_Grounded)
 						Hero.instance.Motor.Jump();
-				
+
 				if (CrossPlatformInputManager.GetButtonDown("Uppercut"))
 						Hero.instance.Motor.Uppercut();
 

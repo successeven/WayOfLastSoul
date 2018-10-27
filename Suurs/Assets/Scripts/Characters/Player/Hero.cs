@@ -81,9 +81,4 @@ public class Hero : MonoBehaviour
 				_heroMotor.Move();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }
