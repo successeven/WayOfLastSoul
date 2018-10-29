@@ -18,22 +18,12 @@ public class SceneController : MonoBehaviour
 
 
 		public bool _isLoaded = false;
-		// Use this for initialization
-		void Start()
-		{
-		}
-
-		void LoadRespawn()
-		{
-
-		}
 
 		public void LoadNextScene()
 		{
 				var count = PlayerPrefs.GetInt("CountChangeLevel");
 				count++;
 				PlayerPrefs.SetInt("CountChangeLevel", count);
-				UIController.instance.HideUI();
 				StartCoroutine(AsyncLoad());
 		}
 

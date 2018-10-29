@@ -77,13 +77,9 @@ public class Hero : MonoBehaviour
 
     public void Move(float inSpeed)
     {
+				Debug.Log("HeroMOVE");
 				_heroMotor.CurrentHorAxis = inSpeed;
 				_heroMotor.Move();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }
