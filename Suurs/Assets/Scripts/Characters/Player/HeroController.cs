@@ -14,7 +14,6 @@ public class HeroController : MonoBehaviour
 		[NonSerialized]
 		public bool _holdAttack = false;
 
-		[NonSerialized]
 		public bool _interfaceBlocked = true;
 
 
@@ -103,6 +102,7 @@ public class HeroController : MonoBehaviour
 				}
 		}
 
+		
 		void ResetStats()
 		{
 				Hero.instance.Manager._TakeDamage = false;

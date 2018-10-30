@@ -1,12 +1,12 @@
 fileFormatVersion: 2
-guid: 62edad77c22ab1840827f0fa4f2edd31
+guid: 62a577de266cc0347a87e3dcd04ec2d3
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Loading_top
-    21300002: Loading_flags
-    21300004: Loading_circle3
-    21300006: Loading_circle1
-    21300008: Loading_circle2
+    21300000: TRhand
+    21300002: TLhand
+    21300004: TChest
+    21300006: TWing
+    21300008: Thips
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -47,10 +47,10 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 0
-  spriteMeshType: 0
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 160
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
@@ -65,10 +65,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 2
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 1024
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 3
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -76,10 +76,10 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   - serializedVersion: 2
     buildTarget: Standalone
-    maxTextureSize: 1024
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 3
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -87,10 +87,21 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   - serializedVersion: 2
     buildTarget: Android
-    maxTextureSize: 1024
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 3
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -98,10 +109,21 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   - serializedVersion: 2
     buildTarget: Windows Store Apps
-    maxTextureSize: 1024
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 3
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -111,101 +133,101 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Loading_top
+      name: TRhand
       rect:
         serializedVersion: 2
         x: 0
-        y: 1141
-        width: 2790
-        height: 2282
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        y: 12.696711
+        width: 656.4182
+        height: 946.5769
+      alignment: 9
+      pivot: {x: 0.49815804, y: 0.5005439}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9e355f54136ef784688ebc2ed779d41b
+      spriteID: 5b6b5c6613ca2fd48aa8f80f338eb600
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Loading_flags
+      name: TLhand
       rect:
         serializedVersion: 2
-        x: 75
+        x: 923.6391
+        y: 741.57654
+        width: 271.95697
+        height: 635.1852
+      alignment: 9
+      pivot: {x: 0.49956807, y: 0.5005207}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9dc2bebf88035b6488d46a982038c14e
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TChest
+      rect:
+        serializedVersion: 2
+        x: 1398.2661
+        y: 539.9503
+        width: 516.4542
+        height: 1038.3947
+      alignment: 9
+      pivot: {x: 0.4971087, y: 0.5008207}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f3c657d92651290468dcfe988aa2e05c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TWing
+      rect:
+        serializedVersion: 2
+        x: 2138.0889
+        y: 907.65106
+        width: 790.91113
+        height: 808.34894
+      alignment: 9
+      pivot: {x: 0.5043691, y: 0.50330853}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 616e0d6cd21a91a4a9fc0a44ac09948c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Thips
+      rect:
+        serializedVersion: 2
+        x: 1961.1062
         y: 0
-        width: 634
-        height: 793
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 935.3237
+        height: 821.2789
+      alignment: 9
+      pivot: {x: 0.5007828, y: 0.49800378}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 11f0be7f5175f0048960a7207928b891
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Loading_circle3
-      rect:
-        serializedVersion: 2
-        x: 1097
-        y: 175
-        width: 772
-        height: 772
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8df1d5be0c6eb634da0e2a63ddf861fa
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Loading_circle1
-      rect:
-        serializedVersion: 2
-        x: 2138
-        y: 412
-        width: 193
-        height: 206
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f8ce3c3c4430e6e49b1309c345b8bea7
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Loading_circle2
-      rect:
-        serializedVersion: 2
-        x: 2524
-        y: 325
-        width: 379
-        height: 379
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 475d80aaa07a65743accc702a7a18125
+      spriteID: 0f1aa2ff7f0c7a64099007e48a191c7c
       vertices: []
       indices: 
       edges: []
@@ -213,7 +235,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: dc93a8da820a0c240b491c4fd6c5e529
+    spriteID: 
     vertices: []
     indices: 
     edges: []
@@ -221,6 +243,6 @@ TextureImporter:
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
-  userData: 
+  userData: 99819348816817
   assetBundleName: 
   assetBundleVariant: 
