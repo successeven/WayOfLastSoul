@@ -11,7 +11,7 @@ public class LoadingController : MonoBehaviour
     public bool _showNextLVL = false;
     bool _finishLoad = false;
 
-    Animator _animaHide;
+    Animator _anima;
     // Use this for initialization
     void Start()
     {
@@ -26,7 +26,8 @@ public class LoadingController : MonoBehaviour
                 _LevelName = "Respawn";
         }
 
-        _animaHide = GetComponent<Animator>();
+				Debug.Log(_LevelName);
+        _anima = GetComponent<Animator>();
         LoadLVL();
     }
 
@@ -50,12 +51,6 @@ public class LoadingController : MonoBehaviour
         {
             if (operation.progress == 0.9f)
             {
-                if (!_finishLoad)
-                {
-                    _animaHide.enabled = true;
-                    _finishLoad = true;
-                }
-                if (_showNextLVL)
                     operation.allowSceneActivation = true;
             }
             yield return null;
