@@ -19,6 +19,8 @@ public class CharacterMotor : MonoBehaviour
 		public Animator _anima;
 
 		protected bool _acingRight = true;
+
+		[HideInInspector]
 		public bool m_Grounded;            // Whether or not the player is grounded.
 
 		float _currentHorAxis;

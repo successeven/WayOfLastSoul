@@ -58,38 +58,16 @@ public class HeroManager : MonoBehaviour
 				UIController.instance.GameOver();
 		}
 		
-		private void OnTriggerExit2D(Collider2D collision)
-		{
-				if (collision.tag == "Enemy" && Hero.instance.Motor._attacks)
-				{
-						GameObject enemy = collision.transform.gameObject;
-						EnemyController enemyController = enemy.GetComponent<EnemyController>();
-						if (enemyController == null)
-						{
-								Debug.LogWarning("Не найден контроллер врага!!!");
-								return;
-						}
-						if (enemyController._reciveDamage)
-								enemyController._reciveDamage = false;
-				}
-		}
-
 		void OnTriggerEnter2D(Collider2D collision)
 		{
 				if (collision.tag == "Enemy" && Hero.instance.Motor._attacks)
 				{
-						GameObject enemy = collision.transform.gameObject;
-						EnemyController enemyController = enemy.GetComponent<EnemyController>();
-						if (enemyController == null)
-						{
-								Debug.LogWarning("Не найден контроллер врага!!!");
-								return;
-						}
-						if (!enemyController._reciveDamage)
-						{
-								var _currentAttackItem = _attackItems.Where(x => x._ID == Hero.instance.Motor.AttackIndex).FirstOrDefault();
-								enemyController.TakeHit(_currentAttackItem._damage);
-						}
+                    EnemyManager enemyManager = collision.transform.gameObject.GetComponent<EnemyManager>();
+                    if (enemyManager == null)
+                            return;
+
+                    var _currentAttackItem = _attackItems.Where(x => x._ID == Hero.instance.Motor.AttackIndex).FirstOrDefault();
+                    enemyManager.TakeHit(_currentAttackItem._damage, _currentAttackItem._ID);
 				}
 		}
 		

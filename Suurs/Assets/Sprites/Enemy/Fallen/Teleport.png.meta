@@ -1,30 +1,22 @@
 fileFormatVersion: 2
-guid: dd8ecb3a2b6b1f94e824e777ff0bfd72
+guid: 329c85c568f0ba24fb6b471db9d48c3c
 TextureImporter:
   fileIDToRecycleName:
-    21300000: When_hit_0
-    21300002: When_hit_1
-    21300004: When_hit_2
-    21300006: When_hit_3
-    21300008: When_hit_4
-    21300010: When_hit_5
-    21300012: When_hit_6
-    21300014: When_hit_7
-    21300016: When_hit_8
-    21300018: When_hit_9
-    21300020: When_hit_10
-    21300022: When_hit_11
-    21300024: When_hit_12
-    21300026: When_hit_13
-    21300028: When_hit_14
-    21300030: When_hit_15
-    21300032: When_hit_16
-    21300034: When_hit_17
-    21300036: When_hit_18
-    21300038: When_hit_19
-    21300040: When_hit_20
-    21300042: When_hit_21
-    21300044: When_hit_22
+    21300000: Teleport_0
+    21300002: Teleport_1
+    21300004: Teleport_2
+    21300006: Teleport_3
+    21300008: Teleport_4
+    21300010: Teleport_5
+    21300012: Teleport_6
+    21300014: Teleport_7
+    21300016: Teleport_8
+    21300018: Teleport_9
+    21300020: Teleport_10
+    21300022: Teleport_11
+    21300024: Teleport_12
+    21300026: Teleport_13
+    21300028: Teleport_14
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -65,10 +57,10 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 0
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 50
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
@@ -83,10 +75,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 2
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 4096
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 3
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -94,10 +86,10 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   - serializedVersion: 2
     buildTarget: Standalone
-    maxTextureSize: 4096
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 3
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -105,10 +97,10 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   - serializedVersion: 2
     buildTarget: Android
-    maxTextureSize: 4096
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 3
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -116,10 +108,10 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   - serializedVersion: 2
     buildTarget: Windows Store Apps
-    maxTextureSize: 4096
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 3
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -129,253 +121,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: When_hit_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 2400
-        width: 900
-        height: 800
-      alignment: 9
-      pivot: {x: 0.5, y: 0.25}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: db32700790831714aaa6141971a175e5
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: When_hit_1
-      rect:
-        serializedVersion: 2
-        x: 900
-        y: 2400
-        width: 900
-        height: 800
-      alignment: 9
-      pivot: {x: 0.5, y: 0.25}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f5e18e9b0c4548045ae835e3c67d9866
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: When_hit_2
-      rect:
-        serializedVersion: 2
-        x: 1800
-        y: 2400
-        width: 900
-        height: 800
-      alignment: 9
-      pivot: {x: 0.5, y: 0.25}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 860b7a8cd9d84c54a821f5c6ba208292
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: When_hit_3
-      rect:
-        serializedVersion: 2
-        x: 2700
-        y: 2400
-        width: 900
-        height: 800
-      alignment: 9
-      pivot: {x: 0.5, y: 0.25}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8b5b29aa7df6f2e47b1a66a5fc40259a
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: When_hit_4
-      rect:
-        serializedVersion: 2
-        x: 3600
-        y: 2400
-        width: 900
-        height: 800
-      alignment: 9
-      pivot: {x: 0.5, y: 0.25}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a5d89e1cc6ea23c40a8104d06870f629
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: When_hit_5
-      rect:
-        serializedVersion: 2
-        x: 4500
-        y: 2400
-        width: 900
-        height: 800
-      alignment: 9
-      pivot: {x: 0.5, y: 0.25}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 68078ea09f8613443bbf0a00805b3863
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: When_hit_6
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 1600
-        width: 900
-        height: 800
-      alignment: 9
-      pivot: {x: 0.5, y: 0.25}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b39da41ca705eb449931d8567583ed9f
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: When_hit_7
-      rect:
-        serializedVersion: 2
-        x: 900
-        y: 1600
-        width: 900
-        height: 800
-      alignment: 9
-      pivot: {x: 0.5, y: 0.25}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d4491d2fe9592bb4ea1a5ccde00f7e12
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: When_hit_8
-      rect:
-        serializedVersion: 2
-        x: 1800
-        y: 1600
-        width: 900
-        height: 800
-      alignment: 9
-      pivot: {x: 0.5, y: 0.25}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cb59e9bd1409cd94f9033bb9355adbb3
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: When_hit_9
-      rect:
-        serializedVersion: 2
-        x: 2700
-        y: 1600
-        width: 900
-        height: 800
-      alignment: 9
-      pivot: {x: 0.5, y: 0.25}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2c06c0a659ce6074ca8f2fab748ddc72
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: When_hit_10
-      rect:
-        serializedVersion: 2
-        x: 3600
-        y: 1600
-        width: 900
-        height: 800
-      alignment: 9
-      pivot: {x: 0.5, y: 0.25}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c8668fbe7d922a5439ff8b36801a1e47
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: When_hit_11
-      rect:
-        serializedVersion: 2
-        x: 4500
-        y: 1600
-        width: 900
-        height: 800
-      alignment: 9
-      pivot: {x: 0.5, y: 0.25}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0afaa103efa1387458c075dd5c3a37d0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: When_hit_12
+      name: Teleport_0
       rect:
         serializedVersion: 2
         x: 0
         y: 800
-        width: 900
-        height: 800
+        width: 450
+        height: 400
       alignment: 9
       pivot: {x: 0.5, y: 0.25}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -383,19 +135,39 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2ee5659dbf209e14d81e1ff82c5d29d7
+      spriteID: 3fd748c0963a94a47b027bc7b58f2e7d
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: When_hit_13
+      name: Teleport_1
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 800
+        width: 450
+        height: 400
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19973f4c175e1ed43b46e3c5f6cbb7c0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Teleport_2
       rect:
         serializedVersion: 2
         x: 900
         y: 800
-        width: 900
-        height: 800
+        width: 450
+        height: 400
       alignment: 9
       pivot: {x: 0.5, y: 0.25}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -403,19 +175,39 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a7afe7a69f2b60d468d9148c743eb833
+      spriteID: 61feb5e86ada4584f807671b2be68c89
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: When_hit_14
+      name: Teleport_3
+      rect:
+        serializedVersion: 2
+        x: 1350
+        y: 800
+        width: 450
+        height: 400
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca08c097a78f65a4aadafe3d6fc4e87f
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Teleport_4
       rect:
         serializedVersion: 2
         x: 1800
         y: 800
-        width: 900
-        height: 800
+        width: 450
+        height: 400
       alignment: 9
       pivot: {x: 0.5, y: 0.25}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -423,19 +215,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0b1499b10368fcf44a92f7dfd0d868d9
+      spriteID: 15176d8584f226c47b4dd66791746407
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: When_hit_15
+      name: Teleport_5
       rect:
         serializedVersion: 2
-        x: 2700
-        y: 800
-        width: 900
-        height: 800
+        x: 0
+        y: 400
+        width: 450
+        height: 400
       alignment: 9
       pivot: {x: 0.5, y: 0.25}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -443,19 +235,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c0fa7754362f8f0488f6a83af412d8c1
+      spriteID: c09428adb0a834d48b6497e66e196318
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: When_hit_16
+      name: Teleport_6
       rect:
         serializedVersion: 2
-        x: 3600
-        y: 800
-        width: 900
-        height: 800
+        x: 450
+        y: 400
+        width: 450
+        height: 400
       alignment: 9
       pivot: {x: 0.5, y: 0.25}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -463,19 +255,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ff4cf0dc3a3d73f468b7f66d12c33d8b
+      spriteID: c34c0e443d65a1447b25f2396b9f48d3
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: When_hit_17
+      name: Teleport_7
       rect:
         serializedVersion: 2
-        x: 4500
-        y: 800
-        width: 900
-        height: 800
+        x: 900
+        y: 400
+        width: 450
+        height: 400
       alignment: 9
       pivot: {x: 0.5, y: 0.25}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -483,19 +275,59 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1912729602ce0d04ca452b5754432ffa
+      spriteID: e7e41cc45a5e75e479125634e074422d
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: When_hit_18
+      name: Teleport_8
+      rect:
+        serializedVersion: 2
+        x: 1350
+        y: 400
+        width: 450
+        height: 400
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c4afe046a4a3e24585d69268c81e5a1
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Teleport_9
+      rect:
+        serializedVersion: 2
+        x: 1800
+        y: 400
+        width: 450
+        height: 400
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d55384b4b02745946a82ec39b66c59da
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Teleport_10
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 900
-        height: 800
+        width: 450
+        height: 400
       alignment: 9
       pivot: {x: 0.5, y: 0.25}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -503,19 +335,39 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c56c86a51bc154245af90fac92c34953
+      spriteID: 7b9baa9de0dee0c4da0fd79b742c5998
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: When_hit_19
+      name: Teleport_11
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 0
+        width: 450
+        height: 400
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43895fa9b772a6e43b19983822d91f71
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Teleport_12
       rect:
         serializedVersion: 2
         x: 900
         y: 0
-        width: 900
-        height: 800
+        width: 450
+        height: 400
       alignment: 9
       pivot: {x: 0.5, y: 0.25}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -523,19 +375,39 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 719e80612d53c5c478f9ef56ab9c755a
+      spriteID: b043022c367e8c04682db92835da9749
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: When_hit_20
+      name: Teleport_13
+      rect:
+        serializedVersion: 2
+        x: 1350
+        y: 0
+        width: 450
+        height: 400
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9754e95ab9040b242b206aa72b6ef30e
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Teleport_14
       rect:
         serializedVersion: 2
         x: 1800
         y: 0
-        width: 900
-        height: 800
+        width: 450
+        height: 400
       alignment: 9
       pivot: {x: 0.5, y: 0.25}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -543,47 +415,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dc4b406f2d8a57146920af885749e81b
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: When_hit_21
-      rect:
-        serializedVersion: 2
-        x: 2700
-        y: 0
-        width: 900
-        height: 800
-      alignment: 9
-      pivot: {x: 0.5, y: 0.25}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3fbcae583ef56cb448ad71b8150f870d
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: When_hit_22
-      rect:
-        serializedVersion: 2
-        x: 3600
-        y: 0
-        width: 900
-        height: 800
-      alignment: 9
-      pivot: {x: 0.5, y: 0.25}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ee19c36c1b5753148bbe6d5b39d2218d
+      spriteID: 7094315fd9b9a2c48b003cbe0db893fc
       vertices: []
       indices: 
       edges: []
@@ -591,7 +423,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 796b13d0c225e8a4c8681f9eed522d2b
+    spriteID: 6d676513a627eab44bc9fe3ff2399a16
     vertices: []
     indices: 
     edges: []
