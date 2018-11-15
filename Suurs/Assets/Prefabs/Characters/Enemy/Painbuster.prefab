@@ -105,9 +105,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4930609925661968}
   - component: {fileID: 95825919811936746}
+  - component: {fileID: 58971110144939854}
+  - component: {fileID: 114594159719438404}
+  - component: {fileID: 114748324379249106}
   m_Layer: 0
   m_Name: Painbuster
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -373,13 +376,28 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1309967498571550}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 52.96, y: -31.02115, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4478566937732278}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &58971110144939854
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1309967498571550}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!95 &95825919811936746
 Animator:
   serializedVersion: 3
@@ -398,6 +416,37 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114594159719438404
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1309967498571550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e6ffbd645bad9846a4fbc6593226fa3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _attack: 20
+--- !u!114 &114748324379249106
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1309967498571550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0eaff214c9efe8642b78e24e752baa85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _idleSpeed: 1
+  _speed: 3
+  _visibility: 25
+  _distanceAttack: 3
+  _changeDirectTimer: 1
+  _deathTimer: 5
+  _xDiapason: 2
+  _yDiapason: 2
 --- !u!198 &198052927825480522
 ParticleSystem:
   m_ObjectHideFlags: 1

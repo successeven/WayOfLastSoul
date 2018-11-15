@@ -33,6 +33,9 @@ public class HeroManager : MonoBehaviour
 		Animator _anima;
 		bool _death = false;
 
+		bool _deathSpikes = false;
+        
+
 		[NonSerialized]
 		public bool _TakeDamage = false;
 
@@ -46,10 +49,13 @@ public class HeroManager : MonoBehaviour
 		{
 				if (_Health <= 0 && !_death)
 				{
-						Hero.instance.audioManager.Play(Hero.AudioClips.Death.ToString());
-						_death = true;
-						_anima.SetTrigger("Death");
-						Invoke("GameOver", 3f);
+                    Hero.instance.audioManager.Play(Hero.AudioClips.Death.ToString());
+                    _death = true;
+                    if (_deathSpikes)
+                        _anima.SetTrigger("Death_Spikes");
+                    else
+                        _anima.SetTrigger("Death");
+                    Invoke("GameOver", 3f);
 				}
 		}
 
@@ -89,6 +95,14 @@ public class HeroManager : MonoBehaviour
 						if (Hero.instance.Motor.CanBreakAnim())
 						  Hero.instance.Motor._anima.SetTrigger("TakeHit");
 				}
+		}
+
+		public void DeathSpikes() 
+		{
+            _TakeDamage = true;
+            Hero.instance.Motor.FinishAllAttacks();
+            _Health = 0;
+            _deathSpikes = true;
 		}
 
 		void LoadData()
