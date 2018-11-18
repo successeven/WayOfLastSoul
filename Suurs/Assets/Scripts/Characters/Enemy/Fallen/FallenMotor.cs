@@ -36,8 +36,8 @@ public class FallenMotor : MonoBehaviour {
     bool _teleporting = false;
     MyFSM _fsm;
     FallenManager _manager;
-    float _currentHorAxis;
 
+    float _currentHorAxis;
     public float CurrentHorAxis {
         get {
             return _currentHorAxis;

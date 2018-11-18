@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 
 public class EnemyManager : MonoBehaviour {
+
     public float _attack;
     public float _HP;
 
@@ -12,7 +13,8 @@ public class EnemyManager : MonoBehaviour {
     [NonSerialized]
     public bool _death = false;
 
-    public bool _reciveDamage = false;
+		[NonSerialized]
+		public bool _reciveDamage = false;
     
     protected int _dealAttackID;
 
