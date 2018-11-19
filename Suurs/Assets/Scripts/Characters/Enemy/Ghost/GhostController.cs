@@ -40,6 +40,7 @@ public class GhostController : MonoBehaviour
 		Vector3 _startPos;
 		bool _patrolLeft = true;
 
+
 		void Start()
 		{
 				_motor = GetComponent<GhostMotor>();
@@ -48,41 +49,46 @@ public class GhostController : MonoBehaviour
 		}
 
 		// Update is called once per frame
-		void Update()
+		void FixedUpdate()
 		{
 
 				if (_manager._HP <= 0 || Hero.instance.Manager._Health <= 0)
 						return;
 
-				_distance = Vector2.Distance(transform.position, Hero.instance.transform.position);
-				if (_distance <= _visibility)
+				_distance = Vector3.Distance(transform.position, Hero.instance.transform.position);
+
+				if (_distance <= _visibility && Hero.instance.Motor.CurrentHorAxis > 0.85f)
 				{
-						/*
+						_motor._visibleHero = true;
+						_manager._isAgressive = true;
+				}
+
+				if ((_manager._isAgressive && _distance < _visibility * 2f))
+				{
 						if (_distance > _deltaDistanceAttack)
 						{
-								var deltaSpeed = 0.9f;
-								if (transform.position.x - Hero.instance.transform.position.x > 0)
-										_motor.CurrentHorAxis = -deltaSpeed;
+								if (Hero.instance.transform.position.x - transform.position.x < 0)
+										_motor.CurrentHorAxis = -_speedMove;
 								else
-										_motor.CurrentHorAxis = deltaSpeed;
-
+										_motor.CurrentHorAxis = _speedMove;
 						}
-						else
+						else if (!_motor._attacks)
 						{
 								_motor.CurrentHorAxis = 0;
-
 								if (Time.fixedTime - _lastAttackTime > _deltaTimeAttack)
 								{
 										_lastAttackTime = Time.fixedTime;
 										if (_canAttack)
 												_motor.Attack();
 								}
-						}*/
+						}
 				}
 				else
 				{
+						_motor._visibleHero = false;
+						_manager._isAgressive = false;
 						_motor.CurrentHorAxis = _speedIdle;
-						if ((transform.position.x < _startPos.x - _distancePatrol && _patrolLeft) || 
+						if ((transform.position.x < _startPos.x - _distancePatrol && _patrolLeft) ||
 								(transform.position.x > _startPos.x + _distancePatrol) && !_patrolLeft)
 						{
 								_speedIdle *= -1;

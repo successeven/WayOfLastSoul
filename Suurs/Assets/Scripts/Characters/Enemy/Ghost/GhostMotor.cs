@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public enum GhostSounds
@@ -14,6 +15,14 @@ public enum GhostSounds
 public class GhostMotor : MonoBehaviour
 {
 		public float _speed = 10f;
+
+		[SerializeField]
+		float _distanceAttackOffset = 10f;
+
+		[SerializeField]
+		float _attackTimeOffset = 10f;
+
+		public float _TimeHand = 1f;
 
 
 		enum GhostState
@@ -38,10 +47,8 @@ public class GhostMotor : MonoBehaviour
 		MyFSM _fsm;
 		GhostManager _manager;
 
-
 		[NonSerialized]
 		public bool _visibleHero = false;
-
 
 		float _currentHorAxis;
 		public float CurrentHorAxis
@@ -65,6 +72,8 @@ public class GhostMotor : MonoBehaviour
 				_manager = GetComponent<GhostManager>();
 
 				_fsm = new MyFSM(Moves);
+
+				_fsm.AddStates((int)GhostState.Attack, DoAttack);
 		}
 
 
@@ -74,6 +83,7 @@ public class GhostMotor : MonoBehaviour
 						return;
 
 				_attacks = false;
+				_manager.ResetEnemyDealAttack();
 				_anima.SetBool("Attack", false);
 				_anima.SetBool("Move", _currentHorAxis != 0);
 
@@ -104,7 +114,33 @@ public class GhostMotor : MonoBehaviour
 				}
 		}
 
-		private void FixedUpdate()
+
+		public void Attack()
+		{
+				_fsm.RunState((int)GhostState.Attack);
+				if (_fsm.GetCurrentState() == Moves)
+						_fsm.FinishState();
+		}
+		
+		public void ResetState()
+		{
+				_fsm.FinishState();
+		}
+
+		void DoAttack()
+		{
+				if (!_audioManager.IsPlaying(GhostSounds.Strike.ToString()))
+						_audioManager.Play(GhostSounds.Strike.ToString());
+
+				if (!_attacks)
+				{						
+						StartCoroutine(DoAttackCoroutine(_attackTimeOffset));
+				}
+
+				_anima.SetBool("Attack", true);
+		}
+
+		private void Update()
 		{
 				if (_manager._HP > 0)
 				{
@@ -118,4 +154,28 @@ public class GhostMotor : MonoBehaviour
 				theScale.x *= -1;
 				transform.localScale = theScale;
 		}
+
+
+		private IEnumerator DoAttackCoroutine(float time)
+		{
+				_attacks = true;
+
+				yield return new WaitForSeconds(_TimeHand);
+
+				Vector3 _targetAttack;
+				_targetAttack = transform.position;
+				_targetAttack.x += Hero.instance.transform.position.x < transform.position.x ? -_distanceAttackOffset : _distanceAttackOffset;
+
+				Vector3 startPosition = transform.position;
+				float startTime = Time.realtimeSinceStartup;
+				float fraction = 0f;
+
+				while (fraction < 1f)
+				{
+						fraction = Mathf.Clamp01((Time.realtimeSinceStartup - startTime) / time);
+						transform.position = Vector3.Lerp(startPosition, _targetAttack, fraction);
+						yield return null;
+				}
+		}
+
 }

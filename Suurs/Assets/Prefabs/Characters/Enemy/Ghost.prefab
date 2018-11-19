@@ -72,7 +72,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1606361244018982}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.52, y: -14.29, z: 0}
+  m_LocalPosition: {x: -18.431658, y: -12.421788, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4461497691163900}
@@ -163,8 +163,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.3, y: 3}
-  m_Size: {x: 1.5, y: 6.5}
+  m_Offset: {x: 0.3, y: 2.85}
+  m_Size: {x: 1.5, y: 5}
   m_Direction: 0
 --- !u!95 &95745773236681252
 Animator:
@@ -195,7 +195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a97ce22a24e6ac2488dcc11708e23612, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attack: 0
+  _attack: 10
   _HP: 100
 --- !u!114 &114239416811587016
 MonoBehaviour:
@@ -208,12 +208,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3882408640554c64a88c2f3b6bb0d132, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _deltaTimeAttack: 2
-  _deltaDistanceAttack: 2
+  _deltaTimeAttack: 7
+  _deltaDistanceAttack: 6
   _visibility: 25
   _distancePatrol: 10
   _speedIdle: -0.2
-  _speedMove: -0.8
+  _speedMove: 0.8
   _canAttack: 0
   _canMove: 1
 --- !u!114 &114705962056362220
@@ -240,6 +240,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 10
+  _distanceAttackOffset: 9
+  _attackTimeOffset: 1
+  _TimeHand: 0.5
 --- !u!212 &212623742982098254
 SpriteRenderer:
   m_ObjectHideFlags: 1
