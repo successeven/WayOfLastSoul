@@ -73,6 +73,8 @@ public class HeroMotor : CharacterMotor
 		#region Dodge
 		bool _isDodging = false;
 		[SerializeField]
+		float _dodgingTime = 0.5f;
+		[SerializeField]
 		float _dodgeLength = 5f;
 		[SerializeField]
 		float _dodgeHeight = 5f;
@@ -170,7 +172,7 @@ public class HeroMotor : CharacterMotor
 						_dodge = false;
 						if (!_isDodging)
 						{
-								StartCoroutine(DoDodge(.3f));
+								StartCoroutine(DoDodge(_dodgingTime));
 								_anima.SetTrigger("Dodge");
 						}
 				}
