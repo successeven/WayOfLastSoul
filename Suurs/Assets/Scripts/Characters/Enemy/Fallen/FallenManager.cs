@@ -8,21 +8,25 @@ using UnityEngine;
 public class FallenManager : EnemyManager {
     FallenMotor _motor;
     AudioManager _audioManager;
+		protected Animator _anima;
 
-    protected override void SetStartSkills () {
+		protected override void SetStartSkills () {
         _audioManager = GetComponent<AudioManager> ();
         _motor = GetComponent<FallenMotor> ();
+				_anima = GetComponent<Animator>();
 
-    }
+		}
 
     protected override bool IsAttack () {
         return _motor._attacks;
     }
 
-    protected override void Death () {
-        FallenBrain.instance.ClearPosition(gameObject.GetInstanceID());
+    protected override void Death ()
+		{
+				FallenBrain.instance.ClearPosition(gameObject.GetInstanceID());
         _audioManager.Play (FallenSounds.Death.ToString ());
-    }
+				_anima.SetTrigger("Death");
+		}
 
     public override void TakeHit (float damage, int attackID) {
         if (attackID != _dealAttackID) {

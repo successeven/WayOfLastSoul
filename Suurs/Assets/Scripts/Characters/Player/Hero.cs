@@ -12,15 +12,18 @@ public class Hero : MonoBehaviour
     {
         None,
         Run,
+        Walk,
         Hit,
-				Uppercut,
+        Uppercut,
         Strike_1,
         Strike_2,
         Strike_3,
         Shield_Attack,
         Dodge,
         Block,
-        Death
+        Death,
+        Jump,
+        Respawn //супергеройское приземление
     }
 
     #region Singleton
@@ -77,9 +80,8 @@ public class Hero : MonoBehaviour
 
     public void Move(float inSpeed)
     {
-				Debug.Log("HeroMOVE");
-				_heroMotor.CurrentHorAxis = inSpeed;
-				_heroMotor.Move();
+        _heroMotor.CurrentHorAxis = inSpeed;
+        _heroMotor.Move();
     }
 
 }
