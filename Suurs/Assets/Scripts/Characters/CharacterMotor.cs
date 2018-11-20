@@ -81,10 +81,30 @@ public class CharacterMotor : MonoBehaviour
 				if (CanMove() && m_Grounded)
 				{
 						if (!Hero.instance.Manager._TakeDamage)
-								if (_currentHorAxis != 0 && !Hero.instance.audioManager.IsPlaying(Hero.AudioClips.Run.ToString()))
-										Hero.instance.audioManager.Play(Hero.AudioClips.Run.ToString());
-								else if (_currentHorAxis == 0)
-										Hero.instance.audioManager.Stop(Hero.AudioClips.Run.ToString());
+								if (_currentHorAxis != 0)
+                                {
+                                    if (_currentHorAxis < 0.8f)
+                                    {
+                                        if (!Hero.instance.audioManager.IsPlaying(Hero.AudioClips.Walk.ToString()))
+                                        {
+                                            Hero.instance.audioManager.Stop(Hero.AudioClips.Run.ToString());
+										    Hero.instance.audioManager.Play(Hero.AudioClips.Walk.ToString());
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (!Hero.instance.audioManager.IsPlaying(Hero.AudioClips.Run.ToString()))
+                                        {                                            
+										    Hero.instance.audioManager.Stop(Hero.AudioClips.Walk.ToString());
+                                            Hero.instance.audioManager.Play(Hero.AudioClips.Run.ToString());
+                                        }
+                                    }
+                                } 
+								else 
+                                {
+                                    Hero.instance.audioManager.Stop(Hero.AudioClips.Run.ToString());
+                                    Hero.instance.audioManager.Stop(Hero.AudioClips.Walk.ToString());
+                                }
 
 						Hero.instance.audioManager.SetPitch(Hero.AudioClips.Run.ToString(), Math.Abs(_currentHorAxis));
 

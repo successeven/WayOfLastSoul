@@ -12,6 +12,7 @@ public class Hero : MonoBehaviour
     {
         None,
         Run,
+        Walk,
         Hit,
         Uppercut,
         Strike_1,

@@ -1622,7 +1622,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   m_GroundCheck: {fileID: 4360239764011416}
-  _speed: 20
+  _speed: 17
   k_GroundedRadius: 2.5
   m_Grounded: 1
   OnLandEvent:
@@ -1931,6 +1931,14 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Respawn
     clip: {fileID: 8300000, guid: 458d6796e0b04be4cb460052ffd4f1b9, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    Surround: 0
+    MinDistance: 1
+    source: {fileID: 0}
+  - name: Walk
+    clip: {fileID: 0}
     volume: 1
     pitch: 1
     loop: 0
