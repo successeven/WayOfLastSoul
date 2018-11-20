@@ -163,6 +163,8 @@ public class HeroMotor : CharacterMotor
 				{
 						_jump = false;
 						m_Grounded = false;
+						Hero.instance.audioManager.Stop(Hero.AudioClips.Run.ToString());
+						Hero.instance.audioManager.Play(Hero.AudioClips.Jump.ToString());
 						_rigidbody.AddForce(new Vector2(_rigidbody.velocity.x, _JumpForce), ForceMode2D.Impulse);
 						_anima.SetTrigger("Jump");
 				}
@@ -177,6 +179,11 @@ public class HeroMotor : CharacterMotor
 						}
 				}
 		}
+
+        public void SoundsLanded()
+        {
+            Hero.instance.audioManager.Play(Hero.AudioClips.Respawn.ToString());
+        }
 
 		public bool CanBreakAnim()
 		{
