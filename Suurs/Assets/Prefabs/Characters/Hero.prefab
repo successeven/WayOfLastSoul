@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4549251129637656}
   - component: {fileID: 60991404914849448}
   - component: {fileID: 114864291475404242}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Sword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -607,7 +607,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1768649492250806
 GameObject:
   m_ObjectHideFlags: 1
@@ -1350,7 +1350,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 4.5
+  m_Mass: 5
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 10
@@ -1647,8 +1647,9 @@ MonoBehaviour:
   _deltaShield_AttackLength: 10
   _deltaShield_AttackHeight: 11.5
   _deltaShield_AttackForceX: 13
-  _dodgeLength: 20
-  _dodgeHeight: 12
+  _dodgingTime: 0.5
+  _dodgeLength: 6
+  _dodgeHeight: 7.7
 --- !u!114 &114615694387324360
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1848,7 +1849,7 @@ MonoBehaviour:
     Surround: 0
     MinDistance: 1
     source: {fileID: 0}
-  - name: Roll
+  - name: Dodge
     clip: {fileID: 8300000, guid: 4bcf6e1ccb1f6e4419ef2ff40eeef0ba, type: 3}
     volume: 0.6
     pitch: 1
@@ -1857,7 +1858,7 @@ MonoBehaviour:
     MinDistance: 1
     source: {fileID: 0}
   - name: Hit
-    clip: {fileID: 8300000, guid: b157bdb695de88c48a00166946137794, type: 3}
+    clip: {fileID: 8300000, guid: f816c3ef60d5cca43a8a8c9bd8f8c482, type: 3}
     volume: 1
     pitch: 1
     loop: 0
@@ -1865,7 +1866,7 @@ MonoBehaviour:
     MinDistance: 1
     source: {fileID: 0}
   - name: Strike_1
-    clip: {fileID: 8300000, guid: c52193a9d99b31d4ba6f1e4648095980, type: 3}
+    clip: {fileID: 8300000, guid: 27d9f61d5ce607a41897392a70b3f628, type: 3}
     volume: 1
     pitch: 1
     loop: 0
@@ -1873,7 +1874,7 @@ MonoBehaviour:
     MinDistance: 1
     source: {fileID: 0}
   - name: Strike_2
-    clip: {fileID: 8300000, guid: 4dbdbe206c3a5404690125fe65ebceb1, type: 3}
+    clip: {fileID: 8300000, guid: c708db7355643ec45bc80030f281110d, type: 3}
     volume: 1
     pitch: 1
     loop: 0
@@ -1881,7 +1882,7 @@ MonoBehaviour:
     MinDistance: 1
     source: {fileID: 0}
   - name: Strike_3
-    clip: {fileID: 8300000, guid: d7094a32ac9367b4ca6e932d204e8011, type: 3}
+    clip: {fileID: 8300000, guid: e5bf26497dd82f340812da6af9753147, type: 3}
     volume: 1
     pitch: 1
     loop: 0
@@ -1897,7 +1898,7 @@ MonoBehaviour:
     MinDistance: 1
     source: {fileID: 0}
   - name: Back_Slide
-    clip: {fileID: 8300000, guid: 6cd04dd3e65212545b97344931222ed0, type: 3}
+    clip: {fileID: 8300000, guid: d76d21f9e56ce1c40bde82af47ec2305, type: 3}
     volume: 1
     pitch: 1
     loop: 0
@@ -1913,7 +1914,23 @@ MonoBehaviour:
     MinDistance: 1
     source: {fileID: 0}
   - name: Death
-    clip: {fileID: 8300000, guid: fa69b34efc19a72469382976f8e1a5e6, type: 3}
+    clip: {fileID: 8300000, guid: 1403b4f9de2bbdc4798c909455e8725e, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    Surround: 0
+    MinDistance: 1
+    source: {fileID: 0}
+  - name: Jump
+    clip: {fileID: 8300000, guid: 7c240789b20f17248876eb8972fff8f1, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    Surround: 0
+    MinDistance: 1
+    source: {fileID: 0}
+  - name: Respawn
+    clip: {fileID: 8300000, guid: 458d6796e0b04be4cb460052ffd4f1b9, type: 3}
     volume: 1
     pitch: 1
     loop: 0
