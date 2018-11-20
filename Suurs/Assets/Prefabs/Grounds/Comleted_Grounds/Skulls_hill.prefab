@@ -275,6 +275,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1429014065679028
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4429802504134420}
+  m_Layer: 10
+  m_Name: ConnectionPuzzle
+  m_TagString: Puzzle
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
 --- !u!1 &1441779469535878
 GameObject:
   m_ObjectHideFlags: 1
@@ -473,7 +488,7 @@ Transform:
   - {fileID: 4471329519397114}
   - {fileID: 4688181780399474}
   m_Father: {fileID: 4990714833975954}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4182122406589530
 Transform:
@@ -517,6 +532,19 @@ Transform:
   - {fileID: 4638275513291894}
   m_Father: {fileID: 4603893252950214}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4429802504134420
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1429014065679028}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 23.46, y: -0.0000027418, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4990714833975954}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4471329519397114
 Transform:
@@ -597,7 +625,7 @@ Transform:
   - {fileID: 4146161486257756}
   - {fileID: 4396790788339000}
   m_Father: {fileID: 4990714833975954}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!4 &4604982261117112
 Transform:
@@ -739,7 +767,7 @@ Transform:
   - {fileID: 4972089017887424}
   - {fileID: 4964004594400938}
   m_Father: {fileID: 4990714833975954}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4900712131263798
 Transform:
@@ -787,9 +815,10 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1689406598987460}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 256.2555, y: -116.12746, z: 0}
+  m_LocalPosition: {x: 327.65558, y: -12.633123, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 4429802504134420}
   - {fileID: 4897283128183464}
   - {fileID: 4603893252950214}
   - {fileID: 4170868357417894}
