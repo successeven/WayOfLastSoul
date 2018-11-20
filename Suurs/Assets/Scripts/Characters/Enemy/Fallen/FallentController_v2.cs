@@ -23,7 +23,6 @@ public class FallentController_v2 : MonoBehaviour {
 
     FallenMotor _motor;
     FallenManager _manager;
-    RaycastHit2D hit2D;
 
     protected float _lastAttackTime;
     protected float _distance;

@@ -36,8 +36,8 @@ public class FallenMotor : MonoBehaviour {
     bool _teleporting = false;
     MyFSM _fsm;
     FallenManager _manager;
-    float _currentHorAxis;
 
+    float _currentHorAxis;
     public float CurrentHorAxis {
         get {
             return _currentHorAxis;
@@ -67,6 +67,7 @@ public class FallenMotor : MonoBehaviour {
             return;
 
         _attacks = false;
+				_manager.ResetEnemyDealAttack();
         _anima.SetBool ("Attack", false);
         _anima.SetBool ("Move", _currentHorAxis != 0);
 
@@ -134,12 +135,12 @@ public class FallenMotor : MonoBehaviour {
 
     }
 
-    public void ResetState () 
-    {
-        _fsm.FinishState ();
-    }
+		public void ResetState()
+		{
+				_fsm.FinishState();
+		}
 
-    private void FixedUpdate () 
+		private void FixedUpdate () 
     {
         if (_manager._HP > 0) 
         {
