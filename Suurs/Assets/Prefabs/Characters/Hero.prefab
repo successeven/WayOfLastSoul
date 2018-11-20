@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4549251129637656}
   - component: {fileID: 60991404914849448}
   - component: {fileID: 114864291475404242}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Sword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1288,7 +1288,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 4.5
+  m_Mass: 5
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 10
@@ -1585,8 +1585,9 @@ MonoBehaviour:
   _deltaShield_AttackLength: 10
   _deltaShield_AttackHeight: 11.5
   _deltaShield_AttackForceX: 13
-  _dodgeLength: 20
-  _dodgeHeight: 12
+  _dodgingTime: 0.5
+  _dodgeLength: 6
+  _dodgeHeight: 7.7
 --- !u!114 &114615694387324360
 MonoBehaviour:
   m_ObjectHideFlags: 1
