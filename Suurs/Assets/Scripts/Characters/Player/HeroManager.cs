@@ -80,7 +80,6 @@ public class HeroManager : MonoBehaviour
 		public void TakeDamage(float damage) //Урон
 		{
 				_TakeDamage = true;
-				Hero.instance.Motor.FinishAllAttacks();
 				if (Hero.instance.Motor._blocking)
 				{
 						Hero.instance.audioManager.Play(Hero.AudioClips.Block.ToString());
@@ -89,6 +88,7 @@ public class HeroManager : MonoBehaviour
 				}
 				else
 				{
+						Hero.instance.Motor.FinishAllAttacks();
 						CameraShaker.Instance.ShakeOnce(4f, 10f, .1f, .5f);
 						Hero.instance.audioManager.Play(Hero.AudioClips.Hit.ToString());
 						_Health -= damage;

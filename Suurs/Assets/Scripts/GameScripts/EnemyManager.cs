@@ -3,29 +3,27 @@ using System.Collections;
 using UnityEngine;
 
 public class EnemyManager : MonoBehaviour {
+
     public float _attack;
     public float _HP;
 
     bool _DealDamage = false;
 
-    protected Animator _anima;
     [NonSerialized]
     public bool _death = false;
 
-    public bool _reciveDamage = false;
+		[NonSerialized]
+		public bool _reciveDamage = false;
     
     protected int _dealAttackID;
 
     private void Start () {
-        _anima = GetComponent<Animator> ();
-
         SetStartSkills ();
     }
 
     private void FixedUpdate () {
         if (_HP <= 0 && !_death) {
             _death = true;
-            _anima.SetTrigger ("Death");
             Death ();
             Invoke ("Die", 3f);
         }
@@ -34,8 +32,8 @@ public class EnemyManager : MonoBehaviour {
     protected virtual void SetStartSkills () { }
 
     public virtual void TakeHit (float damage, int attackID)
-    {
-    }
+		{
+		}
 
     void OnTriggerEnter2D (Collider2D collision) 
     {
@@ -70,5 +68,7 @@ public class EnemyManager : MonoBehaviour {
     protected virtual void Die () {
         Destroy (transform.gameObject);
     }
+
+
 
 }
