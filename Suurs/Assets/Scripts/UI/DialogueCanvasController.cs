@@ -41,7 +41,9 @@ public class DialogueCanvasController : MonoBehaviour
 
 				gameObject.SetActive(true);
 				animator.SetBool(m_HashActivePara, true);
-				textMeshProUGUI.text = Translator.Instance[phraseKey];
+
+                string tempText = Translator.Instance[phraseKey].ToString().Replace("{n}", "\r\n");
+				textMeshProUGUI.text = tempText;
 				textMeshProUGUI.font = Translator.Instance.GetFont;
 		}
 
