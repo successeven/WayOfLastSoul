@@ -56,6 +56,7 @@ public class HeroManager : MonoBehaviour
             else
                 _anima.SetTrigger("Death");
 						GameOver();
+
 						//Invoke("GameOver", 3f);
 				}
 		}
