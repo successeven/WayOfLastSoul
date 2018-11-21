@@ -6,22 +6,29 @@ using UnityEngine.Timeline;
 
 public class ChangeSceneController : MonoBehaviour {
 
-		PlayableDirector _playableDirector;
+		public PlayableDirector _playableDirector;
+
+        GameManager gameManager;
+
 
 		private void Start()
 		{
-				_playableDirector = GetComponent<PlayableDirector>();
+            if (_playableDirector == null)
+                gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
 		}
-
 
 		private void OnTriggerEnter2D(Collider2D collision)
 		{
-				if (collision.tag == "Player")
-				{
-						_playableDirector.Play();
-						SceneController.instance.LoadNextScene();
-						SceneController.instance._isLoaded = true;
+            if (collision.tag == "Player")
+            {
+                if (_playableDirector != null)
+    				_playableDirector.Play();
+                else
+                    gameManager.PlayFromTimelines(0);
+                    
 
-				}
+                SceneController.instance.LoadNextScene();
+                SceneController.instance._isLoaded = true;
+            }
 		}
 }

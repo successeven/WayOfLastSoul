@@ -21,7 +21,7 @@ public class HeroManager : MonoBehaviour
 {
 		public HeroData _data;
 
-		public int _Level = 1; ///уровень
+		//public int _Level = 1; ///уровень
 		public float _MaxHealth = 100; ///Максимальная жизнь	
 		public float _Health = 100; ///Текущая жизнь
 		public float _attack = 25; ///атака

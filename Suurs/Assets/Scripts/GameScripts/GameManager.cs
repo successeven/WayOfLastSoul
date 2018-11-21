@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
 		}
 
 		#endregion
+        
 		public List<PlayableDirector> playableDirectors;
 		public List<TimelineAsset> timelines;
 			

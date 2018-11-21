@@ -7,7 +7,6 @@ public class GuardManager : EnemyManager
 
 		protected override void SetStartSkills()
 		{
-        int playerLVL = Hero.instance.Manager._Level;
 
 				//float timeGame = 1;// GameObject.FindGameObjectWithTag("ScriptManager").GetComponent<TimeManager>()._mainTime;
     //    int complexity = GameObject.FindGameObjectWithTag("ScriptManager").GetComponent<GemerationLevel>()._Сomplexity;

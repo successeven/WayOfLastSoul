@@ -31,7 +31,8 @@ public class FallentController_v2 : MonoBehaviour {
 
     void Start () {
         _motor = GetComponent<FallenMotor> ();
-        _manager = GetComponent<FallenManager> ();
+        _manager = GetComponent<FallenManager> (); 
+        _lastAttackTime = Time.fixedTime;
     }
 
     Vector2 direction;
@@ -40,7 +41,7 @@ public class FallentController_v2 : MonoBehaviour {
             return;
 
         _distance = Vector2.Distance (transform.position, Hero.instance.transform.position);
-        if (_distance <= _visibility) {
+        if (_distance <= _visibility && Hero.instance.transform.position.y - transform.position.y < 5 ) {
             if (!FallenBrain.instance.CheckPosition (gameObject.GetInstanceID()))
                 return;
 
@@ -68,7 +69,7 @@ public class FallentController_v2 : MonoBehaviour {
                         _motor.CurrentHorAxis = 0.2f;
                     else
                         _motor.CurrentHorAxis = -0.2f;
-                }*/
+                }*/Debug.Log(Time.fixedTime - _lastAttackTime);
 
                 if (Time.fixedTime - _lastAttackTime > _deltaTimeAttack) {
                     _lastAttackTime = Time.fixedTime;

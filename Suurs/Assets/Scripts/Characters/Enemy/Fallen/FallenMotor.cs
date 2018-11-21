@@ -37,7 +37,7 @@ public class FallenMotor : MonoBehaviour {
     MyFSM _fsm;
     FallenManager _manager;
 
-    float _currentHorAxis;
+    public float _currentHorAxis;
     public float CurrentHorAxis {
         get {
             return _currentHorAxis;
@@ -100,6 +100,7 @@ public class FallenMotor : MonoBehaviour {
         if (!_audioManager.IsPlaying (FallenSounds.Strike.ToString ()))
             _audioManager.Play (FallenSounds.Strike.ToString ());
 
+        _anima.SetBool ("Move", false);
         _anima.SetBool ("Attack", true);
         _attacks = true;
     }

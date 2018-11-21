@@ -89,7 +89,7 @@ public class UIController : MonoBehaviour
     {
         if (ad.IsLoaded() && gameOver)
             ad.Show();
-        PlayerPrefs.SetInt("NextLVL", 0);
+        PlayerPrefs.SetInt("NextLVL", -1);
         SceneManager.LoadScene("Loading");
     }
 
