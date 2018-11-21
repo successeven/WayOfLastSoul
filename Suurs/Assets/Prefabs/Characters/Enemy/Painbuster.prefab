@@ -61,7 +61,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1149618498521006
 GameObject:
   m_ObjectHideFlags: 1
@@ -376,8 +376,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1309967498571550}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 48.18, y: -30.45, z: 0}
-  m_LocalScale: {x: 1.3512675, y: 1.3512675, z: 1.3512675}
+  m_LocalPosition: {x: -16.08, y: -6.49, z: 0}
+  m_LocalScale: {x: 1.35127, y: 1.35127, z: 1.35127}
   m_Children:
   - {fileID: 4478566937732278}
   m_Father: {fileID: 0}
@@ -427,7 +427,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e6ffbd645bad9846a4fbc6593226fa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attack: 20
+  _attack: 97
 --- !u!114 &114748324379249106
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -445,8 +445,8 @@ MonoBehaviour:
   _distanceAttack: 3
   _changeDirectTimer: 1
   _deathTimer: 5
-  _xDiapason: 2
-  _yDiapason: 2
+  _xDiapason: 5
+  _yDiapason: 3
 --- !u!198 &198052927825480522
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -9635,7 +9635,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.05
+      scalar: 0.3
       minScalar: 0.01
       maxCurve:
         serializedVersion: 2
@@ -23261,7 +23261,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 2
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -45751,7 +45751,7 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 776677ab3818fb249adaca05f4e04545, type: 2}
+  - {fileID: 2100000, guid: f53f1a24bb4ef8f4d879ea7b3a5197e5, type: 2}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -45808,7 +45808,7 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 5bd9e386735624d4094089c5bb406b81, type: 2}
+  - {fileID: 2100000, guid: f53f1a24bb4ef8f4d879ea7b3a5197e5, type: 2}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -45865,7 +45865,7 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 5bd9e386735624d4094089c5bb406b81, type: 2}
+  - {fileID: 2100000, guid: f53f1a24bb4ef8f4d879ea7b3a5197e5, type: 2}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
