@@ -49,13 +49,15 @@ public class HeroManager : MonoBehaviour
 		{
 				if (_Health <= 0 && !_death)
 				{
-                    Hero.instance.audioManager.Play(Hero.AudioClips.Death.ToString());
-                    _death = true;
-                    if (_deathSpikes)
-                        _anima.SetTrigger("Death_Spikes");
-                    else
-                        _anima.SetTrigger("Death");
-                    Invoke("GameOver", 3f);
+            Hero.instance.audioManager.Play(Hero.AudioClips.Death.ToString());
+            _death = true;
+            if (_deathSpikes)
+                _anima.SetTrigger("Death_Spikes");
+            else
+                _anima.SetTrigger("Death");
+						GameOver();
+
+						//Invoke("GameOver", 3f);
 				}
 		}
 
