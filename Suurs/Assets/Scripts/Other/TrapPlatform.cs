@@ -41,12 +41,12 @@ public class TrapPlatform : MonoBehaviour
 				Debug.Log(col.collider.tag);
 				if (col.collider.tag == "Player")
 				{
-						StartCoroutine(Falling());
+						//StartCoroutine(Falling());
 						if (!shaking)
 						{
 								ParticlePrefab.SetActive(true);
-								if (!Sound.isPlaying)
-										Sound.Play();
+								// if (!Sound.isPlaying)
+								// 		Sound.Play();
 						}
 						shaking = true;
 				}
