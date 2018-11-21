@@ -13137,11 +13137,11 @@ Prefab:
       objectReference: {fileID: 124974725}
     - target: {fileID: 4736409926033830, guid: 83d62e4aef5c0aa4cb5c5f749efe29c3, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 1.7195263
+      value: 1.7478862
       objectReference: {fileID: 0}
     - target: {fileID: 4384619517754730, guid: 83d62e4aef5c0aa4cb5c5f749efe29c3, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 1.7195263
+      value: 1.7478862
       objectReference: {fileID: 0}
     - target: {fileID: 114495623875432040, guid: 83d62e4aef5c0aa4cb5c5f749efe29c3,
         type: 2}
@@ -13261,6 +13261,12 @@ Prefab:
       propertyPath: m_Lens.OrthographicSize
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 212806433775560108, guid: 83d62e4aef5c0aa4cb5c5f749efe29c3,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a1e9d57981b3e724b8293f6bed41c1fa,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83d62e4aef5c0aa4cb5c5f749efe29c3, type: 2}
   m_IsPrefabAsset: 0
@@ -13642,6 +13648,11 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 82739129047002230, guid: 476f99bc5477ab04b86a0ad8169d76b3,
+        type: 2}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: c606e96f4a39da845953ad28995f047d, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 476f99bc5477ab04b86a0ad8169d76b3, type: 2}
   m_IsPrefabAsset: 0
@@ -13935,7 +13946,6 @@ MonoBehaviour:
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   _turnOffAfterExit: 0
-  _tag: Player
 --- !u!1 &1735006424
 GameObject:
   m_ObjectHideFlags: 0
