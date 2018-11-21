@@ -5,6 +5,7 @@ using UnityEngine.Events;
 public class InteractOnTrigger : MonoBehaviour
 {
 		public UnityEvent OnEnter, OnExit;
+		public bool _turnOffAfterExit = false;
 
 		protected Collider2D m_Collider;
 
@@ -23,6 +24,8 @@ public class InteractOnTrigger : MonoBehaviour
 						return;
 
 				OnExit.Invoke();
+				if (_turnOffAfterExit)
+						this.gameObject.SetActive(false);
 		}
 		
 }

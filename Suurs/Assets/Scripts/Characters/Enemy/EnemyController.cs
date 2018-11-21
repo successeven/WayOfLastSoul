@@ -14,6 +14,7 @@ public class EnemyController : Unit
 
     [SerializeField]
     protected float _deltaDistanceAttack = 2f;
+
     [SerializeField]
     protected float _deltaDistanceSpeed = 2f;
 
@@ -29,6 +30,7 @@ public class EnemyController : Unit
 
 		[NonSerialized]
 		public bool _reciveDamage = false;
+
     [NonSerialized]
     public bool _attacks = false;
     protected float _lastAttackTime;

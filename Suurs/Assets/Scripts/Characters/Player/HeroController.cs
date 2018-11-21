@@ -37,7 +37,21 @@ public class HeroController : MonoBehaviour
 								Hero.instance.Motor._anima.SetFloat("Shield Power", 0);
 
 				_currentHorAxis = CrossPlatformInputManager.GetAxis("Horizontal");
-				Hero.instance.Motor.CurrentHorAxis = Math.Abs(_currentHorAxis) > 0.4 ? _currentHorAxis : 0;
+
+                int k = 1;
+                if (_currentHorAxis < 0)
+                  k = -1;
+
+                if (Math.Abs(_currentHorAxis) >= 0.2 && Math.Abs(_currentHorAxis) < 0.8)
+                  Hero.instance.Motor.CurrentHorAxis = 0.4f * k;
+                else if (Math.Abs(_currentHorAxis) >= 0.8)
+                  Hero.instance.Motor.CurrentHorAxis = _currentHorAxis;
+                else
+                  Hero.instance.Motor.CurrentHorAxis = 0;
+               
+                  
+
+				//Hero.instance.Motor.CurrentHorAxis = Math.Abs(_currentHorAxis) > 0.2 ? _currentHorAxis : 0;
 
 		}
 

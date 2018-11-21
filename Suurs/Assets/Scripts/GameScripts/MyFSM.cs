@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class MyFSM
@@ -25,6 +26,11 @@ public class MyFSM
     public State GetCurrentState()
     {
         return  _currentState;
+    }
+
+    public int GetCurrentStateID()
+    {
+        return _AllStates.FirstOrDefault(x => x.Value == _currentState).Key;
     }
 
 		public bool isNextState(int IndexState)
