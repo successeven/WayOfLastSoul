@@ -120,6 +120,13 @@ public class HeroMotor : CharacterMotor
 				_rigidbody.gravityScale = 10;
 		}
 
+		public void ShieldAttack()
+		{            
+            _fsm.RunState((int)StatsEnum.Shield_Attack);
+            if (_fsm.GetCurrentState() == Moves)
+                    _fsm.FinishState();
+        }        
+
 		int comboCount = 0;
 		public void Attack()
 		{
@@ -127,19 +134,12 @@ public class HeroMotor : CharacterMotor
 				if (_blocking)
 						return;
 
-				if (_deltaShield_AttackTime > Time.fixedTime - _lastAttackTime)
-				{
-						_lastAttackTime = Time.fixedTime;
-
-						if (comboCount == 0)
-								comboCount = (int)StatsEnum.Strike_1;
-						else if (comboCount < (int)StatsEnum.Strike_3)
-								comboCount++;
-						else
-								return;
-				}
-				else
-						comboCount = (int)StatsEnum.Shield_Attack;
+                if (comboCount == 0)
+                        comboCount = (int)StatsEnum.Strike_1;
+                else if (comboCount < (int)StatsEnum.Strike_3)
+                        comboCount++;
+                else
+                    return;			
 
 				_fsm.RunState(comboCount);
 				if (_fsm.GetCurrentState() == Moves)
@@ -157,7 +157,8 @@ public class HeroMotor : CharacterMotor
 				if (_blocking)
 						return;
 
-				Move();
+                if (!_isDodging)
+				    Move();
 
 				if (m_Grounded && _jump)
 				{
@@ -305,9 +306,10 @@ public class HeroMotor : CharacterMotor
 		{
 				_isDodging = true;
 				_anima.SetFloat("Speed", 0);
+                _rigidbody.velocity = Vector2.zero;
 				Hero.instance.audioManager.Play(Hero.AudioClips.Dodge.ToString());
 				yield return new WaitForSeconds(.04f);
-				for (float t = 0; t <= time; t += Time.deltaTime)
+				for (float t = 0; t <= time; t += Time.fixedDeltaTime)
 				{
 						_rigidbody.AddForce(new Vector2(-_dodgeLength * transform.localScale.x, _dodgeHeight), ForceMode2D.Impulse);
 						yield return null;
@@ -320,9 +322,10 @@ public class HeroMotor : CharacterMotor
 				_attacks = true;
 				_anima.SetFloat("Speed", 0);
 				Hero.instance.audioManager.Play(AudioClipName);
-				for (float t = 0; t <= time; t += Time.deltaTime)
+				_lastAttackTime = Time.fixedTime;
+				for (float t = 0; t <= time; t += Time.fixedDeltaTime)
 				{
-						_rigidbody.velocity = new Vector2(_attacksLength * transform.localScale.x, _rigidbody.velocity.y);
+						_rigidbody.velocity = new Vector2(_attacksLength * transform.localScale.x, 0f);
 						yield return null;
 				}
 
@@ -333,8 +336,9 @@ public class HeroMotor : CharacterMotor
 				_attacks = true;
 				_anima.SetFloat("Speed", 0);
 				Hero.instance.audioManager.Play(Hero.AudioClips.Shield_Attack.ToString());
+				_lastAttackTime = Time.fixedTime;
 				Vector2 EndPos = startPos;
-				for (float t = 0; t <= time; t += Time.deltaTime)
+				for (float t = 0; t <= time; t += Time.fixedDeltaTime)
 				{
 						if (Math.Abs(startPos.x - transform.position.x) > _deltaShield_AttackLength)
 						{

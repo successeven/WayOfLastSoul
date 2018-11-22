@@ -19,6 +19,8 @@ public class AttackTimeController : MonoBehaviour
 						return;
 				}
 				float deltaAttack = Time.fixedTime - Hero.instance.Motor.LastAttackTime;
-				_rollTimeImage.fillAmount = 1f - (Hero.instance.Motor._deltaShield_AttackTime - deltaAttack) / (float)Hero.instance.Motor._deltaShield_AttackTime;
+                if (!Hero.instance.Motor._attacks)
+				    _rollTimeImage.fillAmount = 1f - (Hero.instance.Motor._deltaShield_AttackTime - deltaAttack) / 
+                        (float)Hero.instance.Motor._deltaShield_AttackTime;
 		}
 }

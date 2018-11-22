@@ -18,6 +18,9 @@ public class HeroController : MonoBehaviour
 
 
 		float _currentHorAxis = 0;
+
+        float _startShieldAttackTime;
+        bool _shieldAttackFull = false;
 		void FixedUpdate()
 		{
 
@@ -31,8 +34,10 @@ public class HeroController : MonoBehaviour
 						if (_holdAttack)
 						{
 								float deltaPower = (Time.fixedTime - Hero.instance.Motor.LastAttackTime) / Hero.instance.Motor._deltaShield_AttackTime;
-								Hero.instance.Motor._anima.SetFloat("Shield Power", Math.Min(deltaPower, 1));
-						}
+								Hero.instance.Motor._anima.SetFloat("Shield Power", Math.Min(deltaPower, 1));                                
+				                if (Hero.instance.Motor._deltaShield_AttackTime > Time.fixedTime - _startShieldAttackTime)
+                                    _shieldAttackFull = true;
+                        }
 						else
 								Hero.instance.Motor._anima.SetFloat("Shield Power", 0);
 
@@ -68,16 +73,21 @@ public class HeroController : MonoBehaviour
 
 				if (CrossPlatformInputManager.GetButtonDown("Attack"))
 				{
-						_holdAttack = true;
-						Hero.instance.Motor.LastAttackTime = Time.fixedTime;
+                    _holdAttack = true;
+                    _startShieldAttackTime = Time.fixedTime;
+                    Hero.instance.Motor.LastAttackTime = Time.fixedTime;
 				}
-
-
 
 				if (CrossPlatformInputManager.GetButtonUp("Attack"))
 				{
 						_holdAttack = false;
-						Hero.instance.Motor.Attack();
+                        if (_shieldAttackFull)
+                        {
+                            _shieldAttackFull = false;
+						    Hero.instance.Motor.ShieldAttack();
+                        }
+                        else                        
+						    Hero.instance.Motor.Attack();
 				}
 
 				if (CrossPlatformInputManager.GetButtonDown("Jump") && Hero.instance.Motor.m_Grounded)
