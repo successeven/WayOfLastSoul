@@ -47,8 +47,6 @@ public class UIController : MonoBehaviour
 
     public void ShowUI()
     {
-        //_anima.enabled = true;
-        gameLoad = true;
         _state = StateScene.Start;
         needChange = true;
     }
@@ -60,8 +58,9 @@ public class UIController : MonoBehaviour
     }
 
     public void PauseGame()
-    {
-        _state = StateScene.Pause;
+		{
+				Debug.Log("PauseGame");
+				_state = StateScene.Pause;
         needChange = true;
         Time.timeScale = 0.1f;
     }
@@ -110,9 +109,6 @@ public class UIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!gameLoad)
-            return;
-
         if (!needChange)
             return;
 
