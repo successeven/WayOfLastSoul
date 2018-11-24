@@ -19,8 +19,8 @@ public class HeroController : MonoBehaviour
 
 		float _currentHorAxis = 0;
 
-        float _startShieldAttackTime;
-        bool _shieldAttackFull = false;
+		float _startShieldAttackTime;
+		bool _shieldAttackFull = false;
 		void FixedUpdate()
 		{
 
@@ -34,29 +34,26 @@ public class HeroController : MonoBehaviour
 						if (_holdAttack)
 						{
 								float deltaPower = (Time.fixedTime - Hero.instance.Motor.LastAttackTime) / Hero.instance.Motor._deltaShield_AttackTime;
-								Hero.instance.Motor._anima.SetFloat("Shield Power", Math.Min(deltaPower, 1));                                
-				                if (Hero.instance.Motor._deltaShield_AttackTime > Time.fixedTime - _startShieldAttackTime)
-                                    _shieldAttackFull = true;
-                        }
+								Hero.instance.Motor._anima.SetFloat("Shield Power", Math.Min(deltaPower, 1));
+								if (deltaPower >= 1)
+										_shieldAttackFull = true;
+						}
 						else
 								Hero.instance.Motor._anima.SetFloat("Shield Power", 0);
 
 				_currentHorAxis = CrossPlatformInputManager.GetAxis("Horizontal");
 
-                int k = 1;
-                if (_currentHorAxis < 0)
-                  k = -1;
+				int k = 1;
+				if (_currentHorAxis < 0)
+						k = -1;
 
-                if (Math.Abs(_currentHorAxis) >= 0.2 && Math.Abs(_currentHorAxis) < 0.8)
-                  Hero.instance.Motor.CurrentHorAxis = 0.4f * k;
-                else if (Math.Abs(_currentHorAxis) >= 0.8)
-                  Hero.instance.Motor.CurrentHorAxis = _currentHorAxis;
-                else
-                  Hero.instance.Motor.CurrentHorAxis = 0;
-               
-                  
+				if (Math.Abs(_currentHorAxis) >= 0.2 && Math.Abs(_currentHorAxis) < 0.8)
+						Hero.instance.Motor.CurrentHorAxis = 0.4f * k;
+				else if (Math.Abs(_currentHorAxis) >= 0.8)
+						Hero.instance.Motor.CurrentHorAxis = _currentHorAxis;
+				else
+						Hero.instance.Motor.CurrentHorAxis = 0;
 
-				//Hero.instance.Motor.CurrentHorAxis = Math.Abs(_currentHorAxis) > 0.2 ? _currentHorAxis : 0;
 
 		}
 
@@ -73,21 +70,20 @@ public class HeroController : MonoBehaviour
 
 				if (CrossPlatformInputManager.GetButtonDown("Attack"))
 				{
-                    _holdAttack = true;
-                    _startShieldAttackTime = Time.fixedTime;
-                    Hero.instance.Motor.LastAttackTime = Time.fixedTime;
+						_holdAttack = true;
+						Hero.instance.Motor.LastAttackTime = Time.fixedTime;
 				}
 
 				if (CrossPlatformInputManager.GetButtonUp("Attack"))
 				{
 						_holdAttack = false;
-                        if (_shieldAttackFull)
-                        {
-                            _shieldAttackFull = false;
-						    Hero.instance.Motor.ShieldAttack();
-                        }
-                        else                        
-						    Hero.instance.Motor.Attack();
+						if (_shieldAttackFull)
+						{
+								_shieldAttackFull = false;
+								Hero.instance.Motor.ShieldAttack();
+						}
+						else
+								Hero.instance.Motor.Attack();
 				}
 
 				if (CrossPlatformInputManager.GetButtonDown("Jump") && Hero.instance.Motor.m_Grounded)
@@ -126,7 +122,7 @@ public class HeroController : MonoBehaviour
 				}
 		}
 
-		
+
 		void ResetStats()
 		{
 				Hero.instance.Manager._TakeDamage = false;

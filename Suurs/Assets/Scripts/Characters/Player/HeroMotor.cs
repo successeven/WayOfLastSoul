@@ -121,11 +121,11 @@ public class HeroMotor : CharacterMotor
 		}
 
 		public void ShieldAttack()
-		{            
-            _fsm.RunState((int)StatsEnum.Shield_Attack);
-            if (_fsm.GetCurrentState() == Moves)
-                    _fsm.FinishState();
-        }        
+		{
+				_fsm.RunState((int)StatsEnum.Shield_Attack);
+				if (_fsm.GetCurrentState() == Moves)
+						_fsm.FinishState();
+		}
 
 		int comboCount = 0;
 		public void Attack()
@@ -134,12 +134,12 @@ public class HeroMotor : CharacterMotor
 				if (_blocking)
 						return;
 
-                if (comboCount == 0)
-                        comboCount = (int)StatsEnum.Strike_1;
-                else if (comboCount < (int)StatsEnum.Strike_3)
-                        comboCount++;
-                else
-                    return;			
+				if (comboCount == 0)
+						comboCount = (int)StatsEnum.Strike_1;
+				else if (comboCount < (int)StatsEnum.Strike_3)
+						comboCount++;
+				else
+						return;
 
 				_fsm.RunState(comboCount);
 				if (_fsm.GetCurrentState() == Moves)
@@ -157,8 +157,8 @@ public class HeroMotor : CharacterMotor
 				if (_blocking)
 						return;
 
-                if (!_isDodging)
-				    Move();
+				if (!_isDodging)
+						Move();
 
 				if (m_Grounded && _jump)
 				{
@@ -181,14 +181,14 @@ public class HeroMotor : CharacterMotor
 				}
 		}
 
-        public void SoundsLanded()
-        {
-            Hero.instance.audioManager.Play(Hero.AudioClips.Respawn.ToString());
-        }
+		public void SoundsLanded()
+		{
+				Hero.instance.audioManager.Play(Hero.AudioClips.Respawn.ToString());
+		}
 
 		public bool CanBreakAnim()
 		{
-				if (currentAttackEnum == StatsEnum.Strike_3 || 
+				if (currentAttackEnum == StatsEnum.Strike_3 ||
 						currentAttackEnum == StatsEnum.Uppercut ||
 						currentAttackEnum == StatsEnum.Shield_Attack)
 						return false;
@@ -224,6 +224,7 @@ public class HeroMotor : CharacterMotor
 		{
 				if (currentAttackEnum != StatsEnum.Shield_Attack)
 				{
+						_fsm.FinishAllStates();
 						_startPos = transform.position;
 						StartCoroutine(DoShield_Attack(1.06f, _startPos));
 				}
@@ -306,7 +307,7 @@ public class HeroMotor : CharacterMotor
 		{
 				_isDodging = true;
 				_anima.SetFloat("Speed", 0);
-                _rigidbody.velocity = Vector2.zero;
+				_rigidbody.velocity = Vector2.zero;
 				Hero.instance.audioManager.Play(Hero.AudioClips.Dodge.ToString());
 				yield return new WaitForSeconds(.04f);
 				for (float t = 0; t <= time; t += Time.fixedDeltaTime)
