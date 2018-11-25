@@ -13,14 +13,15 @@ public class AttackTimeController : MonoBehaviour
 
 		void LateUpdate()
 		{
-				if (!Hero.instance.Controller._holdAttack)
+                if (!Hero.instance.Controller._holdAttack || Hero.instance.Controller._holdAttackTime == -1 
+                    || Hero.instance.Motor._attacks )
 				{
 						_rollTimeImage.fillAmount = 0;
 						return;
 				}
-				float deltaAttack = Time.fixedTime - Hero.instance.Motor.LastAttackTime;
-                if (!Hero.instance.Motor._attacks)
-				    _rollTimeImage.fillAmount = 1f - (Hero.instance.Motor._deltaShield_AttackTime - deltaAttack) / 
-                        (float)Hero.instance.Motor._deltaShield_AttackTime;
+
+				float deltaAttack = Time.fixedTime - Hero.instance.Controller._holdAttackTime;
+                _rollTimeImage.fillAmount = 1f - (Hero.instance.Motor._shield_AttackTime - deltaAttack) / 
+                    (float)Hero.instance.Motor._shield_AttackTime;
 		}
 }

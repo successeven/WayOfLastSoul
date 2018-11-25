@@ -50,23 +50,26 @@ public class HeroMotor : CharacterMotor {
     public bool _canMove = true;
 
     #region Shield_Attack
+    [Space (10)]
     [SerializeField]
-    public float _deltaShield_AttackTime = 1.5f;
+    public float _shield_AttackTime = 1.5f;
     [SerializeField]
-    float _deltaShield_AttackLength = 1.5f;
+    float _shield_AttackLength = 1.5f;
     [SerializeField]
-    float _deltaShield_AttackHeight = 1.5f;
+    float _shield_AttackHeight = 1.5f;
     [SerializeField]
-    float _deltaShield_AttackForceX = 1.5f;
+    float _shield_AttackForceX = 1.5f;
     #endregion
 
-    [Space (10)]
     #region Dodge
     bool _isDodging = false;
+    [Space (10)]
     [SerializeField]
     float _dodgingTime = 0.5f;
     [SerializeField]
-    float _dodgeLength = 5f;
+    float _dodgeLength = 1.5f;
+    [SerializeField]
+    float _dodgeForceX = 5f;
     [SerializeField]
     float _dodgeHeight = 5f;
     [NonSerialized]
@@ -132,8 +135,6 @@ public class HeroMotor : CharacterMotor {
     void Moves () {
         comboCount = 0;
         _attacks = false;
-        _anima.SetInteger ("Attack Index", 0);
-        _anima.SetBool ("Attack", false);
         currentAttackEnum = StatsEnum.None;
 
         if (_blocking || _isDodging)
@@ -152,7 +153,7 @@ public class HeroMotor : CharacterMotor {
         if (m_Grounded && _dodge) {
             _dodge = false;
             if (!_isDodging) {
-                StartCoroutine (DoDodge (_dodgingTime));
+                StartCoroutine (DoDodge (_dodgingTime, transform.position));
                 _anima.SetTrigger ("Dodge");
                 return;
             }
@@ -174,6 +175,8 @@ public class HeroMotor : CharacterMotor {
     }
 
     public void ResetState () {
+        _anima.SetInteger ("Attack Index", 0);
+        _anima.SetBool ("Attack", false);
         _fsm.FinishState ();
     }
 
@@ -192,12 +195,10 @@ public class HeroMotor : CharacterMotor {
         _anima.SetBool ("IsFly", !m_Grounded);
     }
 
-    Vector2 _startPos;
     void Shield_Attack () {
         if (currentAttackEnum != StatsEnum.Shield_Attack) {
             _fsm.FinishAllStates ();
-            _startPos = transform.position;
-            StartCoroutine (DoShield_Attack (1.06f, _startPos));
+            StartCoroutine (DoShield_Attack (1.06f, transform.position));
         }
         currentAttackEnum = StatsEnum.Shield_Attack;
         _anima.SetInteger ("Attack Index", (int) currentAttackEnum);
@@ -262,16 +263,27 @@ public class HeroMotor : CharacterMotor {
         _fsm.FinishAllStates ();
     }
 
-    private IEnumerator DoDodge (float time) {
+    private IEnumerator DoDodge (float time, Vector2 startPos) {
         _isDodging = true;
         _anima.SetFloat ("Speed", 0);
         _rigidbody.velocity = Vector2.zero;
         Hero.instance.audioManager.Play (Hero.AudioClips.Dodge.ToString ());
         yield return new WaitForSeconds (.04f);
-        for (float t = 0; t <= time; t += Time.fixedDeltaTime) {
-            _rigidbody.AddForce (new Vector2 (-_dodgeLength * transform.localScale.x, _dodgeHeight), ForceMode2D.Impulse);
-            yield return new WaitForFixedUpdate ();
-        }
+        Vector2 EndPos = startPos;
+        for (float t = 0; t <= time; t += Time.fixedDeltaTime) 
+            if (Math.Abs (startPos.x - transform.position.x) > _dodgeLength) {
+                EndPos.x = startPos.x + (-_dodgeLength * transform.localScale.x);
+                EndPos.y = transform.position.y;
+                transform.position = EndPos;
+                _rigidbody.velocity = new Vector2 (_rigidbody.velocity.x / 2, 0);
+                _isDodging = false;
+                yield break;
+            } 
+            else
+            {
+                _rigidbody.AddForce (new Vector2 (-_dodgeForceX * transform.localScale.x, _dodgeHeight), ForceMode2D.Impulse);
+                yield return new WaitForFixedUpdate ();
+            }
         _isDodging = false;
 
     }
@@ -294,15 +306,17 @@ public class HeroMotor : CharacterMotor {
         Hero.instance.audioManager.Play (Hero.AudioClips.Shield_Attack.ToString ());
         _lastAttackTime = Time.fixedTime;
         Vector2 EndPos = startPos;
+        float tempH = _shield_AttackHeight;
         for (float t = 0; t <= time; t += Time.fixedDeltaTime) {
-            if (Math.Abs (startPos.x - transform.position.x) > _deltaShield_AttackLength) {
-                EndPos.x = startPos.x + (_deltaShield_AttackLength * transform.localScale.x);
+            if (Math.Abs (startPos.x - transform.position.x) > _shield_AttackLength) {
+                EndPos.x = startPos.x + (_shield_AttackLength * transform.localScale.x);
                 EndPos.y = transform.position.y;
                 transform.position = EndPos;
                 _rigidbody.velocity = new Vector2 (_rigidbody.velocity.x / 2, 0);
                 yield break;
             } else {
-                _rigidbody.AddForce (new Vector2 (_deltaShield_AttackForceX * transform.localScale.x, _deltaShield_AttackHeight), ForceMode2D.Impulse);
+                _rigidbody.AddForce (new Vector2 (_shield_AttackForceX * transform.localScale.x, tempH), ForceMode2D.Impulse);
+                tempH = 0f;
                 yield return new WaitForFixedUpdate ();
             }
         }

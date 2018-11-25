@@ -885,7 +885,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1109186666151748}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.4838457, y: 12.9, z: 0}
+  m_LocalPosition: {x: -11.1, y: 19, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4365532790690704}
@@ -1642,12 +1642,13 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   _attacksLength: 6
   _canMove: 1
-  _deltaShield_AttackTime: 1.5
-  _deltaShield_AttackLength: 10
-  _deltaShield_AttackHeight: 10
-  _deltaShield_AttackForceX: 70
-  _dodgingTime: 0.4
+  _shield_AttackTime: 1.5
+  _shield_AttackLength: 20
+  _shield_AttackHeight: 15
+  _shield_AttackForceX: 90
+  _dodgingTime: 0.6
   _dodgeLength: 6
+  _dodgeForceX: 5
   _dodgeHeight: 10
 --- !u!114 &114615694387324360
 MonoBehaviour:
