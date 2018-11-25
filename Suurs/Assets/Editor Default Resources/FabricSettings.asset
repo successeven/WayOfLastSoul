@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Name: FabricSettings
   m_EditorClassIdentifier: 
   email: success.pavlov@gmail.com
-  rawToken: '{"access_token":"e44f50e1d7f7e07ee7d359d2b6c845c03f9c1cb7ec255681a64e085cedaa19cb","refresh_token":"650c597751c7f472aeeb75116a98d476917550041ecb7df9498518957a202bd2","token_type":"bearer","expires_in":86400}'
+  rawToken: '{"access_token":"b46377dff9617cd06ec646b6f1da1a26fbc6491872a76181a86272ca6c29d47f","refresh_token":"9462b5af516b74df5db823d1ad302227b3d246cee78a657abc7c1e19ed99dc66","token_type":"bearer","expires_in":86400}'
   organization:
     Name: "Successeven\u2019s Projects"
     Id: 5bc8426a4d8f5bf2a5000455
     ApiKey: bea0a6c0ed2f607bafa4be4cbb3334cc6641e48e
     BuildSecret: dad47f0f11ce8f1c4754c0c96668cfd60f3f657d623891cea5a16ea186324b56
-  iconUrl: https://cdn-cf.fabric.io/assets/v1/icons/app_icon57_default_white-98fe1117611dadee6a1fac112b1dda77.png
-  dashboardUrl: https://www.fabric.io/successevens-projects/android/apps/com.psgame.suurs
+  iconUrl: https://s3.amazonaws.com/assets.crashlytics.com/production/project/9476167/project_icon/4798565/icon.png
+  dashboardUrl: https://www.fabric.io/successevens-projects/android/apps/com.psgameinside.suurs
   initialization: 0
   flowSequence: 0
   conflict: 
@@ -28,10 +28,10 @@ MonoBehaviour:
   - Name: Crashlytics
     InstallationStatus: 2
     Installed: 1
-    Enabled: 1
+    Enabled: 0
     Meta:
     - Key: ConfiguredTimestamp
-      Value: 1539854245
+      Value: 1542906788
       Platform: 
     - Key: Dependencies
       Value: '[{"name":"Crashlytics-Android","version":"2.9.5"},{"name":"Crashlytics-Core-Android","version":"2.6.4"},{"name":"Fabric-Android","version":"1.4.4"},{"name":"Answers-Android","version":"1.4.3"},{"name":"Beta-Android","version":"1.2.10"},{"name":"Crashlytics-iOS","version":"3.10.7"},{"name":"Crashlytics-Wrapper-iOS","version":"0.0.0"},{"name":"Crashlytics-Wrapper-Android","version":"0.0.0"}]'
