@@ -37,7 +37,7 @@ public class FallenMotor : MonoBehaviour {
     MyFSM _fsm;
     FallenManager _manager;
 
-    public float _currentHorAxis;
+     float _currentHorAxis;
     public float CurrentHorAxis {
         get {
             return _currentHorAxis;

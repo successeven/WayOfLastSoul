@@ -84,6 +84,7 @@ public class HeroManager : MonoBehaviour
 				_TakeDamage = true;
 				if (Hero.instance.Motor._blocking)
 				{
+						Debug.Log("BLOCK?");
 						Hero.instance.audioManager.Play(Hero.AudioClips.Block.ToString());
 						_Health -= damage * ((100f - _Shield) / 100f);
 						Hero.instance.Motor._anima.SetTrigger("TakeHitWhenBlocking");
