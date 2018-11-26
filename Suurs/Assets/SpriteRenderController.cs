@@ -9,7 +9,8 @@ public class SpriteRenderController : MonoBehaviour {
         var allObjects = GameObject.FindObjectsOfType<SpriteRenderer>();
         foreach (var item in allObjects)
         {
-            item.gameObject.AddComponent<SpriteRenderSwicher>();
+						if (item.tag != "Background")
+						  item.gameObject.AddComponent<SpriteRenderSwicher>();
 
         }
 	}

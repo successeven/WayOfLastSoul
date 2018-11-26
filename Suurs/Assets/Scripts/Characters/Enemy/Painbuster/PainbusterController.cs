@@ -50,7 +50,8 @@ public class PainbusterController : MonoBehaviour {
         if (_death)
             return;
 
-        if (Vector2.Distance (transform.position, Hero.instance.transform.position) > _visibility) {
+        if (Vector2.Distance (transform.position, Hero.instance.transform.position) > _visibility) 
+        {
             transform.position = Vector3.MoveTowards (transform.position, _target, _idleSpeed * Time.fixedDeltaTime);
             _changeDirectionMoveTime -= Time.deltaTime;
             if (_changeDirectionMoveTime <= 0 || transform.position == _target) {
@@ -82,9 +83,9 @@ public class PainbusterController : MonoBehaviour {
         }
     }
 
-
     void FallToPieces()
 		{
+				GetComponent<PainbusterManager>().enabled = false;            
 				_anima.SetBool("FallToPieces", true);
 				_death = true;
         Invoke("Death", 2f);

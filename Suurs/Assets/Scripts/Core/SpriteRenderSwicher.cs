@@ -16,7 +16,7 @@ public class SpriteRenderSwicher : MonoBehaviour {
             spriteRenderer = GetComponent<SpriteRenderer>();		
 
         var distance = Vector3.Distance(transform.position, Hero.instance.transform.position);        
-        if (distance > 150) 
+        if (distance > 100) 
            spriteRenderer.enabled = false;
         else
            spriteRenderer.enabled = true;
