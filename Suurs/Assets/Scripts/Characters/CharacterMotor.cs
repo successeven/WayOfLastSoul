@@ -61,7 +61,7 @@ public class CharacterMotor : MonoBehaviour
 		{
 				m_Grounded = false;
 				Collider2D[] colliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
-				_anima.SetFloat("v_speed", _rigidbody.velocity.y);
+				_anima.SetFloat("v_speed", Math.Abs(_rigidbody.velocity.y));
 				for (int i = 0; i < colliders.Length; i++)
 				{
 						if (colliders[i].gameObject != gameObject)
