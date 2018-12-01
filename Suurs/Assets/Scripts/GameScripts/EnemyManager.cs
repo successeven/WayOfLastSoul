@@ -2,10 +2,9 @@
 using System.Collections;
 using UnityEngine;
 
-public class EnemyManager : MonoBehaviour {
+public class EnemyManager : AliveObject {
 
     public float _attack;
-    public float _HP;
 
     bool _DealDamage = false;
 
@@ -31,13 +30,9 @@ public class EnemyManager : MonoBehaviour {
 
     protected virtual void SetStartSkills () { }
 
-    public virtual void TakeHit (float damage, int attackID)
-		{
-		}
 
     void OnTriggerEnter2D (Collider2D collision) 
     {
-
         if (collision.tag == "Player" && IsAttack ()) 
         {
             if (!_DealDamage) {
@@ -63,11 +58,6 @@ public class EnemyManager : MonoBehaviour {
         _dealAttackID = 0;
     }
 
-    protected virtual void Death () { }
-
-    protected virtual void Die () {
-        Destroy (transform.gameObject);
-    }
 
 
 

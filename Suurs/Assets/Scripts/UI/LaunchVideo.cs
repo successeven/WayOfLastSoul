@@ -20,6 +20,7 @@ public class LaunchVideo : MonoBehaviour
         var video = GetComponentInChildren<VideoPlayer>();
         video.loopPointReached += EndReached;
         textToShow.SetActive(false);
+				video.Play();
     }
 
     void EndReached(VideoPlayer vp)
