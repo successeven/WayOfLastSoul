@@ -13,8 +13,11 @@ public class EnemyManager : AliveObject {
 
 		[NonSerialized]
 		public bool _reciveDamage = false;
-    
-    protected int _dealAttackID;
+
+		[NonSerialized]
+		public bool _HeroEnter = false;
+
+		protected int _dealAttackID;
 
     private void Start () {
         SetStartSkills ();
@@ -33,16 +36,24 @@ public class EnemyManager : AliveObject {
 
     void OnTriggerEnter2D (Collider2D collision) 
     {
-        if (collision.tag == "Player" && IsAttack ()) 
+        if (collision.tag == "Player" ) 
         {
-            if (!_DealDamage) {
-                _DealDamage = true;
-                Hero.instance.Manager.TakeDamage (_attack);
-            }
+						_HeroEnter = true;
+						if (IsAttack())
+								if (!_DealDamage) {
+										_DealDamage = true;
+										Hero.instance.Manager.TakeDamage (_attack);
+								}
         }
     }
 
-    protected virtual bool IsAttack () 
+		private void OnTriggerExit2D(Collider2D collision)
+		{
+				if (collision.tag == "Player")
+						_HeroEnter = false;
+		}
+
+		protected virtual bool IsAttack () 
     {
         return false;
     }
