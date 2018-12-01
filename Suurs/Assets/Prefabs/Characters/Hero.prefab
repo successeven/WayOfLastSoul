@@ -607,7 +607,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1768649492250806
 GameObject:
   m_ObjectHideFlags: 1
@@ -885,7 +885,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1109186666151748}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.1, y: 19, z: 0}
+  m_LocalPosition: {x: -3.4838457, y: 12.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4365532790690704}
@@ -1844,13 +1844,13 @@ MonoBehaviour:
   - name: Run
     clip: {fileID: 8300000, guid: 619be61f1c7d66f45b27fedd7e3d92ed, type: 3}
     volume: 0.404
-    pitch: 1
+    pitch: 0.9
     loop: 1
     Surround: 0
     MinDistance: 1
     source: {fileID: 0}
   - name: Dodge
-    clip: {fileID: 8300000, guid: 4bcf6e1ccb1f6e4419ef2ff40eeef0ba, type: 3}
+    clip: {fileID: 8300000, guid: d76d21f9e56ce1c40bde82af47ec2305, type: 3}
     volume: 0.6
     pitch: 1
     loop: 0
@@ -1867,7 +1867,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Strike_1
     clip: {fileID: 8300000, guid: 27d9f61d5ce607a41897392a70b3f628, type: 3}
-    volume: 1
+    volume: 0.5
     pitch: 1
     loop: 0
     Surround: 0
@@ -1875,7 +1875,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Strike_2
     clip: {fileID: 8300000, guid: c708db7355643ec45bc80030f281110d, type: 3}
-    volume: 1
+    volume: 0.5
     pitch: 1
     loop: 0
     Surround: 0
@@ -1915,7 +1915,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Death
     clip: {fileID: 8300000, guid: 1403b4f9de2bbdc4798c909455e8725e, type: 3}
-    volume: 1
+    volume: 0.5
     pitch: 1
     loop: 0
     Surround: 0
@@ -1930,18 +1930,18 @@ MonoBehaviour:
     MinDistance: 1
     source: {fileID: 0}
   - name: Respawn
-    clip: {fileID: 8300000, guid: 458d6796e0b04be4cb460052ffd4f1b9, type: 3}
-    volume: 1
+    clip: {fileID: 8300000, guid: 0dbcae392670478498765980111229c8, type: 3}
+    volume: 0.2
     pitch: 1
     loop: 0
     Surround: 0
     MinDistance: 1
     source: {fileID: 0}
   - name: Walk
-    clip: {fileID: 0}
-    volume: 1
-    pitch: 1
-    loop: 0
+    clip: {fileID: 8300000, guid: 619be61f1c7d66f45b27fedd7e3d92ed, type: 3}
+    volume: 0.2
+    pitch: 0.6
+    loop: 1
     Surround: 0
     MinDistance: 1
     source: {fileID: 0}
