@@ -48,8 +48,8 @@ public class PainbusterManager : AliveObject
 				FallToPieces();
 		}
 
-		void Death()
+		protected override void Death()
 		{
-				Destroy(this.gameObject);
+				Die();
 		}
 }

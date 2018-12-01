@@ -27,8 +27,6 @@ public class FallentController_v2 : MonoBehaviour
 
 		protected float _lastAttackTime;
 		protected float _distance;
-		bool _wasTeleported = false;
-		bool _haveGoal = false;
 
 		void Start()
 		{
