@@ -29,7 +29,7 @@ public class CheckClick : MonoBehaviour
 #if UNITY_EDITOR
 				if (Input.GetMouseButtonDown(1))
 				{
-						_touchPos = Camera.main.ScreenToWorldPoint(CrossPlatformInputManager.mousePosition);
+						_touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 						wasClick = true;
 				}
 #endif
