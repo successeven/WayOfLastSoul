@@ -201,7 +201,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1880767279517458
 GameObject:
   m_ObjectHideFlags: 1
@@ -370,7 +370,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1635456858592788}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -185.05899, y: -95.683716, z: 0.9120123}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4378585312373374}
@@ -425,7 +425,7 @@ Rigidbody2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1635456858592788}
   m_BodyType: 0
-  m_Simulated: 1
+  m_Simulated: 0
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 1
   m_Mass: 4.7186885
@@ -462,7 +462,7 @@ PolygonCollider2D:
   m_Points:
     m_Paths:
     - - {x: -0.6027234, y: 0.22257328}
-      - {x: -1.5101054, y: -0.4946146}
+      - {x: -2.0478363, y: -1.312003}
       - {x: 0.02367419, y: -0.896368}
       - {x: 1.0158069, y: 0.099435806}
       - {x: 0.71520823, y: 0.6060114}
@@ -595,8 +595,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8d6525b6d5899f4a82e77026ea968f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attack: 55
   _HP: 310
+  _attack: 55
 --- !u!198 &198007429106836714
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -9911,7 +9911,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.1
+      scalar: 0.3
       minScalar: 0.05
       maxCurve:
         serializedVersion: 2
@@ -18800,7 +18800,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.07409222, g: 0.3490566, b: 0.34122083, a: 1}
+      maxColor: {r: 0.1251335, g: 0.7169812, b: 0.7000713, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -23178,8 +23178,8 @@ ParticleSystem:
         m_RotationOrder: 4
     startColor:
       serializedVersion: 2
-      minMaxState: 2
-      minColor: {r: 0.019312924, g: 0.0823522, b: 0.13207549, a: 1}
+      minMaxState: 0
+      minColor: {r: 0, g: 0.9329295, b: 1, a: 1}
       maxColor: {r: 0, g: 0, b: 0, a: 1}
       maxGradient:
         serializedVersion: 2
@@ -27596,7 +27596,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 1
+  moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 0
@@ -36835,7 +36835,7 @@ ParticleSystem:
     startColor:
       serializedVersion: 2
       minMaxState: 2
-      minColor: {r: 0, g: 0.21127751, b: 0.32156864, a: 1}
+      minColor: {r: 0.26379493, g: 0.9536098, b: 0.9811321, a: 1}
       maxColor: {r: 0.084905684, g: 0, b: 0, a: 1}
       maxGradient:
         serializedVersion: 2
@@ -45981,7 +45981,7 @@ ParticleSystemRenderer:
   m_SortingLayerID: -591167225
   m_SortingLayer: 1
   m_SortingOrder: 10
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_SortMode: 0
   m_MinParticleSize: 0
   m_MaxParticleSize: 0.5
@@ -46266,7 +46266,7 @@ ParticleSystemRenderer:
   m_SortingLayerID: -591167225
   m_SortingLayer: 1
   m_SortingOrder: 10
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_SortMode: 0
   m_MinParticleSize: 0
   m_MaxParticleSize: 0.5
