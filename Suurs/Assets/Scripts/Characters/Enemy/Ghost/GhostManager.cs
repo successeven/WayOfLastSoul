@@ -21,6 +21,11 @@ public class GhostManager : EnemyManager
 				_motor = GetComponent<GhostMotor>();
 		}
 
+		private void FixedUpdate()
+		{
+				Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Ghost"), !(IsAttack() && !_HeroEnter));
+		}
+
 		protected override bool IsAttack()
 		{
 					return _motor._attacks;

@@ -2,10 +2,9 @@
 using System.Collections;
 using UnityEngine;
 
-public class EnemyManager : MonoBehaviour {
+public class EnemyManager : AliveObject {
 
     public float _attack;
-    public float _HP;
 
     bool _DealDamage = false;
 
@@ -14,8 +13,11 @@ public class EnemyManager : MonoBehaviour {
 
 		[NonSerialized]
 		public bool _reciveDamage = false;
-    
-    protected int _dealAttackID;
+
+		[NonSerialized]
+		public bool _HeroEnter = false;
+
+		protected int _dealAttackID;
 
     private void Start () {
         SetStartSkills ();
@@ -31,23 +33,27 @@ public class EnemyManager : MonoBehaviour {
 
     protected virtual void SetStartSkills () { }
 
-    public virtual void TakeHit (float damage, int attackID)
-		{
-		}
 
     void OnTriggerEnter2D (Collider2D collision) 
     {
-
-        if (collision.tag == "Player" && IsAttack ()) 
+        if (collision.tag == "Player" ) 
         {
-            if (!_DealDamage) {
-                _DealDamage = true;
-                Hero.instance.Manager.TakeDamage (_attack);
-            }
+						_HeroEnter = true;
+						if (IsAttack())
+								if (!_DealDamage) {
+										_DealDamage = true;
+										Hero.instance.Manager.TakeDamage (_attack);
+								}
         }
     }
 
-    protected virtual bool IsAttack () 
+		private void OnTriggerExit2D(Collider2D collision)
+		{
+				if (collision.tag == "Player")
+						_HeroEnter = false;
+		}
+
+		protected virtual bool IsAttack () 
     {
         return false;
     }
@@ -63,11 +69,6 @@ public class EnemyManager : MonoBehaviour {
         _dealAttackID = 0;
     }
 
-    protected virtual void Death () { }
-
-    protected virtual void Die () {
-        Destroy (transform.gameObject);
-    }
 
 
 

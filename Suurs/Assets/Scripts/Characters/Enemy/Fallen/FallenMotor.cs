@@ -33,7 +33,6 @@ public class FallenMotor : MonoBehaviour {
     public bool _attacks = false;
     protected float _moveLeftSide = -1; //1- вправо ; -1 влево
 
-    bool _teleporting = false;
     MyFSM _fsm;
     FallenManager _manager;
 

@@ -1,5 +1,4 @@
-﻿using EZCameraShake;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -34,7 +33,7 @@ public class HeroManager : MonoBehaviour
 		bool _death = false;
 
 		bool _deathSpikes = false;
-        
+
 
 		[NonSerialized]
 		public bool _TakeDamage = false;
@@ -49,12 +48,12 @@ public class HeroManager : MonoBehaviour
 		{
 				if (_Health <= 0 && !_death)
 				{
-            Hero.instance.audioManager.Play(Hero.AudioClips.Death.ToString());
-            _death = true;
-            if (_deathSpikes)
-                _anima.SetTrigger("Death_Spikes");
-            else
-                _anima.SetTrigger("Death");
+						Hero.instance.audioManager.Play(Hero.AudioClips.Death.ToString());
+						_death = true;
+						if (_deathSpikes)
+								_anima.SetTrigger("Death_Spikes");
+						else
+								_anima.SetTrigger("Death");
 						GameOver();
 
 						//Invoke("GameOver", 3f);
@@ -65,26 +64,28 @@ public class HeroManager : MonoBehaviour
 		{
 				UIController.instance.GameOver();
 		}
-		
+
 		void OnTriggerEnter2D(Collider2D collision)
 		{
 				if (collision.tag == "Enemy" && Hero.instance.Motor._attacks)
 				{
-                    EnemyManager enemyManager = collision.transform.gameObject.GetComponent<EnemyManager>();
-                    if (enemyManager == null)
-                            return;
+						AliveObject enemyManager = collision.transform.gameObject.GetComponent<AliveObject>();
+						if (enemyManager == null)
+						{
+								Debug.LogWarning("Не найден менеджер врага");
+								return;
+						}
 
-                    var _currentAttackItem = _attackItems.Where(x => x._ID == Hero.instance.Motor.AttackIndex).FirstOrDefault();
-                    enemyManager.TakeHit(_currentAttackItem._damage, _currentAttackItem._ID);
+						var _currentAttackItem = _attackItems.Where(x => x._ID == Hero.instance.Motor.AttackIndex).FirstOrDefault();
+						enemyManager.TakeHit(_currentAttackItem._damage, _currentAttackItem._ID);
 				}
 		}
-		
+
 		public void TakeDamage(float damage) //Урон
 		{
 				_TakeDamage = true;
 				if (Hero.instance.Motor._blocking)
 				{
-						Debug.Log("BLOCK?");
 						Hero.instance.audioManager.Play(Hero.AudioClips.Block.ToString());
 						_Health -= damage * ((100f - _Shield) / 100f);
 						Hero.instance.Motor._anima.SetTrigger("TakeHitWhenBlocking");
@@ -92,20 +93,20 @@ public class HeroManager : MonoBehaviour
 				else
 				{
 						Hero.instance.Motor.FinishAllAttacks();
-						CameraShaker.Instance.ShakeOnce(4f, 10f, .1f, .5f);
+						CameraShake.instance.Shake();
 						Hero.instance.audioManager.Play(Hero.AudioClips.Hit.ToString());
 						_Health -= damage;
 						if (Hero.instance.Motor.CanBreakAnim())
-						  Hero.instance.Motor._anima.SetTrigger("TakeHit");
+								Hero.instance.Motor._anima.SetTrigger("TakeHit");
 				}
 		}
 
-		public void DeathSpikes() 
+		public void DeathSpikes()
 		{
-            _TakeDamage = true;
-            Hero.instance.Motor.FinishAllAttacks();
-            _Health = 0;
-            _deathSpikes = true;
+				_TakeDamage = true;
+				Hero.instance.Motor.FinishAllAttacks();
+				_Health = 0;
+				_deathSpikes = true;
 		}
 
 		void LoadData()

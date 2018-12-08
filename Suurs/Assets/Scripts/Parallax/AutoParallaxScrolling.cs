@@ -304,7 +304,7 @@ namespace AutoParallaxScrolling
                     balancedList.popRight();
                 }
 
-                if (parallaxCamera.transform.position.x < edgeVisibleLeftPosition + offsetX)
+                if (camTransform.position.x < edgeVisibleLeftPosition + offsetX)
                 {
                     balancedList.popLeft();
                 }
