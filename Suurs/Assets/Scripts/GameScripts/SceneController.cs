@@ -24,17 +24,18 @@ public class SceneController : MonoBehaviour
 				var count = PlayerPrefs.GetInt("CountChangeLevel");
 				count++;
 				PlayerPrefs.SetInt("CountChangeLevel", count);
-                
-                int level = PlayerPrefs.GetInt("CompletedLVL");
-                Debug.Log(SceneManager.GetActiveScene().name);
-                if (SceneManager.GetActiveScene().name == "Respawn")
-				    PlayerPrefs.SetInt("NextLVL", level);
-                else
-                {
-                    PlayerPrefs.SetInt("CompletedLVL", level++);
-                    PlayerPrefs.SetInt("NextLVL", level);                    
-                }
-                   
+
+				int level = PlayerPrefs.GetInt("CompletedLVL");
+				Debug.Log(SceneManager.GetActiveScene().name);
+				if (SceneManager.GetActiveScene().name == "Respawn")
+						PlayerPrefs.SetInt("NextLVL", level);
+				else
+				{
+                    level++;
+						PlayerPrefs.SetInt("CompletedLVL", level);
+						PlayerPrefs.SetInt("NextLVL", level);
+				}
+
 				StartCoroutine(AsyncLoad());
 		}
 
