@@ -14,6 +14,7 @@ public class AliveObject : MonoBehaviour {
 
 		protected virtual void Die()
 		{
+				Debug.Log("Смерть " + transform.root.gameObject.name);
 				Destroy(transform.gameObject);
 		}
 }

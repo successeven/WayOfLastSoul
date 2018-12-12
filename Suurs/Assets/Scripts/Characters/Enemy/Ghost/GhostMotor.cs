@@ -122,6 +122,12 @@ public class GhostMotor : MonoBehaviour
 						_fsm.FinishState();
 		}
 		
+		public void ResetAllState()
+		{
+				_fsm.FinishAllStates();
+                StopAllCoroutines();
+		}
+
 		public void ResetState()
 		{
 				_fsm.FinishState();
@@ -140,12 +146,12 @@ public class GhostMotor : MonoBehaviour
 				_anima.SetBool("Attack", true);
 		}
 
-		private void Update()
+		private void FixedUpdate()
 		{
-				if (_manager._HP > 0)
+				if (_manager._HP >= 0)
 				{
 						_fsm.Invoke();
-				}
+				}                
 		}
 
 		protected void Flip()
@@ -164,7 +170,7 @@ public class GhostMotor : MonoBehaviour
 
 				Vector3 _targetAttack;
 				_targetAttack = transform.position;
-				_targetAttack.x += Hero.instance.transform.position.x < transform.position.x ? -_distanceAttackOffset : _distanceAttackOffset;
+				_targetAttack.x += Hero.instance.transform.position.x <= transform.position.x ? -_distanceAttackOffset : _distanceAttackOffset;
 
 				Vector3 startPosition = transform.position;
 				float startTime = Time.realtimeSinceStartup;

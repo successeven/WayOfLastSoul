@@ -14,8 +14,6 @@ public class EnemyManager : AliveObject {
 		[NonSerialized]
 		public bool _reciveDamage = false;
 
-		[NonSerialized]
-		public bool _HeroEnter = false;
 
 		protected int _dealAttackID;
 
@@ -31,14 +29,14 @@ public class EnemyManager : AliveObject {
         }
     }
 
-    protected virtual void SetStartSkills () { }
+
+		protected virtual void SetStartSkills () { }
 
 
     void OnTriggerEnter2D (Collider2D collision) 
     {
         if (collision.tag == "Player" ) 
         {
-						_HeroEnter = true;
 						if (IsAttack())
 								if (!_DealDamage) {
 										_DealDamage = true;
@@ -47,11 +45,6 @@ public class EnemyManager : AliveObject {
         }
     }
 
-		private void OnTriggerExit2D(Collider2D collision)
-		{
-				if (collision.tag == "Player")
-						_HeroEnter = false;
-		}
 
 		protected virtual bool IsAttack () 
     {
