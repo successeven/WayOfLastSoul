@@ -50,6 +50,8 @@ public class HeroController : MonoBehaviour
 		}
 
 		float _timeAttackHold;
+		float _timeLastJump;
+		float _deltaLastTimeJump = 0.5f;
 		private void Update()
 		{
 
@@ -100,8 +102,13 @@ public class HeroController : MonoBehaviour
 								Hero.instance.Motor.Attack();
 				}
 
-				if (CrossPlatformInputManager.GetButtonDown("Jump") && Hero.instance.Motor.m_Grounded)
+				if (CrossPlatformInputManager.GetButtonDown("Jump") && Hero.instance.Motor.m_Grounded 
+						&& Time.fixedTime - _timeLastJump > _deltaLastTimeJump)
+				{
+						_timeLastJump = Time.fixedTime;
 						Hero.instance.Motor.Jump();
+
+				}
 
 				if (CrossPlatformInputManager.GetButtonDown("Uppercut"))
 						Hero.instance.Motor.Uppercut();

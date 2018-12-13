@@ -71,20 +71,10 @@ namespace AutoParallaxScrolling
 
         private void Awake()
         {
-            if (parallaxCamera == null)
-            {
-                isError = true;
-                logger.LogWarning("Cammera not attached to Parallax Script - Please attach camera in inspector",
-                    "Auto Parallax", this);
-            }
-            else
-            {
-                camTransform = parallaxCamera.transform;
+                camTransform = Camera.main.transform;
                 balancedLists = new List<BalancedList<Transform>>();
                 
                 rootTransforms = rootTransforms.Where(transform => transform != null).ToList();
-
-            }
         }
 
         private void Update()
@@ -284,7 +274,7 @@ namespace AutoParallaxScrolling
 
         private void doBalancing()
         {
-            float cameraHorizontalExtent = parallaxCamera.orthographicSize * Screen.width / Screen.height;
+            float cameraHorizontalExtent = Camera.main.orthographicSize * Screen.width / Screen.height;
 
             foreach (var balancedList in balancedLists)
             {
