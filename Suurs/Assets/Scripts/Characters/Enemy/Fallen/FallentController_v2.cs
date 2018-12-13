@@ -76,7 +76,6 @@ public class FallentController_v2 : MonoBehaviour
                     else
                         _motor.CurrentHorAxis = -0.2f;
                 }*/
-								Debug.Log(Time.fixedTime - _lastAttackTime);
 
 								if (Time.fixedTime - _lastAttackTime > _deltaTimeAttack)
 								{
