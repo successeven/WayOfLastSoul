@@ -41,7 +41,6 @@ public class CheckClick : MonoBehaviour
 						Debug.DrawLine(_touchPos, Camera.main.transform.position, Color.red, Mathf.Infinity);
 						if (hit2D)
 						{
-								Debug.Log(hit2D.transform.tag);
 								if (hit2D.transform.CompareTag("Finish"))
 										GameManager.instance.PlayFromTimelines(0);
 						}
