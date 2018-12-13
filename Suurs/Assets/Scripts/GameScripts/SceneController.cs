@@ -26,7 +26,6 @@ public class SceneController : MonoBehaviour
 				PlayerPrefs.SetInt("CountChangeLevel", count);
 
 				int level = PlayerPrefs.GetInt("CompletedLVL");
-				Debug.Log(SceneManager.GetActiveScene().name);
 				if (SceneManager.GetActiveScene().name == "Respawn")
 						PlayerPrefs.SetInt("NextLVL", level);
 				else
@@ -50,7 +49,7 @@ public class SceneController : MonoBehaviour
 				{
 						if (operation.progress == 0.9f)
 						{
-								if (UIController.instance.ad.IsLoaded() && PlayerPrefs.GetInt("CountChangeLevel") == 3)
+								if (UIController.instance.ad.IsLoaded() && PlayerPrefs.GetInt("CountChangeLevel") == 2)
 								{
 										UIController.instance.ad.Show();
 										PlayerPrefs.SetInt("CountChangeLevel", 0);

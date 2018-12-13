@@ -15,7 +15,8 @@ public class DialogueCanvasController : MonoBehaviour
 		IEnumerator SetAnimatorParameterWithDelay(float delay)
 		{
 				yield return new WaitForSeconds(delay);
-				animator.SetBool(m_HashActivePara, false);
+                if (transform.gameObject.active)
+				    animator.SetBool(m_HashActivePara, false);
 		}
 
 		public void ActivateCanvasWithText(string text)
@@ -49,6 +50,7 @@ public class DialogueCanvasController : MonoBehaviour
 
 		public void DeactivateCanvasWithDelay(float delay)
 		{
+            if (transform.gameObject.active)
 				m_DeactivationCoroutine = StartCoroutine(SetAnimatorParameterWithDelay(delay));
 		}
 }
