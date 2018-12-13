@@ -100,7 +100,7 @@ public class HeroController : MonoBehaviour
 								Hero.instance.Motor.Attack();
 				}
 
-				if (CrossPlatformInputManager.GetButtonDown("Jump") && Hero.instance.Motor.m_Grounded)
+				if (CrossPlatformInputManager.GetButtonDown("Jump") && Hero.instance.Motor.m_Grounded && !Hero.instance.Motor._jump)
 						Hero.instance.Motor.Jump();
 
 				if (CrossPlatformInputManager.GetButtonDown("Uppercut"))
