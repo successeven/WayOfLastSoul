@@ -53,7 +53,7 @@ public class DialogueCanvasController : MonoBehaviour
 						m_DeactivationCoroutine = StartCoroutine(SetAnimatorParameterWithDelay(delay));
 		}
 
-		public void ActivateCanvasWithTranslatedText(string phraseKey, float delay)
+		public void ActivateAndDeactivateCanvasWithTranslatedText(string phraseKey, float delay)
 		{
 				ActivateCanvasWithTranslatedText(phraseKey);
 				DeactivateCanvasWithDelay(delay);
