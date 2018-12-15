@@ -4,44 +4,43 @@ using UnityEngine;
 public class TrapPlatform : MonoBehaviour
 {
 
-		Rigidbody2D rig;
+		Rigidbody2D _rigidbody;
 		public float DeathTime = 2f;
 		public GameObject ParticlePrefab;
-		AudioSource Sound;
-		public float fallingTimer;
+		public float _shakingTimer;
 		public float ShakingStrength;
 		public bool FallOutFromColliders;
-		bool shaking = false;
-		float position;
+		 AudioSource Sound;
+		public GameObject _platform;
 
-		Vector3 trans;
-		// Use this for initialization
+		bool shaking = false;
+		Vector3 _startPos, _newPos;
+		
 		void Start()
 		{
-				rig = GetComponent<Rigidbody2D>();
+				_rigidbody = GetComponent<Rigidbody2D>();
 				Sound = GetComponent<AudioSource>();
-				position = transform.position.y;
-				trans = transform.position;
+				_startPos = _platform.transform.position;
 		}
 
 		// Update is called once per frame
-		void Update()
+		void FixedUpdate()
 		{
 				if (shaking)
 				{
-						float y = Random.Range(position - ShakingStrength, position + ShakingStrength);
-						transform.position = new Vector3(trans.x, y, trans.z);
+						float y = Random.Range(_startPos.y - ShakingStrength, _startPos.y + ShakingStrength);
+						_newPos = _startPos;
+						_newPos.y = y;
+						_platform.transform.position = _newPos;
 				}
 		}
-
-
 
 		void OnCollisionEnter2D(Collision2D col)
 		{
 				Debug.Log(col.collider.tag);
 				if (col.collider.tag == "Player")
 				{
-						//StartCoroutine(Falling());
+						StartCoroutine(Falling());
 						if (!shaking)
 						{
 								ParticlePrefab.SetActive(true);
@@ -52,12 +51,12 @@ public class TrapPlatform : MonoBehaviour
 				}
 		}
 
-
 		IEnumerator Falling()
 		{
-				yield return new WaitForSeconds(fallingTimer);
+				yield return new WaitForSeconds(_shakingTimer);
 				ParticlePrefab.SetActive(false);
-				rig.isKinematic = false;
+				_rigidbody.bodyType = RigidbodyType2D.Dynamic;
+				_rigidbody.gravityScale = 5;
 
 				if (FallOutFromColliders)
 						GetComponent<Collider>().isTrigger = true;
