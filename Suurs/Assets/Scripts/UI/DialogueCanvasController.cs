@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -15,8 +14,8 @@ public class DialogueCanvasController : MonoBehaviour
 		IEnumerator SetAnimatorParameterWithDelay(float delay)
 		{
 				yield return new WaitForSeconds(delay);
-                if (transform.gameObject.active)
-				    animator.SetBool(m_HashActivePara, false);
+				if (transform.gameObject.activeInHierarchy)
+						animator.SetBool(m_HashActivePara, false);
 		}
 
 		public void ActivateCanvasWithText(string text)
@@ -43,14 +42,20 @@ public class DialogueCanvasController : MonoBehaviour
 				gameObject.SetActive(true);
 				animator.SetBool(m_HashActivePara, true);
 
-                string tempText = Translator.Instance[phraseKey].ToString().Replace("{n}", "\r\n");
+				string tempText = Translator.Instance[phraseKey].ToString().Replace("{n}", "\r\n");
 				textMeshProUGUI.text = tempText;
 				textMeshProUGUI.font = Translator.Instance.GetFont;
 		}
 
 		public void DeactivateCanvasWithDelay(float delay)
 		{
-            if (transform.gameObject.active)
-				m_DeactivationCoroutine = StartCoroutine(SetAnimatorParameterWithDelay(delay));
+				if (transform.gameObject.activeInHierarchy)
+						m_DeactivationCoroutine = StartCoroutine(SetAnimatorParameterWithDelay(delay));
+		}
+
+		public void ActivateCanvasWithTranslatedText(string phraseKey, float delay)
+		{
+				ActivateCanvasWithTranslatedText(phraseKey);
+				DeactivateCanvasWithDelay(delay);
 		}
 }

@@ -96,7 +96,7 @@ public class HeroMotor : CharacterMotor {
     }
 
     public void FinishAllAttacks () {
-        _attacks = false;
+       // _attacks = false;
         _fsm.FinishAllStates ();
     }
 
@@ -135,7 +135,9 @@ public class HeroMotor : CharacterMotor {
     void Moves () {
         comboCount = 0;
         _attacks = false;
-        currentAttackEnum = StatsEnum.None;
+				_anima.SetInteger("Attack Index", 0);
+				_anima.SetBool("Attack", false);
+				currentAttackEnum = StatsEnum.None;
 
         if (_blocking || _isDodging)
             return;
@@ -176,8 +178,6 @@ public class HeroMotor : CharacterMotor {
     }
 
     public void ResetState () {
-        _anima.SetInteger ("Attack Index", 0);
-        _anima.SetBool ("Attack", false);
         _fsm.FinishState ();
     }
 

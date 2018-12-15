@@ -22,6 +22,9 @@ public class PainbusterManager : AliveObject
 
 		void OnTriggerEnter2D(Collider2D collision)
 		{
+				if (_dead)
+						return;
+
 				if (collision.tag == "Player")
 				{
 						Explosion();
