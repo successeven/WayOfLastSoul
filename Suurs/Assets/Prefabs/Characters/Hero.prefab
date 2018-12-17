@@ -61,6 +61,7 @@ GameObject:
   - component: {fileID: 114672097614119156}
   - component: {fileID: 114347115033146754}
   - component: {fileID: 114557345354283914}
+  - component: {fileID: 81142435818980450}
   m_Layer: 14
   m_Name: Hero
   m_TagString: Player
@@ -863,7 +864,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1109186666151748}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.4838457, y: 12.9, z: 0}
+  m_LocalPosition: {x: -265.5, y: 73.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4365532790690704}
@@ -1312,6 +1313,13 @@ CapsuleCollider2D:
   m_Offset: {x: 0.09, y: -0.9}
   m_Size: {x: 1.5, y: 3.44}
   m_Direction: 0
+--- !u!81 &81142435818980450
+AudioListener:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1109186666151748}
+  m_Enabled: 1
 --- !u!95 &95511230323085100
 Animator:
   serializedVersion: 3
@@ -1752,11 +1760,13 @@ MonoBehaviour:
   sounds:
   - name: Run
     clip: {fileID: 8300000, guid: 619be61f1c7d66f45b27fedd7e3d92ed, type: 3}
-    volume: 0.404
+    volume: 0.4
     pitch: 0.9
     loop: 1
     Surround: 0
+    RolloffMode: 1
     MinDistance: 1
+    MaxDistance: 100
     source: {fileID: 0}
   - name: Dodge
     clip: {fileID: 8300000, guid: d76d21f9e56ce1c40bde82af47ec2305, type: 3}
@@ -1764,7 +1774,9 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     Surround: 0
+    RolloffMode: 1
     MinDistance: 1
+    MaxDistance: 100
     source: {fileID: 0}
   - name: Hit
     clip: {fileID: 8300000, guid: f816c3ef60d5cca43a8a8c9bd8f8c482, type: 3}
@@ -1772,7 +1784,9 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     Surround: 0
+    RolloffMode: 1
     MinDistance: 1
+    MaxDistance: 100
     source: {fileID: 0}
   - name: Strike_1
     clip: {fileID: 8300000, guid: 27d9f61d5ce607a41897392a70b3f628, type: 3}
@@ -1780,7 +1794,9 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     Surround: 0
+    RolloffMode: 1
     MinDistance: 1
+    MaxDistance: 100
     source: {fileID: 0}
   - name: Strike_2
     clip: {fileID: 8300000, guid: c708db7355643ec45bc80030f281110d, type: 3}
@@ -1788,7 +1804,9 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     Surround: 0
+    RolloffMode: 1
     MinDistance: 1
+    MaxDistance: 100
     source: {fileID: 0}
   - name: Strike_3
     clip: {fileID: 8300000, guid: e5bf26497dd82f340812da6af9753147, type: 3}
@@ -1796,55 +1814,19 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     Surround: 0
+    RolloffMode: 1
     MinDistance: 1
+    MaxDistance: 100
     source: {fileID: 0}
-  - name: Rapira
+  - name: Uppercut
     clip: {fileID: 8300000, guid: d2f7cfa59ede1ce40bd2c62131cb4d5a, type: 3}
     volume: 1
     pitch: 1
     loop: 0
     Surround: 0
+    RolloffMode: 1
     MinDistance: 1
-    source: {fileID: 0}
-  - name: Back_Slide
-    clip: {fileID: 8300000, guid: d76d21f9e56ce1c40bde82af47ec2305, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 0
-    Surround: 0
-    MinDistance: 1
-    source: {fileID: 0}
-  - name: Block
-    clip: {fileID: 8300000, guid: cb6197ccaf7933c4f88b16ce9943026c, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 0
-    Surround: 0
-    MinDistance: 1
-    source: {fileID: 0}
-  - name: Death
-    clip: {fileID: 8300000, guid: 1403b4f9de2bbdc4798c909455e8725e, type: 3}
-    volume: 0.5
-    pitch: 1
-    loop: 0
-    Surround: 0
-    MinDistance: 1
-    source: {fileID: 0}
-  - name: Jump
-    clip: {fileID: 8300000, guid: 7c240789b20f17248876eb8972fff8f1, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 0
-    Surround: 0
-    MinDistance: 1
-    source: {fileID: 0}
-  - name: Respawn
-    clip: {fileID: 8300000, guid: 0dbcae392670478498765980111229c8, type: 3}
-    volume: 0.3
-    pitch: 1
-    loop: 0
-    Surround: 0
-    MinDistance: 1
+    MaxDistance: 100
     source: {fileID: 0}
   - name: Walk
     clip: {fileID: 8300000, guid: 619be61f1c7d66f45b27fedd7e3d92ed, type: 3}
@@ -1852,7 +1834,59 @@ MonoBehaviour:
     pitch: 0.6
     loop: 1
     Surround: 0
+    RolloffMode: 1
     MinDistance: 1
+    MaxDistance: 100
+    source: {fileID: 0}
+  - name: Block
+    clip: {fileID: 8300000, guid: cb6197ccaf7933c4f88b16ce9943026c, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    Surround: 0
+    RolloffMode: 1
+    MinDistance: 1
+    MaxDistance: 100
+    source: {fileID: 0}
+  - name: Death
+    clip: {fileID: 8300000, guid: 1403b4f9de2bbdc4798c909455e8725e, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    Surround: 0
+    RolloffMode: 1
+    MinDistance: 1
+    MaxDistance: 100
+    source: {fileID: 0}
+  - name: Jump
+    clip: {fileID: 8300000, guid: 7c240789b20f17248876eb8972fff8f1, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    Surround: 0
+    RolloffMode: 1
+    MinDistance: 1
+    MaxDistance: 100
+    source: {fileID: 0}
+  - name: Respawn
+    clip: {fileID: 8300000, guid: 0dbcae392670478498765980111229c8, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 0
+    Surround: 0
+    RolloffMode: 1
+    MinDistance: 1
+    MaxDistance: 100
+    source: {fileID: 0}
+  - name: Shield_attack
+    clip: {fileID: 0}
+    volume: 0.2
+    pitch: 0.6
+    loop: 0
+    Surround: 0
+    RolloffMode: 1
+    MinDistance: 1
+    MaxDistance: 100
     source: {fileID: 0}
 --- !u!114 &114975554905170262
 MonoBehaviour:
@@ -161603,7 +161637,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -591167225
-  m_SortingLayer: 1
+  m_SortingLayer: 4
   m_SortingOrder: 110
   m_RenderMode: 0
   m_SortMode: 0
@@ -161660,7 +161694,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -591167225
-  m_SortingLayer: 1
+  m_SortingLayer: 4
   m_SortingOrder: 110
   m_RenderMode: 0
   m_SortMode: 0
@@ -161717,7 +161751,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -591167225
-  m_SortingLayer: 1
+  m_SortingLayer: 4
   m_SortingOrder: 110
   m_RenderMode: 0
   m_SortMode: 0
@@ -161831,7 +161865,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -591167225
-  m_SortingLayer: 1
+  m_SortingLayer: 4
   m_SortingOrder: 110
   m_RenderMode: 0
   m_SortMode: 0
@@ -161945,7 +161979,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -591167225
-  m_SortingLayer: 1
+  m_SortingLayer: 4
   m_SortingOrder: 10
   m_RenderMode: 0
   m_SortMode: 0
@@ -162002,7 +162036,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -591167225
-  m_SortingLayer: 1
+  m_SortingLayer: 4
   m_SortingOrder: 10
   m_RenderMode: 0
   m_SortMode: 0
@@ -162059,7 +162093,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -591167225
-  m_SortingLayer: 1
+  m_SortingLayer: 4
   m_SortingOrder: 110
   m_RenderMode: 0
   m_SortMode: 0
@@ -162116,7 +162150,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -591167225
-  m_SortingLayer: 1
+  m_SortingLayer: 4
   m_SortingOrder: 10
   m_RenderMode: 0
   m_SortMode: 0
@@ -162173,7 +162207,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -591167225
-  m_SortingLayer: 1
+  m_SortingLayer: 4
   m_SortingOrder: 10
   m_RenderMode: 1
   m_SortMode: 0
@@ -162230,7 +162264,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -591167225
-  m_SortingLayer: 1
+  m_SortingLayer: 4
   m_SortingOrder: 110
   m_RenderMode: 0
   m_SortMode: 0
@@ -162344,7 +162378,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -591167225
-  m_SortingLayer: 1
+  m_SortingLayer: 4
   m_SortingOrder: 10
   m_RenderMode: 1
   m_SortMode: 0
@@ -162401,7 +162435,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -591167225
-  m_SortingLayer: 1
+  m_SortingLayer: 4
   m_SortingOrder: 110
   m_RenderMode: 1
   m_SortMode: 0
@@ -162458,7 +162492,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -591167225
-  m_SortingLayer: 1
+  m_SortingLayer: 4
   m_SortingOrder: 10
   m_RenderMode: 0
   m_SortMode: 0
@@ -162515,7 +162549,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -591167225
-  m_SortingLayer: 1
+  m_SortingLayer: 4
   m_SortingOrder: 110
   m_RenderMode: 0
   m_SortMode: 0
@@ -162572,7 +162606,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -591167225
-  m_SortingLayer: 1
+  m_SortingLayer: 4
   m_SortingOrder: 110
   m_RenderMode: 0
   m_SortMode: 0
@@ -162629,7 +162663,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -591167225
-  m_SortingLayer: 1
+  m_SortingLayer: 4
   m_SortingOrder: 110
   m_RenderMode: 0
   m_SortMode: 0
@@ -162743,7 +162777,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -591167225
-  m_SortingLayer: 1
+  m_SortingLayer: 4
   m_SortingOrder: 50
   m_RenderMode: 0
   m_SortMode: 0
@@ -162800,7 +162834,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -591167225
-  m_SortingLayer: 1
+  m_SortingLayer: 4
   m_SortingOrder: 110
   m_RenderMode: 0
   m_SortMode: 0
@@ -162857,7 +162891,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -591167225
-  m_SortingLayer: 1
+  m_SortingLayer: 4
   m_SortingOrder: 10
   m_RenderMode: 0
   m_SortMode: 0
@@ -162914,7 +162948,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -591167225
-  m_SortingLayer: 1
+  m_SortingLayer: 4
   m_SortingOrder: 50
   m_RenderMode: 1
   m_SortMode: 0
@@ -162971,7 +163005,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -591167225
-  m_SortingLayer: 1
+  m_SortingLayer: 4
   m_SortingOrder: 10
   m_RenderMode: 0
   m_SortMode: 0
@@ -163028,7 +163062,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -591167225
-  m_SortingLayer: 1
+  m_SortingLayer: 4
   m_SortingOrder: 10
   m_RenderMode: 0
   m_SortMode: 0
@@ -163085,7 +163119,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -591167225
-  m_SortingLayer: 1
+  m_SortingLayer: 4
   m_SortingOrder: 10
   m_RenderMode: 0
   m_SortMode: 0
@@ -163142,7 +163176,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -591167225
-  m_SortingLayer: 1
+  m_SortingLayer: 4
   m_SortingOrder: 10
   m_RenderMode: 0
   m_SortMode: 0
@@ -163313,7 +163347,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -591167225
-  m_SortingLayer: 1
+  m_SortingLayer: 4
   m_SortingOrder: 110
   m_RenderMode: 1
   m_SortMode: 0
@@ -163370,7 +163404,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -591167225
-  m_SortingLayer: 1
+  m_SortingLayer: 4
   m_SortingOrder: 110
   m_RenderMode: 0
   m_SortMode: 0
@@ -163427,7 +163461,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -591167225
-  m_SortingLayer: 1
+  m_SortingLayer: 4
   m_SortingOrder: 10
   m_RenderMode: 0
   m_SortMode: 0
@@ -163484,7 +163518,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -591167225
-  m_SortingLayer: 1
+  m_SortingLayer: 4
   m_SortingOrder: 110
   m_RenderMode: 0
   m_SortMode: 0
@@ -163541,7 +163575,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -591167225
-  m_SortingLayer: 1
+  m_SortingLayer: 4
   m_SortingOrder: 109
   m_RenderMode: 0
   m_SortMode: 0
@@ -163596,7 +163630,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -591167225
-  m_SortingLayer: 1
+  m_SortingLayer: 4
   m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: 05b24c8ced632ec4dbc39f3a8962c1a3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

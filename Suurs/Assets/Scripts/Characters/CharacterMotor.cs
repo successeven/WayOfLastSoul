@@ -82,7 +82,7 @@ public class CharacterMotor : MonoBehaviour
 						if (!Hero.instance.Manager._TakeDamage)
 								if (_currentHorAxis != 0)
                                 {
-                                    if (_currentHorAxis < 0.8f)
+                                    if (Math.Abs(_currentHorAxis) < 0.8f)
                                     {
                                         if (!Hero.instance.audioManager.IsPlaying(Hero.AudioClips.Walk.ToString()))
                                         {

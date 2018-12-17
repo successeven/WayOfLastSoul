@@ -26,9 +26,12 @@ public class AudioManager : MonoBehaviour
             s.source.volume = s.volume;
             s.source.pitch = s.pitch;
             s.source.spatialBlend = s.Surround ? 1 : 0;
+            s.source.rolloffMode = s.RolloffMode;
             if (s.Surround)
-                s.source.minDistance = s.MinDistance;
-
+						{
+								s.source.minDistance = s.MinDistance;
+								s.source.maxDistance = s.MaxDistance;
+						}
         }
     }
 

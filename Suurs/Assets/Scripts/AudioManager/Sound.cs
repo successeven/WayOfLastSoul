@@ -15,12 +15,16 @@ public class Sound {
 
 	public bool loop = false;
     public bool Surround = false;
+    public AudioRolloffMode RolloffMode = AudioRolloffMode.Linear;
 
     [Range(1f, 100f)]
     public float MinDistance= 1f;
 
+		[Range(1f, 100f)]
+		public float MaxDistance = 100f;
 
-    [HideInInspector]
+
+		[HideInInspector]
 	public AudioSource source;
 
 }
