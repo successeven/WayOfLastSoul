@@ -64,13 +64,11 @@ public class PainbusterController : MonoBehaviour
 				else
 				{
 						_manager._anima.SetBool("Move", true);
-						transform.position = Vector3.MoveTowards(transform.position, Hero.instance.transform.position, _speed * Time.fixedDeltaTime);
-						_deathTimer -= Time.deltaTime;
-						if (Vector3.Distance(transform.position, Hero.instance.transform.position) <= _distanceAttack && !_manager._dead)
-						{
-								_manager.Explosion();
-								return;
-						}
+						if (!_manager._audioManager.IsPlaying(AudioPainbuster.Stalking.ToString()))
+								_manager._audioManager.Play(AudioPainbuster.Stalking.ToString());
+
+						transform.position = Vector3.MoveTowards(transform.position, Hero.instance.transform.position, _speed * Time.deltaTime);
+						_deathTimer -= Time.deltaTime;					
 
 						if (_deathTimer <= 0)
 								_manager.FallToPieces();
