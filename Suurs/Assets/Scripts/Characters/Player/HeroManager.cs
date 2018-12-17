@@ -93,6 +93,7 @@ public class HeroManager : MonoBehaviour
 				else
 				{
 						Hero.instance.Motor.FinishAllAttacks();
+                        Hero.instance.Motor.CurrentHorAxis = 0;
 						CameraShake.instance.Shake();
 						Hero.instance.audioManager.Play(Hero.AudioClips.Hit.ToString());
 						_Health -= damage;
