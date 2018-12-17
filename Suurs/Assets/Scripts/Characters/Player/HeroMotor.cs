@@ -139,7 +139,7 @@ public class HeroMotor : CharacterMotor {
 				_anima.SetBool("Attack", false);
 				currentAttackEnum = StatsEnum.None;
 
-        if (_blocking || _isDodging)
+        if (_blocking || _isDodging || Hero.instance.Manager._TakeDamage)
             return;
 
         if (m_Grounded && _jump) {
