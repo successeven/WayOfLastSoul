@@ -178,7 +178,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -591167225
-  m_SortingLayer: 1
+  m_SortingLayer: 4
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300024, guid: 74236fe71304c3d44bcf5da712c9db1f, type: 3}
   m_Color: {r: 0.4528302, g: 0.4528302, b: 0.4528302, a: 1}
@@ -5148,7 +5148,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -591167225
-  m_SortingLayer: 1
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: d78eccafc1326794b8074ed8f8d65fe2, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
@@ -5689,6 +5689,48 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1001 &1273026783
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4105258256090954, guid: 7a7a1fbf224c684459024e1695cd67f1, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4105258256090954, guid: 7a7a1fbf224c684459024e1695cd67f1, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4105258256090954, guid: 7a7a1fbf224c684459024e1695cd67f1, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4105258256090954, guid: 7a7a1fbf224c684459024e1695cd67f1, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4105258256090954, guid: 7a7a1fbf224c684459024e1695cd67f1, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4105258256090954, guid: 7a7a1fbf224c684459024e1695cd67f1, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4105258256090954, guid: 7a7a1fbf224c684459024e1695cd67f1, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4105258256090954, guid: 7a7a1fbf224c684459024e1695cd67f1, type: 2}
+      propertyPath: m_RootOrder
+      value: 15
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7a7a1fbf224c684459024e1695cd67f1, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &1333365120
 GameObject:
   m_ObjectHideFlags: 0
@@ -15398,7 +15440,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -591167225
-  m_SortingLayer: 1
+  m_SortingLayer: 4
   m_SortingOrder: 10
   m_Sprite: {fileID: 21300016, guid: 74236fe71304c3d44bcf5da712c9db1f, type: 3}
   m_Color: {r: 0.7830189, g: 0.7830189, b: 0.7830189, a: 1}
@@ -15601,7 +15643,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -591167225
-  m_SortingLayer: 1
+  m_SortingLayer: 4
   m_SortingOrder: 22
   m_Sprite: {fileID: 21300002, guid: 74236fe71304c3d44bcf5da712c9db1f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -15652,6 +15694,31 @@ Prefab:
     - target: {fileID: 4718080689689306, guid: b677bb071c62ba34a9cb0849e222c85b, type: 2}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 137953904279571028, guid: b677bb071c62ba34a9cb0849e222c85b,
+        type: 2}
+      propertyPath: m_AABB.m_Center.x
+      value: 0.0000076293945
+      objectReference: {fileID: 0}
+    - target: {fileID: 137953904279571028, guid: b677bb071c62ba34a9cb0849e222c85b,
+        type: 2}
+      propertyPath: m_AABB.m_Center.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 137953904279571028, guid: b677bb071c62ba34a9cb0849e222c85b,
+        type: 2}
+      propertyPath: m_AABB.m_Center.z
+      value: 0.0000038146973
+      objectReference: {fileID: 0}
+    - target: {fileID: 137953904279571028, guid: b677bb071c62ba34a9cb0849e222c85b,
+        type: 2}
+      propertyPath: m_AABB.m_Extent.y
+      value: 0.0000025460208
+      objectReference: {fileID: 0}
+    - target: {fileID: 137953904279571028, guid: b677bb071c62ba34a9cb0849e222c85b,
+        type: 2}
+      propertyPath: m_AABB.m_Extent.z
+      value: 5.000003
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b677bb071c62ba34a9cb0849e222c85b, type: 2}
