@@ -6,6 +6,7 @@ public class AliveObject : MonoBehaviour {
 
 		public float _HP;
 
+		protected int _dealAttackID;
 		public virtual void TakeHit(float damage, int attackID)
 		{
 		}

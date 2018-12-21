@@ -15,7 +15,6 @@ public class EnemyManager : AliveObject {
 		public bool _reciveDamage = false;
 
 
-		protected int _dealAttackID;
 
     private void Start () {
         SetStartSkills ();
