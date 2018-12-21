@@ -1,14 +1,10 @@
 fileFormatVersion: 2
-guid: 2640e7ca15fc1024da2bc7a0f223a907
+guid: 73e589f22e336144fb662e1f802db901
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Platform
-    21300002: Chain_1
-    21300004: Chain_2
-    21300006: Chain_3
-    21300008: Chain_part_1
-    21300010: Chain_part_2
-    21300012: Chain_part_3
+    21300000: Crack_dark
+    21300002: Crack_Bright
+    21300004: Crack_earth_surface
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -49,7 +45,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 0
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
@@ -67,10 +63,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 2
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 3
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -78,10 +74,10 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   - serializedVersion: 2
     buildTarget: Standalone
-    maxTextureSize: 2048
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 3
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -89,21 +85,10 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   - serializedVersion: 2
     buildTarget: Android
-    maxTextureSize: 2048
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 3
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-  - serializedVersion: 2
-    buildTarget: Windows Store Apps
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 3
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -113,33 +98,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Platform
-      rect:
-        serializedVersion: 2
-        x: 516
-        y: 585
-        width: 530
-        height: 193
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 64df80a3c25b9184a9b40afa984d1be5
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Chain_1
+      name: Crack_dark
       rect:
         serializedVersion: 2
         x: 0
-        y: 165
-        width: 463
-        height: 372
+        y: 742
+        width: 744
+        height: 282
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -147,19 +112,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bf18874abf5246e43980ef1d69696201
+      spriteID: 5795ffa538d575144836f0bf303201d0
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chain_2
+      name: Crack_Bright
       rect:
         serializedVersion: 2
-        x: 551
-        y: 165
-        width: 464
-        height: 372
+        x: 284
+        y: 438
+        width: 740
+        height: 294
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -167,39 +132,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 95a9204896ac2c64e87323e46d2eb832
+      spriteID: 85f698660e6e0a345a35aa2881de0d10
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Chain_3
+      name: Crack_earth_surface
       rect:
         serializedVersion: 2
-        x: 1075
-        y: 165
-        width: 463
-        height: 372
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 93eecf64a1f32f242ba2f6ffc3cefcf7
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Chain_part_1
-      rect:
-        serializedVersion: 2
-        x: 612
+        x: 0
         y: 0
-        width: 118
-        height: 111
+        width: 1024
+        height: 435
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -207,47 +152,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f1ee223cdfeffdb4e81fb4543d57d715
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Chain_part_2
-      rect:
-        serializedVersion: 2
-        x: 835
-        y: 0
-        width: 99
-        height: 111
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 027de4402e529854688145f4a7e67cec
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Chain_part_3
-      rect:
-        serializedVersion: 2
-        x: 956
-        y: 43
-        width: 92
-        height: 14
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c13a422740ae7f647a12dc79a4a17ee3
+      spriteID: 5b22c726e20d60e468d96dc369a9a705
       vertices: []
       indices: 
       edges: []
@@ -255,7 +160,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 9a3f1ca14bbb9a3469f360ced6ecb8f7
+    spriteID: 23753afe4328bf442a280c732ee0a354
     vertices: []
     indices: 
     edges: []
