@@ -123,6 +123,7 @@ public class UIController : MonoBehaviour
     
     public void btn_ResetHero_YES_Click()
     {
+        GameManager.instance.PlayFromTimelines(GameTimeLines.ResetUI);
         //Hero.instance.ResetHero();
     }
 

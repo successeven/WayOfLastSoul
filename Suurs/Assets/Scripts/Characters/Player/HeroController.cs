@@ -151,7 +151,7 @@ public class HeroController : MonoBehaviour
         transform.position = _checkPointPosition;
     }
 
-    void ResetStats()
+    public void ResetStats()
     {
         Hero.instance.Manager._TakeDamage = false;
     }

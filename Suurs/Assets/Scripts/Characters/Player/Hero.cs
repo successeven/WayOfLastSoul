@@ -72,12 +72,19 @@ public class Hero : MonoBehaviour
     private void Start()
     {
         audioManager = GetComponent<AudioManager>();
+        _heroController._checkPointPosition = transform.position;
     }
 
     public void Move(float inSpeed)
     {
         _heroMotor.CurrentHorAxis = inSpeed;
         _heroMotor.Move();
+    }
+
+    public void ResetHero()
+    {
+        _heroManager.ResetHero();
+        _heroController.ResetHeroPosition();
     }
 
 

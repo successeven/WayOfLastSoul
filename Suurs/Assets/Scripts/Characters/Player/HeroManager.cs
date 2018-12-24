@@ -29,7 +29,6 @@ public class HeroManager : MonoBehaviour
     public float _Shield = 50f; ///Щит   
 
     public List<AttackItem> _attackItems;
-    Animator _anima;
     bool _death = false;
 
     bool _deathSpikes = false;
@@ -41,7 +40,6 @@ public class HeroManager : MonoBehaviour
     private void Awake()
     {
         LoadData();
-        _anima = GetComponent<Animator>();
     }
 
     private void FixedUpdate()
@@ -51,9 +49,9 @@ public class HeroManager : MonoBehaviour
             Hero.instance.audioManager.Play(Hero.AudioClips.Death.ToString());
             _death = true;
             if (_deathSpikes)
-                _anima.SetTrigger("Death_Spikes");
+                Hero.instance.Motor._anima.SetTrigger("Death_Spikes");
             else
-                _anima.SetTrigger("Death");
+                Hero.instance.Motor._anima.SetTrigger("Death");
             GameOver();
 
             //Invoke("GameOver", 3f);
@@ -118,6 +116,9 @@ public class HeroManager : MonoBehaviour
 
     public void ResetHero()
     {
-
+        _death = false;
+        _Health = _MaxHealth;
+        Hero.instance.Motor._anima.SetTrigger("Reset");
+        UIController.instance.ShowUI();
     }
 }
