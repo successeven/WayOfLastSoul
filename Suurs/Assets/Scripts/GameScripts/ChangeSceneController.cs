@@ -4,21 +4,22 @@ using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
 
+[RequireComponent(typeof(PlayableDirector))]
 public class ChangeSceneController : MonoBehaviour
 {
-    GameManager gameManager;
+    PlayableDirector _director;
 
 
     private void Start()
     {
-        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        _director = GetComponent<PlayableDirector>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Player")
         {
-            gameManager.PlayFromTimelines(GameTimeLines.ChangeScene);
+            _director.Play();
             SceneController.instance.LoadNextScene();
             SceneController.instance._isLoaded = true;
         }
