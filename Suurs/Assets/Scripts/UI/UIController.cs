@@ -18,6 +18,9 @@ public class UIController : MonoBehaviour
 
     #endregion
 
+    public const string appId = "ca-app-pub-4537576181628162~8534023389";
+    public const string GameOverAD = "ca-app-pub-4537576181628162/5928041347";
+    public const string bannerAD = "ca-app-pub-4537576181628162/5626457313";
 
     enum StateScene
     {
@@ -25,7 +28,8 @@ public class UIController : MonoBehaviour
         Start = 1,
         Game = 2,
         Pause = 3,
-        Exit = 4
+        Exit = 4,
+        ResetHero = 5
     }
     Animator _anima;
 
@@ -38,8 +42,8 @@ public class UIController : MonoBehaviour
     void Start()
     {
         _anima = GetComponent<Animator>();
-				MobileAds.Initialize(Hero.appId);
-				ad = new InterstitialAd(Hero.GameOverAD);
+        MobileAds.Initialize(appId);
+        ad = new InterstitialAd(GameOverAD);
         AdRequest request = new AdRequest.Builder().Build();
         ad.LoadAd(request);
         gameOver = false;
@@ -58,9 +62,9 @@ public class UIController : MonoBehaviour
     }
 
     public void PauseGame()
-		{
-				Debug.Log("PauseGame");
-				_state = StateScene.Pause;
+    {
+        Debug.Log("PauseGame");
+        _state = StateScene.Pause;
         needChange = true;
         Time.timeScale = 0.1f;
     }
@@ -106,6 +110,24 @@ public class UIController : MonoBehaviour
         SceneManager.LoadScene("Menu");
     }
 
+    public void ResetHero()
+    {
+        _state = StateScene.ResetHero;
+        needChange = true;
+    }
+
+    public void btn_ResetHero_NO_Click()
+    {
+        GameOver();
+    }
+    
+    public void btn_ResetHero_YES_Click()
+    {
+        GameManager.instance.PlayFromTimelines(GameTimeLines.ResetUI);
+        //Hero.instance.ResetHero();
+    }
+
+
     // Update is called once per frame
     void Update()
     {
@@ -128,6 +150,10 @@ public class UIController : MonoBehaviour
 
             case StateScene.Exit:
                 _anima.SetInteger("State", 2);
+                break;
+
+            case StateScene.ResetHero:
+                _anima.SetInteger("State", 5);
                 break;
         }
 

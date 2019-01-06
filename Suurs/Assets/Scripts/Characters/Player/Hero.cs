@@ -69,13 +69,10 @@ public class Hero : MonoBehaviour
     }
     public AudioManager audioManager { get; private set; }
 
-		public const string appId = "ca-app-pub-4537576181628162~8534023389";
-		public const string GameOverAD = "ca-app-pub-4537576181628162/5928041347";
-    public const string bannerAD = "ca-app-pub-4537576181628162/5626457313";
-
     private void Start()
     {
         audioManager = GetComponent<AudioManager>();
+        _heroController._checkPointPosition = transform.position;
     }
 
     public void Move(float inSpeed)
@@ -83,5 +80,12 @@ public class Hero : MonoBehaviour
         _heroMotor.CurrentHorAxis = inSpeed;
         _heroMotor.Move();
     }
+
+    public void ResetHero()
+    {
+        _heroManager.ResetHero();
+        _heroController.ResetHeroPosition();
+    }
+
 
 }
