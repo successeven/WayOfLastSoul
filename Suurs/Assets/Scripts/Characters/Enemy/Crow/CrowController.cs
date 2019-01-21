@@ -2,17 +2,17 @@
 using System;
 using UnityEngine;
 
+public enum StateCrowEnum
+{
+    Idle = 0,
+    Move = 1,
+    Fly = 2,
+    Attack = 3,
+    TakeOff = 4
+}
+
 public class CrowController : EnemyController
 {
-
-    enum StateCrow
-    {
-        Idle = 0,
-        Move = 1,
-        Fly = 2,
-        Attack = 3,
-        TakeOff = 4
-    }
 
     enum SoundCrow
     {
@@ -46,40 +46,49 @@ public class CrowController : EnemyController
     Vector2 _tempPosition;
     float _CurrentPosX;
     Vector3 _startAttackPosition;
-    StateCrow stateCrow = StateCrow.Idle;
+    StateCrowEnum _stateCrow = StateCrowEnum.Idle;
+
+    public StateCrowEnum StateCrow
+    {
+        get
+        {
+            return _stateCrow;
+        }
+    }
+
     int _moveSide = 1; //1- вправо ; -1 влево
     bool _animTakeOff = true;
 
     float _currentDeltaTimeAttack = 0;
     float lastVoicetime;
     float deltaTimeVoice = 0;
-		int tempHeight;
+    int tempHeight;
 
-		protected override void AfterStart()
-		{
-				tempHeight = UnityEngine.Random.Range(7, 11);
-		}
-
-		protected override void DoMotion()
+    protected override void AfterStart()
     {
-        if (Hero.instance.Manager._Health <= 0 && stateCrow != StateCrow.Idle)
-            stateCrow = StateCrow.TakeOff;
-        switch (stateCrow)
+        tempHeight = UnityEngine.Random.Range(7, 11);
+    }
+
+    protected override void DoMotion()
+    {
+        if (Hero.instance.Manager._Health <= 0 && _stateCrow != StateCrowEnum.Idle)
+            _stateCrow = StateCrowEnum.TakeOff;
+        switch (_stateCrow)
         {
-            case StateCrow.Idle:
+            case StateCrowEnum.Idle:
                 if (_distance < _visibility)
                 {
-                    stateCrow = StateCrow.Move;
+                    _stateCrow = StateCrowEnum.Move;
                     if (_currentDeltaTimeAttack == 0)
-                    _currentDeltaTimeAttack = UnityEngine.Random.Range(2f, _deltaTimeAttack);
-										//tempHeight = UnityEngine.Random.Range(7, 11);
-								}
+                        _currentDeltaTimeAttack = UnityEngine.Random.Range(2f, _deltaTimeAttack);
+                    //tempHeight = UnityEngine.Random.Range(7, 11);
+                }
                 else
                 {
                     audioManager.StopAll();
                 }
                 break;
-            case StateCrow.Move:
+            case StateCrowEnum.Move:
                 #region MOVE
 
                 if (!audioManager.IsPlaying(SoundCrow.Move.ToString()))
@@ -135,31 +144,31 @@ public class CrowController : EnemyController
                         else if (_moveSide < 0 && transform.position.x - Hero.instance.transform.position.x < 0)
                             Flip(ref actionRight);
                         _anima.SetTrigger("Dive");
-												tempHeight = UnityEngine.Random.Range(7, 11);
-												_tempPosition = new Vector3(
-														_CurrentPosX,
-														Mathf.Sin(Time.realtimeSinceStartup * _verticalSpeed) * _amplitude + Hero.instance.transform.position.y + tempHeight);
+                        tempHeight = UnityEngine.Random.Range(7, 11);
+                        _tempPosition = new Vector3(
+                                _CurrentPosX,
+                                Mathf.Sin(Time.realtimeSinceStartup * _verticalSpeed) * _amplitude + Hero.instance.transform.position.y + tempHeight);
 
-												_startAttackPosition = _tempPosition;
+                        _startAttackPosition = _tempPosition;
 
-												_startAttackPosition.x -= 10 * transform.localScale.x;
+                        _startAttackPosition.x -= 10 * transform.localScale.x;
                         _targetAttack = Hero.instance.transform.position;
-                        
-                        stateCrow = StateCrow.Fly;
+
+                        _stateCrow = StateCrowEnum.Fly;
                     }
                 }
+                #endregion
                 break;
-            #endregion 
-            case StateCrow.Fly:
+            case StateCrowEnum.Fly:
                 _lastAttackTime = Time.fixedTime;
                 transform.position = Vector2.MoveTowards(transform.position, _targetAttack, _SpeedAttack * Time.deltaTime);
 
                 if (_distance <= 3f && !_attacks)
-								{
-										audioManager.Play(SoundCrow.Strike.ToString());
-										_attacks = true;
+                {
+                    audioManager.Play(SoundCrow.Strike.ToString());
+                    _attacks = true;
                     _anima.SetTrigger("Attack");
-                    stateCrow = StateCrow.Attack;
+                    _stateCrow = StateCrowEnum.Attack;
                     _animTakeOff = false;
                     break;
                 }
@@ -167,26 +176,26 @@ public class CrowController : EnemyController
                 _distance = Vector2.Distance(transform.position, _targetAttack);
                 if (_distance <= 0 && !_attacks)
                 {
-                    stateCrow = StateCrow.TakeOff;
+                    _stateCrow = StateCrowEnum.TakeOff;
                     _animTakeOff = true;
                 }
                 break;
-            case StateCrow.Attack:
+            case StateCrowEnum.Attack:
                 transform.position = Vector2.MoveTowards(transform.position, _targetAttack, _SpeedAttack * Time.deltaTime);
                 _distance = Vector2.Distance(transform.position, _targetAttack);
                 if (_distance == 0)
-                    stateCrow = StateCrow.TakeOff;
+                    _stateCrow = StateCrowEnum.TakeOff;
                 break;
-            case StateCrow.TakeOff:
+            case StateCrowEnum.TakeOff:
                 if (_animTakeOff)
                 {
                     _anima.SetTrigger("TakeOff");
                     _animTakeOff = false;
-								}
-								transform.position = Vector2.MoveTowards(transform.position, _startAttackPosition, _SpeedAttack * Time.deltaTime);
+                }
+                transform.position = Vector2.MoveTowards(transform.position, _startAttackPosition, _SpeedAttack * Time.deltaTime);
                 if (transform.position == _startAttackPosition)
                 {
-                    stateCrow = StateCrow.Idle;
+                    _stateCrow = StateCrowEnum.Idle;
                     _enemyManager.ResetEnemyDealAttack();
                 }
                 _attacks = false;
@@ -196,7 +205,7 @@ public class CrowController : EnemyController
 
     public override void TakeHit(float damage)
     {
-				_reciveDamage = true;
+        _reciveDamage = true;
         _enemyManager._HP -= damage;
         if (_enemyManager._HP <= 0)
             return;
@@ -204,7 +213,7 @@ public class CrowController : EnemyController
         _attacks = false;
         _anima.SetTrigger("TakeHit");
         audioManager.Play(SoundCrow.Voice_2.ToString());
-        stateCrow = StateCrow.TakeOff;
+        _stateCrow = StateCrowEnum.TakeOff;
     }
 
     protected override void Die()
@@ -214,8 +223,8 @@ public class CrowController : EnemyController
         base.Die();
     }
 
-		protected override void Death()
-		{
-				_rigidbody.gravityScale = 10;
-		}
+    protected override void Death()
+    {
+        _rigidbody.gravityScale = 10;
+    }
 }
