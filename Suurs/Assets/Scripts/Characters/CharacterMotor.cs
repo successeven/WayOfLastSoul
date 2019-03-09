@@ -77,7 +77,7 @@ public class CharacterMotor : MonoBehaviour
 		{
 
 				_anima.SetFloat("Speed", Mathf.Abs(_currentHorAxis));
-				if (CanMove() && m_Grounded)
+				if (CanMove())// && m_Grounded)
 				{
 						if (!Hero.instance.Manager._TakeDamage)
 								if (_currentHorAxis != 0)
