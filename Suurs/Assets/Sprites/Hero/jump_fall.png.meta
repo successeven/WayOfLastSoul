@@ -1,23 +1,16 @@
 fileFormatVersion: 2
-guid: 2dbdcdc2cd60fdb4282b30e58673d8c2
+guid: 5584731b63ce5d04f89745b383442bcc
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Jump_Fly_0
-    21300002: Jump_Fly_1
-    21300004: Jump_Fly_2
-    21300006: Jump_Fly_3
-    21300008: Jump_Fly_4
-    21300010: Jump_Fly_5
-    21300012: Jump_Fly_6
-    21300014: Jump_Fly_7
-    21300016: Jump_Fly_8
-    21300018: Jump_Fly_9
-    21300020: Jump_Fly_10
-    21300022: Jump_Fly_11
-    21300024: Jump_Fly_12
-    21300026: Jump_Fly_13
-    21300028: Jump_Fly_14
-    21300030: Jump_Fly_15
+    21300000: jump_fall_0
+    21300002: jump_fall_1
+    21300004: jump_fall_2
+    21300006: jump_fall_3
+    21300008: jump_fall_4
+    21300010: jump_fall_5
+    21300012: jump_fall_6
+    21300014: jump_fall_7
+    21300016: jump_fall_8
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -77,9 +70,9 @@ TextureImporter:
   - serializedVersion: 2
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
-    resizeAlgorithm: 1
+    resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 3
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -88,9 +81,9 @@ TextureImporter:
   - serializedVersion: 2
     buildTarget: Standalone
     maxTextureSize: 2048
-    resizeAlgorithm: 1
+    resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 3
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -99,9 +92,9 @@ TextureImporter:
   - serializedVersion: 2
     buildTarget: Android
     maxTextureSize: 2048
-    resizeAlgorithm: 1
+    resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 3
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -110,9 +103,9 @@ TextureImporter:
   - serializedVersion: 2
     buildTarget: Windows Store Apps
     maxTextureSize: 2048
-    resizeAlgorithm: 1
+    resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 3
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -122,87 +115,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Jump_Fly_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 1149
-        width: 350
-        height: 383
-      alignment: 9
-      pivot: {x: 0.5, y: 0.16}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 28bd9f67e5a124247a7456e85b7f42f4
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Jump_Fly_1
-      rect:
-        serializedVersion: 2
-        x: 350
-        y: 1149
-        width: 350
-        height: 383
-      alignment: 9
-      pivot: {x: 0.5, y: 0.16}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6b6cf55fea19aa94289dc96c17fae105
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Jump_Fly_2
-      rect:
-        serializedVersion: 2
-        x: 700
-        y: 1149
-        width: 350
-        height: 383
-      alignment: 9
-      pivot: {x: 0.5, y: 0.16}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: abdd608f6e7b4f74eabc570364518b5c
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Jump_Fly_3
-      rect:
-        serializedVersion: 2
-        x: 1050
-        y: 1149
-        width: 350
-        height: 383
-      alignment: 9
-      pivot: {x: 0.5, y: 0.16}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0cc6f288924edd949ac16eccfe7847d8
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Jump_Fly_4
+      name: jump_fall_0
       rect:
         serializedVersion: 2
         x: 0
@@ -216,13 +129,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f4dee1c5285b63b43b7d8cc0d7ef6e3d
+      spriteID: a51628b558e3bf542b701970373fd7f0
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump_Fly_5
+      name: jump_fall_1
       rect:
         serializedVersion: 2
         x: 350
@@ -236,13 +149,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ea57f287b10bb1b4d83a5337f99bdc62
+      spriteID: ac986e32c2a612448a4bf6be96bf58ee
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump_Fly_6
+      name: jump_fall_2
       rect:
         serializedVersion: 2
         x: 700
@@ -256,33 +169,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 53e46a6a52ce5334586b7834b7e5eafa
+      spriteID: e1122178ce7e3344a9fd8eb11db487bb
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump_Fly_7
-      rect:
-        serializedVersion: 2
-        x: 1050
-        y: 766
-        width: 350
-        height: 383
-      alignment: 9
-      pivot: {x: 0.5, y: 0.16}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c209018f3f84cc1448c7d362c877f039
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Jump_Fly_8
+      name: jump_fall_3
       rect:
         serializedVersion: 2
         x: 0
@@ -296,13 +189,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 049ae15595fa52a4aaf6532ed9200797
+      spriteID: efcd09593414bd14fbf5610c58f22d95
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump_Fly_9
+      name: jump_fall_4
       rect:
         serializedVersion: 2
         x: 350
@@ -316,13 +209,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 15ffd422d199cee478234acfd19fff2b
+      spriteID: a4fc9b4a39d67444680369fb39d4669f
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump_Fly_10
+      name: jump_fall_5
       rect:
         serializedVersion: 2
         x: 700
@@ -336,33 +229,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2e9a4977c0a3d544f96ccc742e48494a
+      spriteID: 614d7a2f66f3ac549a8370306dd9c02c
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump_Fly_11
-      rect:
-        serializedVersion: 2
-        x: 1050
-        y: 383
-        width: 350
-        height: 383
-      alignment: 9
-      pivot: {x: 0.5, y: 0.16}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7b6f047f4bdec7b4da59adae985d907a
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Jump_Fly_12
+      name: jump_fall_6
       rect:
         serializedVersion: 2
         x: 0
@@ -376,13 +249,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 33305e415d99b10438dcacc80a6d25db
+      spriteID: 940cd01a15c03dd4f9c233a5c93790bb
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump_Fly_13
+      name: jump_fall_7
       rect:
         serializedVersion: 2
         x: 350
@@ -396,13 +269,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7ccfb1373f05ad0439d9b67d721379e7
+      spriteID: 3868da6e217969443b00189724000cbb
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump_Fly_14
+      name: jump_fall_8
       rect:
         serializedVersion: 2
         x: 700
@@ -416,27 +289,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ce99459288b27dc4c809ddab84a49c67
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Jump_Fly_15
-      rect:
-        serializedVersion: 2
-        x: 1050
-        y: 0
-        width: 350
-        height: 383
-      alignment: 9
-      pivot: {x: 0.5, y: 0.16}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 407ece46cf2c6d84b93a3d4566c1305d
+      spriteID: ff5663ecb24e3004a9c817c6cfb6e794
       vertices: []
       indices: 
       edges: []
@@ -444,7 +297,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 9cadceac6ca0a434da0f5d06ce910aca
+    spriteID: 44713ab4696b3e44db0707bd80157ed3
     vertices: []
     indices: 
     edges: []
