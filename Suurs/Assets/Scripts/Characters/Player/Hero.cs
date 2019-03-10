@@ -87,5 +87,9 @@ public class Hero : MonoBehaviour
         _heroController.ResetHeroPosition();
     }
 
-
+    public void SetCheckPointPosition(Vector3 position)
+    {
+        _heroController._checkPointPosition = position;
+        _heroController._checkPointPosition.y += 6;
+    }
 }

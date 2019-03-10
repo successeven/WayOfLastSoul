@@ -29,7 +29,7 @@ MonoBehaviour:
     m_Settings:
       excludeSkybox: 1
   antialiasing:
-    m_Enabled: 1
+    m_Enabled: 0
     m_Settings:
       method: 0
       fxaaSettings:
@@ -120,23 +120,23 @@ MonoBehaviour:
         neutralWhiteLevel: 12
         neutralWhiteClip: 5.5
       basic:
-        postExposure: 1.74
-        temperature: 7
+        postExposure: 2
+        temperature: 25
         tint: 20
         hueShift: 0
         saturation: 0.71
         contrast: 0.72
       channelMixer:
-        red: {x: 1, y: 0, z: -0.21}
-        green: {x: 0, y: 1.2, z: 0}
-        blue: {x: 0, y: 0, z: 1.2}
-        currentEditingChannel: 0
+        red: {x: 0.9, y: -0.06, z: -0.25}
+        green: {x: -0.06, y: 0.9, z: 0.1}
+        blue: {x: 0.05, y: -0.04, z: 1.26}
+        currentEditingChannel: 1
       colorWheels:
         mode: 1
         log:
-          slope: {r: 0.8354425, g: 0.9791707, b: 1, a: 0}
-          power: {r: 1, g: 0.88306737, b: 0.5616429, a: 0}
-          offset: {r: 0.8520941, g: 1, b: 0.91118896, a: 0}
+          slope: {r: 1, g: 0.88792926, b: 0.40692973, a: 0}
+          power: {r: 0.8538266, g: 0.688468, b: 1, a: 0}
+          offset: {r: 0.6215916, g: 1, b: 0.53624785, a: 0}
         linear:
           lift: {r: 1, g: 1, b: 1, a: 0}
           gamma: {r: 1, g: 1, b: 1, a: 0}

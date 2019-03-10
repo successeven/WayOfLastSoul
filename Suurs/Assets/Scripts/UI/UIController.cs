@@ -33,6 +33,7 @@ public class UIController : MonoBehaviour
     }
     Animator _anima;
 
+
     bool needChange;
 
     bool gameLoad = false;
@@ -156,6 +157,7 @@ public class UIController : MonoBehaviour
                 _anima.SetInteger("State", 5);
                 break;
         }
+        
 
         _anima.SetTrigger("Change");
         needChange = false;
