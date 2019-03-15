@@ -18,14 +18,14 @@ public class LoadingController : MonoBehaviour
         if (PlayerPrefs.HasKey("NextLVL"))
         {
             int level = PlayerPrefs.GetInt("NextLVL");
-            if (level == 2)
+            if (level == 3)
                 _LevelName = "FinishMove";
-            else if (level > 0)
+            else /* if (level > 0)
                 _LevelName = "Scene_" + level.ToString();
             else if (level == 0)
                 _LevelName = "Tutorial";
-            else
-                _LevelName = "Respawn";
+            else*/
+                _LevelName = "LVL_" + level.ToString();
         }
 
         _anima = GetComponent<Animator>();

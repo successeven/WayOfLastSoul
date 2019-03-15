@@ -7,20 +7,18 @@ using UnityEngine.Timeline;
 [RequireComponent(typeof(PlayableDirector))]
 public class ChangeSceneController : MonoBehaviour
 {
-    PlayableDirector _director;
 
+    [SerializeField]
+    int _nextLVL = -1;
 
-    private void Start()
-    {
-        _director = GetComponent<PlayableDirector>();
-    }
-
+    [SerializeField]
+    bool _finishLVL = false;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Player")
         {
-            _director.Play();
-            SceneController.instance.LoadNextScene();
+            GameManager.instance.PlayFromTimelines(GameTimeLines.ChangeScene);
+            SceneController.instance.LoadNextScene(_nextLVL, _finishLVL);
             SceneController.instance._isLoaded = true;
         }
     }
