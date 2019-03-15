@@ -119,7 +119,7 @@ public class SnapScrolling : MonoBehaviour
     public void OnButtonNewGameClick()
 		{
 				PlayerPrefs.SetInt("CountChangeLevel", 0);
-				PlayerPrefs.SetInt("NextLVL", -4);
+				PlayerPrefs.SetInt("NextLVL", 0);
         PlayerPrefs.SetInt("CompletedLVL", 0);
         SceneManager.LoadScene("Loading");
     }
