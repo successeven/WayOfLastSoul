@@ -104,9 +104,9 @@ public class HeroMotor : CharacterMotor {
         return (!_attacks && !_isDodging && !_blocking && _canMove);
     }
 
-    public void ApplyGravityScale () {
+    /* public void ApplyGravityScale () {
         _rigidbody.gravityScale = 10;
-    }
+    }*/
 
     public void ShieldAttack () {
         _fsm.RunState ((int) StatsEnum.Shield_Attack);

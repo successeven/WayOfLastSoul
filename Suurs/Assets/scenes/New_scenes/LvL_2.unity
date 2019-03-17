@@ -57293,6 +57293,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114299390204289210, guid: 06f0ff3f766ed874092229bc977b18da,
+        type: 2}
+      propertyPath: timelines.Array.size
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 320614918168778464, guid: 06f0ff3f766ed874092229bc977b18da,
         type: 2}
       propertyPath: m_SceneBindings.Array.size
@@ -57349,8 +57354,7 @@ Prefab:
         type: 2}
       propertyPath: m_PlayableAsset
       value: 
-      objectReference: {fileID: 11400000, guid: a8030a5c14134a74199183d47acbc066,
-        type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 320614918168778464, guid: 06f0ff3f766ed874092229bc977b18da,
         type: 2}
       propertyPath: m_SceneBindings.Array.data[3].key
@@ -57384,19 +57388,19 @@ Prefab:
     - target: {fileID: 320614918168778464, guid: 06f0ff3f766ed874092229bc977b18da,
         type: 2}
       propertyPath: m_InitialState
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114299390204289210, guid: 06f0ff3f766ed874092229bc977b18da,
         type: 2}
       propertyPath: timelines.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 2c2ba42f5dfda2748b768e8116025832,
+      objectReference: {fileID: 11400000, guid: a8030a5c14134a74199183d47acbc066,
         type: 2}
     - target: {fileID: 114299390204289210, guid: 06f0ff3f766ed874092229bc977b18da,
         type: 2}
       propertyPath: timelines.Array.data[1]
       value: 
-      objectReference: {fileID: 11400000, guid: 4cb3f47bde8041a44b2169c544b8c839,
+      objectReference: {fileID: 11400000, guid: 2c2ba42f5dfda2748b768e8116025832,
         type: 2}
     - target: {fileID: 320614918168778464, guid: 06f0ff3f766ed874092229bc977b18da,
         type: 2}
@@ -57504,6 +57508,12 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114299390204289210, guid: 06f0ff3f766ed874092229bc977b18da,
+        type: 2}
+      propertyPath: timelines.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 4cb3f47bde8041a44b2169c544b8c839,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 06f0ff3f766ed874092229bc977b18da, type: 2}
   m_IsPrefabAsset: 0
@@ -58684,7 +58694,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4384619517754730, guid: 83d62e4aef5c0aa4cb5c5f749efe29c3, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 12.451942
+      value: 12.716955
       objectReference: {fileID: 0}
     - target: {fileID: 4384619517754730, guid: 83d62e4aef5c0aa4cb5c5f749efe29c3, type: 2}
       propertyPath: m_LocalPosition.y
@@ -59740,7 +59750,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4686550249568880, guid: 2c96d19be743f5046ac108526a266eee, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0.5519427
+      value: 0.81695545
       objectReference: {fileID: 0}
     - target: {fileID: 4686550249568880, guid: 2c96d19be743f5046ac108526a266eee, type: 2}
       propertyPath: m_LocalPosition.y

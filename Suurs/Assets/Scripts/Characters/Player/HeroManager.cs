@@ -103,7 +103,9 @@ public class HeroManager : MonoBehaviour
     public void DeathSpikes()
     {
         _TakeDamage = true;
-        Hero.instance.Motor.FinishAllAttacks();
+        Hero.instance.Motor.FinishAllAttacks();    
+        Hero.instance.Motor._rigidbody.isKinematic = true;
+        //Hero.instance.Motor._rigidbody.gravityScale = 0;    
         _Health = 0;
         _deathSpikes = true;
     }
@@ -120,5 +122,7 @@ public class HeroManager : MonoBehaviour
         _Health = _MaxHealth;
         Hero.instance.Motor._anima.SetTrigger("Reset");
         UIController.instance.ShowUI();
+        Hero.instance.Motor._rigidbody.velocity = Vector3.zero;
+        Hero.instance.Motor._rigidbody.isKinematic = false;
     }
 }

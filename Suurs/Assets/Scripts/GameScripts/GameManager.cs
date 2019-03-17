@@ -7,8 +7,9 @@ using UnityEngine.Timeline;
 
 public enum GameTimeLines
 {
-    ChangeScene = 0,
-    ResetUI = 1
+    StartScene = 0,
+    ChangeScene = 1,
+    ResetUI = 2
 }
 
 public class GameManager : MonoBehaviour
@@ -21,6 +22,11 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         instance = this;
+    }
+
+    void Start()
+    {
+        PlayFromTimelines(GameTimeLines.StartScene);
     }
 
     #endregion
@@ -43,6 +49,7 @@ public class GameManager : MonoBehaviour
 
         playableDirectors[0].Play(selectedAsset);
     }
+
     public void PlayFromTimelines(GameTimeLines gameTimeLine)
     {
         TimelineAsset selectedAsset;

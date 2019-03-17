@@ -149,6 +149,7 @@ public class HeroController : MonoBehaviour
     public void ResetHeroPosition()
     {
         transform.position = _checkPointPosition;
+        transform.localScale = new Vector3(1, 1, 1);
     }
 
     public void ResetStats()
