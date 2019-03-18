@@ -135,6 +135,13 @@ public class CharacterMotor : MonoBehaviour
         Vector3 theScale = transform.root.localScale;
         theScale.x *= -1;
         transform.root.localScale = theScale;
+    }
+
+
+    public void ResetScale()
+    {
+        _acingRight = true;
+        transform.localScale = new Vector3(1, 1, 1);
 
     }
 }
