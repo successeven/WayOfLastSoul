@@ -85,6 +85,7 @@ public class Hero : MonoBehaviour
     {
         _heroManager.ResetHero();
         _heroController.ResetHeroPosition();
+
     }
 
     public void SetCheckPointPosition(Vector3 position)

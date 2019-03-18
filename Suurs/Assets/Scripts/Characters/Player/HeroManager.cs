@@ -103,9 +103,10 @@ public class HeroManager : MonoBehaviour
     public void DeathSpikes()
     {
         _TakeDamage = true;
-        Hero.instance.Motor.FinishAllAttacks();
+        Hero.instance.Motor.FinishAllAttacks();    
         _Health = 0;
         _deathSpikes = true;
+        Hero.instance.Motor._rigidbody.constraints = RigidbodyConstraints2D.FreezeRotation | RigidbodyConstraints2D.FreezePositionX;
     }
 
     void LoadData()
@@ -120,5 +121,6 @@ public class HeroManager : MonoBehaviour
         _Health = _MaxHealth;
         Hero.instance.Motor._anima.SetTrigger("Reset");
         UIController.instance.ShowUI();
+        Hero.instance.Motor._rigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 }

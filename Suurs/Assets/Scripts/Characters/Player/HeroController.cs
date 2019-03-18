@@ -149,6 +149,7 @@ public class HeroController : MonoBehaviour
     public void ResetHeroPosition()
     {
         transform.position = _checkPointPosition;
+        Hero.instance.Motor.ResetScale();
     }
 
     public void ResetStats()
