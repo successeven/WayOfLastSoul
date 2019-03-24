@@ -13,7 +13,15 @@ public class CharacterMotor : MonoBehaviour
 
     public float k_GroundedRadius = 1f;
 
-    public Rigidbody2D _rigidbody;
+    protected Rigidbody2D _rigidbody;
+
+    public Rigidbody2D Rigidbody
+    {
+        get
+        {
+            return _rigidbody;
+        }
+    }
 
     [NonSerialized]
     public Animator _anima;
@@ -48,9 +56,9 @@ public class CharacterMotor : MonoBehaviour
     private Vector3 m_Velocity = Vector3.zero;
 
 
-    [Header("Events")]
-    [Space]
-    public UnityEvent OnLandEvent;
+    /* Header("Events")]
+     [Space]
+     public UnityEvent OnLandEvent;*/
 
 
     // Use this for initialization
@@ -78,7 +86,8 @@ public class CharacterMotor : MonoBehaviour
                 break;
             }
         }
-        OnLandEvent.Invoke();
+        _anima.SetBool("IsFly", !m_Grounded);
+        //  OnLandEvent.Invoke();
     }
 
     public virtual void Move()

@@ -48,6 +48,9 @@ public class HeroManager : MonoBehaviour
         {
             Hero.instance.audioManager.Play(Hero.AudioClips.Death.ToString());
             _death = true;
+
+
+
             if (_deathSpikes)
                 Hero.instance.Motor._anima.SetTrigger("Death_Spikes");
             else
@@ -106,7 +109,7 @@ public class HeroManager : MonoBehaviour
         Hero.instance.Motor.FinishAllAttacks();    
         _Health = 0;
         _deathSpikes = true;
-        Hero.instance.Motor._rigidbody.constraints = RigidbodyConstraints2D.FreezeRotation | RigidbodyConstraints2D.FreezePositionX;
+        Hero.instance.Motor.Rigidbody.constraints = RigidbodyConstraints2D.FreezeRotation | RigidbodyConstraints2D.FreezePositionX;
     }
 
     void LoadData()
@@ -121,6 +124,6 @@ public class HeroManager : MonoBehaviour
         _Health = _MaxHealth;
         Hero.instance.Motor._anima.SetTrigger("Reset");
         UIController.instance.ShowUI();
-        Hero.instance.Motor._rigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+        Hero.instance.Motor.Rigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 }
