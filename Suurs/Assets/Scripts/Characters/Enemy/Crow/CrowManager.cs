@@ -7,6 +7,11 @@ using System;
 public class CrowManager : EnemyManager
 {
     CrowController _controller;
+    AudioManager _audioManager;
+
+    private void Start() {      
+        _audioManager = GetComponent<AudioManager> ();
+    }
     protected override void SetStartSkills()
     {/*
 				if (PlayerPrefs.HasKey("CrowHP"))
@@ -32,8 +37,17 @@ public class CrowManager : EnemyManager
 				*/
         _controller = GetComponent<CrowController>();
     }
-
-    
+    public override void TakeHit (float damage, int attackID) {
+        if (attackID != _dealAttackID) {
+            _dealAttackID = attackID;
+            _reciveDamage = true;
+            //_audioManager.Play (FallenSounds.When_Hit.ToString ());
+            _HP -= damage;
+           /*  if (_HP <= 0)
+                return;
+            _anima.SetTrigger ("TakeHit");*/
+        }
+    }
     protected override bool IsAttack()
     {
         return _controller.StateCrow == StateCrowEnum.Attack;
