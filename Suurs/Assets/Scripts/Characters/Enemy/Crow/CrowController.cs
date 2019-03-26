@@ -225,6 +225,6 @@ public class CrowController : EnemyController
 
     protected override void Death()
     {
-        _rigidbody.gravityScale = 10;
+        _rigidbody.gravityScale = 5;
     }
 }
