@@ -96,7 +96,7 @@ public class HeroMotor : CharacterMotor {
     }
 
     public void FinishAllAttacks () {
-        _attacks = false;
+       // _attacks = false;
         _fsm.FinishAllStates ();
     }
 
@@ -104,9 +104,9 @@ public class HeroMotor : CharacterMotor {
         return (!_attacks && !_isDodging && !_blocking && _canMove);
     }
 
-    public void ApplyGravityScale () {
+    /* public void ApplyGravityScale () {
         _rigidbody.gravityScale = 10;
-    }
+    }*/
 
     public void ShieldAttack () {
         _fsm.RunState ((int) StatsEnum.Shield_Attack);
@@ -135,9 +135,11 @@ public class HeroMotor : CharacterMotor {
     void Moves () {
         comboCount = 0;
         _attacks = false;
-        currentAttackEnum = StatsEnum.None;
+				_anima.SetInteger("Attack Index", 0);
+				_anima.SetBool("Attack", false);
+				currentAttackEnum = StatsEnum.None;
 
-        if (_blocking || _isDodging)
+        if (_blocking || _isDodging || Hero.instance.Manager._TakeDamage)
             return;
 
         if (m_Grounded && _jump) {
@@ -176,8 +178,6 @@ public class HeroMotor : CharacterMotor {
     }
 
     public void ResetState () {
-        _anima.SetInteger ("Attack Index", 0);
-        _anima.SetBool ("Attack", false);
         _fsm.FinishState ();
     }
 

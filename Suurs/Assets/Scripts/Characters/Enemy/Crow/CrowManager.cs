@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+[RequireComponent(typeof(CrowController))]
 public class CrowManager : EnemyManager
-{    
+{
+    CrowController _controller;
     protected override void SetStartSkills()
     {/*
 				if (PlayerPrefs.HasKey("CrowHP"))
@@ -28,8 +30,12 @@ public class CrowManager : EnemyManager
         _attack += delta;
         _HP += (int)Math.Truncate(delta * 1.5f);
 				*/
+        _controller = GetComponent<CrowController>();
     }
 
-
-
+    
+    protected override bool IsAttack()
+    {
+        return _controller.StateCrow == StateCrowEnum.Attack;
+    }
 }

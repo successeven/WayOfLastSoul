@@ -5,59 +5,58 @@ using UnityEngine.SceneManagement;
 public class SceneController : MonoBehaviour
 {
 
-		#region Singleton
+    #region Singleton
 
-		public static SceneController instance;
+    public static SceneController instance;
 
-		void Awake()
-		{
-				instance = this;
-		}
+    void Awake()
+    {
+        instance = this;
+    }
 
-		#endregion
-
-
-		public bool _isLoaded = false;
-
-		public void LoadNextScene()
-		{
-				var count = PlayerPrefs.GetInt("CountChangeLevel");
-				count++;
-				PlayerPrefs.SetInt("CountChangeLevel", count);
-
-				int level = PlayerPrefs.GetInt("CompletedLVL");
-				if (SceneManager.GetActiveScene().name == "Respawn")
-						PlayerPrefs.SetInt("NextLVL", level);
-				else
-				{
-                    level++;
-						PlayerPrefs.SetInt("CompletedLVL", level);
-						PlayerPrefs.SetInt("NextLVL", level);
-				}
-
-				StartCoroutine(AsyncLoad());
-		}
+    #endregion
 
 
-		IEnumerator AsyncLoad()
-		{
-				yield return new WaitForSeconds(1);
-				AsyncOperation operation = SceneManager.LoadSceneAsync("Loading");
-				operation.allowSceneActivation = false;
+    public bool _isLoaded = false;
 
-				while (!operation.isDone)
-				{
-						if (operation.progress == 0.9f)
-						{
-								if (UIController.instance.ad.IsLoaded() && PlayerPrefs.GetInt("CountChangeLevel") == 2)
-								{
-										UIController.instance.ad.Show();
-										PlayerPrefs.SetInt("CountChangeLevel", 0);
-								}
-								if (_isLoaded)
-										operation.allowSceneActivation = true;
-						}
-						yield return null;
-				}
-		}
+    public void LoadNextScene(int NextLVL = -1, bool FinishLVL = false)
+    {
+        var count = PlayerPrefs.GetInt("CountChangeLevel"); //Количество "сменных" сцен. для рекламы
+        count++;
+        PlayerPrefs.SetInt("CountChangeLevel", count);
+
+        if (FinishLVL)
+        {
+            int level = PlayerPrefs.GetInt("CompletedLVL"); //Количество завершенных уровней
+            level++;
+            PlayerPrefs.SetInt("CompletedLVL", level);
+        }
+
+        PlayerPrefs.SetInt("NextLVL", NextLVL);
+
+        StartCoroutine(AsyncLoad());
+    }
+
+
+    IEnumerator AsyncLoad()
+    {
+        yield return new WaitForSeconds(1);
+        AsyncOperation operation = SceneManager.LoadSceneAsync("Loading");
+        operation.allowSceneActivation = false;
+
+        while (!operation.isDone)
+        {
+            if (operation.progress == 0.9f)
+            {
+                if (UIController.instance.ad.IsLoaded() && PlayerPrefs.GetInt("CountChangeLevel") == 2)
+                {
+                    UIController.instance.ad.Show();
+                    PlayerPrefs.SetInt("CountChangeLevel", 0);
+                }
+                //if (_isLoaded)
+                    operation.allowSceneActivation = true;
+            }
+            yield return null;
+        }
+    }
 }

@@ -27,7 +27,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1642208988370116
 GameObject:
   m_ObjectHideFlags: 0
@@ -69,8 +69,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1838479498344524}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 73.33, y: 4.75, z: 0.16123998}
-  m_LocalScale: {x: 2.397177, y: 1.9477048, z: 1.9477048}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4560574951827990}
   - {fileID: 4809975721715940}
@@ -96,13 +96,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1351952912779452}
-  m_LocalRotation: {x: -0, y: -0, z: 0.20760886, w: 0.97821194}
-  m_LocalPosition: {x: 0.07, y: 0.05, z: -0.08278099}
-  m_LocalScale: {x: 0.3785628, y: 0.4349522, z: 0.44883594}
+  m_LocalRotation: {x: 0, y: 0, z: 0.2164396, w: 0.97629607}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4078184485867692}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 23.965002}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 25}
 --- !u!58 &58542244758565378
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -149,7 +149,9 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     Surround: 1
+    RolloffMode: 1
     MinDistance: 1
+    MaxDistance: 100
     source: {fileID: 0}
 --- !u!198 &198308191369055966
 ParticleSystem:
@@ -222,7 +224,7 @@ ParticleSystem:
       m_RotationOrder: 4
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 1
+  scalingMode: 0
   randomSeed: 0
   InitialModule:
     serializedVersion: 3
@@ -399,7 +401,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1.59
+      scalar: 0.7
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -3930,7 +3932,7 @@ ParticleSystem:
         m_RotationOrder: 4
     maxLights: 20
   TrailModule:
-    enabled: 1
+    enabled: 0
     mode: 0
     ratio: 1
     lifetime:
