@@ -64,7 +64,7 @@ public class HeroController : MonoBehaviour
         if (_interfaceBlocked)
             return;
 
-        if (CrossPlatformInputManager.GetButtonDown("Attack") && !Hero.instance.Motor._blocking)
+        if (CrossPlatformInputManager.GetButtonDown("Attack") && !Hero.instance.Motor._blocking && Hero.instance.Motor.m_Grounded)
         {
             _holdAttack = !Hero.instance.Motor._attacks;
             if (!Hero.instance.Motor._attacks)
@@ -91,7 +91,7 @@ public class HeroController : MonoBehaviour
             Hero.instance.Motor._anima.SetFloat("Shield Power", 0);
 
 
-        if (CrossPlatformInputManager.GetButtonUp("Attack"))
+        if (CrossPlatformInputManager.GetButtonUp("Attack") && !Hero.instance.Motor._blocking && Hero.instance.Motor.m_Grounded)
         {
             _holdAttack = false;
             _holdAttackTime = -1;

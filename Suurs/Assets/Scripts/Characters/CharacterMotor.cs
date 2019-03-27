@@ -10,6 +10,7 @@ public class CharacterMotor : MonoBehaviour
     [SerializeField] private LayerMask m_WhatIsGround;              // A mask determining what is ground to the character
     [SerializeField] private Transform m_GroundCheck;             // A position marking where to check if the player is grounded.
     [SerializeField] private float _speed = 16f;
+    [SerializeField] private float _maxVelocitySpeed = 60f;
 
     public float k_GroundedRadius = 1f;
 
@@ -66,6 +67,8 @@ public class CharacterMotor : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _anima = GetComponent<Animator>();
+        if (_maxVelocitySpeed > 0)
+            _maxVelocitySpeed *= -1;
     }
 
     protected virtual bool CanMove()
@@ -73,10 +76,17 @@ public class CharacterMotor : MonoBehaviour
         return true;
     }
 
+    Vector2 _horVelocity;
     protected void CheckGround()
     {
         m_Grounded = false;
         Collider2D[] colliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
+        _horVelocity = _rigidbody.velocity;
+
+        if (_horVelocity.y < _maxVelocitySpeed)
+            _horVelocity.y = _maxVelocitySpeed;
+
+        _rigidbody.velocity = _horVelocity;
         _anima.SetFloat("v_speed", Math.Abs(_rigidbody.velocity.y));
         for (int i = 0; i < colliders.Length; i++)
         {
